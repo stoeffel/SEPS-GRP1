@@ -18,19 +18,24 @@ public class MyGdxGame implements ApplicationListener {
 	private Sprite sprite;
 
 	private Music spaceAmbienteMusic;
-	
+
 	@Override
-	public void create() {		
+	public void create() {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		
-		spaceAmbienteMusic = Gdx.audio.newMusic(Gdx.files.internal("SpaceAmbiente.mp3"));
-	      
-	      // start the playback of the background music immediately
+
+		spaceAmbienteMusic = Gdx.audio.newMusic(Gdx.files
+				.internal("SpaceAmbiente.mp3"));
+
+		// start the playback of the background music immediately
 		spaceAmbienteMusic.setLooping(true);
 		spaceAmbienteMusic.play();
-	}
 
+		// create the camera and the spritebatch
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 800, 480);
+		batch = new SpriteBatch();
+	}
 
 	@Override
 	public void dispose() {
@@ -39,8 +44,18 @@ public class MyGdxGame implements ApplicationListener {
 	}
 
 	@Override
-	public void render() {		
-		
+	public void render() {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+		// make shure that the camera is up to date
+		camera.update();
+
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		// draw some thing f.e. the spaceship batch.draw(bucketImage, bucket.x, bucket.y);
+		batch.end();
+
 	}
 
 	@Override
