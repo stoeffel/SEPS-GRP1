@@ -16,7 +16,7 @@ public class Hero extends AbstractSprite {
 	public Hero(float x, float y, Texture texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT);
 		health = 3;
-		speed = 44;
+		speed = 66;
 		this.texture = texture;
 	}
 

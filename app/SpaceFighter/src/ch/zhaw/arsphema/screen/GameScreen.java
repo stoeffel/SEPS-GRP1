@@ -36,14 +36,14 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private void loadTextures() {
-		hero = new Hero(0, DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
+		hero = new Hero(5, DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
+		hero.move(delta);
 		controller.update(delta);
 		batch.begin();
 //		batch.disableBlending();

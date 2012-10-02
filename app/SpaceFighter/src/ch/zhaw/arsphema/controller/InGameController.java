@@ -34,7 +34,7 @@ public class InGameController extends AbstractController implements
 	}
 
 	public void update(float delta) {
-		hero.move(delta);
+		
 		processInput(delta);
 	}
 
