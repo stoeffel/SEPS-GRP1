@@ -6,17 +6,14 @@ import java.util.Map;
 abstract class AbstractController
 {
 	enum IngameKeys {
-		LEFT, RIGHT, BOMB, SPRAY, BACK, CONFIRM
+		UP, DOWN, BACK, CONFIRM
 	}
 
 
 	static Map<IngameKeys, Boolean> keys = new HashMap<AbstractController.IngameKeys, Boolean>();
 	static {
-		keys.put(IngameKeys.LEFT, false);
-		keys.put(IngameKeys.RIGHT, false);
-
-		keys.put(IngameKeys.BOMB, false);
-		keys.put(IngameKeys.SPRAY, false);
+		keys.put(IngameKeys.UP, false);
+		keys.put(IngameKeys.DOWN, false);
 	};
 
 }

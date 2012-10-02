@@ -4,6 +4,7 @@ import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.controller.InGameController;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.util.Paths;
+import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -27,12 +28,15 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void show() {
+		
 		loadTextures();
 		controller = new InGameController(hero);
+		
+		Gdx.input.setInputProcessor(controller);
 	}
 
 	private void loadTextures() {
-		hero = new Hero(50, 50, new Texture(Gdx.files.internal(Paths.HERO)));
+		hero = new Hero(0, DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
 	}
 
 	@Override
@@ -44,8 +48,7 @@ public class GameScreen extends AbstractScreen {
 		batch.begin();
 //		batch.disableBlending();
 		
-		
-		batch.draw(hero.getTexture(), hero.x, hero.y, ppuX * hero.width, ppuY * hero.height);
+		batch.draw(hero.getTexture(), ppuX * hero.x, ppuY * hero.y, ppuX * hero.width, ppuY * hero.height);
 
 	    
 		batch.end();
@@ -54,8 +57,9 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-			ppuX = (float) width / DEFAULT_WORLD_WIDTH;
-			ppuY = (float) height / DEFAULT_WORLD_HEIGHT;
+		controller.resize(width, height);
+		ppuX = (float) width / DEFAULT_WORLD_WIDTH;
+		ppuY = (float) height / DEFAULT_WORLD_HEIGHT;
 		
 	}
 
