@@ -63,8 +63,12 @@ public class Hero extends AbstractSprite {
 	}
 	
 	private void move(int direction, float delta) {
+		if (this.y + this.height >= Sizes.DEFAULT_WORLD_HEIGHT && movingUp || this.y <= 0 && movingDown) {
+			this.stop();
+		}
 		if (!stopped)
 			this.y += direction * this.speed * delta;
+		
 	}
 
 	public void stop() {
