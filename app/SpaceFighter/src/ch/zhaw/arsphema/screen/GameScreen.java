@@ -19,8 +19,7 @@ public class GameScreen extends AbstractScreen {
 	private float ppuY; // pixels per unit on the Y axis
 	private Hero hero;
 	private InGameController controller;
-	private NavigationOverlay startOverlay;
-	private NavigationOverlay gameOverlay;
+	private NavigationOverlay overlay;
 	private float elapsed = 0;
 	
 
@@ -40,8 +39,7 @@ public class GameScreen extends AbstractScreen {
 
 	private void loadTextures() {
 		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
-		startOverlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_START)));
-		gameOverlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_GAME)));
+		overlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_SPRITE)));
 	}
 
 	@Override
@@ -62,9 +60,9 @@ public class GameScreen extends AbstractScreen {
 		batch.draw(hero.getTexture(), ppuX * hero.x, ppuY * hero.y, ppuX * hero.width, ppuY * hero.height);
 		// start overlay wird 2 sec angezeigt
 		if (elapsed >= 2){ 
-			batch.draw(gameOverlay.getTexture(), ppuX * gameOverlay.x, ppuY * gameOverlay.y, ppuX * gameOverlay.width, ppuY * gameOverlay.height);
+			batch.draw(overlay.getTexture(overlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		} else {
-			batch.draw(startOverlay.getTexture(), ppuX * startOverlay.x, ppuY * startOverlay.y, ppuX * startOverlay.width, ppuY * startOverlay.height);
+			batch.draw(overlay.getTexture(overlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
 		
 		
