@@ -105,7 +105,13 @@ public class InGameController extends AbstractController implements
 
 	@Override
 	public boolean touchDragged(int x, int y, int pointer) {
-		
+		if (x <= width / 2) {
+			if (y <= height / 2) {
+				touchedRegion(LEFT_BOTTOM);
+			} else {
+				touchedRegion(LEFT_TOP);
+			}
+		}
 		return false;
 	}
 	/**
