@@ -44,9 +44,7 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
-		if (elapsed < 2){
-			elapsed += delta;
-		}
+		elapsed += delta;
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
@@ -56,8 +54,8 @@ public class GameScreen extends AbstractScreen {
 		controller.update(delta);
 		batch.begin();
 //		batch.disableBlending();
-		
-		batch.draw(hero.getTexture(), ppuX * hero.x, ppuY * hero.y, ppuX * hero.width, ppuY * hero.height);
+
+		batch.draw(hero.getKeyFrame(elapsed, true), ppuX * hero.x, ppuY * hero.y, ppuX * hero.width, ppuY * hero.height);
 		// start overlay wird 2 sec angezeigt
 		if (elapsed >= 2){ 
 			batch.draw(overlay.getTexture(overlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);

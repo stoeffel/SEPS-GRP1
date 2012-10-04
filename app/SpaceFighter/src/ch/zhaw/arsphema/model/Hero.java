@@ -3,21 +3,37 @@ package ch.zhaw.arsphema.model;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Hero extends AbstractSprite {
 	
 	private static final int UP = 1;
 	private static final int DOWN = -1;
+	private static final int ROWS = 2;
+	private static final int COLS = 2;
 	private boolean stopped = true;
 	private boolean movingUp = false;
 	private boolean movingDown = false;
+	private TextureRegion[] frames;
+	private Animation animation;
 
 	public Hero(float x, float y, Texture texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT);
 		health = 3;
 		speed = 66;
-		this.texture = texture;
+		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
+		frames = new TextureRegion[COLS * ROWS];
+
+		int index = 0;
+        for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLS; j++) {
+                        frames[index++] = tmp[i][j];
+                }
+        }
+        animation = new Animation(2f, frames);
+        animation.setPlayMode(Animation.LOOP_RANDOM);
 	}
 
 	public Hero(Rectangle rect) {
@@ -83,6 +99,10 @@ public class Hero extends AbstractSprite {
 		this.stopped = stopped;
 		this.movingUp = false;
 		this.movingDown = false;
+	}
+
+	public TextureRegion getKeyFrame(float elapsed, boolean b) {
+		return this.animation.getKeyFrame(elapsed,b);
 	}
 
 }
