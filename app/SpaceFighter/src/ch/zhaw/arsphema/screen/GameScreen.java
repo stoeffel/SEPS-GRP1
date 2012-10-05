@@ -55,7 +55,7 @@ public class GameScreen extends AbstractScreen {
 		batch.begin();
 //		batch.disableBlending();
 
-		batch.draw(hero.getKeyFrame(elapsed, true), ppuX * hero.x, ppuY * hero.y, ppuX * hero.width, ppuY * hero.height);
+		batch.draw(hero.getKeyFrame(elapsed, true), ppuX * hero.x, ppuY * hero.y,0f,0f, ppuX * hero.width, ppuY * hero.height,1f,1f,hero.getRotation());
 		// start overlay wird 2 sec angezeigt
 		if (elapsed >= 2){ 
 			batch.draw(overlay.getTexture(overlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);

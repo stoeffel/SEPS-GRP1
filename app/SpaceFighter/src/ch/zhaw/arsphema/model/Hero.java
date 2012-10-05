@@ -11,8 +11,8 @@ public class Hero extends AbstractSprite {
 	
 	private static final int UP = 1;
 	private static final int DOWN = -1;
-	private static final int ROWS = 2;
-	private static final int COLS = 2;
+	private static final int ROWS = 4;
+	private static final int COLS = 1;
 	private boolean stopped = true;
 	private boolean movingUp = false;
 	private boolean movingDown = false;
@@ -26,14 +26,15 @@ public class Hero extends AbstractSprite {
 		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
 
-		int index = 0;
+		int index = 3;
         for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLS; j++) {
-                        frames[index++] = tmp[i][j];
+                	
+                        frames[index--] = tmp[i][j];
                 }
         }
-        animation = new Animation(2f, frames);
-        animation.setPlayMode(Animation.LOOP_RANDOM);
+        animation = new Animation(0.005f, frames);
+        animation.setPlayMode(Animation.LOOP);
 	}
 
 	public Hero(Rectangle rect) {
@@ -67,12 +68,14 @@ public class Hero extends AbstractSprite {
 	}
 
 	public void moveUp() {
+		stop();
 		stopped = false;
 		movingUp = true;
 		
 	}
 	
 	public void moveDown() {
+		stop();
 		stopped = false;
 		movingDown = true;
 		
@@ -103,6 +106,17 @@ public class Hero extends AbstractSprite {
 
 	public TextureRegion getKeyFrame(float elapsed, boolean b) {
 		return this.animation.getKeyFrame(elapsed,b);
+	}
+	
+	public float getRotation(){
+		float rotation = 0;
+		if (movingUp){
+			rotation = 5f;
+		}
+		if (movingDown){
+			rotation = -5f;
+		}
+		return rotation;
 	}
 
 }
