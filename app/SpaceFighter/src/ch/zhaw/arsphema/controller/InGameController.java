@@ -127,7 +127,7 @@ public class InGameController extends AbstractController implements
 			hero.moveUp();
 			break;
 		case RIGHT:
-			// TODO F I R E
+			hero.shoot();
 			break;
 		default:
 			break;
@@ -141,7 +141,7 @@ public class InGameController extends AbstractController implements
 			break;
 		
 		case RIGHT:
-			// TODO F I R E
+			hero.stopShoot();
 			break;
 		default:
 			break;

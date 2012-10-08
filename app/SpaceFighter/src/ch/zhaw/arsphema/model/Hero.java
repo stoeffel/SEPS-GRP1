@@ -1,9 +1,12 @@
 package ch.zhaw.arsphema.model;
 
+import ch.zhaw.arsphema.model.shot.ShotFactory;
+import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -16,6 +19,8 @@ public class Hero extends AbstractSprite {
 	private boolean stopped = true;
 	private boolean movingUp = false;
 	private boolean movingDown = false;
+	private boolean fire = false;
+	
 	private TextureRegion[] frames;
 	private Animation animation;
 
@@ -63,8 +68,11 @@ public class Hero extends AbstractSprite {
 
 	@Override
 	public void shoot() {
-		// TODO Auto-generated method stub
-
+		this.fire= true;
+	}
+	
+	public void stopShoot() {
+		this.fire= false;
 	}
 
 	public void moveUp() {
@@ -108,15 +116,14 @@ public class Hero extends AbstractSprite {
 		return this.animation.getKeyFrame(elapsed,b);
 	}
 	
-	public float getRotation(){
-		float rotation = 0;
-		if (movingUp){
-			rotation = 5f;
+	
+	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
+		if (fire) {
+			ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD);
 		}
-		if (movingDown){
-			rotation = -5f;
-		}
-		return rotation;
+		
+		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		
 	}
 
 }
