@@ -45,7 +45,7 @@ public class MainMenuScreen extends AbstractScreen {
         style.font = new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT),false);
         style.fontColor = Color.DARK_GRAY;
         style.pressedOffsetY = 1f;
-        style.up = new NinePatch(new Texture(Gdx.files.internal(Paths.BUTTON_TEXTURE)), 8, 8, 4, 4);
+        style.up = new NinePatch(new Texture(Gdx.files.internal(Paths.BUTTON_TEXTURE)), 8, 8, 8, 8);
 
         //Buttons
         TextButton startButton = new TextButton("Start Game", style);
