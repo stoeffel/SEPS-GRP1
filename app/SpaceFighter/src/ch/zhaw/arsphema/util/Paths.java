@@ -14,4 +14,7 @@ public class Paths {
 	// SHOTS
 	public static final String SHOT_GREEN = "images/shot/green.png";
 
+	// BACKGROUNDS
+	public static final String BACKGROUND_STARS = "images/worlds/stars.png";
+
 }
