@@ -55,7 +55,7 @@ public class ShotFactory
 	}
     
 	public static void loadTextures(){
-		Textures.STANDARD = new Texture(Gdx.files.internal(Paths.SHOT_GREEN));
+		Textures.STANDARD = new Texture(Gdx.files.internal(Paths.SHOT));
 	}
 
 }
