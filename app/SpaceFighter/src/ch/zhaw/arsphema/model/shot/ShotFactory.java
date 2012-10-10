@@ -58,8 +58,11 @@ public class ShotFactory
 			}
 			
 		}
+		
+		// remove unused shots
 		for (Shot shot : shotsToRemove) {
 			shots.remove(shot);
+			shot = null;
 		}
 	}
     
