@@ -15,14 +15,12 @@ public abstract class AbstractScreen implements Screen
 {
 
 	protected final MyGdxGame game;
-    protected final BitmapFont font;
     protected final SpriteBatch batch;
     protected final Stage stage;
 
     public AbstractScreen(MyGdxGame game)
     {
         this.game = game;
-        this.font = new BitmapFont();
         this.batch = new SpriteBatch();
         this.stage = new Stage( 0, 0, true );
     }
@@ -57,7 +55,6 @@ public abstract class AbstractScreen implements Screen
         // dispose the collaborators
         stage.dispose();
         batch.dispose();
-        font.dispose();
     }
 
 	@Override

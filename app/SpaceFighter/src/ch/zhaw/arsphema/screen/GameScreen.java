@@ -2,6 +2,7 @@ package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.controller.InGameController;
+import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
@@ -23,6 +24,7 @@ public class GameScreen extends AbstractScreen {
 	private InGameController controller;
 	private NavigationOverlay overlay;
 	private float elapsed = 0;
+	private Background bg1,bg2;
 	
 	
 
@@ -43,6 +45,8 @@ public class GameScreen extends AbstractScreen {
 	private void loadTextures() {
 		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
 		overlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_SPRITE)));
+		bg1 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),0,0,Sizes.DEFAULT_WORLD_WIDTH*2,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg2 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH*2,Sizes.DEFAULT_WORLD_HEIGHT);
 		
 		ShotFactory.loadTextures();
 	}
@@ -54,16 +58,20 @@ public class GameScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		
-		
 		hero.move(delta);
 		controller.update(delta);
 		batch.begin();
 //		batch.disableBlending();
+
+		bg1.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
+		bg2.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
+
+		
 		ShotFactory.draw(batch,delta, elapsed,ppuX,ppuY);
 		hero.draw(batch,delta, elapsed,ppuX,ppuY);
 		
 		// start overlay wird 2 sec angezeigt
-		if (elapsed >= 2){ 
+		if (elapsed >= 5){ 
 			batch.draw(overlay.getTexture(overlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		} else {
 			batch.draw(overlay.getTexture(overlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
