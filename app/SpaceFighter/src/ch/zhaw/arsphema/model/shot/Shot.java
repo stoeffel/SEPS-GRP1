@@ -5,6 +5,7 @@ import java.util.Random;
 import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
+import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -20,6 +21,7 @@ public class Shot extends AbstractSprite {
 	private Texture texture;
 	private TextureRegion[] frames;
 	private Animation animation;
+	private boolean shouldBeRemoved = false;
 	
 	public Shot(float x, float y) {
 		super(x,y, 1f, 1f);
@@ -57,6 +59,9 @@ public class Shot extends AbstractSprite {
 			float ppuY) {
 		batch.draw(this.getTextureRegion(), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		this.x += speed * delta;
+		if (this.x > Sizes.DEFAULT_WORLD_WIDTH) {
+			shouldBeRemoved = true;
+		}
 	}
 	@Override
 	public void move() {
@@ -67,6 +72,10 @@ public class Shot extends AbstractSprite {
 	public void shoot() {
 		// TODO Auto-generated method stub
 		
+	}
+	public boolean shouldBeRemoved() {
+		
+		return shouldBeRemoved;
 	}
 	
 	

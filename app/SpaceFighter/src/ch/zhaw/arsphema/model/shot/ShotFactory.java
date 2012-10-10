@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
+import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -49,8 +50,16 @@ public class ShotFactory
 
 	public static void draw(SpriteBatch batch, float delta, float elapsed,
 			float ppuX, float ppuY) {
+		ArrayList<Shot> shotsToRemove = new ArrayList<Shot>();
 		for (Shot shot : shots) {
 			shot.draw(batch,delta,elapsed,ppuX,ppuY);
+			if (shot.shouldBeRemoved()){
+				shotsToRemove.add(shot);
+			}
+			
+		}
+		for (Shot shot : shotsToRemove) {
+			shots.remove(shot);
 		}
 	}
     
