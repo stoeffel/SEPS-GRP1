@@ -20,6 +20,7 @@ public class Hero extends AbstractSprite {
 	private boolean movingUp = false;
 	private boolean movingDown = false;
 	private boolean fire = false;
+
 	
 	private TextureRegion[] frames;
 	private Animation animation;
@@ -28,6 +29,8 @@ public class Hero extends AbstractSprite {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT);
 		health = 3;
 		speed = 66;
+		shootingFrequency = 0.2f;
+		lastShot=0;
 		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
 
@@ -118,9 +121,11 @@ public class Hero extends AbstractSprite {
 	
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
-		if (fire) {
+		if (fire && lastShot > shootingFrequency) {
 			ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD);
+			lastShot = 0;
 		}
+		lastShot += delta;
 		
 		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		

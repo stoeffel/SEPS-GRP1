@@ -4,6 +4,7 @@
 package ch.zhaw.arsphema.model;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -13,8 +14,10 @@ import com.badlogic.gdx.math.Rectangle;
 public abstract class AbstractSprite extends Rectangle {
 	
 	protected int health;
-	protected int shootingFrequency;
+	protected float shootingFrequency;
+	protected float lastShot;
 	protected Texture texture;
+	protected TextureRegion textureRegion;
 	protected float speed;
 	
 	
@@ -59,10 +62,10 @@ public abstract class AbstractSprite extends Rectangle {
 	public void setHealth(int health) {
 		this.health = health;
 	}
-	public int getShootingFrequency() {
+	public float getShootingFrequency() {
 		return shootingFrequency;
 	}
-	public void setShootingFrequency(int shootingFrequency) {
+	public void setShootingFrequency(float shootingFrequency) {
 		this.shootingFrequency = shootingFrequency;
 	}
 	public Texture getTexture() {
@@ -76,6 +79,12 @@ public abstract class AbstractSprite extends Rectangle {
 	}
 	public void setSpeed(float speed) {
 		this.speed = speed;
+	}
+	public TextureRegion getTextureRegion() {
+		return textureRegion;
+	}
+	public void setTextureRegion(TextureRegion textureRegion) {
+		this.textureRegion = textureRegion;
 	}
 
 }

@@ -1,5 +1,8 @@
 package ch.zhaw.arsphema.model.shot;
 
+import java.util.Random;
+
+import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
 
@@ -7,9 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 
-public class Shot extends Rectangle {
+public class Shot extends AbstractSprite {
 
 	private static final int COLS = 2;
 	private static final int ROWS = 2;
@@ -35,9 +37,7 @@ public class Shot extends Rectangle {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
-	public TextureRegion getKeyFrame(float elapsed, boolean b) {
-		return this.animation.getKeyFrame(elapsed,b);
-	}
+
 	public void setTexture(Texture texture) {
 		this.texture = texture;
 		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
@@ -50,13 +50,23 @@ public class Shot extends Rectangle {
                         frames[index++] = tmp[i][j];
                 }
         }
-        animation = new Animation(1f, frames);
-        animation.setPlayMode(Animation.LOOP_RANDOM);
+        Random ran = new Random();
+        this.textureRegion = frames[ran.nextInt(ROWS*COLS)];
 	}
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX,
 			float ppuY) {
-		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.draw(this.getTextureRegion(), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		this.x += speed * delta;
+	}
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void shoot() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
