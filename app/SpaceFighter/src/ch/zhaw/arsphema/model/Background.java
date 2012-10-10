@@ -21,7 +21,7 @@ public class Background extends AbstractSprite {
 
 	public Background(Texture texture, float x, float y, float width, float height) {
 		super(x, y, width, height);
-		speed = 50;
+		speed = 5;
 		this.setTexture(texture);
 	}
 

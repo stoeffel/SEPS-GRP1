@@ -45,8 +45,8 @@ public class GameScreen extends AbstractScreen {
 	private void loadTextures() {
 		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
 		overlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_SPRITE)));
-		bg1 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),0,0,Sizes.DEFAULT_WORLD_WIDTH*2,Sizes.DEFAULT_WORLD_HEIGHT);
-		bg2 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH*2,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg1 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg2 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
 		
 		ShotFactory.loadTextures();
 	}

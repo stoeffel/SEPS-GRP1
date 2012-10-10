@@ -10,7 +10,9 @@ public class InGameController extends AbstractController implements
 
 	private Hero hero;
 	private float width, height;
-	
+
+	private int leftPointer = -1, rightPointer = -1;
+
 	private static final int LEFT_TOP = 0, LEFT_BOTTOM = 1, RIGHT = 2;
 
 	public InGameController(Hero hero) {
@@ -34,7 +36,7 @@ public class InGameController extends AbstractController implements
 	}
 
 	public void update(float delta) {
-		
+
 		processInput(delta);
 	}
 
@@ -56,7 +58,7 @@ public class InGameController extends AbstractController implements
 			upPressed();
 		if (keycode == Keys.DOWN)
 			downPressed();
-		
+
 		return true;
 	}
 
@@ -66,7 +68,7 @@ public class InGameController extends AbstractController implements
 			downReleased();
 		if (keycode == Keys.UP)
 			upReleased();
-		
+
 		return true;
 	}
 
@@ -78,12 +80,14 @@ public class InGameController extends AbstractController implements
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		if (x <= width / 2) {
+			leftPointer = pointer;
 			if (y <= height / 2) {
 				touchedRegion(LEFT_BOTTOM);
 			} else {
 				touchedRegion(LEFT_TOP);
 			}
 		} else {
+			rightPointer = pointer;
 			touchedRegion(RIGHT);
 		}
 		return true;
@@ -92,12 +96,14 @@ public class InGameController extends AbstractController implements
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button) {
 		if (x <= width / 2) {
+			leftPointer = -1;
 			if (y <= height / 2) {
 				touchedRegionEnd(LEFT_BOTTOM);
 			} else {
 				touchedRegionEnd(LEFT_TOP);
 			}
 		} else {
+			rightPointer = -1;
 			touchedRegionEnd(RIGHT);
 		}
 		return false;
@@ -105,20 +111,34 @@ public class InGameController extends AbstractController implements
 
 	@Override
 	public boolean touchDragged(int x, int y, int pointer) {
-		if (x <= width / 2) {
+		System.out.println(pointer);
+		if (x <= width / 2 && pointer == leftPointer) {
 			if (y <= height / 2) {
 				touchedRegion(LEFT_BOTTOM);
 			} else {
 				touchedRegion(LEFT_TOP);
 			}
+		} else if (x > width / 2 && pointer == rightPointer) {
+
+		} else {
+			if (x > width / 2) {
+				rightPointer = -1;
+				touchedRegionEnd(LEFT_TOP);
+				touchedRegionEnd(LEFT_BOTTOM);
+			}
+			if (x <= width / 2) {
+				rightPointer = -1;
+				touchedRegionEnd(RIGHT);
+			}
 		}
 		return false;
 	}
+
 	/**
 	 * 
 	 * @param pos
 	 */
-	private void touchedRegion(int pos){
+	private void touchedRegion(int pos) {
 		switch (pos) {
 		case LEFT_TOP:
 			hero.moveDown();
@@ -133,13 +153,14 @@ public class InGameController extends AbstractController implements
 			break;
 		}
 	}
-	
-	private void touchedRegionEnd(int pos){
+
+	private void touchedRegionEnd(int pos) {
 		switch (pos) {
-		case LEFT_TOP: case LEFT_BOTTOM:
+		case LEFT_TOP:
+		case LEFT_BOTTOM:
 			hero.stop();
 			break;
-		
+
 		case RIGHT:
 			hero.stopShoot();
 			break;
