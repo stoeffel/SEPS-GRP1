@@ -4,6 +4,7 @@
 package ch.zhaw.arsphema.model;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -18,6 +19,7 @@ public abstract class AbstractSprite extends Rectangle {
 	protected float lastShot;
 	protected Texture texture;
 	protected TextureRegion textureRegion;
+	
 	protected float speed;
 	
 	
@@ -26,6 +28,8 @@ public abstract class AbstractSprite extends Rectangle {
 	 */
 	abstract public void move();
 	abstract public void shoot();
+	
+	abstract public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY);
 	
 	
 	

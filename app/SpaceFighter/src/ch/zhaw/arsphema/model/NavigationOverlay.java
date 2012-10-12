@@ -3,10 +3,11 @@ package ch.zhaw.arsphema.model;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-public class NavigationOverlay extends Rectangle {
+public class NavigationOverlay extends AbstractSprite {
 	public static final int GAME = 1;
 	public static final int START = 0;
 	private static final int OVERLAY_ROWS = 2;
@@ -29,6 +30,25 @@ public class NavigationOverlay extends Rectangle {
 
 	public void setTexture(Texture texture) {
 		this.texture = texture;
+	}
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void shoot() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX,
+			float ppuY) {
+		if (elapsed >= 5){ 
+			batch.draw(this.getTexture(this.GAME), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		} else {
+			batch.draw(this.getTexture(this.START), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		}
 	}
 	
 

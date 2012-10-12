@@ -58,23 +58,13 @@ public class GameScreen extends AbstractScreen {
 		
 		hero.move(delta);
 		controller.update(delta);
+		
 		batch.begin();
 //		batch.disableBlending();
-
 		bg1.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
 		bg2.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
-
-		
 		hero.draw(batch,delta, elapsed,ppuX,ppuY);
-		
-		// start overlay wird 2 sec angezeigt
-		if (elapsed >= 5){ 
-			batch.draw(overlay.getTexture(overlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
-		} else {
-			batch.draw(overlay.getTexture(overlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
-		}
-		
-		
+		overlay.draw(batch, delta, elapsed, ppuX, ppuY);
 		batch.end();
 	}
 
