@@ -17,12 +17,6 @@ public class ShotFactory
 	private static ShotFactory instance;
     
     
-    private static class Textures {
-
-		public static Texture STANDARD = null;
-    	
-    }
-    
     private ShotFactory()
     {
     }
@@ -46,13 +40,12 @@ public class ShotFactory
     public Shot createShot(float x, float y, int type)
     {
     	Shot shot = new Shot(x, y);
-    	shot.setTexture(Textures.STANDARD);
         return shot;
     }
     
     
 	public static void loadTextures(){
-		Textures.STANDARD = new Texture(Gdx.files.internal(Paths.SHOT));
+		
 	}
 
 }

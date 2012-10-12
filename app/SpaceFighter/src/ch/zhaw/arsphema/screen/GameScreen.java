@@ -10,6 +10,7 @@ import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Textures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -43,10 +44,10 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private void loadTextures() {
-		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
-		overlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_SPRITE)));
-		bg1 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
-		bg2 = new Background(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, Textures.HERO);
+		overlay = new NavigationOverlay(Textures.OVERLAY_SPRITE);
+		bg1 = new Background(Textures.BACKGROUND_STARS,0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg2 = new Background(Textures.BACKGROUND_STARS,bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
 		
 	}
 
@@ -72,11 +73,8 @@ public class GameScreen extends AbstractScreen {
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		controller.resize(width, height);
-		
 		ppuX = (float) width / Sizes.DEFAULT_WORLD_WIDTH;
 		ppuY = (float) height / Sizes.DEFAULT_WORLD_HEIGHT;
-		
-		
 	}
 
 	@Override
