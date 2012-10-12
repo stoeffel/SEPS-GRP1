@@ -3,6 +3,10 @@
  */
 package ch.zhaw.arsphema.model;
 
+import java.util.List;
+
+import ch.zhaw.arsphema.model.shot.Shot;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -16,43 +20,26 @@ public abstract class AbstractSprite extends Rectangle {
 	protected int health;
 	protected float shootingFrequency;
 	protected float lastShot;
-	protected Texture texture;
 	protected TextureRegion textureRegion;
 	protected float speed;
 	
 	
-	/**
+	/*
 	 * ABSTRACT METHODES
 	 */
-	abstract public void move();
-	abstract public void shoot();
+	abstract public void move(float delta);
+	abstract public List<Shot> shoot(float delta);
 	
 	
-	
-	/**
-	 * 
-	 */
-	public AbstractSprite() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param rect
-	 */
-	public AbstractSprite(Rectangle rect) {
-		super(rect);
-		// TODO Auto-generated constructor stub
-	}
-
 	/**
 	 * @param x
 	 * @param y
 	 * @param width
 	 * @param height
 	 */
-	public AbstractSprite(float x, float y, float width, float height) {
+	public AbstractSprite(float x, float y, float width, float height, TextureRegion texture) {
 		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
+		this.textureRegion = texture;
 	}
 	
 
@@ -67,12 +54,6 @@ public abstract class AbstractSprite extends Rectangle {
 	}
 	public void setShootingFrequency(float shootingFrequency) {
 		this.shootingFrequency = shootingFrequency;
-	}
-	public Texture getTexture() {
-		return texture;
-	}
-	public void setTexture(Texture texture) {
-		this.texture = texture;
 	}
 	public float getSpeed() {
 		return speed;

@@ -1,35 +1,28 @@
 package ch.zhaw.arsphema.model.enemies;
 
-import com.badlogic.gdx.math.Rectangle;
+import java.util.List;
 
 import ch.zhaw.arsphema.model.AbstractSprite;
+import ch.zhaw.arsphema.model.shot.Shot;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class AbstractEnemy extends AbstractSprite {
+	private static final long serialVersionUID = 1L;
+	protected int basePoints;
 
-	public AbstractEnemy() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public AbstractEnemy(Rectangle rect) {
-		super(rect);
-		// TODO Auto-generated constructor stub
-	}
-
-	public AbstractEnemy(float x, float y, float width, float height) {
-		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
+	public AbstractEnemy(float x, float y, float width, float height, TextureRegion texture) {
+		super(x, y, width, height, texture);
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
+	abstract public void move(float delta);
 	@Override
-	public void shoot() {
-		// TODO Auto-generated method stub
+	abstract public List<Shot> shoot(float delta);
 
+	public boolean lowerHealth(int damage) {
+		health -= damage;
+		return health <= 0;
 	}
-
 }

@@ -1,5 +1,6 @@
 package ch.zhaw.arsphema.model.shot;
 
+import java.util.List;
 import java.util.Random;
 
 import ch.zhaw.arsphema.model.AbstractSprite;
@@ -17,14 +18,15 @@ public class Shot extends AbstractSprite {
 	private static final int COLS = 2;
 	private static final int ROWS = 2;
 	private int damage = 1;
-	private float speed = 160;
-	private Texture texture;
+	private float speed = 160; //TODO in constructor? not every shot should be equally fast
 	private TextureRegion[] frames;
 	private Animation animation;
+	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
 	
-	public Shot(float x, float y) {
-		super(x,y, 1f, 1f);
+	public Shot(float x, float y, boolean isEnemyShot) {
+		super(x,y, 1f, 1f, null);
+		this.isEnemyShot = isEnemyShot;
 		Services.getSoundManager().play(TyrianSound.SHOT);
 	}
 	public int getDamage() {
@@ -41,7 +43,6 @@ public class Shot extends AbstractSprite {
 	}
 
 	public void setTexture(Texture texture) {
-		this.texture = texture;
 		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
 
@@ -64,20 +65,17 @@ public class Shot extends AbstractSprite {
 		}
 	}
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
+	public void move(float delta) {
+		x += speed * delta;
 	}
 	@Override
-	public void shoot() {
-		// TODO Auto-generated method stub
-		
+	public List<Shot> shoot(float delta) {
+		return null; //should never be called
 	}
 	public boolean shouldBeRemoved() {
 		
 		return shouldBeRemoved;
 	}
-	
 	
 
 }

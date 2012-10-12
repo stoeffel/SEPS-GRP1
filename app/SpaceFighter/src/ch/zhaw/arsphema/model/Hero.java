@@ -1,17 +1,19 @@
 package ch.zhaw.arsphema.model;
 
+import java.util.Collections;
+import java.util.List;
+
+import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
-import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 
 public class Hero extends AbstractSprite {
-	
+	private static final long serialVersionUID = 1L;
 	private static final int UP = 1;
 	private static final int DOWN = -1;
 	private static final int ROWS = 4;
@@ -26,7 +28,7 @@ public class Hero extends AbstractSprite {
 	private Animation animation;
 
 	public Hero(float x, float y, Texture texture) {
-		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT);
+		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
 		health = 3;
 		speed = 66;
 		shootingFrequency = 0.2f;
@@ -45,22 +47,6 @@ public class Hero extends AbstractSprite {
         animation.setPlayMode(Animation.LOOP);
 	}
 
-	public Hero(Rectangle rect) {
-		super(rect);
-		// TODO Auto-generated constructor stub
-	}
-
-	public Hero(float x, float y, float width, float height) {
-		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public void move(float delta){
 		if (movingUp){
 			this.move(UP, delta);
@@ -70,12 +56,13 @@ public class Hero extends AbstractSprite {
 	}
 
 	@Override
-	public void shoot() {
-		this.fire= true;
-	}
-	
-	public void stopShoot() {
-		this.fire= false;
+	public List<Shot> shoot(float delta) {
+		if (fire && lastShot > shootingFrequency) {
+			lastShot = 0;
+			return Collections.singletonList(ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false));
+		}
+		lastShot += delta;
+		return Collections.emptyList();
 	}
 
 	public void moveUp() {
@@ -121,14 +108,16 @@ public class Hero extends AbstractSprite {
 	
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
-		if (fire && lastShot > shootingFrequency) {
-			ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD);
-			lastShot = 0;
-		}
-		lastShot += delta;
-		
-		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
-		
+		batch.draw(getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+	}
+
+	public void setFire(boolean fire) {
+		this.fire = fire;
+	}
+
+	public boolean lowerHealth(int damage) {
+		health -= damage; //TODO shield and stuff check
+		return health <= 0;
 	}
 
 }
