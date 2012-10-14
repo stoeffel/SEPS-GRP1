@@ -1,5 +1,8 @@
 package ch.zhaw.arsphema.model;
 
+import java.util.List;
+
+import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -15,7 +18,7 @@ public class NavigationOverlay extends AbstractSprite {
 	private TextureRegion[] overlays;
 	
 	public NavigationOverlay(Texture texture) {
-		super(0, 0, Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT);
+		super(0, 0, Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT, null);
 		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth(), texture.getHeight() / OVERLAY_ROWS);
 		overlays = new TextureRegion[OVERLAY_ROWS];
 
@@ -32,16 +35,6 @@ public class NavigationOverlay extends AbstractSprite {
 		this.texture = texture;
 	}
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void shoot() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX,
 			float ppuY) {
 		if (elapsed >= 5){ 
@@ -49,6 +42,13 @@ public class NavigationOverlay extends AbstractSprite {
 		} else {
 			batch.draw(this.getTexture(this.START), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		}
+	}
+	@Override
+	public void move(float delta) {
+	}
+	@Override
+	public List<Shot> shoot(float delta) {
+		return null;
 	}
 	
 

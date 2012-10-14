@@ -1,14 +1,11 @@
 package ch.zhaw.arsphema.model.shot;
 
-import ch.zhaw.arsphema.util.Paths;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import ch.zhaw.arsphema.util.Textures;
 
 public class ShotFactory
 {
-    public final int STANDARD = 0;
-	private static ShotFactory instance;
+    public static final int STANDARD = 0;
+	static ShotFactory instance;
     
     
     private ShotFactory()
@@ -35,7 +32,7 @@ public class ShotFactory
     {
     	//@stoeffel: type?
     	Shot shot = new Shot(x, y, isEnemyShot);
-    	shot.setTexture(Textures.STANDARD);
+    	shot.setTexture(Textures.SHOT);
         return shot;
     }
 

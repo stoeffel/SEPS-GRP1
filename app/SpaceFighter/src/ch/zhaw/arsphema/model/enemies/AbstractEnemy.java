@@ -25,4 +25,12 @@ public abstract class AbstractEnemy extends AbstractSprite {
 		health -= damage;
 		return health <= 0;
 	}
+
+	public int getBasePoints() {
+		return basePoints;
+	}
+
+	public void setBasePoints(int basePoints) {
+		this.basePoints = basePoints;
+	}
 }

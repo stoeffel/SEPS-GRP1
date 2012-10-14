@@ -11,12 +11,10 @@ import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyFactory;
 import ch.zhaw.arsphema.model.shot.Shot;
-import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
-import ch.zhaw.arsphema.util.Textures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -30,7 +28,7 @@ public class GameScreen extends AbstractScreen {
 	private Hero hero;
 	private HeroController controller;
 	private NavigationOverlay overlay;
-	private List<AbstractEnemy> enemies;
+	private List<AbstractEnemy> enemies, killedEnemies;
 	private List<Shot> heroShots, enemyShots, shotsToRemove;
 	private EnemyFactory enemyFactory;
 	private float elapsed = 0;
@@ -45,6 +43,7 @@ public class GameScreen extends AbstractScreen {
 		loadTextures();
 		controller = new HeroController(hero);
 		enemies = new ArrayList<AbstractEnemy>();
+		killedEnemies = new ArrayList<AbstractEnemy>();
 		heroShots = new ArrayList<Shot>();
 		enemyShots = new ArrayList<Shot>();
 		shotsToRemove = new ArrayList<Shot>();
@@ -70,10 +69,16 @@ public class GameScreen extends AbstractScreen {
 		hero.move(delta);
 		heroShots.addAll(hero.shoot(delta));
 		heroSuffering();
-		killAllTheEnemies();
+		killEnemies();
 		enemies.addAll(enemyFactory.dropEnemy(delta));
-		
 		controller.update(delta);
+		updateShots();
+	}
+
+	private void updateShots() {
+		heroShots.removeAll(shotsToRemove);
+		enemyShots.removeAll(shotsToRemove);
+		shotsToRemove.clear();		
 	}
 
 	private void drawGame(float delta) {
@@ -91,9 +96,9 @@ public class GameScreen extends AbstractScreen {
 		}
 		for(AbstractEnemy enemy : enemies)
 		{
-			//TODO draw in enemyObject?
-			batch.draw(enemy.getTextureRegion(), enemy.x * ppuX, enemy.y * ppuY, enemy.width * ppuX, enemy.height * ppuY);
+			enemy.draw(batch, delta, elapsed, ppuX, ppuY);
 		}
+		drawShots(delta);
 		
 		// start overlay is displayed 5 sec
 		if (elapsed >= 5) { 
@@ -101,7 +106,6 @@ public class GameScreen extends AbstractScreen {
 		} else {
 			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
-		drawShots(delta);
 		batch.end();
 	}
 	
@@ -121,10 +125,6 @@ public class GameScreen extends AbstractScreen {
 			}
 
 		}
-		
-		heroShots.removeAll(shotsToRemove);
-		enemyShots.removeAll(shotsToRemove);
-		shotsToRemove.clear();
 	}
 
 	@Override
@@ -147,17 +147,22 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 	
-	private void killAllTheEnemies() {
+	private void killEnemies() {
 		for(Shot shot : heroShots)
 		{
 			for(AbstractEnemy enemy : enemies)
 			if(shot.overlaps(enemy))
 			{
 				if(enemy.lowerHealth(shot.getDamage())){
-					//TODO enemy is dead... loot him!!!
+					//TODO enemy is dead... loot him!!! (point berechnung)
+//					enemy.getBasePoints();
+					killedEnemies.add(enemy);
 				}
+				shotsToRemove.add(shot);
 			}
 		}
+		enemies.removeAll(killedEnemies);
+		killedEnemies.clear();
 	}
 
 	@Override

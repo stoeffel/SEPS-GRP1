@@ -20,8 +20,4 @@ public class Paths {
 	// BACKGROUNDS
 	public static final String BACKGROUND_STARS = "images/worlds/stars.png";
 
-	// FONTS
-	public static final String SPACE_FONT = "skin/spacefont.fnt";
-	public static final String BUTTON_FONT = "skin/buttonfont.fnt";
-
 }

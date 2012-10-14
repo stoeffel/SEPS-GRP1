@@ -6,6 +6,7 @@ import java.util.List;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Ufo extends AbstractEnemy {
@@ -35,6 +36,12 @@ public class Ufo extends AbstractEnemy {
 			return shot;
 		}
 		return Collections.emptyList();
+	}
+
+	@Override
+	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX,
+			float ppuY) {
+		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 
 }
