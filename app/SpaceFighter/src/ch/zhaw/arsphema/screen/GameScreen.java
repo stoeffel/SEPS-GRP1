@@ -16,6 +16,7 @@ import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Textures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -58,7 +59,6 @@ public class GameScreen extends AbstractScreen {
 		bg1 = new Background(new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS))),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
 		bg2 = new Background(new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS))),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
 		//TODO create one wide file for background and move with textureregion?
-		ShotFactory.loadTextures();
 	}
 
 	@Override
@@ -131,7 +131,6 @@ public class GameScreen extends AbstractScreen {
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		controller.resize(width, height);
-		
 		ppuX = (float) width / Sizes.DEFAULT_WORLD_WIDTH;
 		ppuY = (float) height / Sizes.DEFAULT_WORLD_HEIGHT;
 	}

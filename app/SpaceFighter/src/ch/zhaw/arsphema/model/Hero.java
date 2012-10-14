@@ -16,16 +16,22 @@ public class Hero extends AbstractSprite {
 	private static final long serialVersionUID = 1L;
 	private static final int UP = 1;
 	private static final int DOWN = -1;
+	
 	private static final int ROWS = 4;
 	private static final int COLS = 1;
+	
 	private boolean stopped = true;
 	private boolean movingUp = false;
 	private boolean movingDown = false;
 	private boolean fire = false;
+	
+	private static ArrayList<Shot> shots = new ArrayList<Shot>();
 
 	
 	private TextureRegion[] frames;
 	private Animation animation;
+	
+	private ShotFactory shotFactory;
 
 	public Hero(float x, float y, Texture texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
@@ -45,6 +51,8 @@ public class Hero extends AbstractSprite {
         }
         animation = new Animation(0.005f, frames);
         animation.setPlayMode(Animation.LOOP);
+        
+        shotFactory = ShotFactory.getInstance();
 	}
 
 	public void move(float delta){
@@ -109,6 +117,37 @@ public class Hero extends AbstractSprite {
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
 		batch.draw(getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+<<<<<<< .mine
+
+
+
+
+
+
+
+=======
+			shots.add(shotFactory.createShot(this.x + this.width, this.y+this.height/3, shotFactory.STANDARD));
+			lastShot = 0;
+		}
+		lastShot += delta;
+		
+		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		
+>>>>>>> .theirs
+		ArrayList<Shot> shotsToRemove = new ArrayList<Shot>();
+		for (Shot shot : shots) {
+			shot.draw(batch,delta,elapsed,ppuX,ppuY);
+			if (shot.shouldBeRemoved()){
+				shotsToRemove.add(shot);
+			}
+			
+		}
+		
+		// remove unused shots
+		for (Shot shot : shotsToRemove) {
+			shots.remove(shot);
+			shot = null;
+		}
 	}
 
 	public void setFire(boolean fire) {

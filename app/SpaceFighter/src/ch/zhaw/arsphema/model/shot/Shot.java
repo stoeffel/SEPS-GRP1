@@ -6,8 +6,11 @@ import java.util.Random;
 import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
+import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Textures;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,6 +31,7 @@ public class Shot extends AbstractSprite {
 		super(x,y, 1f, 1f, null);
 		this.isEnemyShot = isEnemyShot;
 		Services.getSoundManager().play(TyrianSound.SHOT);
+		this.setTexture(Textures.SHOT);
 	}
 	public int getDamage() {
 		return damage;

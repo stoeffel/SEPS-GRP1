@@ -8,6 +8,7 @@ import java.util.List;
 import ch.zhaw.arsphema.model.shot.Shot;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -21,6 +22,7 @@ public abstract class AbstractSprite extends Rectangle {
 	protected float shootingFrequency;
 	protected float lastShot;
 	protected TextureRegion textureRegion;
+	
 	protected float speed;
 	
 	
@@ -29,6 +31,8 @@ public abstract class AbstractSprite extends Rectangle {
 	 */
 	abstract public void move(float delta);
 	abstract public List<Shot> shoot(float delta);
+	
+	abstract public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY);
 	
 	
 	/**

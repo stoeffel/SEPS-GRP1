@@ -7,14 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class ShotFactory
 {
-    public static final int STANDARD = 0;
+    public final int STANDARD = 0;
 	private static ShotFactory instance;
     
-    private static class Textures {
-
-		public static Texture STANDARD = null;
-    	
-    }
     
     private ShotFactory()
     {
@@ -22,11 +17,15 @@ public class ShotFactory
     
     public static void createInstance()
     {
-        new ShotFactory();
+        instance = new ShotFactory();
     }
     
     public static ShotFactory getInstance()
     {
+    	if (instance == null){
+    		loadTextures();
+    		createInstance();
+    	}
         return instance;
     }
 
@@ -42,7 +41,7 @@ public class ShotFactory
 
     
 	public static void loadTextures(){
-		Textures.STANDARD = new Texture(Gdx.files.internal(Paths.SHOT));
+		
 	}
 
 }
