@@ -25,6 +25,7 @@ public class GameScreen extends AbstractScreen {
 	
 	private float ppuX; // pixels per unit on the X axis
 	private float ppuY; // pixels per unit on the Y axis
+	private boolean showOverlay = true;
 	private Hero hero;
 	private HeroController controller;
 	private NavigationOverlay overlay;
@@ -69,17 +70,15 @@ public class GameScreen extends AbstractScreen {
 		hero.move(delta);
 		heroShots.addAll(hero.shoot(delta));
 		heroSuffering();
-		killEnemies();
-		enemies.addAll(enemyFactory.dropEnemy(delta));
+		
+
+		computeEnemyMovements(delta);
+		
+		enemies.addAll(enemyFactory.dropEnemy(delta, elapsed));
 		controller.update(delta);
 		updateShots();
 	}
 
-	private void updateShots() {
-		heroShots.removeAll(shotsToRemove);
-		enemyShots.removeAll(shotsToRemove);
-		shotsToRemove.clear();		
-	}
 
 	private void drawGame(float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0);
@@ -92,19 +91,21 @@ public class GameScreen extends AbstractScreen {
 
 		for(AbstractEnemy enemy : enemies)
 		{
-			enemy.move(delta);//TODO remove out of view enemies
-		}
-		for(AbstractEnemy enemy : enemies)
-		{
 			enemy.draw(batch, delta, elapsed, ppuX, ppuY);
 		}
 		drawShots(delta);
 		
-		// start overlay is displayed 5 sec
-		if (elapsed >= 5) { 
-			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
-		} else {
+		if(showOverlay)
+		{
+			// start overlay is displayed 5 sec
 			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
+			if (elapsed >= 5)
+			{
+				enemyFactory.setDropEnemies(true);
+				showOverlay = false;
+			}
+		} else {
+			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
 		batch.end();
 	}
@@ -147,6 +148,17 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 	
+	private void computeEnemyMovements(float delta) {
+		for(AbstractEnemy enemy : enemies)
+		{
+			if(enemy.move(delta))
+				killedEnemies.add(enemy);
+		}
+		killEnemies();
+		enemies.removeAll(killedEnemies);
+		killedEnemies.clear();
+	}
+	
 	private void killEnemies() {
 		for(Shot shot : heroShots)
 		{
@@ -161,9 +173,14 @@ public class GameScreen extends AbstractScreen {
 				shotsToRemove.add(shot);
 			}
 		}
-		enemies.removeAll(killedEnemies);
-		killedEnemies.clear();
 	}
+
+	private void updateShots() {
+		heroShots.removeAll(shotsToRemove);
+		enemyShots.removeAll(shotsToRemove);
+		shotsToRemove.clear();		
+	}
+	
 
 	@Override
 	public void hide() {}

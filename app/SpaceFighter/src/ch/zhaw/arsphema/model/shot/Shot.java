@@ -67,8 +67,9 @@ public class Shot extends AbstractSprite {
 		}
 	}
 	@Override
-	public void move(float delta) {
+	public boolean move(float delta) {
 		x += speed * delta;
+		return true;
 	}
 	@Override
 	public List<Shot> shoot(float delta) {

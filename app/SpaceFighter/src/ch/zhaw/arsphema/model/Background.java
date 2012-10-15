@@ -5,7 +5,6 @@ import java.util.List;
 
 import ch.zhaw.arsphema.model.shot.Shot;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -18,11 +17,12 @@ public class Background extends AbstractSprite {
 	}
 
 	@Override
-	public void move(float delta) {
+	public boolean move(float delta) {
 		this.x -= this.speed * delta;
 		if ( this.width < (-1)*this.x){
 			this.x = this.width;
 		}
+		return true;
 	}
 
 	@Override

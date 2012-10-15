@@ -29,8 +29,6 @@ public class Hero extends AbstractSprite {
 	private TextureRegion[] frames;
 	private Animation animation;
 	
-	private ShotFactory shotFactory;
-
 	public Hero(float x, float y, Texture texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
 		health = 3;
@@ -50,15 +48,15 @@ public class Hero extends AbstractSprite {
         animation = new Animation(0.005f, frames);
         animation.setPlayMode(Animation.LOOP);
         
-        shotFactory = ShotFactory.getInstance();
 	}
 
-	public void move(float delta){
+	public boolean move(float delta){
 		if (movingUp){
 			this.move(UP, delta);
 		} else if (movingDown) {
 			this.move(DOWN, delta);
 		}
+		return true;
 	}
 
 	@Override

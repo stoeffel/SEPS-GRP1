@@ -18,20 +18,19 @@ public class PowerUp extends AbstractSprite {
 	}
 
 	@Override
-	public void move(float delta) {
-		
+	public boolean move(float delta) {
+		//TODO
+		return true;
 	}
 
 	@Override
 	public List<Shot> shoot(float delta) {
-		return null; //should never be called...
+		return null;
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX,
-			float ppuY) {
-		// TODO Auto-generated method stub
-		
+	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
+		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 
 }

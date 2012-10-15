@@ -6,7 +6,7 @@ import java.util.Map;
 abstract class AbstractController
 {
 	enum IngameKeys {
-		UP, DOWN, BACK, CONFIRM
+		UP, DOWN, BACK, CONFIRM, SHOT
 	}
 
 
@@ -14,6 +14,7 @@ abstract class AbstractController
 	static {
 		keys.put(IngameKeys.UP, false);
 		keys.put(IngameKeys.DOWN, false);
+		keys.put(IngameKeys.SHOT, false);
 	};
 
 }

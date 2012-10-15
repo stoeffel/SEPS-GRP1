@@ -8,7 +8,6 @@ import ch.zhaw.arsphema.util.Sizes;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 
 public class NavigationOverlay extends AbstractSprite {
 	public static final int GAME = 1;
@@ -38,13 +37,14 @@ public class NavigationOverlay extends AbstractSprite {
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX,
 			float ppuY) {
 		if (elapsed >= 5){ 
-			batch.draw(this.getTexture(this.GAME), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			batch.draw(getTexture(GAME), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		} else {
-			batch.draw(this.getTexture(this.START), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			batch.draw(getTexture(START), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		}
 	}
 	@Override
-	public void move(float delta) {
+	public boolean move(float delta) {
+		return true;
 	}
 	@Override
 	public List<Shot> shoot(float delta) {

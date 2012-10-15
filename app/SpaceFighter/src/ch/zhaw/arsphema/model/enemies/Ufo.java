@@ -5,6 +5,7 @@ import java.util.List;
 
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
+import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,7 +14,7 @@ public class Ufo extends AbstractEnemy {
 	private float xMovement = 10;
 	private float yMovement = 3;
 	private float shotVelocity = 80;
-	private float shootFrequency = 3;
+	private float shootFrequency = 5;
 
 	public Ufo(float x, float y, float width, float height,
 			TextureRegion texture) {
@@ -21,9 +22,13 @@ public class Ufo extends AbstractEnemy {
 	}
 	
 	@Override
-	public void move(float delta) {
+	public boolean move(float delta) {
 		x -= xMovement * delta;
+		y -= yMovement * delta;
+		if(y < height || y > Sizes.DEFAULT_WORLD_HEIGHT)
+			yMovement *= -1;
 		//TODO yMovement
+		return x < -width;
 	}
 
 	@Override

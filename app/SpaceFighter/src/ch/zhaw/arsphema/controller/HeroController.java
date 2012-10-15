@@ -26,6 +26,14 @@ public class HeroController extends AbstractController implements
 	public void downPressed() {
 		keys.put(IngameKeys.DOWN, true);
 	}
+	
+	public void shotPressed() {
+		keys.put(IngameKeys.SHOT, true);
+	}
+
+	public void shotReleased() {
+		keys.put(IngameKeys.SHOT, false);
+	}
 
 	public void upReleased() {
 		keys.put(IngameKeys.UP, false);
@@ -46,17 +54,23 @@ public class HeroController extends AbstractController implements
 		if (keys.get(IngameKeys.UP) && !keys.get(IngameKeys.DOWN)) {
 			hero.moveUp();
 		}
-		if (!keys.get(IngameKeys.UP) && keys.get(IngameKeys.DOWN)) {
+		else if (!keys.get(IngameKeys.UP) && keys.get(IngameKeys.DOWN)) {
 			hero.moveDown();
 		}
+		else {
+			hero.stop();
+		}
+		hero.setFire(keys.get(IngameKeys.SHOT));
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.UP)
 			upPressed();
-		if (keycode == Keys.DOWN)
+		else if (keycode == Keys.DOWN)
 			downPressed();
+		else if (keycode == Keys.RIGHT)
+			shotPressed();
 
 		return true;
 	}
@@ -65,8 +79,10 @@ public class HeroController extends AbstractController implements
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.DOWN)
 			downReleased();
-		if (keycode == Keys.UP)
+		else if (keycode == Keys.UP)
 			upReleased();
+		else if (keycode == Keys.RIGHT)
+			shotReleased();
 
 		return true;
 	}

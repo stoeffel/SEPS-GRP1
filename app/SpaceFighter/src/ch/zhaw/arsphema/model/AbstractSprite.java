@@ -1,13 +1,9 @@
-/**
- * 
- */
 package ch.zhaw.arsphema.model;
 
 import java.util.List;
 
 import ch.zhaw.arsphema.model.shot.Shot;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,9 +25,16 @@ public abstract class AbstractSprite extends Rectangle {
 	/*
 	 * ABSTRACT METHODES
 	 */
-	abstract public void move(float delta);
+	/**
+	 * @param delta
+	 * @return true if still alive
+	 */
+	abstract public boolean move(float delta);
+	/**
+	 * @param delta
+	 * @return {@link List} of Shots which were created (null if the object isn't able to shoot, Emptylist if no returns)
+	 */
 	abstract public List<Shot> shoot(float delta);
-	
 	abstract public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY);
 	
 	
