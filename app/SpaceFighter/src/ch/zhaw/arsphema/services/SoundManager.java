@@ -22,8 +22,7 @@ public class SoundManager
     public enum TyrianSound
     {
         SHOT( "sounds/shot.wav" ),
-        DANGER( "sounds/danger.wav" ),
-        SPACE_AMBIENTE( "sounds/SpaceAmbiente.mp3" );
+        DANGER( "sounds/danger.wav" );
 
         private final String fileName;
 
