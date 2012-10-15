@@ -21,12 +21,13 @@ public class SoundManager
      */
     public enum TyrianSound
     {
-        SHOT( "sounds/shot.wav" );
+        SHOT( "sounds/shot.wav" ),
+        DANGER( "sounds/danger.wav" );
 
         private final String fileName;
 
         private TyrianSound(
-            String fileName )
+            String fileName)
         {
             this.fileName = fileName;
         }
@@ -63,9 +64,10 @@ public class SoundManager
 
     /**
      * Plays the specified sound.
+     * @param b 
      */
     public void play(
-        TyrianSound sound )
+        TyrianSound sound, boolean loop )
     {
         // check if the sound is enabled
         if( ! enabled ) return;
@@ -79,9 +81,31 @@ public class SoundManager
         }
 
         // play the sound
-        
-        soundToPlay.play( volume );
+        if (loop){
+        	soundToPlay.loop();
+        } else {
+        	soundToPlay.play( volume );
+        }
     }
+    
+    public void stop(
+            TyrianSound sound )
+        {
+            // check if the sound is enabled
+            if( ! enabled ) return;
+
+            // try and get the sound from the cache
+            Sound soundToPlay = soundCache.get( sound );
+            if( soundToPlay == null ) {
+                FileHandle soundFile = Gdx.files.internal( sound.getFileName() );
+                soundToPlay = Gdx.audio.newSound( soundFile );
+                soundCache.add( sound, soundToPlay );
+            }
+
+            
+            	soundToPlay.stop();
+            
+        }
 
     /**
      * Sets the sound volume which must be inside the range [0,1].
@@ -127,6 +151,6 @@ public class SoundManager
         for( Sound sound : soundCache.retrieveAll() ) {
             sound.stop();
             sound.dispose();
-        }
-    }
+		}
+	}
 }

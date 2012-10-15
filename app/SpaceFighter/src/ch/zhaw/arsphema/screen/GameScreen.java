@@ -10,11 +10,13 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyFactory;
+import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Textures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -34,6 +36,7 @@ public class GameScreen extends AbstractScreen {
 	private EnemyFactory enemyFactory;
 	private float elapsed = 0;
 	private Background bg1,bg2;
+	private OverHeatBar overheatbar;
 	
 	public GameScreen(MyGdxGame game) {
 		super(game);
@@ -54,10 +57,11 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private void loadTextures() {
-		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
-		overlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_SPRITE)));
-		bg1 = new Background(new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS))),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
-		bg2 = new Background(new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS))),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, Textures.HERO);
+		overlay = new NavigationOverlay(Textures.OVERLAY_SPRITE);
+		bg1 = new Background(new TextureRegion(Textures.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg2 = new Background(new TextureRegion(Textures.BACKGROUND_STARS),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		overheatbar = OverHeatBar.getInstance();
 		//TODO create one wide file for background and move with textureregion?
 	}
 
@@ -70,6 +74,8 @@ public class GameScreen extends AbstractScreen {
 		hero.move(delta);
 		heroShots.addAll(hero.shoot(delta));
 		heroSuffering();
+		killEnemies();
+		enemies.addAll(enemyFactory.dropEnemy(delta));
 		
 
 		computeEnemyMovements(delta);
@@ -79,6 +85,11 @@ public class GameScreen extends AbstractScreen {
 		updateShots();
 	}
 
+	private void updateShots() {
+		heroShots.removeAll(shotsToRemove);
+		enemyShots.removeAll(shotsToRemove);
+		shotsToRemove.clear();		
+	}
 
 	private void drawGame(float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0);
@@ -88,13 +99,20 @@ public class GameScreen extends AbstractScreen {
 		bg1.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
 		bg2.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
 		hero.draw(batch,delta, elapsed,ppuX,ppuY);
+		overheatbar.draw(batch,delta, elapsed,ppuX,ppuY);
 
+		for(AbstractEnemy enemy : enemies)
+		{
+			enemy.move(delta);//TODO remove out of view enemies
+		}
 		for(AbstractEnemy enemy : enemies)
 		{
 			enemy.draw(batch, delta, elapsed, ppuX, ppuY);
 		}
 		drawShots(delta);
 		
+		// start overlay is displayed 5 sec
+		if (elapsed >= 5) { 
 		if(showOverlay)
 		{
 			// start overlay is displayed 5 sec
@@ -106,6 +124,8 @@ public class GameScreen extends AbstractScreen {
 			}
 		} else {
 			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
+		} else {
+			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
 		batch.end();
 	}
@@ -173,6 +193,8 @@ public class GameScreen extends AbstractScreen {
 				shotsToRemove.add(shot);
 			}
 		}
+		enemies.removeAll(killedEnemies);
+		killedEnemies.clear();
 	}
 
 	private void updateShots() {
