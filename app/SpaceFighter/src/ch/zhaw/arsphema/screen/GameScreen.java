@@ -14,13 +14,11 @@ import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
-import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Textures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends AbstractScreen {
@@ -173,15 +171,17 @@ public class GameScreen extends AbstractScreen {
 	private void killEnemies() {
 		for(Shot shot : heroShots)
 		{
-			for(AbstractEnemy enemy : enemies)
-			if(shot.overlaps(enemy))
-			{
-				if(enemy.lowerHealth(shot.getDamage())){
-					//TODO enemy is dead... loot him!!! (point berechnung)
-//					enemy.getBasePoints();
-					killedEnemies.add(enemy);
+			for(AbstractEnemy enemy : enemies) {
+				if(shot.overlaps(enemy))
+				{
+					if(enemy.lowerHealth(shot.getDamage())){
+						//TODO enemy is dead... loot him!!! (point berechnung)
+	//					enemy.getBasePoints();
+						killedEnemies.add(enemy);
+					}
+					shotsToRemove.add(shot);
+					continue; // shot can only hit 1 enemy
 				}
-				shotsToRemove.add(shot);
 			}
 		}
 		enemies.removeAll(killedEnemies);
