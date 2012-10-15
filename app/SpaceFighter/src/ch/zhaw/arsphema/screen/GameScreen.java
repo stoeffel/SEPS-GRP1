@@ -75,7 +75,7 @@ public class GameScreen extends AbstractScreen {
 		heroShots.addAll(hero.shoot(delta));
 		heroSuffering();
 		killEnemies();
-		enemies.addAll(enemyFactory.dropEnemy(delta));
+		enemies.addAll(enemyFactory.dropEnemy(delta, elapsed));
 		
 
 		computeEnemyMovements(delta);
@@ -83,12 +83,6 @@ public class GameScreen extends AbstractScreen {
 		enemies.addAll(enemyFactory.dropEnemy(delta, elapsed));
 		controller.update(delta);
 		updateShots();
-	}
-
-	private void updateShots() {
-		heroShots.removeAll(shotsToRemove);
-		enemyShots.removeAll(shotsToRemove);
-		shotsToRemove.clear();		
 	}
 
 	private void drawGame(float delta) {
@@ -112,7 +106,6 @@ public class GameScreen extends AbstractScreen {
 		drawShots(delta);
 		
 		// start overlay is displayed 5 sec
-		if (elapsed >= 5) { 
 		if(showOverlay)
 		{
 			// start overlay is displayed 5 sec
@@ -124,8 +117,6 @@ public class GameScreen extends AbstractScreen {
 			}
 		} else {
 			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
-		} else {
-			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
 		batch.end();
 	}

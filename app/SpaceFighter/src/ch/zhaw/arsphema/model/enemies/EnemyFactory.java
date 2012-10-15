@@ -22,6 +22,7 @@ public class EnemyFactory
     }
     
 	public List<AbstractEnemy> dropEnemy(float delta, float elapsed) {
+		
 		if(dropEnemies)
 		{
 			dropEnemies = false;
