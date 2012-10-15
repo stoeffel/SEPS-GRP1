@@ -32,7 +32,11 @@ public class Background extends AbstractSprite {
 	}
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
+		batch.disableBlending();
+		batch.draw(textureRegion, ppuX * this.x-this.width*ppuX, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.draw(textureRegion, ppuX * this.x+this.width*ppuX, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.enableBlending();
 		this.move(delta);
 	}
 

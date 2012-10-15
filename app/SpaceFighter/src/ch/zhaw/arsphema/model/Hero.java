@@ -32,6 +32,8 @@ public class Hero extends AbstractSprite {
 	
 	private ShotFactory shotFactory;
 	private OverHeatBar overheatbar;
+	private float coolSpeed;
+	private float heatSpeed;
 
 	public Hero(float x, float y, Texture texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
@@ -39,6 +41,9 @@ public class Hero extends AbstractSprite {
 		speed = 66;
 		shootingFrequency = 0.2f;
 		lastShot=0;
+		heatSpeed = 50;
+		coolSpeed = 30;
+		
 		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
 
@@ -118,9 +123,9 @@ public class Hero extends AbstractSprite {
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
 		if (fire){
-			overheatbar.heat(20*delta);
+			overheatbar.heat(heatSpeed*delta);
 		} else {
-			overheatbar.cool(20*delta);
+			overheatbar.cool(coolSpeed*delta);
 		}
 		batch.draw(getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);

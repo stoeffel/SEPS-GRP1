@@ -36,7 +36,7 @@ public class GameScreen extends AbstractScreen {
 	private List<Shot> heroShots, enemyShots, shotsToRemove;
 	private EnemyFactory enemyFactory;
 	private float elapsed = 0;
-	private Background bg1,bg2;
+	private Background bg;
 	private OverHeatBar overheatbar;
 	
 	public GameScreen(MyGdxGame game) {
@@ -63,8 +63,8 @@ public class GameScreen extends AbstractScreen {
 	private void loadTextures() {
 		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, Textures.HERO);
 		overlay = new NavigationOverlay(Textures.OVERLAY_SPRITE);
-		bg1 = new Background(new TextureRegion(Textures.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
-		bg2 = new Background(new TextureRegion(Textures.BACKGROUND_STARS),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg = new Background(new TextureRegion(Textures.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		
 		overheatbar = OverHeatBar.getInstance();
 		//TODO create one wide file for background and move with textureregion?
 	}
@@ -94,8 +94,8 @@ public class GameScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		
-		bg1.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
-		bg2.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
+		bg.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
+		
 		hero.draw(batch,delta, elapsed,ppuX,ppuY);
 		overheatbar.draw(batch,delta, elapsed,ppuX,ppuY);
 
