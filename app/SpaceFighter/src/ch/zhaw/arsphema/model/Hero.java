@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.model;
 import java.util.Collections;
 import java.util.List;
 
+import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.util.Sizes;
@@ -30,6 +31,7 @@ public class Hero extends AbstractSprite {
 	private Animation animation;
 	
 	private ShotFactory shotFactory;
+	private OverHeatBar overheatbar;
 
 	public Hero(float x, float y, Texture texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
@@ -51,6 +53,7 @@ public class Hero extends AbstractSprite {
         animation.setPlayMode(Animation.LOOP);
         
         shotFactory = ShotFactory.getInstance();
+        overheatbar = OverHeatBar.getInstance();
 	}
 
 	public void move(float delta){
@@ -63,7 +66,7 @@ public class Hero extends AbstractSprite {
 
 	@Override
 	public List<Shot> shoot(float delta) {
-		if (fire && lastShot > shootingFrequency) {
+		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
 			lastShot = 0;
 			return Collections.singletonList(ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false));
 		}
@@ -114,6 +117,11 @@ public class Hero extends AbstractSprite {
 	
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
+		if (fire){
+			overheatbar.heat(20*delta);
+		} else {
+			overheatbar.cool(20*delta);
+		}
 		batch.draw(getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 	}

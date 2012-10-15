@@ -15,6 +15,7 @@ public class Paths {
 	public static final String BUTTON_FONT = "skin/buttonfont.fnt";
 	
 	// SHOTS
+	public static final String OVERHEATBAR = "images/shot/overheatbar.png";
 	public static final String SHOT = "images/shot/shot.png";
 
 	// BACKGROUNDS

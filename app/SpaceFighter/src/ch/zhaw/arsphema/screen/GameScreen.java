@@ -10,11 +10,13 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyFactory;
+import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Textures;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -33,6 +35,7 @@ public class GameScreen extends AbstractScreen {
 	private EnemyFactory enemyFactory;
 	private float elapsed = 0;
 	private Background bg1,bg2;
+	private OverHeatBar overheatbar;
 	
 	public GameScreen(MyGdxGame game) {
 		super(game);
@@ -53,10 +56,11 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private void loadTextures() {
-		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, new Texture(Gdx.files.internal(Paths.HERO)));
-		overlay = new NavigationOverlay(new Texture(Gdx.files.internal(Paths.OVERLAY_SPRITE)));
-		bg1 = new Background(new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS))),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
-		bg2 = new Background(new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS))),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, Textures.HERO);
+		overlay = new NavigationOverlay(Textures.OVERLAY_SPRITE);
+		bg1 = new Background(new TextureRegion(Textures.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg2 = new Background(new TextureRegion(Textures.BACKGROUND_STARS),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		overheatbar = OverHeatBar.getInstance();
 		//TODO create one wide file for background and move with textureregion?
 	}
 
@@ -89,6 +93,7 @@ public class GameScreen extends AbstractScreen {
 		bg1.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
 		bg2.draw(batch,delta, elapsed,ppuX,ppuY); // draw Background
 		hero.draw(batch,delta, elapsed,ppuX,ppuY);
+		overheatbar.draw(batch,delta, elapsed,ppuX,ppuY);
 
 		for(AbstractEnemy enemy : enemies)
 		{
