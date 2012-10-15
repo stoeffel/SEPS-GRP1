@@ -97,9 +97,9 @@ public class HeroController extends AbstractController implements
 		if (x <= width / 2) {
 			leftPointer = pointer;
 			if (y <= height / 2) {
-				touchedRegion(LEFT_BOTTOM);
-			} else {
 				touchedRegion(LEFT_TOP);
+			} else {
+				touchedRegion(LEFT_BOTTOM);
 			}
 		} else {
 			rightPointer = pointer;
@@ -113,9 +113,9 @@ public class HeroController extends AbstractController implements
 		if (x <= width / 2) {
 			leftPointer = -1;
 			if (y <= height / 2) {
-				touchedRegionEnd(LEFT_BOTTOM);
-			} else {
 				touchedRegionEnd(LEFT_TOP);
+			} else {
+				touchedRegionEnd(LEFT_BOTTOM);
 			}
 		} else {
 			rightPointer = -1;
@@ -128,9 +128,11 @@ public class HeroController extends AbstractController implements
 	public boolean touchDragged(int x, int y, int pointer) {
 		if (x <= width / 2 && pointer == leftPointer) {
 			if (y <= height / 2) {
-				touchedRegion(LEFT_BOTTOM);
-			} else {
+				touchedRegionEnd(LEFT_BOTTOM);
 				touchedRegion(LEFT_TOP);
+			} else {
+				touchedRegionEnd(LEFT_TOP);
+				touchedRegion(LEFT_BOTTOM);
 			}
 		} else if (x > width / 2 && pointer == rightPointer) {
 
@@ -155,13 +157,13 @@ public class HeroController extends AbstractController implements
 	private void touchedRegion(int pos) {
 		switch (pos) {
 		case LEFT_TOP:
-			hero.moveDown();
+			upPressed();
 			break;
 		case LEFT_BOTTOM:
-			hero.moveUp();
+			downPressed();
 			break;
 		case RIGHT:
-			hero.setFire(true);
+			shotPressed();
 			break;
 		default:
 			break;
@@ -171,12 +173,14 @@ public class HeroController extends AbstractController implements
 	private void touchedRegionEnd(int pos) {
 		switch (pos) {
 		case LEFT_TOP:
+			upReleased();
+			break;
 		case LEFT_BOTTOM:
-			hero.stop();
+			downReleased();
 			break;
 
 		case RIGHT:
-			hero.setFire(false);
+			shotReleased();
 			break;
 		default:
 			break;

@@ -14,6 +14,7 @@ import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
+import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Textures;
 
@@ -52,6 +53,10 @@ public class GameScreen extends AbstractScreen {
 		enemyFactory = EnemyFactory.getInstance();
 		Gdx.input.setInputProcessor(controller);
 		Services.setSoundManager(new SoundManager());
+		Services.setSoundManager(new SoundManager());
+		Services.getSoundManager().setVolume(0.05f);
+		Services.getSoundManager().play(TyrianSound.SPACE_AMBIENTE,true);
+		Services.getSoundManager().setVolume(1f);
 	}
 
 	private void loadTextures() {

@@ -22,7 +22,8 @@ public class SoundManager
     public enum TyrianSound
     {
         SHOT( "sounds/shot.wav" ),
-        DANGER( "sounds/danger.wav" );
+        DANGER( "sounds/danger.wav" ),
+        SPACE_AMBIENTE( "sounds/SpaceAmbiente.mp3" );
 
         private final String fileName;
 
@@ -82,7 +83,7 @@ public class SoundManager
 
         // play the sound
         if (loop){
-        	soundToPlay.loop();
+        	soundToPlay.loop( volume );
         } else {
         	soundToPlay.play( volume );
         }
