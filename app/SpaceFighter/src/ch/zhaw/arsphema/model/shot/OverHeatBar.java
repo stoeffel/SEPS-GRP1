@@ -63,7 +63,7 @@ public class OverHeatBar extends AbstractSprite {
 		if (this.getLevel() < 10) {
 			this.setLevel(this.getLevel() + speed * Gdx.graphics.getDeltaTime());
 		} else {
-			
+			this.setLevel(10);
 			setOverheated(true);
 		}
 		
@@ -73,8 +73,9 @@ public class OverHeatBar extends AbstractSprite {
 		if (this.getLevel() > 0) {
 			this.setLevel(this.getLevel() - speed * Gdx.graphics.getDeltaTime());
 		} else {
-			setOverheated(false);
+			this.setLevel(0);
 		}
+		setOverheated(false);
 	}
 
 	public boolean isOverheated() {
