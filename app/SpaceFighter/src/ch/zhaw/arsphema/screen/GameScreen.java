@@ -56,7 +56,7 @@ public class GameScreen extends AbstractScreen {
 		Gdx.input.setInputProcessor(controller);
 		Services.setSoundManager(new SoundManager());
 		Services.setMusicManager(new MusicManager());
-		Services.getMusicManager().setVolume(0.05f);
+		Services.getMusicManager().setVolume(0.5f);
 		Services.getMusicManager().play(TyrianMusic.SPACE_AMBIENTE);
 	}
 
