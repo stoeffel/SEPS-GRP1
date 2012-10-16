@@ -73,7 +73,7 @@ public class Hero extends AbstractSprite {
 	public List<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
 			lastShot = 0;
-			return Collections.singletonList(ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false));
+			return Collections.singletonList(ShotFactory.getInstance().createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false));
 		}
 		lastShot += delta;
 		return Collections.emptyList();

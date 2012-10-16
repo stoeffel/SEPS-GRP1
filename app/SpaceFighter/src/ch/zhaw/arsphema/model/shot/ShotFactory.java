@@ -12,7 +12,7 @@ public class ShotFactory
     {
     }
     
-    public static void createInstance()
+    private static void createInstance()
     {
         instance = new ShotFactory();
     }
@@ -20,7 +20,6 @@ public class ShotFactory
     public static ShotFactory getInstance()
     {
     	if (instance == null){
-    		loadTextures();
     		createInstance();
     	}
         return instance;
@@ -28,17 +27,12 @@ public class ShotFactory
 
     
     //SHOT LASER
-    public static Shot createShot(float x, float y, int type, boolean isEnemyShot)
+    public Shot createShot(float x, float y, int type, boolean isEnemyShot)
     {
     	//@stoeffel: type?
     	Shot shot = new Shot(x, y, isEnemyShot);
     	shot.setTexture(Textures.SHOT);
         return shot;
     }
-
-    
-	public static void loadTextures(){
-		
-	}
 
 }

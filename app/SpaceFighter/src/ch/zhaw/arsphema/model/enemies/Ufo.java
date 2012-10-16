@@ -36,7 +36,7 @@ public class Ufo extends AbstractEnemy {
 		shootFrequency -= delta;
 		if(shootFrequency < 0)
 		{
-			final List<Shot> shot = Collections.singletonList(ShotFactory.createShot(x - shotVelocity * delta, y, 0, true));
+			final List<Shot> shot = Collections.singletonList(ShotFactory.getInstance().createShot(x - shotVelocity * delta, y, 0, true));
 			shootFrequency = 3;
 			return shot;
 		}
