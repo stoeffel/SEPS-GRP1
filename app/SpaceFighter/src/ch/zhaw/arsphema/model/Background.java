@@ -5,7 +5,6 @@ import java.util.List;
 
 import ch.zhaw.arsphema.model.shot.Shot;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -18,11 +17,12 @@ public class Background extends AbstractSprite {
 	}
 
 	@Override
-	public void move(float delta) {
+	public boolean move(float delta) {
 		this.x -= this.speed * delta;
 		if ( this.width < (-1)*this.x){
 			this.x = this.width;
 		}
+		return true;
 	}
 
 	@Override
@@ -32,7 +32,11 @@ public class Background extends AbstractSprite {
 	}
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
+		batch.disableBlending();
+		batch.draw(textureRegion, ppuX * this.x-this.width*ppuX, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.draw(textureRegion, ppuX * this.x+this.width*ppuX, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.enableBlending();
 		this.move(delta);
 	}
 

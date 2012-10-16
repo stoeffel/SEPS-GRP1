@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.model;
 import java.util.Collections;
 import java.util.List;
 
+import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.util.Sizes;
@@ -30,6 +31,9 @@ public class Hero extends AbstractSprite {
 	private Animation animation;
 	
 	private ShotFactory shotFactory;
+	private OverHeatBar overheatbar;
+	private float coolSpeed;
+	private float heatSpeed;
 
 	public Hero(float x, float y, Texture texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
@@ -37,6 +41,9 @@ public class Hero extends AbstractSprite {
 		speed = 66;
 		shootingFrequency = 0.2f;
 		lastShot=0;
+		heatSpeed = 50;
+		coolSpeed = 30;
+		
 		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
 
@@ -50,20 +57,21 @@ public class Hero extends AbstractSprite {
         animation = new Animation(0.005f, frames);
         animation.setPlayMode(Animation.LOOP);
         
-        shotFactory = ShotFactory.getInstance();
+        overheatbar = OverHeatBar.getInstance();
 	}
 
-	public void move(float delta){
+	public boolean move(float delta){
 		if (movingUp){
 			this.move(UP, delta);
 		} else if (movingDown) {
 			this.move(DOWN, delta);
 		}
+		return true;
 	}
 
 	@Override
 	public List<Shot> shoot(float delta) {
-		if (fire && lastShot > shootingFrequency) {
+		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
 			lastShot = 0;
 			return Collections.singletonList(ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false));
 		}
@@ -114,6 +122,11 @@ public class Hero extends AbstractSprite {
 	
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
+		if (fire){
+			overheatbar.heat(heatSpeed*delta);
+		} else {
+			overheatbar.cool(coolSpeed*delta);
+		}
 		batch.draw(getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 	}

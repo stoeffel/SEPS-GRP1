@@ -28,7 +28,7 @@ public class Shot extends AbstractSprite {
 	public Shot(float x, float y, boolean isEnemyShot) {
 		super(x,y, 1f, 1f, null);
 		this.isEnemyShot = isEnemyShot;
-		Services.getSoundManager().play(TyrianSound.SHOT);
+		Services.getSoundManager().play(TyrianSound.SHOT,false);
 		this.setTexture(Textures.SHOT);
 	}
 	public int getDamage() {
@@ -67,8 +67,9 @@ public class Shot extends AbstractSprite {
 		}
 	}
 	@Override
-	public void move(float delta) {
+	public boolean move(float delta) {
 		x += speed * delta;
+		return true;
 	}
 	@Override
 	public List<Shot> shoot(float delta) {

@@ -1,5 +1,6 @@
 package ch.zhaw.arsphema.model.enemies;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,10 +10,9 @@ import ch.zhaw.arsphema.util.Sizes;
 
 public class EnemyFactory
 {
+	private boolean dropEnemies = false;
 	private static EnemyFactory instance;
-    private EnemyFactory(){
-    	/*Singleton*/
-    }
+    private EnemyFactory(){/*Singleton*/}
     
     public static EnemyFactory getInstance()
     {
@@ -21,24 +21,37 @@ public class EnemyFactory
     	return instance;
     }
     
-    public static AbstractEnemy createUfo()
+	public List<AbstractEnemy> dropEnemy(float delta, float elapsed) {
+		
+		if(dropEnemies)
+		{
+			dropEnemies = false;
+			return createUfoGroup();
+		}
+		return Collections.emptyList();
+	}
+	
+	private List<AbstractEnemy> createUfoGroup()
+	{
+		List<AbstractEnemy> ufos = new ArrayList<AbstractEnemy>();
+		ufos.add(createUfo(0));
+		ufos.add(createUfo(2));
+		ufos.add(createUfo(4));
+		ufos.add(createUfo(6));
+		return ufos;
+	}
+    
+    private AbstractEnemy createUfo(float x)
     {
     	//TODO y
-    	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT / 2, 
+    	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH + x, Sizes.DEFAULT_WORLD_HEIGHT / 2, 
     			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO);
     	return ufo;
     }
+
     
-    private float dropEnemy = 5;
-	public List<AbstractEnemy> dropEnemy(float delta) {
-		dropEnemy -= delta;
-		if(dropEnemy <= 0)
-		{
-			//TODO randomize (list?)
-			dropEnemy = 5f;
-			return Collections.singletonList(createUfo());
-		}
-		return Collections.emptyList();
+	public void setDropEnemies(boolean dropEnemies) {
+		this.dropEnemies = dropEnemies;
 	}
 
 }

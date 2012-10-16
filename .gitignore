@@ -19,3 +19,5 @@ local.properties
 /app/out
 app/SpaceFighter/.project
 app/SpaceFighter/.classpath
+
+.metadata/
