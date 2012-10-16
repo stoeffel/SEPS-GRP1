@@ -18,9 +18,9 @@ public class Background extends AbstractSprite {
 
 	@Override
 	public boolean move(float delta) {
-		this.x -= this.speed * delta;
-		if ( this.width < (-1)*this.x){
-			this.x = this.width;
+		x -= speed * delta;
+		if ( x < -width){
+			x = width;
 		}
 		return true;
 	}
@@ -33,11 +33,16 @@ public class Background extends AbstractSprite {
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
 		batch.disableBlending();
-		batch.draw(textureRegion, ppuX * this.x-this.width*ppuX, ppuY * this.y, ppuX * this.width, ppuY * this.height);
-		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
-		batch.draw(textureRegion, ppuX * this.x+this.width*ppuX, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		
+		batch.draw(textureRegion, ppuX * x, ppuY * y, ppuX * width, ppuY * height);
+		
+		if (x > 0){
+			batch.draw(textureRegion, ppuX * x-width*ppuX, ppuY * y, ppuX * width, ppuY * height);
+		} else {
+			batch.draw(textureRegion, ppuX * x+width*ppuX, ppuY * y, ppuX * width, ppuY * height);
+		}
 		batch.enableBlending();
-		this.move(delta);
+		move(delta);
 	}
 
 }
