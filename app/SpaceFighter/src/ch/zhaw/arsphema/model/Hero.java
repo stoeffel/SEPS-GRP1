@@ -1,17 +1,14 @@
 package ch.zhaw.arsphema.model;
 
-import java.util.Collections;
-import java.util.List;
-
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.util.Sizes;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public class Hero extends AbstractSprite {
 	private static final long serialVersionUID = 1L;
@@ -30,16 +27,16 @@ public class Hero extends AbstractSprite {
 	private TextureRegion[] frames;
 	private Animation animation;
 	
-	private ShotFactory shotFactory;
 	private OverHeatBar overheatbar;
 
-	public Hero(float x, float y, Texture texture) {
-		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
+	public Hero(float x, float y, TextureRegion texture) {
+		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
 		health = 3;
 		speed = 66;
 		shootingFrequency = 0.2f;
 		lastShot=0;
-		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
+		TextureRegion[][] tmp = TextureRegion.split(texture.getTexture(), 
+				texture.getTexture().getWidth() / COLS, texture.getTexture().getHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
 
 		int index = 3;
@@ -65,13 +62,18 @@ public class Hero extends AbstractSprite {
 	}
 
 	@Override
-	public List<Shot> shoot(float delta) {
+	public Array<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
 			lastShot = 0;
-			return Collections.singletonList(ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false));
+			overheatbar.heat(10); // no need of delta, since it's regulated by shootingFrequency ;)
+			return ShotFactory.createShotInArray(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false);
+		}
+		else if (!fire)
+		{
+			overheatbar.cool(30 * delta);
 		}
 		lastShot += delta;
-		return Collections.emptyList();
+		return null;
 	}
 
 	public void moveUp() {
@@ -116,14 +118,9 @@ public class Hero extends AbstractSprite {
 	}
 	
 	
-	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
-		if (fire){
-			overheatbar.heat(20*delta);
-		} else {
-			overheatbar.cool(20*delta);
-		}
-		batch.draw(getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
-		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		batch.draw(getKeyFrame(0, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.draw(this.getKeyFrame(0, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 	}
 
 	public void setFire(boolean fire) {
