@@ -22,13 +22,13 @@ public class Renderer {
 	private boolean showOverlay = true;
 	private NavigationOverlay overlay;
 	private OverHeatBar overheatbar;
-	private Background bg1, bg2;
+	private Background bg;
     
-    public Renderer(Background bg1, Background bg2)
+    public Renderer(Background bg)
     {
-        this.batch = new SpriteBatch();
-        this.bg1 = bg1;
-        this.bg2 = bg2;
+        batch = new SpriteBatch();
+        this.bg = bg;
+        
 		loadTextures();
     }
     
@@ -82,8 +82,8 @@ public class Renderer {
     public void drawMisc(final float elapsed)
     {
 		batch.begin();
-		bg1.draw(batch, ppuX, ppuY); // draw Background
-		bg2.draw(batch, ppuX, ppuY); // draw Background
+		bg.draw(batch, ppuX, ppuY); // draw Background
+		
 		overheatbar.draw(batch, ppuX, ppuY);
 
 		// start overlay is displayed 5 sec

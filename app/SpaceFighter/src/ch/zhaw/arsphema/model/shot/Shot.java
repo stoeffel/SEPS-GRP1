@@ -8,7 +8,9 @@ import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -19,14 +21,32 @@ public class Shot extends AbstractSprite {
 	private static final int ROWS = 2;
 	private int damage = 1;
 	private float speed = 160; //TODO in constructor? not every shot should be equally fast
+	
+	private float animationStateTime = 0f;
 	private TextureRegion[] frames;
+	private Animation animation;
+	
 	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
+	
 	
 	public Shot(float x, float y, boolean isEnemyShot) {
 		super(x,y, 1f, 1f, TextureRegions.SHOT);
 		this.isEnemyShot = isEnemyShot;
 		Services.getSoundManager().play(TyrianSound.SHOT,false);
+		
+		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
+		frames = new TextureRegion[COLS * ROWS];
+
+		int index = 0;
+        for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLS; j++) {
+                	
+                        frames[index++] = tmp[i][j];
+                }
+        }
+        animation = new Animation(2f, frames);
+        animation.setPlayMode(Animation.LOOP_RANDOM);
 	}
 	
 	public int getDamage() {
@@ -45,24 +65,11 @@ public class Shot extends AbstractSprite {
 		this.speed = speed;
 	}
 
-	public void setTexture(Texture texture) {
-		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
-		frames = new TextureRegion[COLS * ROWS];
 
-		int index = 0;
-        for (int i = 0; i < ROWS; i++) {
-                for (int j = 0; j < COLS; j++) {
-                	
-                        frames[index++] = tmp[i][j];
-                }
-        }
-        Random ran = new Random();
-        this.textureRegion = frames[ran.nextInt(ROWS*COLS)];
-	}
-	
 	public void draw(SpriteBatch batch, float ppuX,
 			float ppuY) {
-		batch.draw(this.getTextureRegion(), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		animationStateTime += Gdx.graphics.getDeltaTime();
+		batch.draw(animation.getKeyFrame(animationStateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		if (this.x > Sizes.DEFAULT_WORLD_WIDTH) {
 			shouldBeRemoved = true;
 		}

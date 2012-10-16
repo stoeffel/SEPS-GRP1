@@ -33,9 +33,9 @@ public class EnemyFactory
 	{
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
 		ufos.add(createUfo(0));
-		ufos.add(createUfo(2));
-		ufos.add(createUfo(4));
-		ufos.add(createUfo(6));
+		ufos.add(createUfo(Sizes.UFO_WIDTH + 1));
+		ufos.add(createUfo(Sizes.UFO_WIDTH*2 + 1));
+		ufos.add(createUfo(Sizes.UFO_WIDTH*3 + 1));
 		return ufos;
 	}
     

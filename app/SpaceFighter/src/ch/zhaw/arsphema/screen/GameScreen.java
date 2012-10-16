@@ -21,7 +21,7 @@ public class GameScreen extends AbstractScreen {
 	private ShotManager shotManager;
 	private EnemyManager enemyManager;
 	private Renderer renderer;
-	private Background bg1, bg2;
+	private Background bg;
 	private float elapsed = 0;
 	
 	public GameScreen(MyGdxGame game) {
@@ -34,9 +34,9 @@ public class GameScreen extends AbstractScreen {
 		controller = new HeroController(hero);
 		shotManager = new ShotManager();
 		enemyManager = new EnemyManager();
-		bg1 = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
-		bg2 = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),bg1.getWidth(),0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
-		renderer = new Renderer(bg1, bg2);
+		bg = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		
+		renderer = new Renderer(bg);
 		Gdx.input.setInputProcessor(controller);
 		Services.setSoundManager(new SoundManager());
 	}
@@ -53,8 +53,8 @@ public class GameScreen extends AbstractScreen {
 	public void render(float delta) {
 		elapsed += delta;
 		
-		bg1.move(delta);
-		bg2.move(delta);
+		bg.move(delta);
+		
 		//draw stuff and so
 		renderer.cleanScreen();
 		renderer.drawMisc(elapsed);

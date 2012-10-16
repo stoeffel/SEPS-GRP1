@@ -16,23 +16,32 @@ public class Background extends AbstractSprite {
 		speed = 50;
 	}
 
+	/**
+	 * moves the stars and places the texture at the of the screen if it reaches the end
+	 */
 	@Override
 	public boolean move(float delta) {
-		this.x -= this.speed * delta;
-		if ( this.width < (-1)*this.x){
-			this.x = this.width;
+		x -= speed * delta;
+		if ( x < -width){
+			x = width;
 		}
 		return true;
 	}
 
 	@Override
-	public Array<Shot> shoot(float delta) {
-		return null; // not used
-
-	}
+	public Array<Shot> shoot(float delta) {return null; /*not used*/}
 	
+	/**
+	 * draws the texture two times, to simulate a endless universe
+	 */
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.draw(textureRegion, ppuX * x, ppuY * y, ppuX * width, ppuY * height);
+		if (x > 0) {
+			batch.draw(textureRegion, ppuX * x-width*ppuX, ppuY * y, ppuX * width, ppuY * height);
+		} else {
+			batch.draw(textureRegion, ppuX * x+width*ppuX, ppuY * y, ppuX * width, ppuY * height);
+		}
+		
 	}
 
 }
