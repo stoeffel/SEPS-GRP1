@@ -1,11 +1,9 @@
 package ch.zhaw.arsphema.model.enemies;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import ch.zhaw.arsphema.util.EnemyTextures;
 import ch.zhaw.arsphema.util.Sizes;
+
+import com.badlogic.gdx.utils.Array;
 
 
 public class EnemyFactory
@@ -21,19 +19,19 @@ public class EnemyFactory
     	return instance;
     }
     
-	public List<AbstractEnemy> dropEnemy(float delta, float elapsed) {
+	public Array<AbstractEnemy> dropEnemy(float delta, float elapsed) {
 		
 		if(dropEnemies)
 		{
 			dropEnemies = false;
 			return createUfoGroup();
 		}
-		return Collections.emptyList();
+		return null;
 	}
 	
-	private List<AbstractEnemy> createUfoGroup()
+	private Array<AbstractEnemy> createUfoGroup()
 	{
-		List<AbstractEnemy> ufos = new ArrayList<AbstractEnemy>();
+		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
 		ufos.add(createUfo(0));
 		ufos.add(createUfo(Sizes.UFO_WIDTH + 1));
 		ufos.add(createUfo(Sizes.UFO_WIDTH*2 + 1));

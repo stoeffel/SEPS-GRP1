@@ -36,7 +36,9 @@ public class LRUCache<K, V>
         final int maxEntries )
     {
         cache = new LinkedHashMap<K,V>( maxEntries + 1, .75F, true ) {
-            public boolean removeEldestEntry(
+			private static final long serialVersionUID = 1L;
+
+			public boolean removeEldestEntry(
                 Map.Entry<K,V> eldest )
             {
                 if( size() > maxEntries ) {
