@@ -6,6 +6,7 @@ import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -18,7 +19,7 @@ public class OverHeatBar extends AbstractSprite {
 
 	private OverHeatBar(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.OVERHEATBAR_WIDTH, Sizes.OVERHEATBAR_HEIGHT, texture);
-		this.level =100;
+		this.level =0;
 		this.overheated = false;
 	}
 	
@@ -47,7 +48,7 @@ public class OverHeatBar extends AbstractSprite {
 
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(textureRegion.getTexture(), x * ppuX, y * ppuY, width * ppuX, height * ppuY,0,0,(int)width/level,(int)height);
+		batch.draw(textureRegion.getTexture(), x * ppuX, y * ppuY, width * ppuX * level, height * ppuY);
 	}
 
 	public float getLevel() {
@@ -59,20 +60,21 @@ public class OverHeatBar extends AbstractSprite {
 	}
 
 	public void heat(float speed) {
-		if (this.getLevel() > 0.1f) {
-			this.setLevel(this.getLevel() - 1 * speed);
+		if (this.getLevel() < 10) {
+			this.setLevel(this.getLevel() + speed * Gdx.graphics.getDeltaTime());
 		} else {
-			this.setLevel(0.1f);
+			
 			setOverheated(true);
 		}
 		
 	}
 	
 	public void cool(float speed) {
-		if (this.getLevel() < 100)
-			this.setLevel(this.getLevel() + 1 * speed);
-		else this.setLevel(100);
-		setOverheated(false);
+		if (this.getLevel() > 0) {
+			this.setLevel(this.getLevel() - speed * Gdx.graphics.getDeltaTime());
+		} else {
+			setOverheated(false);
+		}
 	}
 
 	public boolean isOverheated() {

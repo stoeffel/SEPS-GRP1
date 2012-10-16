@@ -29,6 +29,8 @@ public class Hero extends AbstractSprite {
 	private Animation animation;
 	
 	private OverHeatBar overheatbar;
+	private float coolSpeed;
+	private float heatSpeed;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -36,6 +38,8 @@ public class Hero extends AbstractSprite {
 		speed = 66;
 		shootingFrequency = 0.2f;
 		lastShot=0;
+		coolSpeed = 2;
+		heatSpeed = 5;
 		TextureRegion[][] tmp = texture.split( 
 				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
@@ -65,12 +69,14 @@ public class Hero extends AbstractSprite {
 	public Array<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
 			lastShot = 0;
-			overheatbar.heat(10); // no need of delta, since it's regulated by shootingFrequency ;)
 			return ShotFactory.createShotInArray(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false);
 		}
-		else if (!fire)
+		if (!fire)
 		{
-			overheatbar.cool(30 * delta);
+			overheatbar.cool(coolSpeed);
+		} else {
+			overheatbar.heat(heatSpeed); // no need of delta, since it's regulated by shootingFrequency ;)
+			// sorry but i need the delta, because i have to update the bar every time
 		}
 		lastShot += delta;
 		return null;
