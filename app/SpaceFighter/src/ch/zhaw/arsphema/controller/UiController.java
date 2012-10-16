@@ -5,6 +5,7 @@ import ch.zhaw.arsphema.screen.MainMenuScreen;
 import ch.zhaw.arsphema.util.Buttons;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
@@ -12,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 /**
  * InputProcessor für das Userinterface ausserhalb des Gamescreens
  */
-public class UiController extends AbstractController {
+public class UiController extends AbstractController implements InputProcessor {
 
     //todo rsp - Eventuell wäre es besser den AbstractController als implementation von Inputprocessor zu verwenden - mit Stöffel besprechen.
 

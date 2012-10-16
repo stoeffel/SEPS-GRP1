@@ -15,6 +15,6 @@ public class Sizes {
 	public static final float UFO_WIDTH = 3.64f;
 	public static final float UFO_HEIGHT = 5;
 	public static final float OVERHEATBAR_HEIGHT = 1.25f;
-	public static final float OVERHEATBAR_WIDTH = 15;
+	public static final float OVERHEATBAR_WIDTH = 1;
 
 }

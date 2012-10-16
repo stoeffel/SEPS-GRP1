@@ -1,16 +1,15 @@
 package ch.zhaw.arsphema.model.enemies;
 
-import java.util.Collections;
-import java.util.List;
-
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public class Ufo extends AbstractEnemy {
+	private static final long serialVersionUID = -8679196122359337868L;
 	private float xMovement = 10;
 	private float yMovement = 3;
 	private float shotVelocity = 80;
@@ -32,20 +31,19 @@ public class Ufo extends AbstractEnemy {
 	}
 
 	@Override
-	public List<Shot> shoot(float delta) {
+	public Array<Shot> shoot(float delta) {
 		shootFrequency -= delta;
 		if(shootFrequency < 0)
 		{
-			final List<Shot> shot = Collections.singletonList(ShotFactory.createShot(x - shotVelocity * delta, y, 0, true));
+			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, 0, true);
 			shootFrequency = 3;
 			return shot;
 		}
-		return Collections.emptyList();
+		return null;
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX,
-			float ppuY) {
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 

@@ -1,17 +1,15 @@
 package ch.zhaw.arsphema.model;
 
-import java.util.Collections;
-import java.util.List;
-
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.util.Sizes;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public class Hero extends AbstractSprite {
 	private static final long serialVersionUID = 1L;
@@ -26,35 +24,33 @@ public class Hero extends AbstractSprite {
 	private boolean movingDown = false;
 	private boolean fire = false;
 	
-	
+	private float animationStateTime = 0f;
 	private TextureRegion[] frames;
 	private Animation animation;
 	
-	private ShotFactory shotFactory;
 	private OverHeatBar overheatbar;
 	private float coolSpeed;
 	private float heatSpeed;
 
-	public Hero(float x, float y, Texture texture) {
-		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
+	public Hero(float x, float y, TextureRegion texture) {
+		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
 		health = 3;
 		speed = 66;
 		shootingFrequency = 0.2f;
 		lastShot=0;
-		heatSpeed = 50;
-		coolSpeed = 30;
-		
-		TextureRegion[][] tmp = TextureRegion.split(texture, texture.getWidth() / COLS, texture.getHeight() / ROWS);
+		coolSpeed = 2;
+		heatSpeed = 5;
+		TextureRegion[][] tmp = texture.split( 
+				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
 		frames = new TextureRegion[COLS * ROWS];
 
 		int index = 3;
         for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLS; j++) {
-                	
                         frames[index--] = tmp[i][j];
                 }
         }
-        animation = new Animation(0.005f, frames);
+        animation = new Animation(0.05f, frames);
         animation.setPlayMode(Animation.LOOP);
         
         overheatbar = OverHeatBar.getInstance();
@@ -70,13 +66,20 @@ public class Hero extends AbstractSprite {
 	}
 
 	@Override
-	public List<Shot> shoot(float delta) {
+	public Array<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
 			lastShot = 0;
-			return Collections.singletonList(ShotFactory.createShot(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false));
+			return ShotFactory.createShotInArray(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false);
+		}
+		if (!fire)
+		{
+			overheatbar.cool(coolSpeed);
+		} else {
+			overheatbar.heat(heatSpeed); // no need of delta, since it's regulated by shootingFrequency ;)
+			// sorry but i need the delta, because i have to update the bar every time
 		}
 		lastShot += delta;
-		return Collections.emptyList();
+		return null;
 	}
 
 	public void moveUp() {
@@ -114,21 +117,11 @@ public class Hero extends AbstractSprite {
 		this.stopped = stopped;
 		this.movingUp = false;
 		this.movingDown = false;
-	}
-
-	public TextureRegion getKeyFrame(float elapsed, boolean b) {
-		return this.animation.getKeyFrame(elapsed,b);
-	}
+	}	
 	
-	
-	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
-		if (fire){
-			overheatbar.heat(heatSpeed*delta);
-		} else {
-			overheatbar.cool(coolSpeed*delta);
-		}
-		batch.draw(getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
-		batch.draw(this.getKeyFrame(elapsed, true), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		animationStateTime += Gdx.graphics.getDeltaTime();
+		batch.draw(animation.getKeyFrame(animationStateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 	}
 
 	public void setFire(boolean fire) {

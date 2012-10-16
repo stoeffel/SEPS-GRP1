@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.screen;
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.util.Buttons;
 import ch.zhaw.arsphema.util.Paths;
+import ch.zhaw.arsphema.util.Sizes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -43,7 +44,7 @@ public class MainMenuScreen extends UiScreen {
         style.font = new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false);
         style.fontColor = Color.DARK_GRAY;
         style.pressedOffsetY = 1f;
-        style.up = new NinePatch(new Texture(Gdx.files.internal(Paths.BUTTON_TEXTURE)), 3, 3, 3, 3);
+        style.up = new NinePatch(new Texture(Gdx.files.internal(Paths.BUTTON_TEXTURE)), 8, 8, 8, 8);
 
         //Buttons
         TextButton startButton = new TextButton("Start Game", style, Buttons.BUTTON_GAME_START);
@@ -65,7 +66,7 @@ public class MainMenuScreen extends UiScreen {
 
     private void addTextButton(TextButton button) {
         table.row();
-        table.add(button).height(40).width(200).pad(5);
+        table.add(button).width(Sizes.BUTTON_WIDTH).pad(5);
     }
 
     @Override

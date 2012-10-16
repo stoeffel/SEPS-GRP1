@@ -82,7 +82,7 @@ public class SoundManager
 
         // play the sound
         if (loop){
-        	soundToPlay.loop( volume );
+        	soundToPlay.loop();
         } else {
         	soundToPlay.play( volume );
         }
