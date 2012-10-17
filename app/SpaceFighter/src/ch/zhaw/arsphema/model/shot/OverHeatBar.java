@@ -13,19 +13,27 @@ import com.badlogic.gdx.utils.Array;
 
 public class OverHeatBar extends AbstractSprite {
 	private static final long serialVersionUID = 7293341756258539914L;
+	private static final int COLS = 1;
+	private static final int ROWS = 2;
 	private static OverHeatBar instance;
 	private float level;
 	private boolean overheated;
-
+	private TextureRegion[][] regions;
+	private TextureRegion border;
+	private TextureRegion bar;
+	
 	private OverHeatBar(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.OVERHEATBAR_WIDTH, Sizes.OVERHEATBAR_HEIGHT, texture);
 		this.level =0;
 		this.overheated = false;
+		regions = texture.split(texture.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
+		bar = regions[1][0];
+		border = regions[0][0];
 	}
 	
 	private static void createInstance()
     {
-        instance = new OverHeatBar(3 * Sizes.DEFAULT_WORLD_WIDTH / 4 - Sizes.OVERHEATBAR_WIDTH / 2, Sizes.DEFAULT_WORLD_HEIGHT -2, TextureRegions.OVERHEATBAR);
+        instance = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH / 4, 2, TextureRegions.OVERHEATBAR);
     }
     
     public static OverHeatBar getInstance()
@@ -48,7 +56,8 @@ public class OverHeatBar extends AbstractSprite {
 
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(textureRegion.getTexture(), x * ppuX, y * ppuY, width * ppuX * level, height * ppuY);
+		batch.draw(bar, x * ppuX, y * ppuY, width * ppuX * level, height * ppuY);
+		batch.draw(border, x * ppuX, y * ppuY, (width) * ppuX * 10, (height) * ppuY);
 	}
 
 	public float getLevel() {
