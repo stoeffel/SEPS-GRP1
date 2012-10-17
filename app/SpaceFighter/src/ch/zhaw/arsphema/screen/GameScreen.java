@@ -6,8 +6,10 @@ import ch.zhaw.arsphema.controller.HeroController;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
+import ch.zhaw.arsphema.services.MusicManager;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
+import ch.zhaw.arsphema.util.Musics;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
@@ -39,6 +41,9 @@ public class GameScreen extends AbstractScreen {
 		renderer = new Renderer(bg);
 		Gdx.input.setInputProcessor(controller);
 		Services.setSoundManager(new SoundManager());
+		Services.setMusicManager(new MusicManager());
+		Services.getMusicManager().setVolume(0.25f); // TODO set volume in preference screen
+		Services.getMusicManager().play(Musics.AMBIENTE);
 	}
 
 	@Override

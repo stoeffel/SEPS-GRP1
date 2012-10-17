@@ -20,5 +20,11 @@ public class Paths {
 
 	// BACKGROUNDS
 	public static final String BACKGROUND_STARS = "images/worlds/stars.png";
-
+	
+	// MUSIC
+	public static final String MUSIC_AMBIENTE = "sounds/SpaceAmbiente.mp3";
+	
+	// SOUNDS
+	public static final String SFX_SHOT = "sounds/shot.wav";
+	public static final String SFX_DANGER = "sounds/danger.wav";
 }

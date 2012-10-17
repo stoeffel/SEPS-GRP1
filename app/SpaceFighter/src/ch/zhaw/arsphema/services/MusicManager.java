@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.services;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -15,27 +16,7 @@ public class MusicManager
     implements
         Disposable
 {
-    /**
-     * The available music files.
-     */
-    public enum TyrianMusic
-    {
-        SPACE_AMBIENTE( "sounds/SpaceAmbiente.mp3" );
-
-        private final String fileName;
-
-        private TyrianMusic(
-            String fileName )
-        {
-            this.fileName = fileName;
-        }
-
-        public String getFileName()
-        {
-            return fileName;
-        }
-    }
-
+    
     /**
      * Holds the music currently being played, if any.
      */
@@ -64,7 +45,7 @@ public class MusicManager
      * If there is already a music being played it is stopped automatically.
      */
     public void play(
-        TyrianMusic music )
+    		Music music )
     {
         // check if the music is enabled
         if( ! enabled ) return;
@@ -74,8 +55,8 @@ public class MusicManager
         stop();
 
         // start streaming the new music
-        FileHandle musicFile = Gdx.files.internal( music.getFileName() );
-        musicBeingPlayed = Gdx.audio.newMusic( musicFile );
+        
+        musicBeingPlayed = music;
         musicBeingPlayed.setVolume( volume );
         musicBeingPlayed.setLooping( true );
         musicBeingPlayed.play();

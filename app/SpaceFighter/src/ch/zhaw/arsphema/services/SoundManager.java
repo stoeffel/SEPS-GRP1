@@ -1,11 +1,10 @@
 package ch.zhaw.arsphema.services;
-import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
-import ch.zhaw.arsphema.util.LRUCache;
-import ch.zhaw.arsphema.util.LRUCache.CacheEntryRemovedListener;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 /**
@@ -13,31 +12,9 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public class SoundManager
     implements
-        CacheEntryRemovedListener<TyrianSound,Sound>,
         Disposable
 {
-    /**
-     * The available sound files.
-     */
-    public enum TyrianSound
-    {
-        SHOT( "sounds/shot.wav" ),
-        DANGER( "sounds/danger.wav" );
-
-        private final String fileName;
-
-        private TyrianSound(
-            String fileName)
-        {
-            this.fileName = fileName;
-        }
-
-        public String getFileName()
-        {
-            return fileName;
-        }
-    }
-
+    
     /**
      * The volume to be set on the sound.
      */
@@ -48,18 +25,14 @@ public class SoundManager
      */
     private boolean enabled = true;
 
-    /**
-     * The sound cache.
-     */
-    private final LRUCache<TyrianSound,Sound> soundCache;
+    private Array<Sound> soundsPlaying;
 
     /**
      * Creates the sound manager.
      */
     public SoundManager()
     {
-        soundCache = new LRUCache<SoundManager.TyrianSound,Sound>( 10 );
-        soundCache.setEntryRemovedListener( this );
+    	soundsPlaying = new Array<Sound>();
     }
 
     /**
@@ -67,44 +40,28 @@ public class SoundManager
      * @param b 
      */
     public void play(
-        TyrianSound sound, boolean loop )
+    		Sound sound, boolean loop )
     {
         // check if the sound is enabled
         if( ! enabled ) return;
 
-        // try and get the sound from the cache
-        Sound soundToPlay = soundCache.get( sound );
-        if( soundToPlay == null ) {
-            FileHandle soundFile = Gdx.files.internal( sound.getFileName() );
-            soundToPlay = Gdx.audio.newSound( soundFile );
-            soundCache.add( sound, soundToPlay );
-        }
-
+        soundsPlaying.add(sound);
+        
         // play the sound
         if (loop){
-        	soundToPlay.loop();
+        	sound.loop();
         } else {
-        	soundToPlay.play( volume );
+        	sound.play( volume );
         }
     }
     
     public void stop(
-            TyrianSound sound )
+            Sound sound )
         {
             // check if the sound is enabled
             if( ! enabled ) return;
-
-            // try and get the sound from the cache
-            Sound soundToPlay = soundCache.get( sound );
-            if( soundToPlay == null ) {
-                FileHandle soundFile = Gdx.files.internal( sound.getFileName() );
-                soundToPlay = Gdx.audio.newSound( soundFile );
-                soundCache.add( sound, soundToPlay );
-            }
-
-            
-            	soundToPlay.stop();
-            
+            sound.stop();
+            soundsPlaying.removeValue(sound, false);
         }
 
     /**
@@ -131,26 +88,17 @@ public class SoundManager
         this.enabled = enabled;
     }
 
-    // EntryRemovedListener implementation
-
-    @Override
-    public void notifyEntryRemoved(
-        TyrianSound key,
-        Sound value )
-    {
-        
-        value.dispose();
-    }
-
+    
     /**
      * Disposes the sound manager.
      */
     public void dispose()
     {
         
-        for( Sound sound : soundCache.retrieveAll() ) {
+        for( Sound sound : soundsPlaying ) {
             sound.stop();
             sound.dispose();
+            soundsPlaying.removeValue(sound, false);
 		}
 	}
 }

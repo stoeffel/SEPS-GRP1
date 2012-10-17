@@ -2,8 +2,8 @@ package ch.zhaw.arsphema.model.shot;
 
 import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.services.SoundManager.TyrianSound;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
@@ -84,9 +84,9 @@ public class OverHeatBar extends AbstractSprite {
 
 	private void setOverheated(boolean overheated) {
 		if (overheated && !isOverheated()) {
-			Services.getSoundManager().play(TyrianSound.DANGER, true);
+			Services.getSoundManager().play(Sounds.DANGER, true);
 		} else if (!overheated && isOverheated()) {
-			Services.getSoundManager().stop(TyrianSound.DANGER);
+			Services.getSoundManager().stop(Sounds.DANGER);
 		}
 			
 		this.overheated = overheated;
