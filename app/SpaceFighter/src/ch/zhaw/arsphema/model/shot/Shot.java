@@ -1,12 +1,13 @@
 package ch.zhaw.arsphema.model.shot;
 
+import java.util.Random;
+
 import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.TextureRegions;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,12 +20,11 @@ public class Shot extends AbstractSprite {
 	private int damage = 1;
 	private float speed = 160; //TODO in constructor? not every shot should be equally fast
 	
-	private float animationStateTime = 0f;
-	private TextureRegion[] frames;
-	private Animation animation;
-	
+	private TextureRegion[] regions;
+		
 	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
+	private int whichColor;
 	
 	
 	public Shot(float x, float y, boolean isEnemyShot) {
@@ -33,17 +33,15 @@ public class Shot extends AbstractSprite {
 		Services.getSoundManager().play(Sounds.SHOT,false);
 		
 		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
-		frames = new TextureRegion[COLS * ROWS];
+		regions = new TextureRegion[COLS * ROWS];
 
 		int index = 0;
         for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLS; j++) {
-                	
-                        frames[index++] = tmp[i][j];
+                	regions[index++] = tmp[i][j];
                 }
         }
-        animation = new Animation(2f, frames);
-        animation.setPlayMode(Animation.LOOP_RANDOM);
+        whichColor = new Random().nextInt(regions.length-1);
 	}
 	
 	public int getDamage() {
@@ -65,16 +63,15 @@ public class Shot extends AbstractSprite {
 
 	public void draw(SpriteBatch batch, float ppuX,
 			float ppuY) {
-		animationStateTime += Gdx.graphics.getDeltaTime();
-		batch.draw(animation.getKeyFrame(animationStateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
-		if (this.x > Sizes.DEFAULT_WORLD_WIDTH) {
-			shouldBeRemoved = true;
-		}
+		batch.draw(regions[whichColor], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 	}
 	
 	@Override
 	public boolean move(float delta) {
 		x += speed * delta;
+		if (this.x > Sizes.DEFAULT_WORLD_WIDTH) {
+			shouldBeRemoved = true;
+		}
 		return true;
 	}
 	
