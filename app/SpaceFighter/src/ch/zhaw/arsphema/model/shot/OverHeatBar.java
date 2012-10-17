@@ -21,6 +21,7 @@ public class OverHeatBar extends AbstractSprite {
 	private TextureRegion[][] regions;
 	private TextureRegion border;
 	private TextureRegion bar;
+
 	
 	private OverHeatBar(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.OVERHEATBAR_WIDTH, Sizes.OVERHEATBAR_HEIGHT, texture);
@@ -29,11 +30,12 @@ public class OverHeatBar extends AbstractSprite {
 		regions = texture.split(texture.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
 		bar = regions[1][0];
 		border = regions[0][0];
+
 	}
 	
 	private static void createInstance()
     {
-        instance = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH / 4, 2, TextureRegions.OVERHEATBAR);
+        instance = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, 2, TextureRegions.OVERHEATBAR);
     }
     
     public static OverHeatBar getInstance()
@@ -56,8 +58,8 @@ public class OverHeatBar extends AbstractSprite {
 
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(bar, x * ppuX, y * ppuY, width * ppuX * level, height * ppuY);
-		batch.draw(border, x * ppuX, y * ppuY, (width) * ppuX * 10, (height) * ppuY);
+		batch.draw(bar, x * ppuX, y * ppuY,0,0, width * ppuX * level, height * ppuY,1,1,90f);
+		batch.draw(border, x * ppuX, y * ppuY,0,0, (width) * ppuX * 10, (height) * ppuY,1,1,90f);
 	}
 
 	public float getLevel() {

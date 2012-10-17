@@ -27,4 +27,6 @@ public class Paths {
 	// SOUNDS
 	public static final String SFX_SHOT = "sounds/shot.wav";
 	public static final String SFX_DANGER = "sounds/danger.wav";
+
+	public static final String PLANETS = "images/planets/planets.png";
 }

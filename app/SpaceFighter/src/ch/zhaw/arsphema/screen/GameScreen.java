@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.screen;
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.controller.EnemyManager;
 import ch.zhaw.arsphema.controller.HeroController;
+import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
@@ -22,6 +23,7 @@ public class GameScreen extends AbstractScreen {
 	private HeroController controller;
 	private ShotManager shotManager;
 	private EnemyManager enemyManager;
+	private PlanetManager planetManager;
 	private Renderer renderer;
 	private Background bg;
 	private float elapsed = 0;
@@ -36,6 +38,7 @@ public class GameScreen extends AbstractScreen {
 		controller = new HeroController(hero);
 		shotManager = new ShotManager();
 		enemyManager = new EnemyManager();
+		planetManager = new PlanetManager();
 		bg = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
 		
 		renderer = new Renderer(bg);
@@ -62,7 +65,7 @@ public class GameScreen extends AbstractScreen {
 		
 		//draw stuff and so
 		renderer.cleanScreen();
-		renderer.drawMisc(elapsed);
+		renderer.drawMisc(elapsed,planetManager);
 		renderer.drawEnemies(enemyManager);
 		renderer.drawHero(hero);
 		renderer.drawShots(shotManager);
@@ -82,6 +85,10 @@ public class GameScreen extends AbstractScreen {
 		shotManager.cleanUpShots();
 		//user input
 		controller.update(delta);
+		
+		//planet stuff
+		planetManager.movePlanets(delta);
+		planetManager.cleanUpPlanets();
 	}
 
 	@Override

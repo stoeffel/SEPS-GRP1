@@ -15,6 +15,8 @@ public class TextureRegions {
 
 	// BACKGROUNDS
 	public static final TextureRegion BACKGROUND_STARS;
+
+	public static final TextureRegion PLANETS;
 	
 	static {
 		HERO = new TextureRegion(new Texture(Gdx.files.internal(Paths.HERO)));
@@ -22,5 +24,6 @@ public class TextureRegions {
 		OVERHEATBAR = new TextureRegion(new Texture(Gdx.files.internal(Paths.OVERHEATBAR)));
 		SHOT = new TextureRegion(new Texture(Gdx.files.internal(Paths.SHOT)));
 		BACKGROUND_STARS = new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)));
+		PLANETS = new TextureRegion(new Texture(Gdx.files.internal(Paths.PLANETS)));
 	}
 }

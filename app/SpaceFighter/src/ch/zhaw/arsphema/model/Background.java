@@ -13,7 +13,7 @@ public class Background extends AbstractSprite {
 
 	public Background(TextureRegion texture, float x, float y, float width, float height) {
 		super(x, y, width, height, texture);
-		speed = 50;
+		speed = 5;
 	}
 
 	/**

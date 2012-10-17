@@ -1,10 +1,12 @@
 package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.controller.EnemyManager;
+import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
+import ch.zhaw.arsphema.model.Planet;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
@@ -79,11 +81,22 @@ public class Renderer {
 		batch.end();
     }
     
-    public void drawMisc(final float elapsed)
+    public void drawMisc(final float elapsed, PlanetManager planetManager)
     {
 		batch.begin();
 		bg.draw(batch, ppuX, ppuY); // draw Background
 		
+		// draw planets
+		for (final Planet planet : planetManager.getPlanets()) 
+		{
+			planet.draw(batch, ppuX, ppuY);
+			if (planet.shouldBeRemoved()) {
+				planetManager.getPlanetsToRemove().add(planet);
+			}
+		}
+		planetManager.createPlanet(elapsed);
+		
+		// draw overheatbar
 		overheatbar.draw(batch, ppuX, ppuY);
 
 		// start overlay is displayed 5 sec
