@@ -1,5 +1,7 @@
 package ch.zhaw.arsphema.controller;
 
+import java.util.Comparator;
+
 import ch.zhaw.arsphema.model.Planet;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
@@ -9,7 +11,7 @@ import com.badlogic.gdx.utils.Array;
 public class PlanetManager {
 	private Array<Planet> planets, planetsToRemove;
 	
-	private float lastTime,minInterval, maxInterval;
+	private float lastTime, nextTime, minInterval, maxInterval;
 
 	private int maxPlanets;
 
@@ -22,12 +24,13 @@ public class PlanetManager {
 	{
 		planets = new Array<Planet>();
 		planetsToRemove = new Array<Planet>();
-		minInterval = 2.5f;
-		maxInterval = 15.5f;
+		minInterval = 10;
+		maxInterval = 30;
 		maxPlanets = 3;
 		minRadius = 10f;
 		maxRadius = 40f;
 		lastTime = 0f;
+		nextTime = getRand(minInterval, maxInterval);
 	}
 
 	public void cleanUpPlanets() {
@@ -71,12 +74,24 @@ public class PlanetManager {
 	
 	public void createPlanet(float elapsed) {
 		if (planets.size < maxPlanets) { 
-			if (elapsed-lastTime > getRand(minInterval, maxInterval) || elapsed-lastTime > maxInterval){
+			if (elapsed-lastTime > nextTime || elapsed-lastTime > maxInterval){
 				lastTime = elapsed;
 				float r = getRand(minRadius, maxRadius);
 				Planet planet = new Planet(Sizes.DEFAULT_WORLD_WIDTH + r , getRand(0, Sizes.DEFAULT_WORLD_HEIGHT), r, r, TextureRegions.PLANETS);
-				planet.setSpeed(r); // um so kleiner um so weiter weg langsamer
+				planet.setSpeed(r/4); // um so kleiner um so weiter weg langsamer
 				planets.add(planet);
+				planets.sort(new Comparator<Planet>() {
+					
+					@Override
+					public int compare(Planet p1, Planet p2) {
+						if (p1.getWidth() < p2.getWidth()) {
+							return -1;
+						} else {
+							return 1;
+						}
+					}
+				});
+				nextTime = getRand(minInterval, maxInterval);
 			}
 		}
 		
