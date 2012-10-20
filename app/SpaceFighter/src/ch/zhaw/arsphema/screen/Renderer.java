@@ -99,7 +99,6 @@ public class Renderer {
 		// draw overheatbar
 		overheatbar.draw(batch, ppuX, ppuY);
 
-		// start overlay is displayed 5 sec
 		if(showOverlay)
 		{
 			// start overlay is displayed 5 sec

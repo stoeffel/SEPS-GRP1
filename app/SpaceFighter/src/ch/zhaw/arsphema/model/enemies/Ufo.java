@@ -1,5 +1,7 @@
 package ch.zhaw.arsphema.model.enemies;
 
+import java.util.Random;
+
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.util.Sizes;
@@ -13,8 +15,9 @@ public class Ufo extends AbstractEnemy {
 	private float xMovement = 10;
 	private float yMovement = 3;
 	private float shotVelocity = 80;
-	private float shootFrequency = 5;
-
+	private float shootFrequency = 2;
+	private Random shotRandom = new Random();
+	
 	public Ufo(float x, float y, float width, float height,
 			TextureRegion texture) {
 		super(x, y, width, height, texture);
@@ -36,7 +39,7 @@ public class Ufo extends AbstractEnemy {
 		if(shootFrequency < 0)
 		{
 			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, 0, true);
-			shootFrequency = 3;
+			shootFrequency = 1 + (3 * shotRandom.nextFloat());
 			return shot;
 		}
 		return null;

@@ -8,7 +8,6 @@ import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.TextureRegions;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -30,6 +29,8 @@ public class Shot extends AbstractSprite {
 	public Shot(float x, float y, boolean isEnemyShot) {
 		super(x,y, 1f, 1f, TextureRegions.SHOT);
 		this.isEnemyShot = isEnemyShot;
+		if(isEnemyShot)
+			speed *= -1;
 		Services.getSoundManager().play(Sounds.SHOT,false);
 		
 		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);

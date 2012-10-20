@@ -52,7 +52,14 @@ public class EnemyManager {
 		killedEnemies.clear();
 	}
 
-	
+	public void enemyShooting(final ShotManager shotManager, final float delta) {
+		for(final AbstractEnemy enemy : enemies)
+		{
+			final Array<Shot> tempShot = enemy.shoot(delta);
+			if(tempShot != null)
+				shotManager.getEnemyShots().addAll(tempShot);
+		}
+	}
 	
 	public Array<AbstractEnemy> getEnemies() 
 	{
@@ -83,5 +90,6 @@ public class EnemyManager {
 	public static void deactivateEnemyFactory(){
 		enemyFactory.setDropEnemies(false);
 	}
+
 	
 }

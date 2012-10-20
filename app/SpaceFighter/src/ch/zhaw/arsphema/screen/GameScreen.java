@@ -73,11 +73,14 @@ public class GameScreen extends AbstractScreen {
 		//hero stuff
 		hero.move(delta);
 		shotManager.heroShoots(hero.shoot(delta));
-		shotManager.heroSuffering(hero);
+		if(shotManager.heroSuffering(hero)){
+			game.gameOver();
+		}
 		
 		//enemy stuff
 		enemyManager.killEnemies(shotManager);// first kill, then move and create new
 		enemyManager.computeEnemyMovements(delta);
+		enemyManager.enemyShooting(shotManager, delta);
 		enemyManager.dropEnemies(delta, elapsed);
 		
 		//shot stuff

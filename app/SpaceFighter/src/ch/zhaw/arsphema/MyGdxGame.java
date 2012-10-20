@@ -23,6 +23,10 @@ public class MyGdxGame extends Game {
 
         setScreen(mainMenuScreen);
     }
+    
+    public void gameOver() {
+    	setScreen(mainMenuScreen);
+    }
 
     public MainMenuScreen getMainMenuScreen() {
         return mainMenuScreen;
