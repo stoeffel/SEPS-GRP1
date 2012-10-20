@@ -29,22 +29,23 @@ public class ShotFactory
     }
 
     //SHOT LASER
-    private static Shot createShot(float x, float y, int type, boolean isEnemyShot)
+    private static Shot createShot(final float x, final float y, final float speed, final int type, final boolean isEnemyShot)
     {
     	//@stoeffel: type?
-    	Shot shot = new Shot(x, y, isEnemyShot);
+    	Shot shot = new Shot(x, y, isEnemyShot, speed);
     	shot.setTextureRegion(TextureRegions.SHOT);
         return shot;
     }
     
     
     private static Array<Shot> reuseArray = new Array<Shot>();
-    public static Array<Shot> createShotInArray(float x, float y, int type, boolean isEnemyShot)
+    public static Array<Shot> createShotInArray(float x, float y, final float speed, int type, boolean isEnemyShot)
     {
     	reuseArray.clear();
-    	reuseArray.add(createShot(x, y, type, isEnemyShot));
+    	reuseArray.add(createShot(x, y, speed, type, isEnemyShot));
     	return reuseArray;
     }
+    
 
     
 	public static void loadTextures(){

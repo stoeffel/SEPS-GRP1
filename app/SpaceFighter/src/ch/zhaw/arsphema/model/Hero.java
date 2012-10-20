@@ -31,6 +31,7 @@ public class Hero extends AbstractSprite {
 	private OverHeatBar overheatbar;
 	private float coolSpeed;
 	private float heatSpeed;
+	private float shootSpeed = 160;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -69,7 +70,7 @@ public class Hero extends AbstractSprite {
 	public Array<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
 			lastShot = 0;
-			return ShotFactory.createShotInArray(this.x + this.width, this.y+this.height/3, ShotFactory.STANDARD, false);
+			return ShotFactory.createShotInArray(x + width, y + height/3, shootSpeed, ShotFactory.STANDARD, false);
 		}
 		if (!fire)
 		{

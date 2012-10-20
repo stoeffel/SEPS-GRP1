@@ -39,6 +39,7 @@ public class ShotManager {
 					System.out.println("you're dead");
 					return true;
 				}
+				shotsToRemove.add(shot);
 			}
 		}
 		return false;

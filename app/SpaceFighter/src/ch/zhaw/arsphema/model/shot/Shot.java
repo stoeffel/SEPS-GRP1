@@ -17,7 +17,7 @@ public class Shot extends AbstractSprite {
 	private static final int COLS = 2;
 	private static final int ROWS = 2;
 	private int damage = 1;
-	private float speed = 160; //TODO in constructor? not every shot should be equally fast
+	private float speed;
 	
 	private TextureRegion[] regions;
 		
@@ -26,11 +26,10 @@ public class Shot extends AbstractSprite {
 	private int whichColor;
 	
 	
-	public Shot(float x, float y, boolean isEnemyShot) {
+	public Shot(float x, float y, boolean isEnemyShot, final float speed) {
 		super(x,y, 1f, 1f, TextureRegions.SHOT);
 		this.isEnemyShot = isEnemyShot;
-		if(isEnemyShot)
-			speed *= -1;
+		this.speed = speed;
 		Services.getSoundManager().play(Sounds.SHOT,false);
 		
 		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
@@ -57,11 +56,6 @@ public class Shot extends AbstractSprite {
 		return speed;
 	}
 	
-	public void setSpeed(float speed) {
-		this.speed = speed;
-	}
-
-
 	public void draw(SpriteBatch batch, float ppuX,
 			float ppuY) {
 		batch.draw(regions[whichColor], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
@@ -85,6 +79,9 @@ public class Shot extends AbstractSprite {
 		
 		return shouldBeRemoved;
 	}
-	
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
 
 }

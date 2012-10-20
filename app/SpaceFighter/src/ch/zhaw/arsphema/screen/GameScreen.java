@@ -60,7 +60,11 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		elapsed += delta;
-		
+		//check memory usage
+//		long memTotal = Runtime.getRuntime().totalMemory();
+//		long memFree = Runtime.getRuntime().freeMemory();
+//		long memUsage = memTotal - memFree;
+//		System.out.println("Memory: t: " + memTotal + " f: " + memFree + " u: " + memUsage);
 		bg.move(delta);
 		
 		//draw stuff and so
@@ -78,6 +82,7 @@ public class GameScreen extends AbstractScreen {
 		}
 		
 		//enemy stuff
+		//TODO killEnemies returns points earned, handle them!
 		enemyManager.killEnemies(shotManager);// first kill, then move and create new
 		enemyManager.computeEnemyMovements(delta);
 		enemyManager.enemyShooting(shotManager, delta);

@@ -10,6 +10,7 @@ public class EnemyManager {
 
 	private Array<AbstractEnemy> enemies, killedEnemies;
 	private static EnemyFactory enemyFactory;
+	private static boolean dropEnemies = false;
 	
 	public EnemyManager()
 	{
@@ -27,21 +28,26 @@ public class EnemyManager {
 		removeEnemies();
 	}
 	
-	public void killEnemies(final ShotManager shotManager) {
+	/**
+	 * @param shotManager
+	 * @return points earned in this round
+	 */
+	public int killEnemies(final ShotManager shotManager) {
+		int totalPoints = 0;
 		for(Shot shot : shotManager.getHeroShots())
 		{
 			for(AbstractEnemy enemy : enemies)
 			if(shot.overlaps(enemy))
 			{
 				if(enemy.lowerHealth(shot.getDamage())){
-					//TODO enemy is dead... loot him!!! (point berechnung)
-//					enemy.getBasePoints();
+					totalPoints += enemy.getBasePoints();
 					killedEnemies.add(enemy);
 				}
 				shotManager.getShotsToRemove().add(shot);
 			}
 		}
 		removeEnemies();
+		return totalPoints;
 	}
 
 	private void removeEnemies() {
@@ -58,6 +64,29 @@ public class EnemyManager {
 			final Array<Shot> tempShot = enemy.shoot(delta);
 			if(tempShot != null)
 				shotManager.getEnemyShots().addAll(tempShot);
+		}
+	}
+
+	private float nextEnemyToDrop = 0;
+	public void dropEnemies(float delta, float elapsed) {
+		if (dropEnemies) {
+			if(nextEnemyToDrop <= 0) {
+				addEnemies(delta);
+				// check elapsed time for next enemy set to drop 
+				// now after 100 sec every 0.5 sec new enemy should appear (approach is linea)
+				nextEnemyToDrop = 5 - (elapsed * 5 / 1000 % 100);
+				if(nextEnemyToDrop < 0.5f)
+					nextEnemyToDrop = 0.5f;
+			} else {
+				nextEnemyToDrop -= delta;
+			}
+		}
+	}
+
+	private void addEnemies(final float delta) {
+		final Array<AbstractEnemy> newEnemies = enemyFactory.createUfoGroup();
+		if (newEnemies != null) {
+			enemies.addAll(newEnemies);
 		}
 	}
 	
@@ -78,18 +107,11 @@ public class EnemyManager {
 		this.killedEnemies = killedEnemies;
 	}
 
-	public void dropEnemies(float delta, float elapsed) {
-		final Array<AbstractEnemy> newEnemies = enemyFactory.dropEnemy(delta, elapsed);
-		if(newEnemies != null)
-			enemies.addAll(newEnemies);		
-	}
-
 	public static void activateEnemyFactory(){
-		enemyFactory.setDropEnemies(true);
+		dropEnemies = true;
 	}
 	public static void deactivateEnemyFactory(){
-		enemyFactory.setDropEnemies(false);
+		dropEnemies = false;
 	}
-
 	
 }

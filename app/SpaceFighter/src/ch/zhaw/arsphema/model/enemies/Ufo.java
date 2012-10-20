@@ -14,7 +14,7 @@ public class Ufo extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private float xMovement = 10;
 	private float yMovement = 3;
-	private float shotVelocity = 80;
+	protected float shotVelocity = -80;
 	private float shootFrequency = 2;
 	private Random shotRandom = new Random();
 	
@@ -38,7 +38,7 @@ public class Ufo extends AbstractEnemy {
 		shootFrequency -= delta;
 		if(shootFrequency < 0)
 		{
-			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, 0, true);
+			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, shotVelocity, 0, true);
 			shootFrequency = 1 + (3 * shotRandom.nextFloat());
 			return shot;
 		}
