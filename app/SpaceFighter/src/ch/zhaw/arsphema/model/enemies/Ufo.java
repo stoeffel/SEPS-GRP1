@@ -21,6 +21,7 @@ public class Ufo extends AbstractEnemy {
 	public Ufo(float x, float y, float width, float height,
 			TextureRegion texture) {
 		super(x, y, width, height, texture);
+		resetShotFrequency();
 	}
 	
 	@Override
@@ -39,10 +40,14 @@ public class Ufo extends AbstractEnemy {
 		if(shootFrequency < 0)
 		{
 			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, shotVelocity, 0, true);
-			shootFrequency = 1 + (3 * shotRandom.nextFloat());
+			resetShotFrequency();
 			return shot;
 		}
 		return null;
+	}
+	
+	private void resetShotFrequency(){
+		shootFrequency = 1 + (5 * shotRandom.nextFloat());
 	}
 
 	@Override

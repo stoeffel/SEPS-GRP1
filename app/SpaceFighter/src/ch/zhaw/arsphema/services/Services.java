@@ -19,5 +19,10 @@ public class Services {
 	public static void setMusicManager(MusicManager musicManager) {
 		Services.musicManager = musicManager;
 	}
+
+	public static void turnOffSound() {
+		soundManager.dispose();
+		musicManager.dispose();
+	}
 	
 }

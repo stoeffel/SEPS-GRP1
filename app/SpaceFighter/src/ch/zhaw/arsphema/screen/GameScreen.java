@@ -78,12 +78,14 @@ public class GameScreen extends AbstractScreen {
 		hero.move(delta);
 		shotManager.heroShoots(hero.shoot(delta));
 		if(shotManager.heroSuffering(hero)){
+			
 			game.gameOver();
+			Services.turnOffSound();
 		}
 		
 		//enemy stuff
 		//TODO killEnemies returns points earned, handle them!
-		enemyManager.killEnemies(shotManager);// first kill, then move and create new
+		int points = enemyManager.killEnemies(shotManager);// first kill, then move and create new
 		enemyManager.computeEnemyMovements(delta);
 		enemyManager.enemyShooting(shotManager, delta);
 		enemyManager.dropEnemies(delta, elapsed);
