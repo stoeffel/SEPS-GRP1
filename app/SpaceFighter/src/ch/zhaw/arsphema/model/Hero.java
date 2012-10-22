@@ -19,7 +19,7 @@ public class Hero extends AbstractSprite {
 	private static final int UP = 1;
 	private static final int DOWN = -1;
 	
-	private static final int ROWS = 4;
+	private static final int ROWS = 1;
 	private static final int COLS = 1;
 	
 	private boolean stopped = true;
@@ -28,7 +28,7 @@ public class Hero extends AbstractSprite {
 	private boolean fire = false;
 	
 	private float animationStateTime = 0f;
-	private TextureRegion[] frames;
+	private TextureRegion[] textures;
 	private Animation animation;
 	
 	private OverHeatBar overheatbar;
@@ -37,7 +37,9 @@ public class Hero extends AbstractSprite {
 	private float shootSpeed = 160;
 	private boolean isHurt = false;
 	private boolean emitterStarted = false;
-	private Array<ParticleEmitter> emitters;
+	private Array<ParticleEmitter> emitters_burn_baby_burn;
+	private Array<ParticleEmitter> emitters_jet;
+	private TextureRegion currentTexture;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -49,23 +51,27 @@ public class Hero extends AbstractSprite {
 		heatSpeed = 5;
 		TextureRegion[][] tmp = texture.split( 
 				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
-		frames = new TextureRegion[COLS * ROWS];
+		textures = new TextureRegion[COLS * ROWS];
 
-		int index = 3;
+		int index = 0;
         for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLS; j++) {
-                        frames[index--] = tmp[i][j];
+                        textures[index++] = tmp[i][j];
                 }
         }
-        animation = new Animation(0.05f, frames);
-        animation.setPlayMode(Animation.LOOP);
+        currentTexture = textures[0];
         
         overheatbar = OverHeatBar.getInstance();
         
-        emitters = new Array(Effects.EXPLOSION_1.getEmitters());
+        emitters_burn_baby_burn = new Array(Effects.EXPLOSION_1.getEmitters());
 		
-		Effects.EXPLOSION_1.getEmitters().add(emitters.get(0));
+		Effects.EXPLOSION_1.getEmitters().add(emitters_burn_baby_burn.get(0));
         
+		emitters_jet = new Array(Effects.JET.getEmitters());
+		
+		Effects.JET.getEmitters().add(emitters_jet.get(0));
+		emitters_jet.get(0).start();
+		
 	}
 
 	public boolean move(float delta){
@@ -132,8 +138,10 @@ public class Hero extends AbstractSprite {
 	}	
 	
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		animationStateTime += Gdx.graphics.getDeltaTime();
-		batch.draw(animation.getKeyFrame(animationStateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		
+		Effects.JET.setPosition( (x)*ppuX,(y+height/2)*ppuY );
+		Effects.JET.draw(batch, Gdx.graphics.getDeltaTime());
+		batch.draw(currentTexture, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		if (isHurt){
 			showExplotion(batch, Gdx.graphics.getDeltaTime(),ppuX, ppuY);
 		}
@@ -151,16 +159,16 @@ public class Hero extends AbstractSprite {
 	}
 	
 	private void showExplotion(SpriteBatch batch, float delta, float ppuX, float ppuY){
-		if (emitters.get(0).isComplete()){
+		if (emitters_burn_baby_burn.get(0).isComplete()){
 			isHurt = false;
-			emitters.get(0).reset();
+			emitters_burn_baby_burn.get(0).reset();
 			emitterStarted = false;
 			return;
 		}
 		Effects.EXPLOSION_1.setPosition( (x+width/2)*ppuX,(y+height)*ppuY );
 
 		if (!emitterStarted){
-			emitters.get(0).start();
+			emitters_burn_baby_burn.get(0).start();
 			emitterStarted = true;
 		}
 

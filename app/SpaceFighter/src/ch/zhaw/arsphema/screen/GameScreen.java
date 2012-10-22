@@ -30,7 +30,7 @@ public class GameScreen extends AbstractScreen {
 	
 	public GameScreen(MyGdxGame game) {
 		super(game);
-		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
+		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH/10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
 	}
 
 	@Override
