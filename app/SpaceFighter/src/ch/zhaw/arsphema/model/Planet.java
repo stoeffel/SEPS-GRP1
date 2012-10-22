@@ -4,6 +4,7 @@ import java.util.Random;
 
 import ch.zhaw.arsphema.model.shot.Shot;
 
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -14,6 +15,7 @@ public class Planet extends AbstractSprite {
 	private static final int COLS = 3;
 	private TextureRegion[] planets;
 	private int whichPlanet;
+
 	private boolean shouldBeRemoved;
 
 	public Planet(float x, float y, float width, float height,
@@ -29,6 +31,8 @@ public class Planet extends AbstractSprite {
                 }
         }
         whichPlanet = new Random().nextInt(planets.length-1);
+        planets[whichPlanet].getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        
 	}
 
 	/**
@@ -57,7 +61,7 @@ public class Planet extends AbstractSprite {
 
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(planets[whichPlanet], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.draw(planets[whichPlanet], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuX * this.height);
 	}
 
 }

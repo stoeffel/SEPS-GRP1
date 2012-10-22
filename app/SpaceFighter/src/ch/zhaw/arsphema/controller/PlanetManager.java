@@ -25,7 +25,7 @@ public class PlanetManager {
 		planets = new Array<Planet>();
 		planetsToRemove = new Array<Planet>();
 		minInterval = 10;
-		maxInterval = 60;
+		maxInterval = 30;
 		maxPlanets = 3;
 		minRadius = 5f;
 		maxRadius = 25f;

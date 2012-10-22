@@ -17,7 +17,6 @@ public class OverHeatBar extends AbstractSprite {
 	private static final int ROWS = 2;
 	private static OverHeatBar instance;
 	private float level;
-	private boolean overheated;
 	private TextureRegion[][] regions;
 	private TextureRegion border;
 	private TextureRegion bar;
@@ -26,7 +25,6 @@ public class OverHeatBar extends AbstractSprite {
 	private OverHeatBar(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.OVERHEATBAR_WIDTH, Sizes.OVERHEATBAR_HEIGHT, texture);
 		this.level =0;
-		this.overheated = false;
 		regions = texture.split(texture.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
 		bar = regions[1][0];
 		border = regions[0][0];
@@ -73,9 +71,13 @@ public class OverHeatBar extends AbstractSprite {
 	public boolean heat(float speed) {
 		if (this.getLevel() < 10) {
 			this.setLevel(this.getLevel() + speed * Gdx.graphics.getDeltaTime());
+			if (this.getLevel() > 8) {
+				if (!Services.getSoundManager().isPlaying(Sounds.DANGER)) {
+					Services.getSoundManager().play(Sounds.DANGER, true);
+				}
+			}
 		} else {
-			this.setLevel(10);
-			setOverheated(true);
+			this.setLevel(8);
 			return true;
 		}
 		return false;
@@ -84,24 +86,14 @@ public class OverHeatBar extends AbstractSprite {
 	public void cool(float speed) {
 		if (this.getLevel() > 0) {
 			this.setLevel(this.getLevel() - speed * Gdx.graphics.getDeltaTime());
+			if (this.getLevel() < 8) {
+				Services.getSoundManager().stop(Sounds.DANGER);
+			}
 		} else {
 			this.setLevel(0);
 		}
-		setOverheated(false);
 	}
 
-	public boolean isOverheated() {
-		return overheated;
-	}
 
-	private void setOverheated(boolean overheated) {
-		if (overheated && !isOverheated()) {
-			Services.getSoundManager().play(Sounds.DANGER, true);
-		} else if (!overheated && isOverheated()) {
-			Services.getSoundManager().stop(Sounds.DANGER);
-		}
-			
-		this.overheated = overheated;
-	}
 
 }

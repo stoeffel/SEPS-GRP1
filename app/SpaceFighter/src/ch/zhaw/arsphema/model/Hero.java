@@ -3,8 +3,10 @@ package ch.zhaw.arsphema.model;
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
+import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Sounds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
@@ -81,7 +83,7 @@ public class Hero extends AbstractSprite {
 
 	@Override
 	public Array<Shot> shoot(float delta) {
-		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
+		if (fire && lastShot > shootingFrequency) {
 			lastShot = 0;
 			return ShotFactory.createShotInArray(x + width, y + height/3, shootSpeed, ShotFactory.STANDARD, false);
 		}
@@ -92,7 +94,11 @@ public class Hero extends AbstractSprite {
 			if(overheatbar.heat(heatSpeed))
 			{
 				//TODO delta for overheat (I die to fast :'( ) 
-				lowerHealth(1);
+				if (lowerHealth(1)){
+					//TODO gameover screen... hero suffered too much :'(
+					System.out.println("you're dead");
+					// game over
+				}
 			}
 
 		}
@@ -154,6 +160,7 @@ public class Hero extends AbstractSprite {
 	public boolean lowerHealth(int damage) {
 		health -= damage; //TODO shield and stuff check
 	    isHurt = true;
+	    Services.getSoundManager().play(Sounds.HURT, false);
 	    
 		return health <= 0;
 	}

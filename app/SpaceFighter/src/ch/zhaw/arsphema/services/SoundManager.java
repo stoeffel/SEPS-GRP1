@@ -99,4 +99,8 @@ public class SoundManager
             soundsPlaying.removeValue(sound, false);
 		}
 	}
+
+	public boolean isPlaying(Sound sound) {
+		return soundsPlaying.indexOf(sound, false) >= 0;
+	}
 }
