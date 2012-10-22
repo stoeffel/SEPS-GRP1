@@ -20,6 +20,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends AbstractScreen {
 	
+	//TODO load all static data provider classes in constructor
+	
 	private Hero hero;
 	private HeroController controller;
 	private ShotManager shotManager;
@@ -83,8 +85,9 @@ public class GameScreen extends AbstractScreen {
 		//hero stuff
 		hero.move(delta);
 		shotManager.heroShoots(hero.shoot(delta));
-		if(shotManager.heroSuffering(hero)){
-			
+		shotManager.heroSuffering(hero);
+		if(hero.isDead()){
+			System.out.println("why");
 			game.gameOver();
 			Services.turnOffSound();
 		}

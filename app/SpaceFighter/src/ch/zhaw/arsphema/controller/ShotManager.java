@@ -34,31 +34,23 @@ public class ShotManager {
 		{
 			if(shot.overlaps(hero))
 			{
-				if(hero.lowerHealth(shot.getDamage())){
-					//TODO gameover screen... hero suffered too much :'(
-					System.out.println("you're dead");
-					return true;
-				}
+				hero.lowerHealth(shot.getDamage());
 				shotsToRemove.add(shot);
 			}
 		}
 		return false;
 	}
 
-	public void heroShoots(Array<Shot> shots) {
+	public void heroShoots(final Array<Shot> shots) {
 		if(shots  != null )
 			heroShots.addAll(shots);			
 	}
 	
-	public void moveShots(float delta) {
+	public void moveShots(final float delta) {
 		for(final Shot shot : enemyShots)
-		{
 			shot.move(delta);
-		}
 		for(final Shot shot : heroShots)
-		{
 			shot.move(delta);
-		}
 	}
 	
 	

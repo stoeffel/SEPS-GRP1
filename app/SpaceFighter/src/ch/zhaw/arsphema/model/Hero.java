@@ -26,6 +26,10 @@ public class Hero extends AbstractSprite {
 	private boolean movingUp = false;
 	private boolean movingDown = false;
 	private boolean fire = false;
+	private boolean dead = false;
+
+//	private float overheatCountDown = 1;
+	private static final float OVERHEAT_DAMAGE_DELAY = 1;
 	
 	private TextureRegion[] textures;
 	
@@ -85,25 +89,31 @@ public class Hero extends AbstractSprite {
 	public Array<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency) {
 			lastShot = 0;
+			heatGun(delta);
 			return ShotFactory.createShotInArray(x + width, y + height/3, shootSpeed, ShotFactory.STANDARD, false);
 		}
 		if (!fire)
 		{
 			overheatbar.cool(coolSpeed);
+//			overheatCountDown = OVERHEAT_DAMAGE_DELAY;
 		} else {
-			if(overheatbar.heat(heatSpeed))
-			{
-				//TODO delta for overheat (I die to fast :'( ) 
-				if (lowerHealth(1)){
-					//TODO gameover screen... hero suffered too much :'(
-					System.out.println("you're dead");
-					// game over
-				}
-			}
-
+			heatGun(delta);
 		}
 		lastShot += delta;
 		return null;
+	}
+	
+	private void heatGun(final float delta)
+	{
+		if (overheatbar.heat(heatSpeed)) {
+//			System.out.println(overheatCountDown + " - " + delta); // TODO check if stoeffel what approach is nicer
+//			overheatCountDown -= delta;
+//			System.out.println(overheatCountDown);
+//			if (overheatCountDown < 0) {
+				lowerHealth(1);
+//				overheatCountDown += OVERHEAT_DAMAGE_DELAY;
+//			}
+		}
 	}
 
 	public void moveUp() {
@@ -157,12 +167,12 @@ public class Hero extends AbstractSprite {
 		this.fire = fire;
 	}
 
-	public boolean lowerHealth(int damage) {
+	public void lowerHealth(int damage) {
 		health -= damage; //TODO shield and stuff check
 	    isHurt = true;
 	    Services.getSoundManager().play(Sounds.HURT, false);
 	    
-		return health <= 0;
+		dead = health <= 0;
 	}
 	
 	private void showExplotion(SpriteBatch batch, float delta, float ppuX, float ppuY){
@@ -181,6 +191,10 @@ public class Hero extends AbstractSprite {
 
 		Effects.EXPLOSION_1.draw(batch, Gdx.graphics.getDeltaTime());
 		
+	}
+
+	public boolean isDead() {
+		return dead;
 	}
 
 }

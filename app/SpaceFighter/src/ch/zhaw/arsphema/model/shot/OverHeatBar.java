@@ -22,7 +22,7 @@ public class OverHeatBar extends AbstractSprite {
 	private TextureRegion bar;
 
 	
-	private OverHeatBar(float x, float y, TextureRegion texture) {
+	private OverHeatBar(final float x, final float y, final TextureRegion texture) {
 		super(x, y, Sizes.OVERHEATBAR_WIDTH, Sizes.OVERHEATBAR_HEIGHT, texture);
 		this.level =0;
 		regions = texture.split(texture.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
@@ -45,52 +45,44 @@ public class OverHeatBar extends AbstractSprite {
     }
 
 	@Override
-	public boolean move(float delta) {
+	public boolean move(final float delta) {
 		return true;
 	}
 
 	@Override
-	public Array<Shot> shoot(float delta) {
+	public Array<Shot> shoot(final float delta) {
 		return null;
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+	public void draw(final SpriteBatch batch, final float ppuX, final float ppuY) {
 		batch.draw(bar, x * ppuX, y * ppuY,0,0, width * ppuX * level, height * ppuY,1,1,90f);
 		batch.draw(border, x * ppuX, y * ppuY,0,0, (width) * ppuX * 10, (height) * ppuY,1,1,90f);
 	}
 
-	public float getLevel() {
-		return level;
-	}
-
-	public void setLevel(float level) {
-		this.level = level;
-	}
-
-	public boolean heat(float speed) {
-		if (this.getLevel() < 10) {
-			this.setLevel(this.getLevel() + speed * Gdx.graphics.getDeltaTime());
-			if (this.getLevel() > 8) {
+	public boolean heat(final float speed) {
+		if (level < 10) {
+			level += speed * Gdx.graphics.getDeltaTime();
+			if (level > 8) {
 				if (!Services.getSoundManager().isPlaying(Sounds.DANGER)) {
 					Services.getSoundManager().play(Sounds.DANGER, true);
 				}
 			}
 		} else {
-			this.setLevel(8);
+			level = 8;
 			return true;
 		}
 		return false;
 	}
 	
-	public void cool(float speed) {
-		if (this.getLevel() > 0) {
-			this.setLevel(this.getLevel() - speed * Gdx.graphics.getDeltaTime());
-			if (this.getLevel() < 8) {
+	public void cool(final float speed) {
+		if (level > 0) {
+			level -= speed * Gdx.graphics.getDeltaTime();
+			if (level < 8) {
 				Services.getSoundManager().stop(Sounds.DANGER);
 			}
 		} else {
-			this.setLevel(0);
+			level = 0;
 		}
 	}
 
