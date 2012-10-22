@@ -16,7 +16,7 @@ public class MyGdxGame extends Game {
     public void create() {
         //Screens einmalig instanzieren
         mainMenuScreen = new MainMenuScreen(this);
-        gameScreen = new GameScreen(this);
+        createNewGame();
         optionScreen = new OptionScreen(this);
         highscoreScreen = new HighscoreScreen(this);
         highscoreInsertScreen = new HighscoreInsertScreen(this);
@@ -32,6 +32,10 @@ public class MyGdxGame extends Game {
         return mainMenuScreen;
     }
 
+    public void createNewGame() {
+    	gameScreen = new GameScreen(this);
+    }
+    
     public GameScreen getGameScreen() {
         return gameScreen;
     }

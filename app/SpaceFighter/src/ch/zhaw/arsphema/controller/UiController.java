@@ -86,6 +86,7 @@ public class UiController extends AbstractController implements InputProcessor {
         @Override
         public void click(Actor actor, float v, float v1) {
             if (Buttons.BUTTON_GAME_START.equals(actor.name)) {
+            	game.createNewGame();
                 game.setScreen(game.getGameScreen());
             } else if (Buttons.BUTTON_SHOW_HIGHSCORE.equals(actor.name)) {
                 game.setScreen(game.getHighscoreScreen());
