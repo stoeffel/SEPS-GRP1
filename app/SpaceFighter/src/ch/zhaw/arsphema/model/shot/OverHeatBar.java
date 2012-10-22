@@ -33,7 +33,7 @@ public class OverHeatBar extends AbstractSprite {
 	
 	private static void createInstance()
     {
-        instance = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, 2, TextureRegions.OVERHEATBAR);
+        instance = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, Sizes.DEFAULT_WORLD_HEIGHT/5*4, TextureRegions.OVERHEATBAR);
     }
     
     public static OverHeatBar getInstance()
