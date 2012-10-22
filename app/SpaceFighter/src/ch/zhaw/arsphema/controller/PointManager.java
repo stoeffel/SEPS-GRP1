@@ -34,8 +34,13 @@ public class PointManager {
 	public void draw(SpriteBatch batch) {
 		//TODO do the needfull spoerri
 		totalPoints = enemyPoints + timeBonus;
+<<<<<<< .mine
 		showMeYourPoints.setText("points: " + totalPoints);
 //		batch.draw(showMeYourPoints, Sizes.DEFAULT_WORLD_WIDTH / 2, Sizes.DEFAULT_WORLD_HEIGHT);
+=======
+//	System.out.println(totalPoints);
+
+>>>>>>> .theirs
 	}
 	
 }
