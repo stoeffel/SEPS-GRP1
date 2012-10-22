@@ -7,8 +7,6 @@ import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,9 +25,7 @@ public class Hero extends AbstractSprite {
 	private boolean movingDown = false;
 	private boolean fire = false;
 	
-	private float animationStateTime = 0f;
 	private TextureRegion[] textures;
-	private Animation animation;
 	
 	private OverHeatBar overheatbar;
 	private float coolSpeed;
@@ -45,10 +41,10 @@ public class Hero extends AbstractSprite {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
 		health = 3;
 		speed = 66;
-		shootingFrequency = 0.2f;
+		shootingFrequency = 0.1f;
 		lastShot=0;
-		coolSpeed = 2;
-		heatSpeed = 5;
+		coolSpeed = 4;
+		heatSpeed = 2;
 		TextureRegion[][] tmp = texture.split( 
 				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
 		textures = new TextureRegion[COLS * ROWS];
@@ -93,8 +89,12 @@ public class Hero extends AbstractSprite {
 		{
 			overheatbar.cool(coolSpeed);
 		} else {
-			overheatbar.heat(heatSpeed); // no need of delta, since it's regulated by shootingFrequency ;)
-			// sorry but i need the delta, because i have to update the bar every time
+			if(overheatbar.heat(heatSpeed))
+			{
+				//TODO delta for overheat (I die to fast :'( ) 
+				lowerHealth(1);
+			}
+
 		}
 		lastShot += delta;
 		return null;

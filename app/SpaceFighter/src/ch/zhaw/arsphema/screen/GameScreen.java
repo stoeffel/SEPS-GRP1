@@ -27,6 +27,7 @@ public class GameScreen extends AbstractScreen {
 	private Renderer renderer;
 	private Background bg;
 	private float elapsed = 0;
+	private boolean pause = false;
 	
 	public GameScreen(MyGdxGame game) {
 		super(game);
@@ -59,6 +60,8 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
+		if(pause)
+			return;
 		elapsed += delta;
 		//check memory usage
 //		long memTotal = Runtime.getRuntime().totalMemory();
@@ -102,12 +105,18 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void hide() {}
+	public void hide() {
+		pause();
+	}
 
 	@Override
-	public void pause() {}
+	public void pause() {
+		pause = true;
+	}
 
 	@Override
-	public void resume() {}
+	public void resume() {
+		pause = false;
+	}
 
 }
