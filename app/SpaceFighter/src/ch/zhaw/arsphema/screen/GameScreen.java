@@ -64,8 +64,8 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void render(float delta) {
-		if(pause)
+	public void render(final float delta) {
+		if(pause) // do not render in pause!
 			return;
 		elapsed += delta;
 		//check memory usage

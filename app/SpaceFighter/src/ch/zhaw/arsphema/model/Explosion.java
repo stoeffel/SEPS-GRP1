@@ -22,7 +22,7 @@ public class Explosion {
 		// effect should be here and not in the Effects class
 		effect.load(Gdx.files.internal("data/explosion2/def"),Gdx.files.internal("data/explosion2"));
 		
-		emitters = new Array(effect.getEmitters());
+		emitters = new Array<ParticleEmitter>(effect.getEmitters());
 
 		effect.getEmitters().add(emitters.get(0));
 		emitter = emitters.get(0);

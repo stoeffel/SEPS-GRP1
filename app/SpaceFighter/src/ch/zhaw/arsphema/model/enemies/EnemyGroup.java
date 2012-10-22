@@ -3,7 +3,7 @@ package ch.zhaw.arsphema.model.enemies;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class EnemyGroup{
+public class EnemyGroup {
 	private Array<Vector2> path = EnemyPaths.ZICK_ZACK;
 	private int countVector = 0;
 	private Vector2 start = new Vector2();
@@ -16,7 +16,7 @@ public class EnemyGroup{
 	private Array<AbstractEnemy> members;
 	private Vector2 direction;
 	
-	public EnemyGroup(float x, float y,Array<AbstractEnemy> members) {
+	public EnemyGroup(float x, float y, Array<AbstractEnemy> members) {
 		position.set(x,y);
 		start.set(position);
 		end.set(path.get(countVector));
@@ -43,9 +43,10 @@ public class EnemyGroup{
 		} else if (start.dst(position) >= distance) {
 			return true;
 		}
-		for (AbstractEnemy member : members) {
+		for (final AbstractEnemy member : members) {
 			member.x = member.offset_x + x;
 			member.y = member.offset_y + y;
+			member.move(delta); // enable moving in a group itself
 		}
 		
 		return false;

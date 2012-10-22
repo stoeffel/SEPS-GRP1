@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Renderer {
 
     protected final SpriteBatch batch;
+    private final int SHOW_OVERLAY_TIME = 5;
 	private float ppuX; // pixels per unit on the X axis
 	private float ppuY; // pixels per unit on the Y axis
 	private boolean showOverlay = true;
@@ -111,7 +112,7 @@ public class Renderer {
 		{
 			// start overlay is displayed 5 sec
 			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
-			if (elapsed >= 5)
+			if (elapsed >= SHOW_OVERLAY_TIME)
 			{
 				EnemyManager.activateEnemyFactory();
 				showOverlay = false;

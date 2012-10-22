@@ -4,7 +4,6 @@ import java.util.Random;
 
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
-import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,12 +26,13 @@ public class Ufo extends AbstractEnemy {
 	
 	@Override
 	public boolean move(float delta) {
-		x -= xMovement * delta;
-		y -= yMovement * delta;
-		if(y < height || y > Sizes.DEFAULT_WORLD_HEIGHT)
-			yMovement *= -1;
-		//TODO yMovement
-		return x < -width;
+//		x -= xMovement * delta;
+//		y -= yMovement * delta;
+//		if(y < height || y > Sizes.DEFAULT_WORLD_HEIGHT)
+//			yMovement *= -1;
+//		//TODO yMovement
+//		return x < -width;
+		return false;
 	}
 
 	@Override

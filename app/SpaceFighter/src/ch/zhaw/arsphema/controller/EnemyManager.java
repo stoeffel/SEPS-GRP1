@@ -16,6 +16,21 @@ public class EnemyManager {
 	private static EnemyFactory enemyFactory;
 	private static boolean dropEnemies = false;
 	private float nextEnemyToDrop = 0;
+	//set to hard so the calculation creates easy groups at the beginning
+	private EnemyGroupDifficulty groupDiffcultyOne = EnemyGroupDifficulty.HARD; // latest deployment
+	private EnemyGroupDifficulty groupDiffcultyTwo = EnemyGroupDifficulty.HARD; // secont latest deployment
+	private EnemyGroupDifficulty groupDiffcultyThree = EnemyGroupDifficulty.HARD; // third latest deployment
+	
+	
+	public enum EnemyGroupDifficulty {
+		EASY (1),
+		MEDIUM (2),
+		HARD (3);
+	    private final int difficultyLevel;
+	    EnemyGroupDifficulty(int i) {
+	        this.difficultyLevel = i;
+	    }
+	}
 	
 	public EnemyManager()
 	{
@@ -33,6 +48,7 @@ public class EnemyManager {
 			}
 		}
 		removeEnemies();
+		removeExplosions();
 	}
 	
 	/**
@@ -55,7 +71,7 @@ public class EnemyManager {
 			}
 		}
 		removeEnemies();
-//		if(enemies.size == 0){
+//		if(enemies.size == 0){ //TODO maybe add
 //			nextEnemyToDrop /= 2; //if all enemies killed, next drop of enemy is sooner
 //		}
 		return totalPoints;
@@ -89,7 +105,7 @@ public class EnemyManager {
 	public void dropEnemies(float delta, float elapsed) {
 		if (dropEnemies) {
 			if(nextEnemyToDrop <= 0) {
-				addEnemies(delta);
+				addEnemies(elapsed);
 				// check elapsed time for next enemy set to drop 
 				// now after 100 sec every 0.5 sec new enemy should appear (approach is linea)
 				nextEnemyToDrop = 4 - (elapsed * 5 / 100);
@@ -101,13 +117,24 @@ public class EnemyManager {
 		}
 	}
 
-	private void addEnemies(final float delta) {
-		EnemyGroup group = enemyFactory.createUfoGroup();
-		final Array<AbstractEnemy> newEnemies = group.getMembers();
+	private void addEnemies(final float elapsed) {
+		//assumption: beginning of only hard enemies @200secs
+		final int lastGroupsDifficulty = groupDiffcultyOne.difficultyLevel + groupDiffcultyTwo.difficultyLevel + groupDiffcultyThree.difficultyLevel;
+		final int nextGroupDiffLevel = calculateNextGroupDifficultyLevel(elapsed, lastGroupsDifficulty);
+		
+		final EnemyGroup group = enemyFactory.createGroupByDifficultyLevel(nextGroupDiffLevel, elapsed);
+		final Array<AbstractEnemy> newEnemies = group.getMembers(); 
 		if (newEnemies != null) {
 			enemies.addAll(newEnemies);
 			groups.add(group);
 		}
+	}
+	
+	private int calculateNextGroupDifficultyLevel(final float elapsed, final int sumDifLevel)
+	{
+//		float s = 0.015 * elapsed + 2;
+		// TODO some fancy algorithm to define next 	
+		return 1;
 	}
 	
 	public Array<AbstractEnemy> getEnemies() 
