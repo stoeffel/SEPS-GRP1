@@ -18,20 +18,19 @@ public class EnemyFactory
     	return instance;
     }
 	
-	public Array<AbstractEnemy> createUfoGroup()
+	public EnemyGroup createUfoGroup()
 	{
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
-		ufos.add(createUfo(0));
-		ufos.add(createUfo(Sizes.UFO_WIDTH + 1));
-		ufos.add(createUfo(Sizes.UFO_WIDTH*2 + 1));
-		ufos.add(createUfo(Sizes.UFO_WIDTH*3 + 1));
-		return ufos;
+		ufos.add(createUfo(0,0));
+		ufos.add(createUfo(Sizes.UFO_WIDTH+2,Sizes.UFO_HEIGHT));
+		ufos.add(createUfo(Sizes.UFO_WIDTH+2,-Sizes.UFO_HEIGHT));
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH+Sizes.UFO_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT/2,ufos);
 	}
     
-    public AbstractEnemy createUfo(float x)
+    public AbstractEnemy createUfo(float offset_x, float offset_y)
     {
     	//TODO y
-    	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH + x, Sizes.DEFAULT_WORLD_HEIGHT / 2, 
+    	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH+Sizes.UFO_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT / 2, offset_x, offset_y, 
     			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO);
     	return ufo;
     }

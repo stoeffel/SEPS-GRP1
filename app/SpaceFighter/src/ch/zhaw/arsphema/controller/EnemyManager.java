@@ -2,12 +2,14 @@ package ch.zhaw.arsphema.controller;
 
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyFactory;
+import ch.zhaw.arsphema.model.enemies.EnemyGroup;
 import ch.zhaw.arsphema.model.shot.Shot;
 
 import com.badlogic.gdx.utils.Array;
 
 public class EnemyManager {
 
+	private Array<EnemyGroup> groups;
 	private Array<AbstractEnemy> enemies, killedEnemies;
 	private static EnemyFactory enemyFactory;
 	private static boolean dropEnemies = false;
@@ -17,13 +19,14 @@ public class EnemyManager {
 		enemies = new Array<AbstractEnemy>();
 		killedEnemies = new Array<AbstractEnemy>();
 		enemyFactory = EnemyFactory.getInstance();
+		groups = new Array<EnemyGroup>();
 	}
 	
 	public void computeEnemyMovements(float delta) {
-		for(AbstractEnemy enemy : enemies)
-		{
-			if(enemy.move(delta))
-				killedEnemies.add(enemy);
+		for (EnemyGroup group : groups) {
+			if (group.move(delta)){
+				killedEnemies.addAll(group.getMembers());
+			}
 		}
 		removeEnemies();
 	}
@@ -84,9 +87,11 @@ public class EnemyManager {
 	}
 
 	private void addEnemies(final float delta) {
-		final Array<AbstractEnemy> newEnemies = enemyFactory.createUfoGroup();
+		EnemyGroup group = enemyFactory.createUfoGroup();
+		final Array<AbstractEnemy> newEnemies = group.getMembers();
 		if (newEnemies != null) {
 			enemies.addAll(newEnemies);
+			groups.add(group);
 		}
 	}
 	
