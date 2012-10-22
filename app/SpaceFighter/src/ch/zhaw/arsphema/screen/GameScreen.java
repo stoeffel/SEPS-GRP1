@@ -88,10 +88,10 @@ public class GameScreen extends AbstractScreen {
 			game.gameOver();
 			Services.turnOffSound();
 		}
+		pointManager.increaseTimePoints(elapsed);
 		
 		//enemy stuff
-		//TODO killEnemies returns points earned, handle them!
-		int points = enemyManager.killEnemies(shotManager);// first kill, then move and create new
+		pointManager.increasePointsOfEnemies(elapsed, enemyManager.killEnemies(shotManager));// first kill, then move and create new
 		enemyManager.computeEnemyMovements(delta);
 		enemyManager.enemyShooting(shotManager, delta);
 		enemyManager.dropEnemies(delta, elapsed);

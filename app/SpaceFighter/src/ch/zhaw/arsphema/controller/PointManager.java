@@ -4,15 +4,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PointManager {
 	
-	private int points  = 0;
-
-	public void increasePoints(final float timeElapsed, final int points){
-		
+	private int enemyPoints = 0;
+	private int timeBonus = 0;
+	private int totalPoints = 0;
+	
+	public void increasePointsOfEnemies(final float timeElapsed, final int addPoints){
+		enemyPoints += addPoints * (timeElapsed * 1.5f);
+	}
+	
+	
+	public void increaseTimePoints(final float timeElapsed){
+		timeBonus = (int) (timeElapsed * 13f);
 	}
 	
 	public void draw(SpriteBatch batch) {
-		// TODO Auto-generated method stub
-		
+		//TODO draw points!
+		totalPoints = enemyPoints + timeBonus;
+//		System.out.println(totalPoints);
 	}
 
 }

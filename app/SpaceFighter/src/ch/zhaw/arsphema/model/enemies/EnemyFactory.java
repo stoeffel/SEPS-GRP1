@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class EnemyFactory
 {
+	private static int POINTS_UFO = 1;
 	private static EnemyFactory instance;
     private EnemyFactory(){/*Singleton*/}
     
@@ -31,7 +32,7 @@ public class EnemyFactory
     {
     	//TODO y
     	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH+Sizes.UFO_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT / 2, offset_x, offset_y, 
-    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO);
+    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO);
     	return ufo;
     }
 

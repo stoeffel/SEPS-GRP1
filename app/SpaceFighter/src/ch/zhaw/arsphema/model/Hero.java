@@ -19,6 +19,9 @@ public class Hero extends AbstractSprite {
 	
 	private static final int ROWS = 1;
 	private static final int COLS = 1;
+
+	private float overheatCountDown = 1;
+	private static final float OVERHEAT_DAMAGE_DELAY = 1;
 	
 	private boolean stopped = true;
 	private boolean movingUp = false;
@@ -78,7 +81,7 @@ public class Hero extends AbstractSprite {
 		}
 		return true;
 	}
-
+	
 	@Override
 	public Array<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency && !overheatbar.isOverheated()) {
@@ -88,11 +91,16 @@ public class Hero extends AbstractSprite {
 		if (!fire)
 		{
 			overheatbar.cool(coolSpeed);
+			overheatCountDown = OVERHEAT_DAMAGE_DELAY;
 		} else {
 			if(overheatbar.heat(heatSpeed))
 			{
-				//TODO delta for overheat (I die to fast :'( ) 
-				lowerHealth(1);
+				overheatCountDown -= delta;
+				if(overheatCountDown < 0)
+				{
+					lowerHealth(1);
+					overheatCountDown += OVERHEAT_DAMAGE_DELAY;
+				}
 			}
 
 		}

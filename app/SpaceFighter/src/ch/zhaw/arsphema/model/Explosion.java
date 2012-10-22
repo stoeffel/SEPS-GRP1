@@ -1,7 +1,6 @@
 package ch.zhaw.arsphema.model;
 
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sounds;
 
 import com.badlogic.gdx.Gdx;

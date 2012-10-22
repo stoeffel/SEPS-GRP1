@@ -12,10 +12,12 @@ public abstract class AbstractEnemy extends AbstractSprite {
 	protected float offset_x;
 
 
-	public AbstractEnemy(float x, float y, float offset_x, float offset_y, float width, float height, TextureRegion texture) {
+	public AbstractEnemy(float x, float y, float offset_x, float offset_y
+			, float width, float height, TextureRegion texture, final int points) {
 		super(x, y, width, height, texture);
 		this.offset_x = offset_x;
 		this.offset_y = offset_y;
+		basePoints = points;
 	}
 
 	public boolean lowerHealth(int damage) {

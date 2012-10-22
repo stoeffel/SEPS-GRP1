@@ -15,6 +15,7 @@ public class EnemyManager {
 	private Array<Explosion> explosions;
 	private static EnemyFactory enemyFactory;
 	private static boolean dropEnemies = false;
+	private float nextEnemyToDrop = 0;
 	
 	public EnemyManager()
 	{
@@ -54,6 +55,9 @@ public class EnemyManager {
 			}
 		}
 		removeEnemies();
+//		if(enemies.size == 0){
+//			nextEnemyToDrop /= 2; //if all enemies killed, next drop of enemy is sooner
+//		}
 		return totalPoints;
 	}
 
@@ -82,14 +86,13 @@ public class EnemyManager {
 		}
 	}
 
-	private float nextEnemyToDrop = 0;
 	public void dropEnemies(float delta, float elapsed) {
 		if (dropEnemies) {
 			if(nextEnemyToDrop <= 0) {
 				addEnemies(delta);
 				// check elapsed time for next enemy set to drop 
 				// now after 100 sec every 0.5 sec new enemy should appear (approach is linea)
-				nextEnemyToDrop = 5 - (elapsed * 5 / 1000 % 100);
+				nextEnemyToDrop = 4 - (elapsed * 5 / 100);
 				if(nextEnemyToDrop < 0.5f)
 					nextEnemyToDrop = 0.5f;
 			} else {
