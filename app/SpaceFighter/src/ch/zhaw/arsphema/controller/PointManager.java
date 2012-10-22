@@ -20,7 +20,7 @@ public class PointManager {
 	public void draw(SpriteBatch batch) {
 		//TODO draw points!
 		totalPoints = enemyPoints + timeBonus;
-//		System.out.println(totalPoints);
+//	System.out.println(totalPoints);
 	}
 
 }
