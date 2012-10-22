@@ -1,6 +1,8 @@
 package ch.zhaw.arsphema.model;
 
+import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Effects;
+import ch.zhaw.arsphema.util.Sounds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -27,6 +29,9 @@ public class Explosion {
 		emitter = emitters.get(0);
 		
 		emitter.start();
+		
+		Services.getSoundManager().play(Sounds.EXPLOSION, false);
+		
 		this.x = x;
 		this.y = y;
 	}
