@@ -3,10 +3,13 @@ package ch.zhaw.arsphema.model;
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
+import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -32,6 +35,9 @@ public class Hero extends AbstractSprite {
 	private float coolSpeed;
 	private float heatSpeed;
 	private float shootSpeed = 160;
+	private boolean isHurt = false;
+	private boolean emitterStarted = false;
+	private Array<ParticleEmitter> emitters;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -55,6 +61,11 @@ public class Hero extends AbstractSprite {
         animation.setPlayMode(Animation.LOOP);
         
         overheatbar = OverHeatBar.getInstance();
+        
+        emitters = new Array(Effects.EXPLOSION_1.getEmitters());
+		
+		Effects.EXPLOSION_1.getEmitters().add(emitters.get(0));
+        
 	}
 
 	public boolean move(float delta){
@@ -123,6 +134,9 @@ public class Hero extends AbstractSprite {
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		animationStateTime += Gdx.graphics.getDeltaTime();
 		batch.draw(animation.getKeyFrame(animationStateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		if (isHurt){
+			showExplotion(batch, Gdx.graphics.getDeltaTime(),ppuX, ppuY);
+		}
 	}
 
 	public void setFire(boolean fire) {
@@ -131,7 +145,27 @@ public class Hero extends AbstractSprite {
 
 	public boolean lowerHealth(int damage) {
 		health -= damage; //TODO shield and stuff check
+	    isHurt = true;
+	    
 		return health <= 0;
+	}
+	
+	private void showExplotion(SpriteBatch batch, float delta, float ppuX, float ppuY){
+		if (emitters.get(0).isComplete()){
+			isHurt = false;
+			emitters.get(0).reset();
+			emitterStarted = false;
+			return;
+		}
+		Effects.EXPLOSION_1.setPosition( (x+width/2)*ppuX,(y+height)*ppuY );
+
+		if (!emitterStarted){
+			emitters.get(0).start();
+			emitterStarted = true;
+		}
+
+		Effects.EXPLOSION_1.draw(batch, Gdx.graphics.getDeltaTime());
+		
 	}
 
 }
