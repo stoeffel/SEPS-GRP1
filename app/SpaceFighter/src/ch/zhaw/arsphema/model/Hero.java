@@ -42,6 +42,7 @@ public class Hero extends AbstractSprite {
 	private Array<ParticleEmitter> emitters_burn_baby_burn;
 	private Array<ParticleEmitter> emitters_jet;
 	private TextureRegion currentTexture;
+	private LifeCounter lifeCounter;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -73,8 +74,11 @@ public class Hero extends AbstractSprite {
 		
 		Effects.JET.getEmitters().add(emitters_jet.get(0));
 		emitters_jet.get(0).start();
-		
+		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, currentTexture);
+		lifeCounter.setLifes(health);
 	}
+	
+	
 
 	public boolean move(float delta){
 		if (movingUp){
@@ -161,6 +165,7 @@ public class Hero extends AbstractSprite {
 		if (isHurt){
 			showExplotion(batch, Gdx.graphics.getDeltaTime(),ppuX, ppuY);
 		}
+		lifeCounter.draw(batch, ppuX, ppuY);
 	}
 
 	public void setFire(boolean fire) {
@@ -169,6 +174,7 @@ public class Hero extends AbstractSprite {
 
 	public void lowerHealth(int damage) {
 		health -= damage; //TODO shield and stuff check
+		lifeCounter.setLifes(health);
 	    isHurt = true;
 	    Services.getSoundManager().play(Sounds.HURT, false);
 	    
