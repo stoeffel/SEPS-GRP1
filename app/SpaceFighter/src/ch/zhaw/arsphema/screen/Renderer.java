@@ -4,6 +4,7 @@ import ch.zhaw.arsphema.controller.EnemyManager;
 import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
+import ch.zhaw.arsphema.model.Explosion;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.Planet;
@@ -51,6 +52,12 @@ public class Renderer {
 		{
 			enemy.draw(batch, ppuX, ppuY);
 		}
+		
+		for(final Explosion explosion : enemies.getExplosions())
+		{
+			explosion.draw(batch, ppuX, ppuY);
+		}
+		
 		batch.end();
     }
     

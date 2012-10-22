@@ -8,7 +8,7 @@ public class Effects {
 	
 	static {
 		EXPLOSION_1 = new ParticleEffect();
-
 		EXPLOSION_1.load(Gdx.files.internal("data/explosion/def"),Gdx.files.internal("data/explosion"));
+		
 	}
 }

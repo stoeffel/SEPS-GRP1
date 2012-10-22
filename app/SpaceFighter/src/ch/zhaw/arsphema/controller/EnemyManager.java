@@ -1,5 +1,6 @@
 package ch.zhaw.arsphema.controller;
 
+import ch.zhaw.arsphema.model.Explosion;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyFactory;
 import ch.zhaw.arsphema.model.enemies.EnemyGroup;
@@ -11,6 +12,7 @@ public class EnemyManager {
 
 	private Array<EnemyGroup> groups;
 	private Array<AbstractEnemy> enemies, killedEnemies;
+	private Array<Explosion> explosions;
 	private static EnemyFactory enemyFactory;
 	private static boolean dropEnemies = false;
 	
@@ -20,6 +22,7 @@ public class EnemyManager {
 		killedEnemies = new Array<AbstractEnemy>();
 		enemyFactory = EnemyFactory.getInstance();
 		groups = new Array<EnemyGroup>();
+		explosions = new Array<Explosion>();
 	}
 	
 	public void computeEnemyMovements(float delta) {
@@ -45,6 +48,7 @@ public class EnemyManager {
 				if(enemy.lowerHealth(shot.getDamage())){
 					totalPoints += enemy.getBasePoints();
 					killedEnemies.add(enemy);
+					explosions.add(new Explosion(enemy.x+enemy.width/2,enemy.y+enemy.height/2));
 				}
 				shotManager.getShotsToRemove().add(shot);
 			}
@@ -61,6 +65,14 @@ public class EnemyManager {
 		killedEnemies.clear();
 	}
 
+	private void removeExplosions() {
+		for(final Explosion explosion : explosions)
+		{
+			if (explosion.isFinished())
+				explosions.removeValue(explosion, false);
+		}
+	}
+	
 	public void enemyShooting(final ShotManager shotManager, final float delta) {
 		for(final AbstractEnemy enemy : enemies)
 		{
@@ -117,6 +129,14 @@ public class EnemyManager {
 	}
 	public static void deactivateEnemyFactory(){
 		dropEnemies = false;
+	}
+
+	public Array<Explosion> getExplosions() {
+		return explosions;
+	}
+
+	public void setExplosions(Array<Explosion> explosions) {
+		this.explosions = explosions;
 	}
 	
 }
