@@ -4,6 +4,7 @@ import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.controller.EnemyManager;
 import ch.zhaw.arsphema.controller.HeroController;
 import ch.zhaw.arsphema.controller.PlanetManager;
+import ch.zhaw.arsphema.controller.PointManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
@@ -24,6 +25,7 @@ public class GameScreen extends AbstractScreen {
 	private ShotManager shotManager;
 	private EnemyManager enemyManager;
 	private PlanetManager planetManager;
+	private PointManager pointManager;
 	private Renderer renderer;
 	private Background bg;
 	private float elapsed = 0;
@@ -40,6 +42,7 @@ public class GameScreen extends AbstractScreen {
 		shotManager = new ShotManager();
 		enemyManager = new EnemyManager();
 		planetManager = new PlanetManager();
+		pointManager = new PointManager();
 		bg = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
 		
 		renderer = new Renderer(bg);
@@ -72,7 +75,7 @@ public class GameScreen extends AbstractScreen {
 		
 		//draw stuff and so
 		renderer.cleanScreen();
-		renderer.drawMisc(elapsed,planetManager);
+		renderer.drawMisc(elapsed, planetManager, pointManager);
 		renderer.drawEnemies(enemyManager);
 		renderer.drawHero(hero);
 		renderer.drawShots(shotManager);
@@ -85,10 +88,10 @@ public class GameScreen extends AbstractScreen {
 			game.gameOver();
 			Services.turnOffSound();
 		}
+		pointManager.increaseTimePoints(elapsed);
 		
 		//enemy stuff
-		//TODO killEnemies returns points earned, handle them!
-		int points = enemyManager.killEnemies(shotManager);// first kill, then move and create new
+		pointManager.increasePointsOfEnemies(elapsed, enemyManager.killEnemies(shotManager));// first kill, then move and create new
 		enemyManager.computeEnemyMovements(delta);
 		enemyManager.enemyShooting(shotManager, delta);
 		enemyManager.dropEnemies(delta, elapsed);

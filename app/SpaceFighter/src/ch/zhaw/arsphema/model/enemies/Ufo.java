@@ -20,8 +20,8 @@ public class Ufo extends AbstractEnemy {
 	
 	
 	public Ufo(float x, float y, float offset_x, float offset_y, float width, float height,
-			TextureRegion texture) {
-		super(x, y, offset_x, offset_y, width, height, texture);
+			TextureRegion texture, final int points) {
+		super(x, y, offset_x, offset_y, width, height, texture, points);
 		resetShotFrequency();
 	}
 	
