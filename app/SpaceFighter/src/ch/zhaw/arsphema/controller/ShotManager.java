@@ -29,16 +29,20 @@ public class ShotManager {
 		}
 	}
 
-	public void heroSuffering(Hero hero) {
-		for(Shot shot : enemyShots)
+	public boolean heroSuffering(final Hero hero) {
+		for(final Shot shot : enemyShots)
 		{
 			if(shot.overlaps(hero))
 			{
 				if(hero.lowerHealth(shot.getDamage())){
 					//TODO gameover screen... hero suffered too much :'(
+					System.out.println("you're dead");
+					return true;
 				}
+				shotsToRemove.add(shot);
 			}
 		}
+		return false;
 	}
 
 	public void heroShoots(Array<Shot> shots) {

@@ -29,10 +29,11 @@ public class GameScreen extends AbstractScreen {
 	private Renderer renderer;
 	private Background bg;
 	private float elapsed = 0;
+	private boolean pause = false;
 	
 	public GameScreen(MyGdxGame game) {
 		super(game);
-		hero = new Hero(5, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
+		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH/10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
 	}
 
 	@Override
@@ -62,8 +63,14 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
+		if(pause)
+			return;
 		elapsed += delta;
-		
+		//check memory usage
+//		long memTotal = Runtime.getRuntime().totalMemory();
+//		long memFree = Runtime.getRuntime().freeMemory();
+//		long memUsage = memTotal - memFree;
+//		System.out.println("Memory: t: " + memTotal + " f: " + memFree + " u: " + memUsage);
 		bg.move(delta);
 		
 		//draw stuff and so
@@ -76,11 +83,17 @@ public class GameScreen extends AbstractScreen {
 		//hero stuff
 		hero.move(delta);
 		shotManager.heroShoots(hero.shoot(delta));
-		shotManager.heroSuffering(hero);
+		if(shotManager.heroSuffering(hero)){
+			
+			game.gameOver();
+			Services.turnOffSound();
+		}
 		
 		//enemy stuff
-		enemyManager.killEnemies(shotManager);// first kill, then move and create new
+		//TODO killEnemies returns points earned, handle them!
+		int points = enemyManager.killEnemies(shotManager);// first kill, then move and create new
 		enemyManager.computeEnemyMovements(delta);
+		enemyManager.enemyShooting(shotManager, delta);
 		enemyManager.dropEnemies(delta, elapsed);
 		
 		//shot stuff
@@ -95,12 +108,18 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void hide() {}
+	public void hide() {
+		pause();
+	}
 
 	@Override
-	public void pause() {}
+	public void pause() {
+		pause = true;
+	}
 
 	@Override
-	public void resume() {}
+	public void resume() {
+		pause = false;
+	}
 
 }

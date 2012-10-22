@@ -5,6 +5,7 @@ import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.PointManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
+import ch.zhaw.arsphema.model.Explosion;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.Planet;
@@ -52,6 +53,12 @@ public class Renderer {
 		{
 			enemy.draw(batch, ppuX, ppuY);
 		}
+		
+		for(final Explosion explosion : enemies.getExplosions())
+		{
+			explosion.draw(batch, ppuX, ppuY);
+		}
+		
 		batch.end();
     }
     
@@ -100,7 +107,6 @@ public class Renderer {
 		// draw overheatbar
 		overheatbar.draw(batch, ppuX, ppuY);
 
-		// start overlay is displayed 5 sec
 		if(showOverlay)
 		{
 			// start overlay is displayed 5 sec

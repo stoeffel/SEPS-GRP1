@@ -69,7 +69,7 @@ public class HeroController extends AbstractController implements
 			upPressed();
 		else if (keycode == Keys.DOWN)
 			downPressed();
-		else if (keycode == Keys.RIGHT)
+		else if (keycode == Keys.RIGHT || keycode == Keys.SPACE)
 			shotPressed();
 
 		return true;
@@ -81,7 +81,7 @@ public class HeroController extends AbstractController implements
 			downReleased();
 		else if (keycode == Keys.UP)
 			upReleased();
-		else if (keycode == Keys.RIGHT)
+		else if (keycode == Keys.RIGHT || keycode == Keys.SPACE)
 			shotReleased();
 
 		return true;

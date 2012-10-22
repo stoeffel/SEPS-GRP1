@@ -3,7 +3,6 @@ package ch.zhaw.arsphema.model;
 import java.util.Random;
 
 import ch.zhaw.arsphema.model.shot.Shot;
-import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

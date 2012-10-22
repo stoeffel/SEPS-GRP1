@@ -2,7 +2,7 @@ package ch.zhaw.arsphema.util;
 
 public class Paths {
 
-	public static final String HERO = "images/heroSprite.png";
+	public static final String HERO = "images/hero.png";
 
 	public static final String OVERLAY_SPRITE = "images/overlaySprite.png";
 	public static final String BUTTON_TEXTURE = "skin/buttontexture.png";
@@ -27,6 +27,7 @@ public class Paths {
 	// SOUNDS
 	public static final String SFX_SHOT = "sounds/shot.wav";
 	public static final String SFX_DANGER = "sounds/danger.wav";
+	public static final String SFX_EXPLOSION = "sounds/explosion.wav";
 
 	public static final String PLANETS = "images/planets/planets.png";
 }

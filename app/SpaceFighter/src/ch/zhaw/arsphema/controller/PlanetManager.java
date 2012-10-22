@@ -25,10 +25,10 @@ public class PlanetManager {
 		planets = new Array<Planet>();
 		planetsToRemove = new Array<Planet>();
 		minInterval = 10;
-		maxInterval = 30;
+		maxInterval = 60;
 		maxPlanets = 3;
-		minRadius = 10f;
-		maxRadius = 40f;
+		minRadius = 5f;
+		maxRadius = 25f;
 		lastTime = 0f;
 		nextTime = getRand(minInterval, maxInterval);
 	}
@@ -76,9 +76,10 @@ public class PlanetManager {
 		if (planets.size < maxPlanets) { 
 			if (elapsed-lastTime > nextTime || elapsed-lastTime > maxInterval){
 				lastTime = elapsed;
+				nextTime = getRand(minInterval, maxInterval);
 				float r = getRand(minRadius, maxRadius);
 				Planet planet = new Planet(Sizes.DEFAULT_WORLD_WIDTH + r , getRand(0, Sizes.DEFAULT_WORLD_HEIGHT), r, r, TextureRegions.PLANETS);
-				planet.setSpeed(r/4); // um so kleiner um so weiter weg langsamer
+				planet.setSpeed(r/8); // um so kleiner um so weiter weg langsamer
 				planets.add(planet);
 				planets.sort(new Comparator<Planet>() {
 					
@@ -91,7 +92,7 @@ public class PlanetManager {
 						}
 					}
 				});
-				nextTime = getRand(minInterval, maxInterval);
+				
 			}
 		}
 		
