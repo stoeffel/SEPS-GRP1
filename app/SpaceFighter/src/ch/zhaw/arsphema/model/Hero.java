@@ -29,7 +29,7 @@ public class Hero extends AbstractSprite {
 	private boolean dead = false;
 
 //	private float overheatCountDown = 1;
-	private static final float OVERHEAT_DAMAGE_DELAY = 1;
+//	private static final float OVERHEAT_DAMAGE_DELAY = 1;
 	
 	private TextureRegion[] textures;
 	
@@ -65,11 +65,11 @@ public class Hero extends AbstractSprite {
         
         overheatbar = OverHeatBar.getInstance();
         
-        emitters_burn_baby_burn = new Array(Effects.EXPLOSION_1.getEmitters());
+        emitters_burn_baby_burn = new Array<ParticleEmitter>(Effects.EXPLOSION_1.getEmitters());
 		
 		Effects.EXPLOSION_1.getEmitters().add(emitters_burn_baby_burn.get(0));
         
-		emitters_jet = new Array(Effects.JET.getEmitters());
+		emitters_jet = new Array<ParticleEmitter>(Effects.JET.getEmitters());
 		
 		Effects.JET.getEmitters().add(emitters_jet.get(0));
 		emitters_jet.get(0).start();

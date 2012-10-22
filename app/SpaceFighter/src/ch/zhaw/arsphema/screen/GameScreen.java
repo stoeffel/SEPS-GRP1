@@ -87,7 +87,6 @@ public class GameScreen extends AbstractScreen {
 		shotManager.heroShoots(hero.shoot(delta));
 		shotManager.heroSuffering(hero);
 		if(hero.isDead()){
-			System.out.println("why");
 			game.gameOver();
 			Services.turnOffSound();
 		}

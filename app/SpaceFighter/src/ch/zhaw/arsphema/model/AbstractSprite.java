@@ -29,9 +29,9 @@ public abstract class AbstractSprite extends Rectangle {
 	 * @param delta
 	 * @return true if still alive
 	 */
-	abstract public boolean move(float delta);
-	abstract public Array<Shot> shoot(float delta);
-	abstract public void draw(SpriteBatch batch, float ppuX, float ppuY);
+	abstract public boolean move(final float delta);
+	abstract public Array<Shot> shoot(final float delta);
+	abstract public void draw(final SpriteBatch batch, final float ppuX, final float ppuY);
 	
 	
 	/**
@@ -40,7 +40,7 @@ public abstract class AbstractSprite extends Rectangle {
 	 * @param width
 	 * @param height
 	 */
-	public AbstractSprite(float x, float y, float width, float height, TextureRegion texture) {
+	public AbstractSprite(final float x, final float y, final float width, final float height, final TextureRegion texture) {
 		super(x, y, width, height);
 		this.textureRegion = texture;
 	}
@@ -61,13 +61,13 @@ public abstract class AbstractSprite extends Rectangle {
 	public float getSpeed() {
 		return speed;
 	}
-	public void setSpeed(float speed) {
+	public void setSpeed(final float speed) {
 		this.speed = speed;
 	}
 	public TextureRegion getTextureRegion() {
 		return textureRegion;
 	}
-	public void setTextureRegion(TextureRegion textureRegion) {
+	public void setTextureRegion(final TextureRegion textureRegion) {
 		this.textureRegion = textureRegion;
 	}
 
