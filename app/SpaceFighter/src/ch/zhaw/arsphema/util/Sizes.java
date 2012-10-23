@@ -12,8 +12,8 @@ public class Sizes {
 	//Enemies
 	public static final float UFO_WIDTH = 3.64f;
 	public static final float UFO_HEIGHT = 5;
-	public static final float SAUCER_WIDTH = 2.5f;
-	public static final float SAUCER_HEIGHT = 1.15f;
+	public static final float SAUCER_WIDTH = 4f;
+	public static final float SAUCER_HEIGHT = 1.84f;
 	
 	public static final float OVERHEATBAR_HEIGHT = 1.5f;
 	public static final float OVERHEATBAR_WIDTH = 1;

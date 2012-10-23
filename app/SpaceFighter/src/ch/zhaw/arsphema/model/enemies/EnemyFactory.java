@@ -47,12 +47,13 @@ public class EnemyFactory
 	public EnemyGroup createSaucerGroup(final float shootFrequency, final float y, final int amountOfEnemies)
 	{
 		//TODO use shootfrequency
-		Array<AbstractEnemy> saucers = new Array<AbstractEnemy>();
+		final Array<AbstractEnemy> saucers = new Array<AbstractEnemy>();
 		final float groupHeight = amountOfEnemies / 2 * Sizes.SAUCER_HEIGHT;
+		final float groupY = y - groupHeight;
 		for(int i = 0; i < amountOfEnemies; i++){
 			saucers.add(createSaucer(i * Sizes.SAUCER_WIDTH * 0.5f, random.nextInt((int)groupHeight)));
 		}
-		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, saucers, 
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, groupY, saucers, 
 				EnemyPaths.STRAIGHT, true, EnemyPaths.STRAIGHT_SAUCER_SPEED);
 	}
 	
