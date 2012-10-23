@@ -7,6 +7,7 @@ import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Sounds;
+import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -76,7 +77,7 @@ public class Hero extends AbstractSprite {
         blinkAnimation.setPlayMode(Animation.LOOP);
 
         
-        overheatbar = OverHeatBar.getInstance();
+        overheatbar = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, Sizes.DEFAULT_WORLD_HEIGHT/5*4, TextureRegions.OVERHEATBAR);
         
         emitters_burn_baby_burn = new Array<ParticleEmitter>(Effects.EXPLOSION_1.getEmitters());
 		
@@ -185,6 +186,7 @@ public class Hero extends AbstractSprite {
 			batch.draw(currentTexture, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		}
 		lifeCounter.draw(batch, ppuX, ppuY);
+		overheatbar.draw(batch, ppuX, ppuY);
 	}
 
 	public void setFire(boolean fire) {

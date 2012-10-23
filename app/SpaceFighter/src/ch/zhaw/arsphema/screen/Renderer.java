@@ -26,7 +26,6 @@ public class Renderer {
 	private float ppuY; // pixels per unit on the Y axis
 	private boolean showOverlay = true;
 	private NavigationOverlay overlay;
-	private OverHeatBar overheatbar;
 	private Background bg;
     
     public Renderer(Background bg)
@@ -39,7 +38,6 @@ public class Renderer {
     
 	private void loadTextures() {
 		overlay = new NavigationOverlay(TextureRegions.OVERLAY_SPRITE);
-		overheatbar = OverHeatBar.getInstance();
 	}
 	
 	public void cleanScreen() {
@@ -105,8 +103,6 @@ public class Renderer {
 		}
 		planetManager.createPlanet(elapsed);
 		
-		// draw overheatbar
-		overheatbar.draw(batch, ppuX, ppuY);
 
 		if(showOverlay)
 		{
