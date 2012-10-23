@@ -120,7 +120,7 @@ public class Renderer {
 		} else {
 			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
-		pointManager.draw(batch);
+		pointManager.draw(batch,ppuX,ppuY);
 		batch.end();
     }
 
