@@ -10,7 +10,6 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.Planet;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
-import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.util.TextureRegions;
 
@@ -27,6 +26,7 @@ public class Renderer {
 	private boolean showOverlay = true;
 	private NavigationOverlay overlay;
 	private Background bg;
+	private Pause pause;
     
     public Renderer(Background bg)
     {
@@ -38,6 +38,7 @@ public class Renderer {
     
 	private void loadTextures() {
 		overlay = new NavigationOverlay(TextureRegions.OVERLAY_SPRITE);
+		pause = new Pause();
 	}
 	
 	public void cleanScreen() {
@@ -119,6 +120,12 @@ public class Renderer {
 		pointManager.draw(batch,ppuX,ppuY);
 		batch.end();
     }
+    
+    public void drawPause() {
+    	batch.begin();
+		pause.draw(batch, ppuX,ppuY);
+		batch.end();
+	}
 
 	public void setPpuX(float ppuX) {
 		this.ppuX = ppuX;

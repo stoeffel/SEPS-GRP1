@@ -2,6 +2,7 @@ package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.controller.EnemyManager;
+import ch.zhaw.arsphema.controller.GameController;
 import ch.zhaw.arsphema.controller.HeroController;
 import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.PointManager;
@@ -31,19 +32,26 @@ public class GameScreen extends AbstractScreen {
 	private Renderer renderer;
 	private Background bg;
 	private float elapsed;
-	private boolean pause;
+
+	public GameState gameState;
+	private GameController gameController;
+	public enum GameState {
+		PAUSED, RESUMED, PLAY
+	};
 	
 	public GameScreen(MyGdxGame game) {
 		super(game);
 		elapsed = 0;
 		EnemyManager.deactivateEnemyFactory();
-		pause = false;
+		
 		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH/10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
+		gameState = GameState.PLAY;
 	}
 
 	@Override
 	public void show() {
 		controller = new HeroController(hero);
+		gameController = new GameController(this);
 		shotManager = new ShotManager();
 		enemyManager = new EnemyManager();
 		planetManager = new PlanetManager();
@@ -68,8 +76,19 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(final float delta) {
-		if(pause) // do not render in pause!
+		if (gameState.equals(GameState.PAUSED)) {
+			renderer.cleanScreen();
+			renderer.drawPause();
+			Gdx.input.setInputProcessor(gameController);
 			return;
+		} else if (gameState.equals(GameState.RESUMED)) {
+			gameState = GameState.PLAY;
+			super.render(0);
+			Gdx.input.setInputProcessor(controller);
+			return;
+		}
+		System.out.println(delta);		
+		
 		elapsed += delta;
 		//check memory usage
 //		long memTotal = Runtime.getRuntime().totalMemory();
@@ -120,12 +139,14 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void pause() {
-		pause = true;
+		gameState = GameState.PAUSED;
+		System.out.println("my_pause");
+		System.out.println(Gdx.graphics.getDeltaTime());
 	}
 
 	@Override
 	public void resume() {
-		pause = false;
+		
 	}
 
 }

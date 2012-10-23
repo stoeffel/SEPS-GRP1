@@ -43,14 +43,12 @@ public class EnemyManager {
 	}
 	
 	public void colideWithHero(final Hero hero){
-		for (final EnemyGroup group : groups) {
-			for(final AbstractEnemy enemy : group.getMembers()){
+			for(final AbstractEnemy enemy : enemies){
 				if(enemy.overlaps(hero)){
 					killedEnemies.add(enemy);
 					hero.lowerHealth(enemy.getCollisionDamage());
 				}
 			}
-		}
 	}
 	
 	/**
