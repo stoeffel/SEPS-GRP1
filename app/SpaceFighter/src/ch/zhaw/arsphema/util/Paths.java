@@ -30,6 +30,9 @@ public class Paths {
 	public static final String SFX_DANGER = "sounds/danger.wav";
 	public static final String SFX_EXPLOSION = "sounds/explosion.wav";
 	public static final String SFX_HURT = "sounds/hurt.wav";
+	public static final String SFX_BEEP = "sounds/beep.wav";
 
 	public static final String PLANETS = "images/planets/planets.png";
+
+	
 }

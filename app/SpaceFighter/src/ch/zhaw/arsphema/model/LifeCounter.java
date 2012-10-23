@@ -13,7 +13,7 @@ public class LifeCounter extends AbstractSprite {
 	 * 
 	 */
 	private static final long serialVersionUID = -3390110042341213551L;
-	private static final int ROWS = 2;
+	private static final int ROWS = 3;
 	private static final int COLS = 1;
 	private int lifes = 0;
 	private int maxLifes = 0;

@@ -9,6 +9,7 @@ import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Sounds;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,7 +20,7 @@ public class Hero extends AbstractSprite {
 	private static final int UP = 1;
 	private static final int DOWN = -1;
 	
-	private static final int ROWS = 2;
+	private static final int ROWS = 3;
 	private static final int COLS = 1;
 	
 	private boolean stopped = true;
@@ -43,6 +44,9 @@ public class Hero extends AbstractSprite {
 	private Array<ParticleEmitter> emitters_jet;
 	private TextureRegion currentTexture;
 	private LifeCounter lifeCounter;
+	private TextureRegion[] blinkFrames;
+	private Animation blinkAnimation;
+	private float stateTime;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -63,6 +67,14 @@ public class Hero extends AbstractSprite {
                 }
         }
         currentTexture = textures[0];
+        
+        // blink animation
+        blinkFrames = new TextureRegion[2];
+        blinkFrames[0] = textures[0];
+        blinkFrames[1] = textures[1];
+        blinkAnimation = new Animation(0.25f, blinkFrames);
+        blinkAnimation.setPlayMode(Animation.LOOP);
+
         
         overheatbar = OverHeatBar.getInstance();
         
@@ -162,9 +174,15 @@ public class Hero extends AbstractSprite {
 		
 		Effects.JET.setPosition( (x)*ppuX,(y+height/2)*ppuY );
 		Effects.JET.draw(batch, Gdx.graphics.getDeltaTime());
-		batch.draw(currentTexture, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
-		if (isHurt){
+		
+		if (isHurt && stateTime < 2){
+			stateTime += Gdx.graphics.getDeltaTime();
 			showExplotion(batch, Gdx.graphics.getDeltaTime(),ppuX, ppuY);
+			batch.draw(blinkAnimation.getKeyFrame(stateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		} else {
+			isHurt = false;
+			stateTime = 0;
+			batch.draw(currentTexture, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		}
 		lifeCounter.draw(batch, ppuX, ppuY);
 	}
@@ -174,17 +192,16 @@ public class Hero extends AbstractSprite {
 	}
 
 	public void lowerHealth(int damage) {
+		if (isHurt) return; // don't hurt him again
+		isHurt = true;
 		health -= damage; //TODO shield and stuff check
 		lifeCounter.setLifes(health);
-	    isHurt = true;
 	    Services.getSoundManager().play(Sounds.HURT, false);
-	    
 		dead = health <= 0;
 	}
 	
 	private void showExplotion(SpriteBatch batch, float delta, float ppuX, float ppuY){
 		if (emitters_burn_baby_burn.get(0).isComplete()){
-			isHurt = false;
 			emitters_burn_baby_burn.get(0).reset();
 			emitterStarted = false;
 			return;
