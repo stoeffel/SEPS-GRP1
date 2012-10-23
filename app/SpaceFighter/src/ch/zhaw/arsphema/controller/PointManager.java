@@ -36,7 +36,7 @@ public class PointManager {
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		//TODO do the needfull spoerri
 		totalPoints = enemyPoints + timeBonus;
-		showMeYourPoints.setText("points: " + totalPoints);
+		showMeYourPoints.setText("" + totalPoints);
 		showMeYourPoints.x = Sizes.DEFAULT_WORLD_WIDTH/2 * ppuX;
         showMeYourPoints.y = (Sizes.DEFAULT_WORLD_HEIGHT*19/20) * ppuY; 
 		showMeYourPoints.draw(batch, 1);
