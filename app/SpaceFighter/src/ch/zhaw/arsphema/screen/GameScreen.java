@@ -87,7 +87,6 @@ public class GameScreen extends AbstractScreen {
 			Gdx.input.setInputProcessor(controller);
 			return;
 		}
-		System.out.println(delta);		
 		
 		elapsed += delta;
 		//check memory usage
@@ -140,8 +139,6 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void pause() {
 		gameState = GameState.PAUSED;
-		System.out.println("my_pause");
-		System.out.println(Gdx.graphics.getDeltaTime());
 	}
 
 	@Override

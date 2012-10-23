@@ -51,18 +51,20 @@ public class EnemyFactory
 		final float groupHeight = amountOfEnemies / 2 * Sizes.SAUCER_HEIGHT;
 		final float groupY = y - groupHeight;
 		for(int i = 0; i < amountOfEnemies; i++){
-			saucers.add(createSaucer(i * Sizes.SAUCER_WIDTH * 0.5f, random.nextInt((int)groupHeight)));
+			saucers.add(createSaucer(i * Sizes.SAUCER_WIDTH * 0.5f, 
+					random.nextInt((int)groupHeight),
+					i % 2));
 		}
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, groupY, saucers, 
 				EnemyPaths.STRAIGHT, true, EnemyPaths.STRAIGHT_SAUCER_SPEED);
 	}
 	
-    public AbstractEnemy createSaucer(final float offsetX, final float offsetY)
+    public AbstractEnemy createSaucer(final float offsetX, final float offsetY, final int direction)
     {
-    	final Saucer saucer = new Saucer(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
-    			Sizes.DEFAULT_WORLD_HEIGHT / 2, 
-    			offsetX, offsetY, 
+    	final Saucer saucer = new Saucer(0, 0, offsetX, offsetY, 
     			Sizes.SAUCER_WIDTH, Sizes.SAUCER_HEIGHT, EnemyTextures.SAUCER, POINTS_SAUCER);
+    	if(direction == 0)
+    		saucer.redirectYSpeed();
     	return saucer;
     }
 
