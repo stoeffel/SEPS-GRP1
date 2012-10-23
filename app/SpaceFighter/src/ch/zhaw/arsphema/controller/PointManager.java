@@ -1,6 +1,7 @@
 package ch.zhaw.arsphema.controller;
 
 import ch.zhaw.arsphema.util.Paths;
+import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +20,7 @@ public class PointManager {
 	public PointManager()
 	{
         LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.SPACE_FONT), false), Color.WHITE);
+        labelStyle.font.setScale(0.5f);
         showMeYourPoints = new Label("Arsphema", labelStyle);
 	}
 	
@@ -31,10 +33,13 @@ public class PointManager {
 		timeBonus = (int) (timeElapsed * 13f);
 	}
 	
-	public void draw(SpriteBatch batch) {
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		//TODO do the needfull spoerri
 		totalPoints = enemyPoints + timeBonus;
 		showMeYourPoints.setText("points: " + totalPoints);
+		showMeYourPoints.x = Sizes.DEFAULT_WORLD_WIDTH/2 * ppuX;
+        showMeYourPoints.y = (Sizes.DEFAULT_WORLD_HEIGHT*19/20) * ppuY; 
+		showMeYourPoints.draw(batch, 1);
 //		batch.draw(showMeYourPoints, Sizes.DEFAULT_WORLD_WIDTH / 2, Sizes.DEFAULT_WORLD_HEIGHT);
 		// System.out.println(totalPoints);
 	}
