@@ -19,7 +19,7 @@ public class Hero extends AbstractSprite {
 	private static final int UP = 1;
 	private static final int DOWN = -1;
 	
-	private static final int ROWS = 1;
+	private static final int ROWS = 2;
 	private static final int COLS = 1;
 	
 	private boolean stopped = true;
@@ -74,8 +74,9 @@ public class Hero extends AbstractSprite {
 		
 		Effects.JET.getEmitters().add(emitters_jet.get(0));
 		emitters_jet.get(0).start();
-		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, currentTexture);
+		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, texture);
 		lifeCounter.setLifes(health);
+		lifeCounter.setMaxLifes(health);
 	}
 	
 	

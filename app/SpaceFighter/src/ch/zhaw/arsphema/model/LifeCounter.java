@@ -13,11 +13,28 @@ public class LifeCounter extends AbstractSprite {
 	 * 
 	 */
 	private static final long serialVersionUID = -3390110042341213551L;
+	private static final int ROWS = 2;
+	private static final int COLS = 1;
 	private int lifes = 0;
+	private int maxLifes = 0;
+	private TextureRegion[] textures;
+	private TextureRegion notUsed, used;
 
 	public LifeCounter(float x, float y, float width, float height,
 			TextureRegion texture) {
 		super(x, y, width, height, texture);
+		TextureRegion[][] tmp = texture.split( 
+				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
+		textures = new TextureRegion[COLS * ROWS];
+
+		int index = 0;
+        for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLS; j++) {
+                        textures[index++] = tmp[i][j];
+                }
+        }
+        notUsed = textures[0];
+        used = textures[1];
 
 	}
 
@@ -35,10 +52,14 @@ public class LifeCounter extends AbstractSprite {
 
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		// active lifes
 		for (int i = 0; i < lifes; i++) {
-			batch.draw(textureRegion, ppuX*x+i*(width*ppuX+2), ppuY*y, width*ppuX, height*ppuY);
+			batch.draw(notUsed, ppuX*x+i*(width*ppuX+2), ppuY*y, width*ppuX, height*ppuY);
 		}
-		
+		// used lifes
+		for (int i = lifes; i < maxLifes; i++) {
+			batch.draw(used, ppuX*x+i*(width*ppuX+2), ppuY*y, width*ppuX, height*ppuY);
+		}
 
 	}
 
@@ -48,6 +69,14 @@ public class LifeCounter extends AbstractSprite {
 
 	public void setLifes(int lifes) {
 		this.lifes = lifes;
+	}
+
+	public int getMaxLifes() {
+		return maxLifes;
+	}
+
+	public void setMaxLifes(int maxLifes) {
+		this.maxLifes = maxLifes;
 	}
 
 }
