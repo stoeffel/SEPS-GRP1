@@ -11,12 +11,17 @@ public class HeroController extends AbstractController implements
 	private Hero hero;
 	private float width, height;
 
-	private int leftPointer = -1, rightPointer = -1;
+	private int leftPointer, rightPointer;
 
 	private static final int LEFT_TOP = 0, LEFT_BOTTOM = 1, RIGHT = 2;
 
 	public HeroController(Hero hero) {
 		this.hero = hero;
+		leftPointer = -1;
+		rightPointer = -1;
+		for(IngameKeys ikeys : keys.keySet()){
+			keys.put(ikeys, false);
+		}
 	}
 
 	public void upPressed() {

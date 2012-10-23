@@ -110,7 +110,10 @@ public class MusicManager
      */
     public void dispose()
     {
-        
         stop();
     }
+
+	public void stopMusic() {
+		musicBeingPlayed.stop();
+	}
 }

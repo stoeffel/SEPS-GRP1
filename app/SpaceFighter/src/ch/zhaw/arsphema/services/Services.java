@@ -21,8 +21,8 @@ public class Services {
 	}
 
 	public static void turnOffSound() {
-		soundManager.dispose();
-		musicManager.dispose();
+		soundManager.stopSounds();
+		musicManager.stopMusic();
 	}
 	
 }

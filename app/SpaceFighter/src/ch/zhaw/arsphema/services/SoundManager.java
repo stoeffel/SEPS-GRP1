@@ -103,4 +103,11 @@ public class SoundManager
 	public boolean isPlaying(Sound sound) {
 		return soundsPlaying.indexOf(sound, false) >= 0;
 	}
+
+	public void stopSounds() {
+        for( Sound sound : soundsPlaying ) {
+            sound.stop();
+            soundsPlaying.removeValue(sound, false);
+		}
+	}
 }

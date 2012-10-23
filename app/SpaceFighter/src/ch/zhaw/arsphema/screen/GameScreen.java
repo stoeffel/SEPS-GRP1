@@ -30,11 +30,14 @@ public class GameScreen extends AbstractScreen {
 	private PointManager pointManager;
 	private Renderer renderer;
 	private Background bg;
-	private float elapsed = 0;
-	private boolean pause = false;
+	private float elapsed;
+	private boolean pause;
 	
 	public GameScreen(MyGdxGame game) {
 		super(game);
+		elapsed = 0;
+		EnemyManager.deactivateEnemyFactory();
+		pause = false;
 		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH/10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
 	}
 
@@ -86,6 +89,7 @@ public class GameScreen extends AbstractScreen {
 		hero.move(delta);
 		shotManager.heroShoots(hero.shoot(delta));
 		shotManager.heroSuffering(hero);
+		enemyManager.colideWithHero(hero);
 		if(hero.isDead()){
 			game.gameOver();
 			Services.turnOffSound();

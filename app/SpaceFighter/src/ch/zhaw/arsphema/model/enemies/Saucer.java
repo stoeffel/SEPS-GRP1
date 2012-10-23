@@ -11,11 +11,12 @@ import com.badlogic.gdx.utils.Array;
 public class Saucer extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private Random shotRandom = new Random();
+	private static final int COLLISION_DAMAGE = 1;
 	
 	
 	public Saucer(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
-		super(x, y, offsetX, offsetY, width, height, texture, points);
+		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package ch.zhaw.arsphema.controller;
 
 import ch.zhaw.arsphema.model.Explosion;
+import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyFactory;
 import ch.zhaw.arsphema.model.enemies.EnemyGroup;
@@ -39,6 +40,17 @@ public class EnemyManager {
 		}
 		removeEnemies();
 		removeExplosions();
+	}
+	
+	public void colideWithHero(final Hero hero){
+		for (final EnemyGroup group : groups) {
+			for(final AbstractEnemy enemy : group.getMembers()){
+				if(enemy.overlaps(hero)){
+					killedEnemies.add(enemy);
+					hero.lowerHealth(enemy.getCollisionDamage());
+				}
+			}
+		}
 	}
 	
 	/**

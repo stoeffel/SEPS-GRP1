@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Ufo extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
+	private static final int COLLISION_DAMAGE = 1;
 	private float xMovement = 10;
 	private float yMovement = 3;
 	protected float shotVelocity = -80;
@@ -20,7 +21,7 @@ public class Ufo extends AbstractEnemy {
 	
 	public Ufo(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
-		super(x, y, offsetX, offsetY, width, height, texture, points);
+		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
 		resetShotFrequency();
 	}
 	

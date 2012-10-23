@@ -10,13 +10,16 @@ public abstract class AbstractEnemy extends AbstractSprite {
 	protected float shotVelocity;
 	protected float offsetY;
 	protected float offsetX;
+	protected final int collisionDamage;
 
 
 	public AbstractEnemy(float x, float y, float offsetX, float offsetY
-			, float width, float height, TextureRegion texture, final int points) {
+			, float width, float height, TextureRegion texture, final int points, 
+			final int collisionDamage) {
 		super(x, y, width, height, texture);
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
+		this.collisionDamage = collisionDamage;
 		basePoints = points;
 	}
 
@@ -31,5 +34,9 @@ public abstract class AbstractEnemy extends AbstractSprite {
 
 	public void setBasePoints(int basePoints) {
 		this.basePoints = basePoints;
+	}
+
+	public int getCollisionDamage(){
+		return collisionDamage;
 	}
 }
