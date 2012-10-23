@@ -10,6 +10,7 @@ public class MyGdxGame extends Game {
     private OptionScreen optionScreen;
     private HighscoreScreen highscoreScreen;
     private HighscoreInsertScreen highscoreInsertScreen;
+    private CreditsScreen creditsScreen;
 
 
     @Override
@@ -20,12 +21,13 @@ public class MyGdxGame extends Game {
         optionScreen = new OptionScreen(this);
         highscoreScreen = new HighscoreScreen(this);
         highscoreInsertScreen = new HighscoreInsertScreen(this);
+        creditsScreen = new CreditsScreen(this);
 
         setScreen(mainMenuScreen);
     }
-    
+
     public void gameOver() {
-    	setScreen(mainMenuScreen);
+        setScreen(mainMenuScreen);
     }
 
     public MainMenuScreen getMainMenuScreen() {
@@ -33,9 +35,9 @@ public class MyGdxGame extends Game {
     }
 
     public void createNewGame() {
-    	gameScreen = new GameScreen(this);
+        gameScreen = new GameScreen(this);
     }
-    
+
     public GameScreen getGameScreen() {
         return gameScreen;
     }
@@ -50,5 +52,9 @@ public class MyGdxGame extends Game {
 
     public HighscoreInsertScreen getHighscoreInsertScreen() {
         return highscoreInsertScreen;
+    }
+
+    public CreditsScreen getCreditsScreen() {
+        return creditsScreen;
     }
 }

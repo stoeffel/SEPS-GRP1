@@ -6,12 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
-/*
-   Screen zur Anzeige der Highscores
-   Die Styles werden warscheinlich noch ausgelagert.
-*/
 public class HighscoreScreen extends UiScreen {
+
+    private Table wrapTable;
 
     public HighscoreScreen(MyGdxGame game) {
         super(game);
@@ -19,11 +18,28 @@ public class HighscoreScreen extends UiScreen {
     }
 
     private void setupGUI() {
-        //todo GUI erstellen
+        //Layout Table
+        wrapTable = new Table();
+        wrapTable.setFillParent(true);
+        wrapTable.top().padTop(50);
+        stage.addActor(wrapTable);
 
-        //Nur temporär zu Orientierungs und Testzwecken
-        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false), Color.WHITE);
-        stage.addActor(new Label("HighscoreScreen", labelStyle));
+        //Header
+        Label.LabelStyle headerLabelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.HEADER_FONT), false), Color.WHITE);
+        wrapTable.add(new Label("Highscore", headerLabelStyle)).padBottom(20);
+        wrapTable.row();
+
+        //Highscore Table
+        Table highscoreTable = new Table();
+        highscoreTable.width(400);
+        Label.LabelStyle entryLabelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false), Color.WHITE);
+        for (int i = 0; i < 10; i++) {
+            highscoreTable.add(new Label("Name", entryLabelStyle)).width(200);
+            highscoreTable.add(new Label("0", entryLabelStyle)).expand().right();
+            highscoreTable.row();
+        }
+        wrapTable.add(highscoreTable);
+
     }
 
     @Override

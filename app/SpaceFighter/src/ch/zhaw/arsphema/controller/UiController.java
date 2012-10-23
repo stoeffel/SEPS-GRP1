@@ -6,7 +6,6 @@ import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Buttons;
 import ch.zhaw.arsphema.util.Sounds;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
@@ -89,15 +88,17 @@ public class UiController extends AbstractController implements InputProcessor {
 
         @Override
         public void click(Actor actor, float v, float v1) {
-        	Services.setSoundManager(new SoundManager());
-        	Services.getSoundManager().play(Sounds.BEEP, false);
+            Services.setSoundManager(new SoundManager());
+            Services.getSoundManager().play(Sounds.BEEP, false);
             if (Buttons.BUTTON_GAME_START.equals(actor.name)) {
-            	game.createNewGame();
+                game.createNewGame();
                 game.setScreen(game.getGameScreen());
             } else if (Buttons.BUTTON_SHOW_HIGHSCORE.equals(actor.name)) {
                 game.setScreen(game.getHighscoreScreen());
             } else if (Buttons.BUTTON_SHOW_OPTIONS.equals(actor.name)) {
                 game.setScreen(game.getOptionScreen());
+            } else if (Buttons.BUTTON_SHOW_CREDITS.equals(actor.name)) {
+                game.setScreen(game.getCreditsScreen());
             } else if (Buttons.BUTTON_QUIT.equals(actor.name)) {
                 //todo Falls nötig noch zusätzliche Aktionen beim Beenden der Applikation implementieren
                 Gdx.app.exit();

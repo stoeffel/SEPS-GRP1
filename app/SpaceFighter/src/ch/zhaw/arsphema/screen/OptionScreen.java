@@ -6,12 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
-/*
-   Screen um die Spieloptionen festzulegen
-   Die Styles werden warscheinlich noch ausgelagert.
-*/
 public class OptionScreen extends UiScreen {
+
+    private Table wrapTable;
 
     public OptionScreen(MyGdxGame game) {
         super(game);
@@ -19,11 +18,15 @@ public class OptionScreen extends UiScreen {
     }
 
     private void setupGUI() {
-        //todo GUI erstellen
+        //Layout Table
+        wrapTable = new Table();
+        wrapTable.setFillParent(true);
+        wrapTable.top().padTop(50);
+        stage.addActor(wrapTable);
 
-        //Nur temporär zu Orientierungs und Testzwecken
-        Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false), Color.WHITE);
-        stage.addActor(new Label("OptionScreen", labelStyle));
+        //Header
+        Label.LabelStyle headerLabelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.HEADER_FONT), false), Color.WHITE);
+        wrapTable.add(new Label("Options", headerLabelStyle)).padBottom(20);
     }
 
     @Override

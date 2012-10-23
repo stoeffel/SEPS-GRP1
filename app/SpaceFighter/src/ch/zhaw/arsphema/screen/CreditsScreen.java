@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
-public class HighscoreInsertScreen extends UiScreen {
+public class CreditsScreen extends UiScreen {
 
     private Table wrapTable;
 
-    public HighscoreInsertScreen(MyGdxGame game) {
+    public CreditsScreen(MyGdxGame game) {
         super(game);
         setupGUI();
     }
@@ -26,7 +26,7 @@ public class HighscoreInsertScreen extends UiScreen {
 
         //Header
         Label.LabelStyle headerLabelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.HEADER_FONT), false), Color.WHITE);
-        wrapTable.add(new Label("New Highscore Entry", headerLabelStyle)).padBottom(20);
+        wrapTable.add(new Label("Credits", headerLabelStyle)).padBottom(20);
     }
 
     @Override
@@ -35,3 +35,4 @@ public class HighscoreInsertScreen extends UiScreen {
         Gdx.input.setCatchBackKey(true);
     }
 }
+

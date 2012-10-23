@@ -15,10 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
-/*
-   Hauptmenue des Spiels
-    Die Styles werden warscheinlich noch ausgelagert.
- */
 public class MainMenuScreen extends UiScreen {
 
     private Table table;
@@ -30,12 +26,12 @@ public class MainMenuScreen extends UiScreen {
 
     private void setupGUI() {
 
-        //Tabelle
+        //Layouttable
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
 
-        //Ueberschrift
+        //Header
         LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.SPACE_FONT), false), Color.WHITE);
         table.add(new Label("Arsphema", labelStyle)).padBottom(20);
 
@@ -59,6 +55,10 @@ public class MainMenuScreen extends UiScreen {
         highscoreButton.setClickListener(uiController.createUiButtonListener());
         addTextButton(highscoreButton);
 
+        TextButton creditsButton = new TextButton("Credits", style, Buttons.BUTTON_SHOW_CREDITS);
+        creditsButton.setClickListener(uiController.createUiButtonListener());
+        addTextButton(creditsButton);
+
         TextButton quitButton = new TextButton("Quit", style, Buttons.BUTTON_QUIT);
         quitButton.setClickListener(uiController.createUiButtonListener());
         addTextButton(quitButton);
@@ -72,13 +72,13 @@ public class MainMenuScreen extends UiScreen {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        //todo Resizeverhalten der Components bei grösseren Displays wie z.B. Tablets anpassen.
+        //todo resizing of components for bigger displays like Tablets.
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
-        //Ev. für allfällige Animationen im UI
+        //maybe for later use
     }
 
     @Override
