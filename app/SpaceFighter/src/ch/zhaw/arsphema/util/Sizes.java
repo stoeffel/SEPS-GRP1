@@ -7,8 +7,6 @@ public class Sizes {
 	
 	public static final float DEFAULT_WORLD_WIDTH = 96;
 	public static final float DEFAULT_WORLD_HEIGHT = 84;
-	public static final float OVERLAY_SPRITE_WIDTH = 960;
-	public static final float OVERLAY_SPRITE_HEIGHT = 1684;
 	public static final int BUTTON_WIDTH = 200;
 	
 	//Enemies

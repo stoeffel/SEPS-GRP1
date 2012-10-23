@@ -17,20 +17,10 @@ public class EnemyManager {
 	private static boolean dropEnemies = false;
 	private float nextEnemyToDrop = 0;
 	//set to hard so the calculation creates easy groups at the beginning
-	private EnemyGroupDifficulty groupDiffcultyOne = EnemyGroupDifficulty.HARD; // latest deployment
-	private EnemyGroupDifficulty groupDiffcultyTwo = EnemyGroupDifficulty.HARD; // secont latest deployment
-	private EnemyGroupDifficulty groupDiffcultyThree = EnemyGroupDifficulty.HARD; // third latest deployment
+	private int groupDiffcultyOne = 2; // latest deployment
+	private int groupDiffcultyTwo = 2; // secont latest deployment
+	private int groupDiffcultyThree = 2; // third latest deployment
 	
-	
-	public enum EnemyGroupDifficulty {
-		EASY (1),
-		MEDIUM (2),
-		HARD (3);
-	    private final int difficultyLevel;
-	    EnemyGroupDifficulty(int i) {
-	        this.difficultyLevel = i;
-	    }
-	}
 	
 	public EnemyManager()
 	{
@@ -119,9 +109,11 @@ public class EnemyManager {
 
 	private void addEnemies(final float elapsed) {
 		//assumption: beginning of only hard enemies @200secs
-		final int lastGroupsDifficulty = groupDiffcultyOne.difficultyLevel + groupDiffcultyTwo.difficultyLevel + groupDiffcultyThree.difficultyLevel;
+		final int lastGroupsDifficulty = groupDiffcultyOne + groupDiffcultyTwo + groupDiffcultyThree;
 		final int nextGroupDiffLevel = calculateNextGroupDifficultyLevel(elapsed, lastGroupsDifficulty);
-		
+		groupDiffcultyThree = groupDiffcultyTwo;
+		groupDiffcultyTwo = groupDiffcultyOne;
+		groupDiffcultyOne = nextGroupDiffLevel;
 		final EnemyGroup group = enemyFactory.createGroupByDifficultyLevel(nextGroupDiffLevel, elapsed);
 		final Array<AbstractEnemy> newEnemies = group.getMembers(); 
 		if (newEnemies != null) {
@@ -132,9 +124,16 @@ public class EnemyManager {
 	
 	private int calculateNextGroupDifficultyLevel(final float elapsed, final int sumDifLevel)
 	{
-//		float s = 0.015 * elapsed + 2;
-		// TODO some fancy algorithm to define next 	
-		return 1;
+		//TODO check
+		final float div;
+		if(sumDifLevel == 0)
+			div = 1;
+		else
+			div = 1 / sumDifLevel;
+		float result = elapsed / 100 * div / 3; 
+		if(result > 2)
+			return 2;
+		return Math.round(result);
 	}
 	
 	public Array<AbstractEnemy> getEnemies() 

@@ -11,6 +11,6 @@ public class EnemyTextures {
 
 	static {
 		UFO = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_UFO)));
-		UFO = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_SAUCER)));
+		SAUCER = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_SAUCER)));
 	}
 }

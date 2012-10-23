@@ -8,15 +8,15 @@ public abstract class AbstractEnemy extends AbstractSprite {
 	private static final long serialVersionUID = 1L;
 	protected int basePoints;
 	protected float shotVelocity;
-	protected float offset_y;
-	protected float offset_x;
+	protected float offsetY;
+	protected float offsetX;
 
 
-	public AbstractEnemy(float x, float y, float offset_x, float offset_y
+	public AbstractEnemy(float x, float y, float offsetX, float offsetY
 			, float width, float height, TextureRegion texture, final int points) {
 		super(x, y, width, height, texture);
-		this.offset_x = offset_x;
-		this.offset_y = offset_y;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 		basePoints = points;
 	}
 

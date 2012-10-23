@@ -1,10 +1,12 @@
 package ch.zhaw.arsphema.model.enemies;
 
+import ch.zhaw.arsphema.util.Sizes;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class EnemyGroup {
-	private Array<Vector2> path = EnemyPaths.ZICK_ZACK;
+	private Array<Vector2> path;
 	private int countVector = 0;
 	private Vector2 start = new Vector2();
 	private Vector2 end = new Vector2();
@@ -16,16 +18,33 @@ public class EnemyGroup {
 	private Array<AbstractEnemy> members;
 	private Vector2 direction;
 	
-	public EnemyGroup(float x, float y, Array<AbstractEnemy> members) {
+	public EnemyGroup(final float x, final float y, 
+			final Array<AbstractEnemy> members, final Array<Vector2> pathP, 
+			final boolean adjustPath, final float speed) {
+		this.x = x;
+		this.y = y;
 		position.set(x,y);
+		if(adjustPath){
+			//copy
+			path = new Array<Vector2>();
+			for(final Vector2 vector : pathP){
+				path.add(new Vector2(vector));
+			}
+			//adjust
+			for(final Vector2 vector : path){
+				//adjustment, defualt is world height / 2
+				vector.y += y - Sizes.DEFAULT_WORLD_HEIGHT / 2;
+			}
+		}
+		else {
+			this.path = pathP;
+		}
 		start.set(position);
 		end.set(path.get(countVector));
 		distance = start.dst(end);
 		direction = end.cpy().sub(start);
-		speed = 0.5f;
+		this.speed = speed;
 		this.members = members;
-		this.x = x;
-		this.y = y;
 	}
 	
 	public boolean move(float delta){
@@ -44,8 +63,8 @@ public class EnemyGroup {
 			return true;
 		}
 		for (final AbstractEnemy member : members) {
-			member.x = member.offset_x + x;
-			member.y = member.offset_y + y;
+			member.x = member.offsetX + x;
+			member.y = member.offsetY + y;
 			member.move(delta); // enable moving in a group itself
 		}
 		
