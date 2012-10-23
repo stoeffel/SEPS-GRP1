@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class EnemyTextures {
 
 	public static TextureRegion UFO;
+	public static TextureRegion SAUCER;
 
 	static {
-		UFO = new TextureRegion(new Texture(Gdx.files.internal("images/badboys/ufo.png")));
+		UFO = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_UFO)));
+		UFO = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_SAUCER)));
 	}
 }

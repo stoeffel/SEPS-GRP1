@@ -9,6 +9,7 @@ public class Paths {
 	
 	// ENEMIES
 	public static final String ENEMY_UFO = "images/badboys/ufo.png";
+	public static final String ENEMY_SAUCER = "images/badboys/saucer.png";
 	
 	// FONTS
 	public static final String SPACE_FONT = "skin/spacefont.fnt";
