@@ -21,7 +21,6 @@ public class MainMenuScreen extends UiScreen {
 
     public MainMenuScreen(MyGdxGame game) {
         super(game);
-        setupGUI();
     }
 
     private void setupGUI() {
@@ -66,13 +65,13 @@ public class MainMenuScreen extends UiScreen {
 
     private void addTextButton(TextButton button) {
         table.row();
-        table.add(button).width(Sizes.BUTTON_WIDTH).pad(5);
+        table.add(button).width((int)(Sizes.BUTTON_WIDTH * ppuX)).pad(5);
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        //todo resizing of components for bigger displays like Tablets.
+        setupGUI();
     }
 
     @Override
