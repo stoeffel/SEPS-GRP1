@@ -17,5 +17,7 @@ public class Sizes {
 	
 	public static final float OVERHEATBAR_HEIGHT = 1.5f;
 	public static final float OVERHEATBAR_WIDTH = 1;
+	public static final float BLOB_HEIGHT = 10;
+	public static final float BLOB_WIDTH = 10;
 
 }

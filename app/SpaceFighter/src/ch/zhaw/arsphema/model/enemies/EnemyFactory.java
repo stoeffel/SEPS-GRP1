@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class EnemyFactory
 {
+	private static final int POINTS_BLOB = 5;
 	private static int POINTS_UFO = 1;
 	private static int POINTS_SAUCER = 2;
 	private static EnemyFactory instance;
@@ -34,6 +35,15 @@ public class EnemyFactory
 		ufos.add(createUfo(Sizes.UFO_WIDTH+2,Sizes.UFO_HEIGHT));
 		ufos.add(createUfo(Sizes.UFO_WIDTH+2,-Sizes.UFO_HEIGHT));
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
+				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
+	}
+	
+	public EnemyGroup createBlobGroup(final float shootFrequency, final float y)
+	{
+		//TODO use shootfrequency
+		Array<AbstractEnemy> blobs = new Array<AbstractEnemy>();
+		blobs.add(createBlob(0, 0));
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, blobs, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
     
@@ -66,6 +76,14 @@ public class EnemyFactory
     	if(direction == 0)
     		saucer.redirectYSpeed();
     	return saucer;
+    }
+    
+    public AbstractEnemy createBlob(final float offsetX, final float offsetY)
+    {
+    	final Blob blob = new Blob(0, 0, offsetX, offsetY, 
+    			Sizes.BLOB_WIDTH, Sizes.BLOB_HEIGHT, EnemyTextures.BLOB, POINTS_BLOB);
+    	
+    	return blob;
     }
 
 	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
@@ -106,7 +124,7 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_HARD_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+			return createBlobGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		throw new IllegalStateException();
 	}
