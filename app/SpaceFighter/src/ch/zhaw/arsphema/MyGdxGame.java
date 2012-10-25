@@ -1,6 +1,7 @@
 package ch.zhaw.arsphema;
 
 import ch.zhaw.arsphema.screen.*;
+import ch.zhaw.arsphema.services.Services;
 import com.badlogic.gdx.Game;
 
 public class MyGdxGame extends Game {
@@ -15,7 +16,7 @@ public class MyGdxGame extends Game {
 
     @Override
     public void create() {
-        //Screens einmalig instanzieren
+        //load screens
         mainMenuScreen = new MainMenuScreen(this);
         createNewGame();
         optionScreen = new OptionScreen(this);
@@ -23,7 +24,14 @@ public class MyGdxGame extends Game {
         highscoreInsertScreen = new HighscoreInsertScreen(this);
         creditsScreen = new CreditsScreen(this);
 
+        //load profile
+        Services.initProfileManager();
+        Services.getProfileManager().createTestProfile(); //testing
+        Services.getProfileManager().loadPlayerProfile();
+
         setScreen(mainMenuScreen);
+
+
     }
 
     public void gameOver() {

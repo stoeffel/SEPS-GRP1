@@ -18,8 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
  */
 public class UiController extends AbstractController implements InputProcessor {
 
-    //todo rsp - Eventuell wäre es besser den AbstractController als implementation von Inputprocessor zu verwenden - mit Stöffel besprechen.
-
     private final MyGdxGame game;
     private final Stage stage;
 

@@ -12,6 +12,9 @@
 bin/
 gen/
 
+#user created file
+/app/SpaceFighter-android/assets/data/profile.json
+
 # Local configuration file (sdk path, etc)
 local.properties
 *.iml

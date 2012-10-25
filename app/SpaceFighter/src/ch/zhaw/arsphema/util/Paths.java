@@ -35,4 +35,8 @@ public class Paths {
     public static final String SFX_BEEP = "sounds/beep.wav";
 
     public static final String PLANETS = "images/planets/planets.png";
+
+    // FILES
+    public static final String PLAYER_PROFILE = "data/profile.json";
+
 }

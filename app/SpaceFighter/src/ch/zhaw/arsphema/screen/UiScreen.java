@@ -6,9 +6,6 @@ import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Gdx;
 
-/*
-   Oberklasse aller UI-Screens für gemeinsame Funktionalitäten
- */
 abstract class UiScreen extends AbstractScreen {
 
     protected final UiController uiController;

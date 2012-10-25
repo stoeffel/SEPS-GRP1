@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.services;
 public class Services {
 	private static SoundManager soundManager;
 	private static MusicManager musicManager;
+	private static ProfileManager profileManager;
 
 	public static SoundManager getSoundManager() {
 		return soundManager;
@@ -24,5 +25,12 @@ public class Services {
 		soundManager.stopSounds();
 		musicManager.stopMusic();
 	}
-	
+
+    public static ProfileManager getProfileManager() {
+        return profileManager;
+    }
+
+    public static void initProfileManager() {
+        Services.profileManager = new ProfileManager();
+    }
 }
