@@ -17,7 +17,7 @@ public class EnemyFactory
 	private Random random = new Random();
 	private final int AMOUNT_OF_EASY_GROUPS = 2;
 	private final int AMOUNT_OF_MEDIUM_GROUPS = 1;
-	private final int AMOUNT_OF_HARD_GROUPS = 1;
+	private final int AMOUNT_OF_HARD_GROUPS = 2;
     private EnemyFactory(){/*Singleton*/}
     
     public static EnemyFactory getInstance()
@@ -106,7 +106,7 @@ public class EnemyFactory
 		case 0:
 			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
-			return createSaucerGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 20);
+			return createSaucerGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
 		}
 		throw new IllegalStateException();
 	}
@@ -115,7 +115,7 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_MEDIUM_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+			return createSaucerGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 20);
 		}
 		throw new IllegalStateException();
 	}
@@ -125,6 +125,8 @@ public class EnemyFactory
 		switch (nextGroupId){
 		case 0:
 			return createBlobGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+		case 1:
+			return createSaucerGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 30);
 		}
 		throw new IllegalStateException();
 	}
