@@ -1,6 +1,9 @@
 package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
+import ch.zhaw.arsphema.services.MusicManager;
+import ch.zhaw.arsphema.services.Services;
+import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.SpaceAssetManager;
@@ -32,6 +35,8 @@ public class LoadingScreen extends AbstractScreen {
 	public LoadingScreen(MyGdxGame game) {
 		super(game);
 		assetManager = SpaceAssetManager.getInstance();
+		Services.setSoundManager(new SoundManager());
+		Services.setMusicManager(new MusicManager());
 	}
 
 	@Override
@@ -70,7 +75,7 @@ public class LoadingScreen extends AbstractScreen {
 		}
 		loaderAnimation = new Animation(0.025f, loaderFrames); // #11
 		loaderAnimation.setPlayMode(Animation.LOOP);
-
+		
 		stateTime = 0f;
 	}
 

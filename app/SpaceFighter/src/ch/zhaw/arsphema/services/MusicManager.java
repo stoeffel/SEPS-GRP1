@@ -52,7 +52,6 @@ public class MusicManager
         stop();
 
         // start streaming the new music
-        
         musicBeingPlayed = music;
         musicBeingPlayed.setVolume( volume );
         musicBeingPlayed.setLooping( true );

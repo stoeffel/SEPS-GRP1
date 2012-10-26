@@ -17,6 +17,7 @@ import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends AbstractScreen {
@@ -60,8 +61,8 @@ public class GameScreen extends AbstractScreen {
 		
 		renderer = new Renderer(bg);
 		Gdx.input.setInputProcessor(controller);
-		Services.setSoundManager(new SoundManager());
-		Services.setMusicManager(new MusicManager());
+		Gdx.input.setCatchBackKey(true);
+		
 		Services.getMusicManager().setVolume(0.25f); // TODO set volume in preference screen
 		Services.getMusicManager().play(Musics.AMBIENTE);
 	}
@@ -76,6 +77,9 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(final float delta) {
+		if (Gdx.input.isKeyPressed(Keys.BACK)){
+			gameState = GameState.PAUSED;
+		}
 		if (gameState.equals(GameState.PAUSED)) {
 			renderer.cleanScreen();
 			renderer.drawPause();
@@ -87,6 +91,7 @@ public class GameScreen extends AbstractScreen {
 			Gdx.input.setInputProcessor(controller);
 			return;
 		}
+		
 		
 		elapsed += delta;
 		//check memory usage
