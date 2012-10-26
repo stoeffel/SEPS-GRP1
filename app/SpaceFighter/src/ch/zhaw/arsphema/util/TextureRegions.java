@@ -1,6 +1,5 @@
 package ch.zhaw.arsphema.util;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -19,11 +18,11 @@ public class TextureRegions {
 	public static final TextureRegion PLANETS;
 	
 	static {
-		HERO = new TextureRegion(new Texture(Gdx.files.internal(Paths.HERO)));
-		OVERLAY_SPRITE = new TextureRegion(new Texture(Gdx.files.internal(Paths.OVERLAY_SPRITE)));
-		OVERHEATBAR = new TextureRegion(new Texture(Gdx.files.internal(Paths.OVERHEATBAR)));
-		SHOT = new TextureRegion(new Texture(Gdx.files.internal(Paths.SHOT)));
-		BACKGROUND_STARS = new TextureRegion(new Texture(Gdx.files.internal(Paths.BACKGROUND_STARS)));
-		PLANETS = new TextureRegion(new Texture(Gdx.files.internal(Paths.PLANETS)));
+		HERO = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.HERO, Texture.class));
+		OVERLAY_SPRITE = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.OVERLAY_SPRITE, Texture.class));
+		OVERHEATBAR = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.OVERHEATBAR, Texture.class));
+		SHOT = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT, Texture.class));
+		BACKGROUND_STARS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.BACKGROUND_STARS, Texture.class));
+		PLANETS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.PLANETS, Texture.class));
 	}
 }

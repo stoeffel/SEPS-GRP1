@@ -1,6 +1,5 @@
 package ch.zhaw.arsphema.util;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -11,8 +10,8 @@ public class EnemyTextures {
 	public static TextureRegion SAUCER;
 
 	static {
-		UFO = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_UFO)));
-		SAUCER = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_SAUCER)));
-		BLOB = new TextureRegion(new Texture(Gdx.files.internal(Paths.ENEMY_BLOB)));
+		UFO = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ENEMY_UFO, Texture.class));
+		SAUCER = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ENEMY_SAUCER, Texture.class));
+		BLOB = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ENEMY_BLOB, Texture.class));
 	}
 }

@@ -1,6 +1,5 @@
 package ch.zhaw.arsphema.util;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {
@@ -11,11 +10,11 @@ public class Sounds {
 	public static final Sound BEEP;
 	
 	static {
-		SHOT = Gdx.audio.newSound(Gdx.files.internal(Paths.SFX_SHOT));
-		DANGER = Gdx.audio.newSound(Gdx.files.internal(Paths.SFX_DANGER));
-		EXPLOSION = Gdx.audio.newSound(Gdx.files.internal(Paths.SFX_EXPLOSION));
-		HURT = Gdx.audio.newSound(Gdx.files.internal(Paths.SFX_HURT));
-		BEEP = Gdx.audio.newSound(Gdx.files.internal(Paths.SFX_BEEP));
+		SHOT = SpaceAssetManager.getInstance().get(Paths.SFX_SHOT, Sound.class);
+		DANGER = SpaceAssetManager.getInstance().get(Paths.SFX_DANGER, Sound.class);
+		EXPLOSION = SpaceAssetManager.getInstance().get(Paths.SFX_EXPLOSION, Sound.class);
+		HURT = SpaceAssetManager.getInstance().get(Paths.SFX_HURT, Sound.class);
+		BEEP = SpaceAssetManager.getInstance().get(Paths.SFX_BEEP, Sound.class);
 	}
 	
 }

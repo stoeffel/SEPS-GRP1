@@ -12,12 +12,21 @@ public class MyGdxGame extends Game {
     private HighscoreScreen highscoreScreen;
     private HighscoreInsertScreen highscoreInsertScreen;
     private CreditsScreen creditsScreen;
+	private LoadingScreen loadingScreen;
 
 
     @Override
     public void create() {
-        //load screens
-        mainMenuScreen = new MainMenuScreen(this);
+        //loader screens
+    	loadingScreen = new LoadingScreen(this);
+
+        setScreen(loadingScreen);
+
+
+    }
+    
+    public void initScreens() {
+    	mainMenuScreen = new MainMenuScreen(this);
         createNewGame();
         optionScreen = new OptionScreen(this);
         highscoreScreen = new HighscoreScreen(this);
@@ -28,10 +37,6 @@ public class MyGdxGame extends Game {
         Services.initProfileManager();
         Services.getProfileManager().createTestProfile(); //testing
         Services.getProfileManager().loadPlayerProfile();
-
-        setScreen(mainMenuScreen);
-
-
     }
 
     public void gameOver() {
