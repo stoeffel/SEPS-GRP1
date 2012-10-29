@@ -6,12 +6,11 @@ import ch.zhaw.arsphema.controller.GameController;
 import ch.zhaw.arsphema.controller.HeroController;
 import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.PointManager;
+import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
-import ch.zhaw.arsphema.services.MusicManager;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Musics;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
@@ -30,6 +29,7 @@ public class GameScreen extends AbstractScreen {
 	private EnemyManager enemyManager;
 	private PlanetManager planetManager;
 	private PointManager pointManager;
+	private PowerUpManager powerUpManager;
 	private Renderer renderer;
 	private Background bg;
 	private float elapsed;
@@ -54,7 +54,8 @@ public class GameScreen extends AbstractScreen {
 		controller = new HeroController(hero);
 		gameController = new GameController(this);
 		shotManager = new ShotManager();
-		enemyManager = new EnemyManager();
+		powerUpManager = new PowerUpManager(hero);
+		enemyManager = new EnemyManager(powerUpManager);
 		planetManager = new PlanetManager();
 		pointManager = new PointManager();
 		bg = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
@@ -107,6 +108,7 @@ public class GameScreen extends AbstractScreen {
 		renderer.drawEnemies(enemyManager);
 		renderer.drawHero(hero);
 		renderer.drawShots(shotManager);
+		renderer.drawPowerUps(powerUpManager);
 		
 		//hero stuff
 		hero.move(delta);
@@ -128,6 +130,11 @@ public class GameScreen extends AbstractScreen {
 		//shot stuff
 		shotManager.moveShots(delta);
 		shotManager.cleanUpShots();
+		
+		//powerup stuff
+		powerUpManager.movePowerUps(delta);
+		powerUpManager.colideWithHero(hero);
+		
 		//user input
 		controller.update(delta);
 		

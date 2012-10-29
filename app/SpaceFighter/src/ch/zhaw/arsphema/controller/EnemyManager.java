@@ -21,15 +21,17 @@ public class EnemyManager {
 	private int groupDiffcultyOne = 2; // latest deployment
 	private int groupDiffcultyTwo = 2; // secont latest deployment
 	private int groupDiffcultyThree = 2; // third latest deployment
+	private PowerUpManager pum;
 	
 	
-	public EnemyManager()
+	public EnemyManager(PowerUpManager pum)
 	{
 		enemies = new Array<AbstractEnemy>();
 		killedEnemies = new Array<AbstractEnemy>();
 		enemyFactory = EnemyFactory.getInstance();
 		groups = new Array<EnemyGroup>();
 		explosions = new Array<Explosion>();
+		this.pum = pum;
 	}
 	
 	public void computeEnemyMovements(float delta) {
@@ -66,6 +68,7 @@ public class EnemyManager {
 					totalPoints += enemy.getBasePoints();
 					killedEnemies.add(enemy);
 					explosions.add(new Explosion(enemy.x+enemy.width/2,enemy.y+enemy.height/2));
+					pum.createPowerUp(enemy.x, enemy.y); // create a power up
 				}
 				shotManager.getShotsToRemove().add(shot);
 			}

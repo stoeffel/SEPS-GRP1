@@ -39,4 +39,7 @@ public class Paths {
     // FILES
     public static final String PLAYER_PROFILE = "data/profile.json";
 
+    // POWER UPS
+	public static final String ONE_UP = "images/powerups/1up.png";
+
 }

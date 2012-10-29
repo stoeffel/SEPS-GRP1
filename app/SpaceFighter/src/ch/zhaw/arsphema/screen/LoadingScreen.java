@@ -60,6 +60,7 @@ public class LoadingScreen extends AbstractScreen {
 		assetManager.load(Paths.SFX_HURT, Sound.class);
 		assetManager.load(Paths.SFX_BEEP, Sound.class);
 		assetManager.load(Paths.PLANETS, Texture.class);
+		assetManager.load(Paths.ONE_UP, Texture.class);
 
 		batch = new SpriteBatch();
 		loader = new Texture(Gdx.files.internal("images/loader.png"));

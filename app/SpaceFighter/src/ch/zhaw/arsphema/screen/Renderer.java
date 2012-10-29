@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.screen;
 import ch.zhaw.arsphema.controller.EnemyManager;
 import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.PointManager;
+import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Explosion;
@@ -10,6 +11,7 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.Planet;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
+import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.util.TextureRegions;
 
@@ -133,6 +135,15 @@ public class Renderer {
 
 	public void setPpuY(float ppuY) {
 		this.ppuY = ppuY;
+	}
+
+	public void drawPowerUps(PowerUpManager powerUpManager) {
+		batch.begin();
+		for (final AbstractPowerUp powerup : powerUpManager.getPowerUps()) 
+		{
+			powerup.draw(batch, ppuX, ppuY);
+		}
+		batch.end();
 	}
 
 

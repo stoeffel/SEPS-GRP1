@@ -202,6 +202,14 @@ public class Hero extends AbstractSprite {
 		dead = health <= 0;
 	}
 	
+	/**
+	 * 
+	 */
+	public void oneUp() {
+		health++;
+		lifeCounter.oneUp();
+	}
+	
 	private void showExplotion(SpriteBatch batch, float delta, float ppuX, float ppuY){
 		if (emitters_burn_baby_burn.get(0).isComplete()){
 			emitters_burn_baby_burn.get(0).reset();

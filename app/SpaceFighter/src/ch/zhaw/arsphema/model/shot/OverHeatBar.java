@@ -4,7 +4,6 @@ import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Sounds;
-import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +14,6 @@ public class OverHeatBar extends AbstractSprite {
 	private static final long serialVersionUID = 7293341756258539914L;
 	private static final int COLS = 1;
 	private static final int ROWS = 2;
-	private static OverHeatBar instance;
 	private float level;
 	private TextureRegion[][] regions;
 	private TextureRegion border;

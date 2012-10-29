@@ -79,4 +79,11 @@ public class LifeCounter extends AbstractSprite {
 		this.maxLifes = maxLifes;
 	}
 
+	public void oneUp() {
+		lifes++;
+		if (lifes > maxLifes) {
+			maxLifes++;
+		}
+	}
+
 }

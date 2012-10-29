@@ -16,6 +16,9 @@ public class TextureRegions {
 	public static final TextureRegion BACKGROUND_STARS;
 
 	public static final TextureRegion PLANETS;
+
+	// POWER_UPS
+	public static final TextureRegion ONE_UP;
 	
 	static {
 		HERO = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.HERO, Texture.class));
@@ -24,5 +27,6 @@ public class TextureRegions {
 		SHOT = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT, Texture.class));
 		BACKGROUND_STARS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.BACKGROUND_STARS, Texture.class));
 		PLANETS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.PLANETS, Texture.class));
+		ONE_UP = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ONE_UP, Texture.class));
 	}
 }
