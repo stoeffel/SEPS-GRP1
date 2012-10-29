@@ -19,7 +19,7 @@ public class Paths {
 
     // SHOTS
     public static final String OVERHEATBAR = "images/shot/overheatbar.png";
-    public static final String SHOT = "images/shot/shot.png";
+    public static final String SHOT = "images/shot/standard.png";
 
     // BACKGROUNDS
     public static final String BACKGROUND_STARS = "images/worlds/stars.png";

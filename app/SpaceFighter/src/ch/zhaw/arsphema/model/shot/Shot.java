@@ -14,8 +14,6 @@ import com.badlogic.gdx.utils.Array;
 
 public class Shot extends AbstractSprite {
 	private static final long serialVersionUID = 4015891462645256011L;
-	private static final int COLS = 2;
-	private static final int ROWS = 2;
 	private int damage = 1;
 	private float speed;
 	
@@ -27,21 +25,11 @@ public class Shot extends AbstractSprite {
 	
 	
 	public Shot(float x, float y, boolean isEnemyShot, final float speed) {
-		super(x,y, 1f, 1f, TextureRegions.SHOT);
+		super(x,y, 2f, 1f, TextureRegions.SHOT);
 		this.isEnemyShot = isEnemyShot;
 		this.speed = speed;
 		Services.getSoundManager().play(Sounds.SHOT,false);
 		
-		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
-		regions = new TextureRegion[COLS * ROWS];
-
-		int index = 0;
-        for (int i = 0; i < ROWS; i++) {
-                for (int j = 0; j < COLS; j++) {
-                	regions[index++] = tmp[i][j];
-                }
-        }
-        whichColor = new Random().nextInt(regions.length-1);
 	}
 	
 	public int getDamage() {
@@ -58,7 +46,7 @@ public class Shot extends AbstractSprite {
 	
 	public void draw(SpriteBatch batch, float ppuX,
 			float ppuY) {
-		batch.draw(regions[whichColor], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 	}
 	
 	@Override
