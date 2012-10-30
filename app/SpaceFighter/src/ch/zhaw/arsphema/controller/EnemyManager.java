@@ -162,15 +162,14 @@ public class EnemyManager {
 		}
 	}
 	
-	private int calculateNextGroupDifficultyLevel(final float elapsed, final int sumDifLevel)
+	private int calculateNextGroupDifficultyLevel(final float elapsed, final float sumDifLevel)
 	{
-		//TODO check
 		final float div;
 		if(sumDifLevel == 0)
 			div = 1;
 		else
 			div = 1 / sumDifLevel;
-		float result = elapsed / 100 * div / 3; 
+		float result = elapsed / (50 / div); 
 		if(result > 2)
 			return 2;
 		return Math.round(result);
