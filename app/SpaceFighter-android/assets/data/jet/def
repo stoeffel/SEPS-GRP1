@@ -282,7 +282,7 @@ lowMin: 200.0
 lowMax: 200.0
 - Count - 
 min: 0
-max: 200
+max: 210
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
@@ -314,7 +314,7 @@ active: false
 - Y Offset - 
 active: false
 - Spawn Shape - 
-shape: square
+shape: point
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
@@ -398,12 +398,20 @@ timeline0: 0.0
 - Gravity - 
 active: false
 - Tint - 
-colorsCount: 3
-colors0: 0.7176471
-colors1: 1.0
-colors2: 0.14509805
-timelineCount: 1
+colorsCount: 9
+colors0: 1.0
+colors1: 0.79607844
+colors2: 0.0
+colors3: 1.0
+colors4: 0.4627451
+colors5: 0.0
+colors6: 1.0
+colors7: 0.14509805
+colors8: 0.14509805
+timelineCount: 3
 timeline0: 0.0
+timeline1: 0.40585008
+timeline2: 1.0
 - Transparency - 
 lowMin: 0.0
 lowMax: 0.0
@@ -413,13 +421,13 @@ relative: false
 scalingCount: 4
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.877193
-scaling3: 1.0
+scaling2: 0.64912283
+scaling3: 0.0
 timelineCount: 4
 timeline0: 0.0
-timeline1: 0.2
-timeline2: 0.7671233
-timeline3: 1.0
+timeline1: 0.31506848
+timeline2: 0.6849315
+timeline3: 0.9520548
 - Options - 
 attached: false
 continuous: true

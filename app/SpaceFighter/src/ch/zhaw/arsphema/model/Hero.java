@@ -72,7 +72,7 @@ public class Hero extends AbstractSprite {
         // blink animation
         blinkFrames = new TextureRegion[2];
         blinkFrames[0] = textures[0];
-        blinkFrames[1] = textures[1];
+        blinkFrames[1] = textures[2];
         blinkAnimation = new Animation(0.25f, blinkFrames);
         blinkAnimation.setPlayMode(Animation.LOOP);
 
@@ -108,7 +108,7 @@ public class Hero extends AbstractSprite {
 		if (fire && lastShot > shootingFrequency) {
 			lastShot = 0;
 			heatGun(delta);
-			return ShotFactory.createShotInArray(x + width, y + height/3, shootSpeed, ShotFactory.STANDARD, false);
+			return ShotFactory.createShotInArray(x + width*5/6, y + height/3, shootSpeed, ShotFactory.STANDARD, false);
 		}
 		if (!fire)
 		{
