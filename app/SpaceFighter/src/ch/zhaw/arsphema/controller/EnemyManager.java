@@ -82,6 +82,7 @@ public class EnemyManager {
 						}
 					}
 					removeEnemies(group);
+					// no use for "continue" since groups can overlap
 				}
 			}
 		}
