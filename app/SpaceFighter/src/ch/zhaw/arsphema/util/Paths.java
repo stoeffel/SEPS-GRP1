@@ -16,6 +16,7 @@ public class Paths {
     public static final String SPACE_FONT = "skin/spacefont.fnt";
     public static final String BUTTON_FONT = "skin/buttonfont.fnt";
     public static final String HEADER_FONT = "skin/screenheader.fnt";
+    public static final String COUNTER_FONT = "skin/counterfont.fnt";
 
     // SHOTS
     public static final String OVERHEATBAR = "images/shot/overheatbar.png";

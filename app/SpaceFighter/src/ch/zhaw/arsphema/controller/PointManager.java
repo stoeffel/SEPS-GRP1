@@ -14,11 +14,12 @@ public class PointManager {
     private int enemyPoints = 0;
     private int timeBonus = 0;
     private int totalPoints = 0;
+    private BitmapFont counterfont;
     private Label showMeYourPoints;
 
     public PointManager() {
-        LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.SPACE_FONT), false), Color.WHITE);
-        labelStyle.font.setScale(0.5f);
+        counterfont = new BitmapFont(Gdx.files.internal(Paths.COUNTER_FONT), false);
+        LabelStyle labelStyle = new Label.LabelStyle(counterfont, Color.WHITE);
         showMeYourPoints = new Label("0", labelStyle);
     }
 
@@ -32,14 +33,12 @@ public class PointManager {
     }
 
     public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-        //TODO do the needfull spoerri
         totalPoints = enemyPoints + timeBonus;
         showMeYourPoints.setText("" + totalPoints);
-        showMeYourPoints.x = Sizes.DEFAULT_WORLD_WIDTH / 2 * ppuX;
-        showMeYourPoints.y = (Sizes.DEFAULT_WORLD_HEIGHT * 19 / 20) * ppuY;
+        BitmapFont.TextBounds bounds = counterfont.getBounds(String.valueOf(totalPoints));
+        showMeYourPoints.x = Sizes.DEFAULT_WORLD_WIDTH / 2 * ppuX - bounds.width / 2;
+        showMeYourPoints.y = (Sizes.DEFAULT_WORLD_HEIGHT - 5) * ppuY - bounds.height;
         showMeYourPoints.draw(batch, 1);
-//		batch.draw(showMeYourPoints, Sizes.DEFAULT_WORLD_WIDTH / 2, Sizes.DEFAULT_WORLD_HEIGHT);
-        // System.out.println(totalPoints);
     }
 
 }
