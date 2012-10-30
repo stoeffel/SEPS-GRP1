@@ -20,12 +20,12 @@ public class ShotGreen extends AbstractPowerUp {
 
 	@Override
 	public void doSomething(PowerUpManager pum) {
-		pum.setShot(ShotFactory.Type.GREEN);
+		pum.setShotGreen();
 	}
 
 	@Override
 	public void undoSomething(PowerUpManager pum) {
-		// nothing to undo
+		pum.setShotStd();
 	}
 
 }

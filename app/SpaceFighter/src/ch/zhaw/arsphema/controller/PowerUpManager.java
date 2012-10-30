@@ -4,6 +4,7 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.powerup.OneUp;
 import ch.zhaw.arsphema.model.powerup.ShotGreen;
+import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.model.shot.ShotFactory.Type;
 import ch.zhaw.arsphema.util.TextureRegions;
 
@@ -55,7 +56,7 @@ public class PowerUpManager {
 		if (rand < 0.505) {
 			return 1; // Probability for a one up is 1/200
 		}
-		if (rand < 0.5075) {
+		if (rand < 0.510) {
 			return 2; // Probability for a one up is 1/200
 		}
 		return 0;
@@ -100,8 +101,14 @@ public class PowerUpManager {
 		}
 	}
 
-	public void setShot(Type green) {
-		hero.setShotType(green);
+	public void setShotGreen() {
+		hero.setShotType(ShotFactory.Type.GREEN);
+		hero.setShootingFrequency(0.05f);
+	}
+
+	public void setShotStd() {
+		hero.setShotType(ShotFactory.Type.STANDARD);
+		hero.setShootingFrequency(0.1f);
 	}
 	
 
