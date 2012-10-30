@@ -3,6 +3,7 @@ package ch.zhaw.arsphema.model;
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
+import ch.zhaw.arsphema.model.shot.ShotFactory.Type;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sizes;
@@ -39,6 +40,7 @@ public class Hero extends AbstractSprite {
 	private float coolSpeed;
 	private float heatSpeed;
 	private float shootSpeed = 160;
+	private ShotFactory.Type shotType;
 	private boolean isHurt = false;
 	private boolean emitterStarted = false;
 	private Array<ParticleEmitter> emitters_burn_baby_burn;
@@ -90,6 +92,8 @@ public class Hero extends AbstractSprite {
 		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, texture);
 		lifeCounter.setLifes(health);
 		lifeCounter.setMaxLifes(health);
+		
+		shotType = ShotFactory.Type.STANDARD;
 	}
 	
 	
@@ -108,7 +112,7 @@ public class Hero extends AbstractSprite {
 		if (fire && lastShot > shootingFrequency) {
 			lastShot = 0;
 			heatGun(delta);
-			return ShotFactory.createShotInArray(x + width*5/6, y + height/3, shootSpeed, ShotFactory.STANDARD, false);
+			return ShotFactory.createShotInArray(x + width*5/6, y + height/3, shootSpeed, shotType, false);
 		}
 		if (!fire)
 		{
@@ -229,6 +233,12 @@ public class Hero extends AbstractSprite {
 
 	public boolean isDead() {
 		return dead;
+	}
+
+
+
+	public void setShotType(Type green) {
+		shotType = green;
 	}
 
 }

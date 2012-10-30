@@ -40,7 +40,7 @@ public class Blob extends AbstractEnemy {
 		shootFrequency -= delta;
 		if(shootFrequency < 0)
 		{
-			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, shotVelocity, 0, true);
+			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.GREEN, true);
 			resetShotFrequency();
 			return shot;
 		}

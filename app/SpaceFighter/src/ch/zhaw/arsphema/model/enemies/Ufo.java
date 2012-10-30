@@ -33,7 +33,7 @@ public class Ufo extends AbstractEnemy {
 		shootFrequency -= delta;
 		if(shootFrequency < 0)
 		{
-			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, shotVelocity, 0, true);
+			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.STANDARD, true);
 			resetShotFrequency();
 			return shot;
 		}
