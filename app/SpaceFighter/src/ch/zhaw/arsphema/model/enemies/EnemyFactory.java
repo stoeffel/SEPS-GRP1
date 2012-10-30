@@ -62,20 +62,23 @@ public class EnemyFactory
 		final float groupY = y - groupHeight;
 		for(int i = 0; i < amountOfEnemies; i++){
 			saucers.add(createSaucer(i * Sizes.SAUCER_WIDTH * 0.5f, 
-					random.nextInt((int)groupHeight),
+					random.nextInt((int)groupHeight), groupHeight,
 					i % 2));
 		}
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, groupY, saucers, 
 				EnemyPaths.STRAIGHT, true, EnemyPaths.STRAIGHT_SAUCER_SPEED);
 	}
 	
-    public AbstractEnemy createSaucer(final float offsetX, final float offsetY, final int direction)
+    public AbstractEnemy createSaucer(final float offsetX, final float offsetY, final float height, int direction)
     {
-    	//TODO check direction (if top, direction = down, if bottom, direction = up)
     	final Saucer saucer = new Saucer(0, 0, offsetX, offsetY, 
     			Sizes.SAUCER_WIDTH, Sizes.SAUCER_HEIGHT, EnemyTextures.SAUCER, POINTS_SAUCER);
-    	if(direction == 0)
+
+    	//if direction == 0, first move is down
+    	if((direction == 0 && offsetY - Sizes.SAUCER_HEIGHT > 0)
+    			|| offsetY + Sizes.SAUCER_HEIGHT > height){
     		saucer.redirectYSpeed();
+    	}
     	return saucer;
     }
     

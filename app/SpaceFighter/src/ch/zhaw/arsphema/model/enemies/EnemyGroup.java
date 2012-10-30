@@ -98,13 +98,4 @@ public class EnemyGroup extends Rectangle{
 		this.members = members;
 	}
 	
-	@Override
-	public boolean overlaps(Rectangle rect){//TODO remove
-		System.out.println(x + " - " + width);
-		System.out.println(y + " - " + height);
-		return !(x > rect.x + rect.width || x + width < rect.x 
-				|| y > rect.y + rect.height || y + height < rect.y);
-		
-	}
-
 }
