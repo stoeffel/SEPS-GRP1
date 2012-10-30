@@ -23,7 +23,6 @@ public class LoadingScreen extends AbstractScreen {
 	private static final int FRAME_COLS = 12;
 	private static final int FRAME_ROWS = 1;
 	private SpaceAssetManager assetManager;
-	private float progress;
 	private Texture loader;
 	private SpriteBatch batch;
 	private float ppuX;
@@ -98,8 +97,6 @@ public class LoadingScreen extends AbstractScreen {
 				* (Sizes.DEFAULT_WORLD_HEIGHT / 2 - 2), ppuX * 10, ppuY * 4f);
 		batch.end();
 
-		progress = assetManager.getProgress();
-		System.out.println(progress);
 		if (assetManager.update()) {
 			game.initScreens();
 			game.setScreen(game.getMainMenuScreen());

@@ -12,8 +12,6 @@ import com.badlogic.gdx.utils.Array;
 public class Ufo extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private static final int COLLISION_DAMAGE = 1;
-	private float xMovement = 10;
-	private float yMovement = 3;
 	protected float shotVelocity = -80;
 	private float shootFrequency = 2;
 	private Random shotRandom = new Random();
@@ -27,12 +25,6 @@ public class Ufo extends AbstractEnemy {
 	
 	@Override
 	public boolean move(float delta) {
-//		x -= xMovement * delta;
-//		y -= yMovement * delta;
-//		if(y < height || y > Sizes.DEFAULT_WORLD_HEIGHT)
-//			yMovement *= -1;
-//		//TODO yMovement
-//		return x < -width;
 		return false;
 	}
 

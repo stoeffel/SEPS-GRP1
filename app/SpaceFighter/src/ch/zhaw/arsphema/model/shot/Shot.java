@@ -1,7 +1,5 @@
 package ch.zhaw.arsphema.model.shot;
 
-import java.util.Random;
-
 import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Sizes;
@@ -9,7 +7,6 @@ import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 public class Shot extends AbstractSprite {
@@ -17,11 +14,8 @@ public class Shot extends AbstractSprite {
 	private int damage = 1;
 	private float speed;
 	
-	private TextureRegion[] regions;
-		
 	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
-	private int whichColor;
 	
 	
 	public Shot(float x, float y, boolean isEnemyShot, final float speed) {

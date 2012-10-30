@@ -78,6 +78,7 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(final float delta) {
+		//TODO move this to input processor
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			gameState = GameState.PAUSED;
 		}
@@ -123,7 +124,7 @@ public class GameScreen extends AbstractScreen {
 		
 		//enemy stuff
 		pointManager.increasePointsOfEnemies(elapsed, enemyManager.killEnemies(shotManager));// first kill, then move and create new
-		enemyManager.computeEnemyMovements(delta);
+		enemyManager.computeEnemyMovements(delta);//
 		enemyManager.enemyShooting(shotManager, delta);
 		enemyManager.dropEnemies(delta, elapsed);
 		

@@ -11,6 +11,7 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.Planet;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
+import ch.zhaw.arsphema.model.enemies.EnemyGroup;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.util.TextureRegions;
@@ -51,9 +52,12 @@ public class Renderer {
     public void drawEnemies(final EnemyManager enemies)
     {
     	batch.begin();
-		for(final AbstractEnemy enemy : enemies.getEnemies())
+		for(final EnemyGroup group : enemies.getGroups())
 		{
-			enemy.draw(batch, ppuX, ppuY);
+			for(final AbstractEnemy enemy : group.getMembers())
+			{
+				enemy.draw(batch, ppuX, ppuY);
+			}
 		}
 		
 		for(final Explosion explosion : enemies.getExplosions())

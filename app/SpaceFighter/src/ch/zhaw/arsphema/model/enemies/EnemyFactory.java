@@ -31,12 +31,20 @@ public class EnemyFactory
 	{
 		//TODO use shootfrequency
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
-		ufos.add(createUfo(0,0));
-		ufos.add(createUfo(Sizes.UFO_WIDTH+2,Sizes.UFO_HEIGHT));
-		ufos.add(createUfo(Sizes.UFO_WIDTH+2,-Sizes.UFO_HEIGHT));
+		ufos.add(createUfo(0,Sizes.UFO_HEIGHT));
+		ufos.add(createUfo(Sizes.UFO_WIDTH+2,0));
+		ufos.add(createUfo(Sizes.UFO_WIDTH+2,2*Sizes.UFO_HEIGHT));
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
+    
+    public AbstractEnemy createUfo(float offsetX, float offsetY)
+    {
+    	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
+    			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
+    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO);
+    	return ufo;
+    }
 	
 	public EnemyGroup createBlobGroup(final float shootFrequency, final float y)
 	{
@@ -46,17 +54,9 @@ public class EnemyFactory
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, blobs, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
-    
-    public AbstractEnemy createUfo(float offset_x, float offset_y)
-    {
-    	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH+Sizes.UFO_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT / 2, offset_x, offset_y, 
-    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO);
-    	return ufo;
-    }
 
-	public EnemyGroup createSaucerGroup(final float shootFrequency, final float y, final int amountOfEnemies)
+	public EnemyGroup createSaucerGroup(final float y, final int amountOfEnemies)
 	{
-		//TODO use shootfrequency
 		final Array<AbstractEnemy> saucers = new Array<AbstractEnemy>();
 		final float groupHeight = amountOfEnemies / 2 * Sizes.SAUCER_HEIGHT;
 		final float groupY = y - groupHeight;
@@ -71,6 +71,7 @@ public class EnemyFactory
 	
     public AbstractEnemy createSaucer(final float offsetX, final float offsetY, final int direction)
     {
+    	//TODO check direction (if top, direction = down, if bottom, direction = up)
     	final Saucer saucer = new Saucer(0, 0, offsetX, offsetY, 
     			Sizes.SAUCER_WIDTH, Sizes.SAUCER_HEIGHT, EnemyTextures.SAUCER, POINTS_SAUCER);
     	if(direction == 0)
@@ -88,6 +89,7 @@ public class EnemyFactory
 
 	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
 		// a group should not be wider than a screen width
+
 		switch (nextGroupDiffLevel)
 		{
 		case 0:
@@ -106,7 +108,7 @@ public class EnemyFactory
 		case 0:
 			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
-			return createSaucerGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
 		}
 		throw new IllegalStateException();
 	}
@@ -115,7 +117,7 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_MEDIUM_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createSaucerGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 20);
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 20);
 		}
 		throw new IllegalStateException();
 	}
@@ -126,7 +128,7 @@ public class EnemyFactory
 		case 0:
 			return createBlobGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
-			return createSaucerGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 30);
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 30);
 		}
 		throw new IllegalStateException();
 	}

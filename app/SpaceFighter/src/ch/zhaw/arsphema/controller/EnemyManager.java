@@ -11,25 +11,25 @@ import com.badlogic.gdx.utils.Array;
 
 public class EnemyManager {
 
-	private Array<EnemyGroup> groups;
-	private Array<AbstractEnemy> enemies, killedEnemies;
+	private Array<EnemyGroup> groups, killedGroups;
+	private Array<AbstractEnemy> killedEnemies;
 	private Array<Explosion> explosions;
 	private static EnemyFactory enemyFactory;
 	private static boolean dropEnemies = false;
 	private float nextEnemyToDrop = 0;
 	//set to hard so the calculation creates easy groups at the beginning
 	private int groupDiffcultyOne = 2; // latest deployment
-	private int groupDiffcultyTwo = 2; // secont latest deployment
+	private int groupDiffcultyTwo = 2; // second latest deployment
 	private int groupDiffcultyThree = 2; // third latest deployment
 	private PowerUpManager pum;
 	
 	
 	public EnemyManager(PowerUpManager pum)
 	{
-		enemies = new Array<AbstractEnemy>();
 		killedEnemies = new Array<AbstractEnemy>();
 		enemyFactory = EnemyFactory.getInstance();
 		groups = new Array<EnemyGroup>();
+		killedGroups = new Array<EnemyGroup>();
 		explosions = new Array<Explosion>();
 		this.pum = pum;
 	}
@@ -39,20 +39,24 @@ public class EnemyManager {
 			if (group.move(delta)){
 				killedEnemies.addAll(group.getMembers());
 			}
+			removeEnemies(group);
 		}
-		removeEnemies();
+		removeEnemyGroups();
 		removeExplosions();
 	}
-	
-	public void colideWithHero(final Hero hero){
-			for(final AbstractEnemy enemy : enemies){
-				if(enemy.overlaps(hero)){
+
+	public void colideWithHero(final Hero hero) {
+		for (final EnemyGroup group : groups) {
+			for (final AbstractEnemy enemy : group.getMembers()) {
+				if (enemy.overlaps(hero)) {
 					killedEnemies.add(enemy);
 					hero.lowerHealth(enemy.getCollisionDamage());
 				}
 			}
+			removeEnemies(group);
+		}
 	}
-	
+
 	/**
 	 * @param shotManager
 	 * @return points earned in this round
@@ -61,29 +65,48 @@ public class EnemyManager {
 		int totalPoints = 0;
 		for(Shot shot : shotManager.getHeroShots())
 		{
-			for(AbstractEnemy enemy : enemies)
-			if(shot.overlaps(enemy))
-			{
-				if(enemy.lowerHealth(shot.getDamage())){
-					totalPoints += enemy.getBasePoints();
-					killedEnemies.add(enemy);
-					explosions.add(new Explosion(enemy.x+enemy.width/2,enemy.y+enemy.height/2));
-					pum.createPowerUp(enemy.x, enemy.y); // create a power up
+			//shot overlaps with group
+			for (final EnemyGroup group : groups) {
+				if(shot.overlaps(group)){
+					for(AbstractEnemy enemy : group.getMembers()){
+						if(shot.overlaps(enemy))
+						{
+							if(enemy.lowerHealth(shot.getDamage())){
+								totalPoints += enemy.getBasePoints();
+								killedEnemies.add(enemy);
+								explosions.add(new Explosion(enemy.x+enemy.width/2,enemy.y+enemy.height/2));
+								pum.createPowerUp(enemy.x, enemy.y); // create a power up
+								//remove enemy from group
+							}
+							shotManager.getShotsToRemove().add(shot);
+						}
+					}
+					removeEnemies(group);
 				}
-				shotManager.getShotsToRemove().add(shot);
 			}
 		}
-		removeEnemies();
 //		if(enemies.size == 0){ //TODO maybe add
 //			nextEnemyToDrop /= 2; //if all enemies killed, next drop of enemy is sooner
 //		}
 		return totalPoints;
 	}
 
-	private void removeEnemies() {
+	private void removeEnemies(final EnemyGroup group) {
 		for(final AbstractEnemy enemy : killedEnemies)
 		{
-			enemies.removeValue(enemy, false);
+			group.getMembers().removeValue(enemy, false);
+		}
+		killedEnemies.clear();
+	}
+	
+	private void removeEnemyGroups() {
+		for(final EnemyGroup group : groups){
+			if(group.getMembers().size == 0){
+				killedGroups.add(group);
+			}
+		}
+		for(final EnemyGroup enemyGroup : killedGroups){
+			groups.removeValue(enemyGroup, false);
 		}
 		killedEnemies.clear();
 	}
@@ -97,11 +120,13 @@ public class EnemyManager {
 	}
 	
 	public void enemyShooting(final ShotManager shotManager, final float delta) {
-		for(final AbstractEnemy enemy : enemies)
-		{
-			final Array<Shot> tempShot = enemy.shoot(delta);
-			if(tempShot != null)
-				shotManager.getEnemyShots().addAll(tempShot);
+		for(final EnemyGroup group : groups){
+			for(final AbstractEnemy enemy : group.getMembers())
+			{
+				final Array<Shot> tempShot = enemy.shoot(delta);
+				if(tempShot != null)
+					shotManager.getEnemyShots().addAll(tempShot);
+			}
 		}
 	}
 
@@ -130,7 +155,6 @@ public class EnemyManager {
 		final EnemyGroup group = enemyFactory.createGroupByDifficultyLevel(nextGroupDiffLevel, elapsed);
 		final Array<AbstractEnemy> newEnemies = group.getMembers(); 
 		if (newEnemies != null) {
-			enemies.addAll(newEnemies);
 			groups.add(group);
 		}
 	}
@@ -149,15 +173,6 @@ public class EnemyManager {
 		return Math.round(result);
 	}
 	
-	public Array<AbstractEnemy> getEnemies() 
-	{
-		return enemies;
-	}
-
-	public void setEnemies(Array<AbstractEnemy> enemies) {
-		this.enemies = enemies;
-	}
-
 	public Array<AbstractEnemy> getKilledEnemies() {
 		return killedEnemies;
 	}
@@ -179,6 +194,10 @@ public class EnemyManager {
 
 	public void setExplosions(Array<Explosion> explosions) {
 		this.explosions = explosions;
+	}
+
+	public Array<EnemyGroup> getGroups() {
+		return groups;
 	}
 	
 }

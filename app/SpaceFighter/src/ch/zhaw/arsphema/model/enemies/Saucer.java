@@ -1,7 +1,5 @@
 package ch.zhaw.arsphema.model.enemies;
 
-import java.util.Random;
-
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.util.Sizes;
 
@@ -11,7 +9,6 @@ import com.badlogic.gdx.utils.Array;
 
 public class Saucer extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
-	private Random shotRandom = new Random();
 	private static final int COLLISION_DAMAGE = 1;
 
 	private float ySpeed = 5f, yTopEnd, yBottomEnd;
