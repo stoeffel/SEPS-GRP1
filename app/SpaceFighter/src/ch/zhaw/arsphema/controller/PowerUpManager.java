@@ -3,6 +3,9 @@ package ch.zhaw.arsphema.controller;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.powerup.OneUp;
+import ch.zhaw.arsphema.model.powerup.ShotGreen;
+import ch.zhaw.arsphema.model.shot.ShotFactory;
+import ch.zhaw.arsphema.model.shot.ShotFactory.Type;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.utils.Array;
@@ -32,6 +35,9 @@ public class PowerUpManager {
 		case 1:
 			powerUps.add(createOneUp(x,y));
 			break;
+		case 2:
+			powerUps.add(createShotGreen(x, y));
+			break;
 
 		default:
 			break;
@@ -50,11 +56,17 @@ public class PowerUpManager {
 		if (rand < 0.505) {
 			return 1; // Probability for a one up is 1/200
 		}
+		if (rand < 0.510) {
+			return 2; // Probability for a one up is 1/200
+		}
 		return 0;
 	}
 
 	public OneUp createOneUp(float x, float y) {
 		return new OneUp(x, y, 4, 4, TextureRegions.ONE_UP);
+	}
+	public ShotGreen createShotGreen(float x, float y) {
+		return new ShotGreen(x, y, 4, 4, TextureRegions.POWERUP_SHOT_GREEN);
 	}
 
 	public Array<AbstractPowerUp> getPowerUps() {
@@ -87,6 +99,16 @@ public class PowerUpManager {
 		for(final AbstractPowerUp pu : powerUps){
 			pu.move(delta);
 		}
+	}
+
+	public void setShotGreen() {
+		hero.setShotType(ShotFactory.Type.GREEN);
+		hero.setShootingFrequency(0.05f);
+	}
+
+	public void setShotStd() {
+		hero.setShotType(ShotFactory.Type.STANDARD);
+		hero.setShootingFrequency(0.1f);
 	}
 	
 

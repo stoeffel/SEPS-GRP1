@@ -16,6 +16,7 @@ public class Shot extends AbstractSprite {
 	
 	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
+	private float rotation;
 	
 	
 	public Shot(float x, float y, boolean isEnemyShot, final float speed) {
@@ -23,6 +24,8 @@ public class Shot extends AbstractSprite {
 		this.isEnemyShot = isEnemyShot;
 		this.speed = speed;
 		Services.getSoundManager().play(Sounds.SHOT,false);
+		rotation = 0f;
+		if (isEnemyShot) rotation = 180f;
 		
 	}
 	
@@ -40,7 +43,8 @@ public class Shot extends AbstractSprite {
 	
 	public void draw(SpriteBatch batch, float ppuX,
 			float ppuY) {
-		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		
+		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y,0,0, ppuX * this.width, ppuY * this.height,1,1,rotation);
 	}
 	
 	@Override

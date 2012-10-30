@@ -11,6 +11,7 @@ public class TextureRegions {
 	// SHOTS
 	public static final TextureRegion OVERHEATBAR;
 	public static final TextureRegion SHOT;
+	public static final TextureRegion SHOT_GREEN;
 
 	// BACKGROUNDS
 	public static final TextureRegion BACKGROUND_STARS;
@@ -19,14 +20,19 @@ public class TextureRegions {
 
 	// POWER_UPS
 	public static final TextureRegion ONE_UP;
+	public static final TextureRegion POWERUP_SHOT_GREEN;
+
+	
 	
 	static {
 		HERO = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.HERO, Texture.class));
 		OVERLAY_SPRITE = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.OVERLAY_SPRITE, Texture.class));
 		OVERHEATBAR = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.OVERHEATBAR, Texture.class));
 		SHOT = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT, Texture.class));
+		SHOT_GREEN = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT_GREEN, Texture.class));
 		BACKGROUND_STARS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.BACKGROUND_STARS, Texture.class));
 		PLANETS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.PLANETS, Texture.class));
 		ONE_UP = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ONE_UP, Texture.class));
+		POWERUP_SHOT_GREEN = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.POWER_UP_SHOT, Texture.class));
 	}
 }
