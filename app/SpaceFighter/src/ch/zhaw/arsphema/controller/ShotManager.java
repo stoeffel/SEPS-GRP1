@@ -77,5 +77,14 @@ public class ShotManager {
 	public void setShotsToRemove(Array<Shot> shotsToRemove) {
 		this.shotsToRemove = shotsToRemove;
 	}
+
+	public void resize(final float ppuX, final float ppuY, final float newPpuX, final float newPpuY) {
+		for(final Shot shot : heroShots){
+			shot.resize(ppuX, ppuY, newPpuX, newPpuY);
+		}
+		for(final Shot shot : enemyShots){
+			shot.resize(ppuX, ppuY, newPpuX, newPpuY);
+		}
+	}
 	
 }

@@ -1,6 +1,7 @@
 package ch.zhaw.arsphema.model;
 
 import ch.zhaw.arsphema.model.shot.Shot;
+import ch.zhaw.arsphema.screen.Renderer;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,19 +32,28 @@ public abstract class AbstractSprite extends Rectangle {
 	 */
 	abstract public boolean move(final float delta);
 	abstract public Array<Shot> shoot(final float delta);
-	abstract public void draw(final SpriteBatch batch, final float ppuX, final float ppuY);
+	abstract public void draw(final SpriteBatch batch);
 	
-	
-	/**
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
-	public AbstractSprite(final float x, final float y, final float width, final float height, final TextureRegion texture) {
+	public AbstractSprite(final float x, final float y, final float width, 
+			final float height, final TextureRegion texture, final float speed, final boolean a) {
 		super(x, y, width, height);
+		this.speed = speed * Renderer.getPpuX();
 		this.textureRegion = texture;
 	}
+	
+	public AbstractSprite(final float x, final float y, final float width, 
+			final float height, final TextureRegion texture, final float speed) {
+		super(x * Renderer.getPpuX(), y * Renderer.getPpuY(), width, height);
+		this.speed = speed * Renderer.getPpuX();
+		this.textureRegion = texture;
+	}
+	public AbstractSprite(final float x, final float y, final float width, 
+			final float height, final TextureRegion texture) {
+		super(x * Renderer.getPpuX(), y * Renderer.getPpuY(), width, height);
+		this.speed = speed * Renderer.getPpuX();
+		this.textureRegion = texture;
+	}
+	
 	
 
 	public int getHealth() {
@@ -69,6 +79,13 @@ public abstract class AbstractSprite extends Rectangle {
 	}
 	public void setTextureRegion(final TextureRegion textureRegion) {
 		this.textureRegion = textureRegion;
+	}
+	
+	public void resize(final float oldPpuX, final float oldPpuY, final float newPpuX, final float newPpuY){
+		x = x / oldPpuX * newPpuX;
+		y = y / oldPpuY * newPpuY;
+		height = height / oldPpuY * newPpuY;
+		width = width / oldPpuX * newPpuX;
 	}
 
 }

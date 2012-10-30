@@ -42,9 +42,9 @@ public class OverHeatBar extends AbstractSprite {
 	}
 
 	@Override
-	public void draw(final SpriteBatch batch, final float ppuX, final float ppuY) {
-		batch.draw(bar, x * ppuX, y * ppuY,0,0, width * ppuX * level, height * ppuY,1,1,90f);
-		batch.draw(border, x * ppuX, y * ppuY,0,0, (width) * ppuX * 10, (height) * ppuY,1,1,90f);
+	public void draw(final SpriteBatch batch) {
+		batch.draw(bar, x, y, 0, 0, width * level, height, 1, 1, 90f);
+		batch.draw(border, x, y, 0, 0, (width) * 10, height, 1, 1, 90f);
 	}
 
 	public boolean heat(final float speed) {
@@ -73,6 +73,12 @@ public class OverHeatBar extends AbstractSprite {
 		}
 	}
 
-
+	@Override
+	public void resize(final float oldPpuX, final float oldPpuY, final float newPpuX, final float newPpuY){
+		x = x / oldPpuX * newPpuX;
+		y = y / oldPpuY * newPpuY;
+		width = Sizes.OVERHEATBAR_WIDTH;
+		height = Sizes.OVERHEATBAR_HEIGHT;
+	}
 
 }

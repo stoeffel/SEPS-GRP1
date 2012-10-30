@@ -10,8 +10,7 @@ import com.badlogic.gdx.utils.Array;
 
 public abstract class AbstractPowerUp extends AbstractSprite {
 	public AbstractPowerUp(float x, float y, float width, float height, TextureRegion texture) {
-		super(x, y, width, height, texture);
-		speed = 10f;
+		super(x, y, width, height, texture, 10);
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -28,8 +27,8 @@ public abstract class AbstractPowerUp extends AbstractSprite {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
+	public void draw(SpriteBatch batch) {
+		batch.draw(textureRegion, x, y, width, height);
 	}
 	
 	/**

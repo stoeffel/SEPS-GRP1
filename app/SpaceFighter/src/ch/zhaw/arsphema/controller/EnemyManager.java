@@ -76,7 +76,8 @@ public class EnemyManager {
 							if(enemy.lowerHealth(shot.getDamage())){
 								totalPoints += enemy.getBasePoints();
 								killedEnemies.add(enemy);
-								explosions.add(new Explosion(enemy.x+enemy.width/2,enemy.y+enemy.height/2));
+								explosions.add(new Explosion(enemy.x + enemy.width / 2, 
+										enemy.y + enemy.height / 2));
 								pum.createPowerUp(enemy.x, enemy.y); // create a power up
 								//remove enemy from group
 							}
@@ -200,6 +201,13 @@ public class EnemyManager {
 
 	public Array<EnemyGroup> getGroups() {
 		return groups;
+	}
+
+	public void resize(float ppuX, float ppuY, float newPpuX, float newPpuY) {
+		for(final EnemyGroup group : groups){
+			for(final AbstractEnemy enemy : group.getMembers())
+				enemy.resize(ppuX, ppuY, newPpuX, newPpuY);
+		}
 	}
 	
 }

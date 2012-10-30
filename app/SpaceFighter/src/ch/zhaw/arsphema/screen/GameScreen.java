@@ -17,11 +17,9 @@ import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends AbstractScreen {
 	
-	//TODO load all static data provider classes in constructor
 	
 	private Hero hero;
 	private HeroController controller;
@@ -45,7 +43,7 @@ public class GameScreen extends AbstractScreen {
 		elapsed = 0;
 		EnemyManager.deactivateEnemyFactory();
 		
-		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH/10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
+		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH / 10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
 		gameState = GameState.PLAY;
 	}
 
@@ -58,7 +56,7 @@ public class GameScreen extends AbstractScreen {
 		enemyManager = new EnemyManager(powerUpManager);
 		planetManager = new PlanetManager();
 		pointManager = new PointManager();
-		bg = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg = new Background(TextureRegions.BACKGROUND_STARS,0,0,0,0);
 		
 		renderer = new Renderer(bg);
 		Gdx.input.setInputProcessor(controller);
@@ -68,17 +66,21 @@ public class GameScreen extends AbstractScreen {
 		Services.getMusicManager().play(Musics.AMBIENTE);
 	}
 
+	boolean init = true;
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		controller.resize(width, height);
-		renderer.setPpuX((float) width / Sizes.DEFAULT_WORLD_WIDTH);
-		renderer.setPpuY((float) height / Sizes.DEFAULT_WORLD_HEIGHT);
+		renderer.resizeComponents((float) width / Sizes.DEFAULT_WORLD_WIDTH, 
+				(float) height / Sizes.DEFAULT_WORLD_HEIGHT,
+				enemyManager, planetManager, powerUpManager, shotManager, hero, init);
+		init = false;
 	}
 
 	@Override
 	public void render(final float delta) {
 		//TODO move this to input processor
+		System.out.println(delta);
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			gameState = GameState.PAUSED;
 		}

@@ -5,7 +5,7 @@ import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.powerup.OneUp;
 import ch.zhaw.arsphema.model.powerup.ShotGreen;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
-import ch.zhaw.arsphema.model.shot.ShotFactory.Type;
+import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.utils.Array;
@@ -63,10 +63,10 @@ public class PowerUpManager {
 	}
 
 	public OneUp createOneUp(float x, float y) {
-		return new OneUp(x, y, 4, 4, TextureRegions.ONE_UP);
+		return new OneUp(x, y, Sizes.POWER_UP_WITDH, Sizes.POWER_UP_HEIGHT, TextureRegions.ONE_UP);
 	}
 	public ShotGreen createShotGreen(float x, float y) {
-		return new ShotGreen(x, y, 4, 4, TextureRegions.POWERUP_SHOT_GREEN);
+		return new ShotGreen(x, y, Sizes.POWER_UP_WITDH, Sizes.POWER_UP_HEIGHT, TextureRegions.POWERUP_SHOT_GREEN);
 	}
 
 	public Array<AbstractPowerUp> getPowerUps() {
@@ -109,6 +109,12 @@ public class PowerUpManager {
 	public void setShotStd() {
 		hero.setShotType(ShotFactory.Type.STANDARD);
 		hero.setShootingFrequency(0.1f);
+	}
+
+	public void resize(final float ppuX, final float ppuY, final float newPpuX, final float newPpuY) {
+		for(final AbstractPowerUp powerup : powerUps){
+			powerup.resize(ppuX, ppuY, newPpuX, newPpuY);
+		}
 	}
 	
 

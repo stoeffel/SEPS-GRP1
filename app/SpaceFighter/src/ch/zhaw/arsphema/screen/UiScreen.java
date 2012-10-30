@@ -28,7 +28,7 @@ abstract class UiScreen extends AbstractScreen {
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-		ppuX =  width / Sizes.DEFAULT_WORLD_WIDTH;
-		ppuY = height / Sizes.DEFAULT_WORLD_HEIGHT;
+		ppuX =  width / Renderer.WORLD_WIDTH;
+		ppuY = height / Renderer.WORLD_HEIGHT;
 	}
 }

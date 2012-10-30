@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
 public class Blob extends AbstractEnemy {
 	private static final long serialVersionUID = -2931309233637206858L;
 	private static final int COLLISION_DAMAGE = 2;
-	protected float shotVelocity = -20;
+	protected float shotVelocity = -10;
 	private float shootFrequency = 1;
 	private Random shotRandom = new Random();
 	
@@ -52,8 +52,8 @@ public class Blob extends AbstractEnemy {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
+	public void draw(SpriteBatch batch) {
+		batch.draw(textureRegion, x, y, width, height);
 	}
 
 

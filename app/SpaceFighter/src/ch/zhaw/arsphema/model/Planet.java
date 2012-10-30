@@ -20,7 +20,7 @@ public class Planet extends AbstractSprite {
 
 	public Planet(float x, float y, float width, float height,
 			TextureRegion texture) {
-		super(x, y, width, height, texture);
+		super(x, y, width, height, texture, width / 8);
 		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
 		planets = new TextureRegion[COLS * ROWS];
 
@@ -55,13 +55,12 @@ public class Planet extends AbstractSprite {
 
 	@Override
 	public Array<Shot> shoot(float delta) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(planets[whichPlanet], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuX * this.height);
+	public void draw(final SpriteBatch batch) {
+		batch.draw(planets[whichPlanet], x, y, width, height);
 	}
 
 }

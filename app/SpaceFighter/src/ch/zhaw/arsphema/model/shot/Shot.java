@@ -1,6 +1,7 @@
 package ch.zhaw.arsphema.model.shot;
 
 import ch.zhaw.arsphema.model.AbstractSprite;
+import ch.zhaw.arsphema.screen.Renderer;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Sounds;
@@ -12,7 +13,6 @@ import com.badlogic.gdx.utils.Array;
 public class Shot extends AbstractSprite {
 	private static final long serialVersionUID = 4015891462645256011L;
 	private int damage = 1;
-	private float speed;
 	
 	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
@@ -20,9 +20,8 @@ public class Shot extends AbstractSprite {
 	
 	
 	public Shot(float x, float y, boolean isEnemyShot, final float speed) {
-		super(x,y, 2f, 1f, TextureRegions.SHOT);
+		super(x,y, Sizes.SHOT_WIDTH, Sizes.SHOT_HEIGHT, TextureRegions.SHOT, speed, false);
 		this.isEnemyShot = isEnemyShot;
-		this.speed = speed;
 		Services.getSoundManager().play(Sounds.SHOT,false);
 		rotation = 0f;
 		if (isEnemyShot) rotation = 180f;
@@ -41,16 +40,14 @@ public class Shot extends AbstractSprite {
 		return speed;
 	}
 	
-	public void draw(SpriteBatch batch, float ppuX,
-			float ppuY) {
-		
-		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y,0,0, ppuX * this.width, ppuY * this.height,1,1,rotation);
+	public void draw(SpriteBatch batch) {
+		batch.draw(textureRegion, x, y, 0, 0, width, height, 1, 1, rotation);
 	}
 	
 	@Override
 	public boolean move(float delta) {
 		x += speed * delta;
-		if (this.x > Sizes.DEFAULT_WORLD_WIDTH) {
+		if (this.x > Renderer.WORLD_WIDTH) {
 			shouldBeRemoved = true;
 		}
 		return true;
@@ -70,4 +67,11 @@ public class Shot extends AbstractSprite {
 		this.speed = speed;
 	}
 
+	@Override
+	public void resize(final float oldPpuX, final float oldPpuY, final float newPpuX, final float newPpuY){
+		x = x / oldPpuX * newPpuX;
+		y = y / oldPpuY * newPpuY;
+		width = Sizes.SHOT_WIDTH;
+		height = Sizes.SHOT_HEIGHT;
+	}
 }

@@ -42,8 +42,8 @@ public class Saucer extends AbstractEnemy {
 	}
 	
 	@Override
-	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
+	public void draw(final SpriteBatch batch) {
+		batch.draw(textureRegion, x, y, width, height);
 	}
 
 }

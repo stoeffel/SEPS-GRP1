@@ -25,7 +25,6 @@ public class ShotFactory
     public static ShotFactory getInstance()
     {
     	if (instance == null){
-    		loadTextures();
     		createInstance();
     	}
         return instance;
@@ -54,10 +53,5 @@ public class ShotFactory
     	return reuseArray;
     }
     
-
-    
-	public static void loadTextures(){
-		
-	}
 
 }

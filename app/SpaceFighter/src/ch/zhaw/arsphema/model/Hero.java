@@ -4,6 +4,7 @@ import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.model.shot.ShotFactory.Type;
+import ch.zhaw.arsphema.screen.Renderer;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sizes;
@@ -39,7 +40,7 @@ public class Hero extends AbstractSprite {
 	private OverHeatBar overheatbar;
 	private float coolSpeed;
 	private float heatSpeed;
-	private float shootSpeed = 160;
+	private float shootSpeed = 80;
 	private ShotFactory.Type shotType;
 	private boolean isHurt = false;
 	private boolean emitterStarted = false;
@@ -52,9 +53,8 @@ public class Hero extends AbstractSprite {
 	private float stateTime;
 
 	public Hero(float x, float y, TextureRegion texture) {
-		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
+		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture, 10);
 		health = 3;
-		speed = 66;
 		shootingFrequency = 0.1f;
 		lastShot=0;
 		coolSpeed = 4;
@@ -79,17 +79,17 @@ public class Hero extends AbstractSprite {
         blinkAnimation.setPlayMode(Animation.LOOP);
 
         
-        overheatbar = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, Sizes.DEFAULT_WORLD_HEIGHT/5*4, TextureRegions.OVERHEATBAR);
+		overheatbar = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, Sizes.DEFAULT_WORLD_HEIGHT / 5 * 4, TextureRegions.OVERHEATBAR);
         
         emitters_burn_baby_burn = new Array<ParticleEmitter>(Effects.EXPLOSION_1.getEmitters());
-		
 		Effects.EXPLOSION_1.getEmitters().add(emitters_burn_baby_burn.get(0));
-        
 		emitters_jet = new Array<ParticleEmitter>(Effects.JET.getEmitters());
 		
 		Effects.JET.getEmitters().add(emitters_jet.get(0));
 		emitters_jet.get(0).start();
-		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, texture);
+		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH / 20,
+				Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT / 20,
+				width / 3, height / 3, texture);
 		lifeCounter.setLifes(health);
 		lifeCounter.setMaxLifes(health);
 		
@@ -100,9 +100,9 @@ public class Hero extends AbstractSprite {
 
 	public boolean move(float delta){
 		if (movingUp){
-			this.move(UP, delta);
+			move(UP, delta);
 		} else if (movingDown) {
-			this.move(DOWN, delta);
+			move(DOWN, delta);
 		}
 		return true;
 	}
@@ -153,11 +153,17 @@ public class Hero extends AbstractSprite {
 	}
 	
 	private void move(int direction, float delta) {
-		if (this.y + this.height >= Sizes.DEFAULT_WORLD_HEIGHT && movingUp || this.y <= 0 && movingDown) {
-			this.stop();
+		if (y + height >= Renderer.WORLD_WIDTH && movingUp || y <= 0 && movingDown) {
+			stop();
 		}
 		if (!stopped)
-			this.y += direction * this.speed * delta;
+		{
+			y += direction * speed * delta;
+			if(y + height >= Renderer.WORLD_HEIGHT)
+				y = Renderer.WORLD_HEIGHT - height;
+			else if(y <= 0 && movingDown)
+				y = 0;
+		}
 		
 	}
 
@@ -175,22 +181,21 @@ public class Hero extends AbstractSprite {
 		this.movingDown = false;
 	}	
 	
-	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
-		
-		Effects.JET.setPosition( (x)*ppuX,(y+height/2)*ppuY );
+	public void draw(final SpriteBatch batch) {
+		Effects.JET.setPosition(x, y + height / 2);
 		Effects.JET.draw(batch, Gdx.graphics.getDeltaTime());
 		
 		if (isHurt && stateTime < 2){
 			stateTime += Gdx.graphics.getDeltaTime();
-			showExplotion(batch, Gdx.graphics.getDeltaTime(),ppuX, ppuY);
-			batch.draw(blinkAnimation.getKeyFrame(stateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			showExplotion(batch, Gdx.graphics.getDeltaTime());
+			batch.draw(blinkAnimation.getKeyFrame(stateTime), x, y, width, height);
 		} else {
 			isHurt = false;
 			stateTime = 0;
-			batch.draw(currentTexture, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			batch.draw(currentTexture, x, y, width, height);
 		}
-		lifeCounter.draw(batch, ppuX, ppuY);
-		overheatbar.draw(batch, ppuX, ppuY);
+		lifeCounter.draw(batch);
+		overheatbar.draw(batch);
 	}
 
 	public void setFire(boolean fire) {
@@ -214,13 +219,13 @@ public class Hero extends AbstractSprite {
 		lifeCounter.oneUp();
 	}
 	
-	private void showExplotion(SpriteBatch batch, float delta, float ppuX, float ppuY){
+	private void showExplotion(SpriteBatch batch, float delta){
 		if (emitters_burn_baby_burn.get(0).isComplete()){
 			emitters_burn_baby_burn.get(0).reset();
 			emitterStarted = false;
 			return;
 		}
-		Effects.EXPLOSION_1.setPosition( (x+width/2)*ppuX,(y+height)*ppuY );
+		Effects.EXPLOSION_1.setPosition(x + width / 2, y + height);
 
 		if (!emitterStarted){
 			emitters_burn_baby_burn.get(0).start();
@@ -235,10 +240,18 @@ public class Hero extends AbstractSprite {
 		return dead;
 	}
 
-
-
 	public void setShotType(Type green) {
 		shotType = green;
+	}
+	
+	@Override
+	public void resize(final float oldPpuX, final float oldPpuY, final float newPpuX, final float newPpuY){
+		x = x / oldPpuX * newPpuX;
+		y = y / oldPpuY * newPpuY;
+		width = Sizes.SHIP_WIDTH;
+		height = Sizes.SHIP_HEIGHT;
+		lifeCounter.resize(oldPpuX, oldPpuY, newPpuX, newPpuY);
+		overheatbar.resize(oldPpuX, oldPpuY, newPpuX, newPpuY);
 	}
 
 }
