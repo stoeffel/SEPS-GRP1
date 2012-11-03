@@ -1,5 +1,7 @@
 package ch.zhaw.arsphema.controller;
 
+import java.util.Random;
+
 import ch.zhaw.arsphema.model.Explosion;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
@@ -21,6 +23,7 @@ public class EnemyManager {
 	private int groupDiffcultyOne = 2; // latest deployment
 	private int groupDiffcultyTwo = 2; // second latest deployment
 	private int groupDiffcultyThree = 2; // third latest deployment
+	private Random random = new Random();
 	private PowerUpManager pum;
 	
 	
@@ -170,7 +173,8 @@ public class EnemyManager {
 			div = 1;
 		else
 			div = 1 / sumDifLevel;
-		float result = elapsed / (50 / div); 
+		int base = 20 + random.nextInt(20);
+		float result = elapsed / (base / div); 
 		if(result > 2)
 			return 2;
 		return Math.round(result);

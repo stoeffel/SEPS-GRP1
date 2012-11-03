@@ -92,7 +92,6 @@ public class EnemyFactory
 
 	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
 		// a group should not be wider than a screen width
-
 		switch (nextGroupDiffLevel)
 		{
 		case 0:
@@ -121,6 +120,8 @@ public class EnemyFactory
 		switch (nextGroupId){
 		case 0:
 			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
+		case 1:
+			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		throw new IllegalStateException();
 	}
