@@ -12,7 +12,7 @@ public class Background extends AbstractSprite {
 	private static final long serialVersionUID = -7914525757302190003L;
 
 	public Background(TextureRegion texture, float x, float y, float width, float height) {
-		super(x, y, width, height, texture, 1);
+		super(x, y, width, height, texture, 5);
 	}
 
 	/**
@@ -33,12 +33,12 @@ public class Background extends AbstractSprite {
 	/**
 	 * draws the texture two times, to simulate a endless universe
 	 */
-	public void draw(SpriteBatch batch) {
-		batch.draw(textureRegion, x, y, width, height);
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		batch.draw(textureRegion, ppuX * x, ppuY * y, ppuX * width, ppuY * height);
 		if (x > 0) {
-			batch.draw(textureRegion, x - width, y, width, height);
+			batch.draw(textureRegion, ppuX * x-width*ppuX, ppuY * y, ppuX * width, ppuY * height);
 		} else {
-			batch.draw(textureRegion, x + width, y, width, height);
+			batch.draw(textureRegion, ppuX * x+width*ppuX, ppuY * y, ppuX * width, ppuY * height);
 		}
 		
 	}

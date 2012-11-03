@@ -2,7 +2,6 @@ package ch.zhaw.arsphema.model.enemies;
 
 import java.util.Random;
 
-import ch.zhaw.arsphema.screen.Renderer;
 import ch.zhaw.arsphema.util.EnemyTextures;
 import ch.zhaw.arsphema.util.Sizes;
 
@@ -35,14 +34,14 @@ public class EnemyFactory
 		ufos.add(createUfo(0,Sizes.UFO_HEIGHT));
 		ufos.add(createUfo(Sizes.UFO_WIDTH+2,0));
 		ufos.add(createUfo(Sizes.UFO_WIDTH+2,2*Sizes.UFO_HEIGHT));
-		return new EnemyGroup(Renderer.WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
     
     public AbstractEnemy createUfo(float offsetX, float offsetY)
     {
-    	Ufo ufo = new Ufo(Renderer.WORLD_WIDTH + Sizes.UFO_WIDTH, 
-    			Renderer.WORLD_HEIGHT / 2, offsetX, offsetY, 
+    	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
+    			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
     			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO);
     	return ufo;
     }
@@ -52,7 +51,7 @@ public class EnemyFactory
 		//TODO use shootfrequency
 		Array<AbstractEnemy> blobs = new Array<AbstractEnemy>();
 		blobs.add(createBlob(0, 0));
-		return new EnemyGroup(Renderer.WORLD_WIDTH + Sizes.UFO_WIDTH, y, blobs, 
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, blobs, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
 
@@ -66,7 +65,7 @@ public class EnemyFactory
 					random.nextInt((int)groupHeight), groupHeight,
 					i % 2));
 		}
-		return new EnemyGroup(Renderer.WORLD_WIDTH + Sizes.UFO_WIDTH, groupY, saucers, 
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, groupY, saucers, 
 				EnemyPaths.STRAIGHT, true, EnemyPaths.STRAIGHT_SAUCER_SPEED);
 	}
 	
@@ -110,9 +109,9 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_EASY_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createUfoGroup(elapsed, random.nextFloat() * Renderer.WORLD_HEIGHT);
+			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
-			return createSaucerGroup(random.nextFloat() * Renderer.WORLD_HEIGHT, 5);
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 5);
 		}
 		throw new IllegalStateException();
 	}
@@ -121,7 +120,7 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_MEDIUM_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createSaucerGroup(random.nextFloat() * Renderer.WORLD_HEIGHT, 10);
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
 		}
 		throw new IllegalStateException();
 	}
@@ -130,9 +129,9 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_HARD_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createBlobGroup(elapsed, random.nextFloat() * Renderer.WORLD_HEIGHT);
+			return createBlobGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
-			return createSaucerGroup(random.nextFloat() * Renderer.WORLD_HEIGHT, 15);
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 15);
 		}
 		throw new IllegalStateException();
 	}

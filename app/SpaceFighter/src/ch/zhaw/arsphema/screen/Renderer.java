@@ -12,10 +12,8 @@ import ch.zhaw.arsphema.model.NavigationOverlay;
 import ch.zhaw.arsphema.model.Planet;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyGroup;
-import ch.zhaw.arsphema.model.enemies.EnemyPaths;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.shot.Shot;
-import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
@@ -26,8 +24,8 @@ public class Renderer {
 
     protected final SpriteBatch batch;
     private final int SHOW_OVERLAY_TIME = 5;
-	private static float ppuX = Sizes.DEFAULT_WORLD_WIDTH; // pixels per unit on the X axis
-	private static float ppuY = Sizes.DEFAULT_WORLD_HEIGHT; // pixels per unit on the Y axis
+	private float ppuX; // pixels per unit on the X axis
+	private float ppuY; // pixels per unit on the Y axis
 	public static float WORLD_WIDTH;
 	public static float WORLD_HEIGHT;
 	private boolean showOverlay = true;
@@ -60,13 +58,13 @@ public class Renderer {
 		{
 			for(final AbstractEnemy enemy : group.getMembers())
 			{
-				enemy.draw(batch);
+				enemy.draw(batch, ppuX, ppuY);
 			}
 		}
 		
 		for(final Explosion explosion : enemies.getExplosions())
 		{
-			explosion.draw(batch);
+			explosion.draw(batch, ppuX, ppuY);
 		}
 		
 		batch.end();
@@ -77,13 +75,13 @@ public class Renderer {
     	batch.begin();
 		for (final Shot shot : shots.getHeroShots()) 
 		{
-			shot.draw(batch);
+			shot.draw(batch, ppuX, ppuY);
 			if (shot.shouldBeRemoved()) {
 				shots.getShotsToRemove().add(shot);
 			}
 		}
 		for (final Shot shot : shots.getEnemyShots()) {
-			shot.draw(batch);
+			shot.draw(batch, ppuX, ppuY);
 			if (shot.shouldBeRemoved()) {
 				shots.getShotsToRemove().add(shot);
 			}
@@ -94,19 +92,19 @@ public class Renderer {
     public void drawHero(final Hero hero)
     {
 		batch.begin();
-		hero.draw(batch);
+		hero.draw(batch, ppuX, ppuY);
 		batch.end();
     }
     
     public void drawMisc(final float elapsed, final PlanetManager planetManager, final PointManager pointManager)
     {
 		batch.begin();
-		bg.draw(batch); // draw Background
+		bg.draw(batch, ppuX, ppuY); // draw Background
 		
 		// draw planets
 		for (final Planet planet : planetManager.getPlanets()) 
 		{
-			planet.draw(batch);
+			planet.draw(batch, ppuX, ppuY);
 			if (planet.shouldBeRemoved()) {
 				planetManager.getPlanetsToRemove().add(planet);
 			}
@@ -117,67 +115,41 @@ public class Renderer {
 		if(showOverlay)
 		{
 			// start overlay is displayed 5 sec
-			batch.draw(overlay.getTexture(NavigationOverlay.START), overlay.x, overlay.y, overlay.width, overlay.height);
+			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 			if (elapsed >= SHOW_OVERLAY_TIME)
 			{
 				EnemyManager.activateEnemyFactory();
 				showOverlay = false;
 			}
 		} else {
-			batch.draw(overlay.getTexture(NavigationOverlay.GAME), overlay.x, overlay.y, overlay.width, overlay.height);
+			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
-		pointManager.draw(batch);
+		pointManager.draw(batch,ppuX,ppuY);
 		batch.end();
     }
     
     public void drawPause() {
     	batch.begin();
-		pause.draw(batch);
+		pause.draw(batch, ppuX, ppuY);
 		batch.end();
-	}
-
-	public static float getPpuX() {
-		return ppuX;
-	}
-
-	public static float getPpuY() {
-		return ppuY;
 	}
 
 	public void drawPowerUps(PowerUpManager powerUpManager) {
 		batch.begin();
 		for (final AbstractPowerUp powerup : powerUpManager.getPowerUps()) 
 		{
-			powerup.draw(batch);
+			powerup.draw(batch, ppuX, ppuY);
 		}
 		batch.end();
 	}
 
-	public void resizeComponents(final float newPpuX, final float newPpuY, final EnemyManager enemyManager,
-			final PlanetManager planetManager, final PowerUpManager powerUpManager,
-			final ShotManager shotManager, final Hero hero, final boolean init) {
-		if(init)
-		{
-			EnemyPaths.setSize(newPpuX, newPpuY);
-			Sizes.setSize(newPpuX, newPpuY);
-		}
-		else{
-			EnemyPaths.resize(ppuX, ppuY, newPpuX, newPpuY);
-			Sizes.resize(ppuX, ppuY, newPpuX, newPpuY);
-		}
-		hero.resize(ppuX, ppuY, newPpuX, newPpuY);
-		enemyManager.resize(ppuX, ppuY, newPpuX, newPpuY);
-		planetManager.resize(ppuX, ppuY, newPpuX, newPpuY);
-		powerUpManager.resize(ppuX, ppuY, newPpuX, newPpuY);
-		shotManager.resize(ppuX, ppuY, newPpuX, newPpuY);
-		WORLD_HEIGHT = Sizes.DEFAULT_WORLD_HEIGHT * newPpuY;
-		WORLD_WIDTH = Sizes.DEFAULT_WORLD_WIDTH * newPpuX;
-		overlay.width = WORLD_WIDTH;
-		overlay.height = WORLD_HEIGHT;
-		bg.width = WORLD_WIDTH;
-		bg.height = WORLD_HEIGHT;
-		ppuX = newPpuX;
-		ppuY = newPpuY;
+
+	public void setPpuX(float ppuX) {
+		this.ppuX = ppuX;
+	}
+
+	public void setPpuY(float ppuY) {
+		this.ppuY = ppuY;
 	}
 
 

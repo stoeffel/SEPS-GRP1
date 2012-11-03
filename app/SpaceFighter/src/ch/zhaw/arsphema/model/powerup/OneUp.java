@@ -11,7 +11,8 @@ public class OneUp extends AbstractPowerUp {
 	 */
 	private static final long serialVersionUID = -1360335066820417584L;
 
-	public OneUp(float x, float y, float width, float height, TextureRegion texture) {
+	public OneUp(float x, float y, float width, float height,
+			TextureRegion texture) {
 		super(x, y, width, height, texture);
 	}
 

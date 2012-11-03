@@ -1,7 +1,6 @@
 package ch.zhaw.arsphema.model;
 
 import ch.zhaw.arsphema.model.shot.Shot;
-import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -41,23 +40,25 @@ public class LifeCounter extends AbstractSprite {
 
 	@Override
 	public boolean move(float delta) {
+		
 		return false;
 	}
 
 	@Override
 	public Array<Shot> shoot(float delta) {
+		
 		return null;
 	}
 
 	@Override
-	public void draw(SpriteBatch batch) {
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		// active lifes
 		for (int i = 0; i < lifes; i++) {
-			batch.draw(notUsed, x + i * (width +2), y, width, height);
+			batch.draw(notUsed, ppuX*x+i*(width*ppuX+2), ppuY*y, width*ppuX, height*ppuY);
 		}
 		// used lifes
 		for (int i = lifes; i < maxLifes; i++) {
-			batch.draw(used, x + i * (width + 2), y, width, height);
+			batch.draw(used, ppuX*x+i*(width*ppuX+2), ppuY*y, width*ppuX, height*ppuY);
 		}
 
 	}
@@ -85,11 +86,4 @@ public class LifeCounter extends AbstractSprite {
 		}
 	}
 
-	@Override
-	public void resize(final float oldPpuX, final float oldPpuY, final float newPpuX, final float newPpuY){
-		x = x / oldPpuX * newPpuX;
-		y = y / oldPpuY * newPpuY;
-		width = Sizes.SHIP_COUNTER_WIDTH;
-		height = Sizes.SHIP_COUNTER_HEIGHT;
-	}
 }

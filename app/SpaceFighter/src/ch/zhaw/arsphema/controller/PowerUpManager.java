@@ -111,11 +111,4 @@ public class PowerUpManager {
 		hero.setShootingFrequency(0.1f);
 	}
 
-	public void resize(final float ppuX, final float ppuY, final float newPpuX, final float newPpuY) {
-		for(final AbstractPowerUp powerup : powerUps){
-			powerup.resize(ppuX, ppuY, newPpuX, newPpuY);
-		}
-	}
-	
-
 }

@@ -49,7 +49,7 @@ public class MusicManager
 
         // stop any music being played
         
-        stop();
+//        stop(); // removing this solves the restart problem (if menu-music is added, maybe it's needed again)
 
         // start streaming the new music
         musicBeingPlayed = music;

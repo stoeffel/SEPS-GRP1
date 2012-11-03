@@ -1,6 +1,6 @@
 package ch.zhaw.arsphema.model.enemies;
 
-import ch.zhaw.arsphema.screen.Renderer;
+import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -33,8 +33,8 @@ public class EnemyGroup extends Rectangle{
 			}
 			//adjust
 			for(final Vector2 vector : path){
-				//adjustment, world height / 2
-				vector.y += y - Renderer.WORLD_HEIGHT / 2;
+				//adjustment, defualt is world height / 2
+				vector.y += y - Sizes.DEFAULT_WORLD_HEIGHT / 2;
 			}
 		}
 		else {

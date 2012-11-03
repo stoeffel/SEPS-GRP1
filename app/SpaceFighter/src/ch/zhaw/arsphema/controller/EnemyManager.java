@@ -203,11 +203,4 @@ public class EnemyManager {
 		return groups;
 	}
 
-	public void resize(float ppuX, float ppuY, float newPpuX, float newPpuY) {
-		for(final EnemyGroup group : groups){
-			for(final AbstractEnemy enemy : group.getMembers())
-				enemy.resize(ppuX, ppuY, newPpuX, newPpuY);
-		}
-	}
-	
 }

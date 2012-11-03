@@ -20,10 +20,10 @@ public class Planet extends AbstractSprite {
 
 	public Planet(float x, float y, float width, float height,
 			TextureRegion texture) {
-		super(x, y, width, height, texture, width / 8);
+		super(x, y, width, height, texture);
 		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
 		planets = new TextureRegion[COLS * ROWS];
-
+		speed = width / 8;
 		int index = 0;
         for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLS; j++) {
@@ -59,8 +59,8 @@ public class Planet extends AbstractSprite {
 	}
 
 	@Override
-	public void draw(final SpriteBatch batch) {
-		batch.draw(planets[whichPlanet], x, y, width, height);
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		batch.draw(planets[whichPlanet], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuX * this.height);
 	}
 
 }

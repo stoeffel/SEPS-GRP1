@@ -27,8 +27,8 @@ public abstract class AbstractPowerUp extends AbstractSprite {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch) {
-		batch.draw(textureRegion, x, y, width, height);
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 	
 	/**

@@ -43,7 +43,7 @@ public class GameScreen extends AbstractScreen {
 		elapsed = 0;
 		EnemyManager.deactivateEnemyFactory();
 		
-		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH / 10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
+		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH/10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
 		gameState = GameState.PLAY;
 	}
 
@@ -56,7 +56,8 @@ public class GameScreen extends AbstractScreen {
 		enemyManager = new EnemyManager(powerUpManager);
 		planetManager = new PlanetManager();
 		pointManager = new PointManager();
-		bg = new Background(TextureRegions.BACKGROUND_STARS,0,0,0,0);
+		bg = new Background(TextureRegions.BACKGROUND_STARS, 0, 0,
+				Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT);
 		
 		renderer = new Renderer(bg);
 		Gdx.input.setInputProcessor(controller);
@@ -71,16 +72,13 @@ public class GameScreen extends AbstractScreen {
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		controller.resize(width, height);
-		renderer.resizeComponents((float) width / Sizes.DEFAULT_WORLD_WIDTH, 
-				(float) height / Sizes.DEFAULT_WORLD_HEIGHT,
-				enemyManager, planetManager, powerUpManager, shotManager, hero, init);
-		init = false;
+		renderer.setPpuX((float) width / Sizes.DEFAULT_WORLD_WIDTH);
+		renderer.setPpuY((float) height / Sizes.DEFAULT_WORLD_HEIGHT);
 	}
 
 	@Override
 	public void render(final float delta) {
 		//TODO move this to input processor
-		System.out.println(delta);
 		if (Gdx.input.isKeyPressed(Keys.BACK)){
 			gameState = GameState.PAUSED;
 		}

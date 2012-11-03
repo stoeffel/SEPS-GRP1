@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
 public class Ufo extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private static final int COLLISION_DAMAGE = 1;
-	protected float shotVelocity = -40;
+	protected float shotVelocity = -80;
 	private float shootFrequency = 2;
 	private Random shotRandom = new Random();
 	
@@ -45,8 +45,8 @@ public class Ufo extends AbstractEnemy {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch) {
-		batch.draw(textureRegion, x, y, width, height);
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 
 }

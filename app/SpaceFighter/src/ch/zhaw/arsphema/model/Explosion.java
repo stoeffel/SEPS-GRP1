@@ -17,7 +17,7 @@ public class Explosion {
 
 	private ParticleEmitter emitter;
 
-	public Explosion(final float x, final float y) {
+	public Explosion(float x, float y) {
 		ParticleEffect effect = new ParticleEffect();
 		// effect should be here and not in the Effects class
 		effect.load(Gdx.files.internal("data/explosion2/def"),Gdx.files.internal("data/explosion2"));
@@ -35,9 +35,9 @@ public class Explosion {
 		this.y = y;
 	}
 
-	public void draw(SpriteBatch batch){
+	public void draw(SpriteBatch batch, float ppuX, float ppuY){
 		if (!isFinished()) {
-			emitter.setPosition(x, y);
+			emitter.setPosition( x*ppuX,y*ppuY );
 			emitter.draw(batch, Gdx.graphics.getDeltaTime());
 		}
 	}

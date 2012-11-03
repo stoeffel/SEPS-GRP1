@@ -1,8 +1,7 @@
 package ch.zhaw.arsphema.controller;
 
-import ch.zhaw.arsphema.screen.Renderer;
 import ch.zhaw.arsphema.util.Paths;
-
+import ch.zhaw.arsphema.util.Sizes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,12 +32,12 @@ public class PointManager {
         timeBonus = (int) (timeElapsed * 13f);
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, float ppuX, float ppuY) {
         totalPoints = enemyPoints + timeBonus;
         showMeYourPoints.setText("" + totalPoints);
         BitmapFont.TextBounds bounds = counterfont.getBounds(String.valueOf(totalPoints));
-        showMeYourPoints.x = Renderer.WORLD_WIDTH / 2 - bounds.width / 2;
-        showMeYourPoints.y = (Renderer.WORLD_HEIGHT - 5) - bounds.height;
+        showMeYourPoints.x = Sizes.DEFAULT_WORLD_WIDTH / 2 * ppuX - bounds.width / 2;
+        showMeYourPoints.y = (Sizes.DEFAULT_WORLD_HEIGHT - 5) * ppuY - bounds.height;
         showMeYourPoints.draw(batch, 1);
     }
 

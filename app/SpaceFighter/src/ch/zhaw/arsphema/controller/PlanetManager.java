@@ -3,7 +3,7 @@ package ch.zhaw.arsphema.controller;
 import java.util.Comparator;
 
 import ch.zhaw.arsphema.model.Planet;
-import ch.zhaw.arsphema.screen.Renderer;
+import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.utils.Array;
@@ -78,7 +78,7 @@ public class PlanetManager {
 				lastTime = elapsed;
 				nextTime = getRand(minInterval, maxInterval);
 				float r = getRand(minRadius, maxRadius);
-				Planet planet = new Planet(Renderer.WORLD_WIDTH + r , getRand(0, Renderer.WORLD_HEIGHT), r, r, TextureRegions.PLANETS);
+				Planet planet = new Planet(Sizes.DEFAULT_WORLD_WIDTH + r , getRand(0, Sizes.DEFAULT_WORLD_HEIGHT), r, r, TextureRegions.PLANETS);
 				planets.add(planet);
 				planets.sort(new Comparator<Planet>() {
 					
@@ -97,9 +97,4 @@ public class PlanetManager {
 		
 	}
 
-	public void resize(final float ppuX, final float ppuY, final float newPpuX, final float newPpuY) {
-		for(final Planet planet : planets){
-			planet.resize(ppuX, ppuY, newPpuX, newPpuY);
-		}
-	}
 }
