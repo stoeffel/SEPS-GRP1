@@ -117,7 +117,7 @@ public class GameScreen extends AbstractScreen {
 		shotManager.heroSuffering(hero);
 		enemyManager.colideWithHero(hero);
 		if(hero.isDead()){
-			game.gameOver();
+			game.gameOver(pointManager.getTotalPoints());
 			Services.turnOffSound();
 		}
 		pointManager.increaseTimePoints(elapsed);

@@ -41,4 +41,7 @@ public class PointManager {
         showMeYourPoints.draw(batch, 1);
     }
 
+    public int getTotalPoints() {
+        return totalPoints;
+    }
 }

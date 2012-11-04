@@ -6,6 +6,7 @@ public class Paths {
 
     public static final String OVERLAY_SPRITE = "images/overlaySprite.png";
     public static final String BUTTON_TEXTURE = "skin/buttontexture.png";
+    public static final String UI_TEXTURES = "skin/ui.png";
 
     // ENEMIES
     public static final String ENEMY_UFO = "images/badboys/ufo.png";
