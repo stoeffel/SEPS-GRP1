@@ -56,8 +56,8 @@ public class PowerUpManager {
 		if (rand < 0.505) {
 			return 1; // Probability for a one up is 1/200
 		}
-		if (rand < 0.510) {
-			return 2; // Probability for a one up is 1/200
+		if (rand < 0.520) {
+			return 2; // green shot
 		}
 		return 0;
 	}
@@ -80,8 +80,8 @@ public class PowerUpManager {
 	public void colideWithHero(final Hero hero){
 		for(final AbstractPowerUp pu : powerUps){
 			if(pu.overlaps(hero)){
-				pu.doSomething(this);
 				usedPowerUps.add(pu);
+				hero.addPowerUps(pu);
 			}
 		}
 		removeUsedPowerUps();
@@ -101,14 +101,6 @@ public class PowerUpManager {
 		}
 	}
 
-	public void setShotGreen() {
-		hero.setShotType(ShotFactory.Type.GREEN);
-		hero.setShootingFrequency(0.05f);
-	}
-
-	public void setShotStd() {
-		hero.setShotType(ShotFactory.Type.STANDARD);
-		hero.setShootingFrequency(0.1f);
-	}
+	
 
 }

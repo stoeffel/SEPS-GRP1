@@ -1,5 +1,6 @@
 package ch.zhaw.arsphema.model;
 
+import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
@@ -50,6 +51,7 @@ public class Hero extends AbstractSprite {
 	private TextureRegion[] blinkFrames;
 	private Animation blinkAnimation;
 	private float stateTime;
+	private Array<AbstractPowerUp> powerUps;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -94,6 +96,7 @@ public class Hero extends AbstractSprite {
 		lifeCounter.setMaxLifes(health);
 		
 		shotType = ShotFactory.Type.STANDARD;
+		powerUps = new Array<AbstractPowerUp>();
 	}
 	
 	
@@ -210,6 +213,9 @@ public class Hero extends AbstractSprite {
 		lifeCounter.setLifes(health);
 	    Services.getSoundManager().play(Sounds.HURT, false);
 		dead = health <= 0;
+		for (AbstractPowerUp pu : powerUps) {
+			pu.undoSomething(this);
+		}
 	}
 	
 	/**
@@ -242,9 +248,31 @@ public class Hero extends AbstractSprite {
 	}
 
 
+	public void setShotGreen() {
+		setShotType(ShotFactory.Type.GREEN);
+		setShootingFrequency(0.05f);
+	}
+
+	public void setShotStd() {
+		setShotType(ShotFactory.Type.STANDARD);
+		setShootingFrequency(0.1f);
+	}
 
 	public void setShotType(Type green) {
 		shotType = green;
+	}
+
+
+
+	public Array<AbstractPowerUp> getPowerUps() {
+		return powerUps;
+	}
+
+
+
+	public void addPowerUps(AbstractPowerUp powerUp) {
+		this.powerUps.add(powerUp);
+		powerUp.doSomething(this);
 	}
 
 }

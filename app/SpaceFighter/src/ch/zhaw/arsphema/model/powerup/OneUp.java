@@ -1,6 +1,7 @@
 package ch.zhaw.arsphema.model.powerup;
 
 import ch.zhaw.arsphema.controller.PowerUpManager;
+import ch.zhaw.arsphema.model.Hero;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -17,12 +18,12 @@ public class OneUp extends AbstractPowerUp {
 	}
 
 	@Override
-	public void doSomething(PowerUpManager pum) {
-		pum.oneUp();
+	public void doSomething(Hero hero) {
+		hero.oneUp();
 	}
 
 	@Override
-	public void undoSomething(PowerUpManager pum) {
+	public void undoSomething(Hero hero) {
 		// nothing to undo
 	}
 

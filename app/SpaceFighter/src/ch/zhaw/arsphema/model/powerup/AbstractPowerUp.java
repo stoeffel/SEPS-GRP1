@@ -2,6 +2,7 @@ package ch.zhaw.arsphema.model.powerup;
 
 import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.model.AbstractSprite;
+import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.shot.Shot;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,14 +34,14 @@ public abstract class AbstractPowerUp extends AbstractSprite {
 	
 	/**
 	 * does whatever the powerup does 
-	 * @param pum
+	 * @param hero
 	 */
-	abstract public void doSomething(PowerUpManager pum);
+	abstract public void doSomething(Hero hero);
 	
 	/**
 	 * undoes whatever the powerup did
 	 * @param pum
 	 */
-	abstract public void undoSomething(PowerUpManager pum);
+	abstract public void undoSomething(Hero hero);
 
 }

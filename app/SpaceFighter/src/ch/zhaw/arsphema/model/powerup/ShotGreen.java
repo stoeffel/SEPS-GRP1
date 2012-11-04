@@ -1,6 +1,6 @@
 package ch.zhaw.arsphema.model.powerup;
 
-import ch.zhaw.arsphema.controller.PowerUpManager;
+import ch.zhaw.arsphema.model.Hero;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -17,13 +17,13 @@ public class ShotGreen extends AbstractPowerUp {
 	}
 
 	@Override
-	public void doSomething(PowerUpManager pum) {
-		pum.setShotGreen();
+	public void doSomething(Hero hero) {
+		hero.setShotGreen();
 	}
 
 	@Override
-	public void undoSomething(PowerUpManager pum) {
-		pum.setShotStd();
+	public void undoSomething(Hero hero) {
+		hero.setShotStd();
 	}
 
 }
