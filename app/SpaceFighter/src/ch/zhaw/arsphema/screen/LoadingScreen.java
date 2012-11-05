@@ -53,7 +53,7 @@ public class LoadingScreen extends AbstractScreen {
 		assetManager.load(Paths.SHOT, Texture.class);
 		assetManager.load(Paths.SHOT_GREEN, Texture.class);
 		assetManager.load(Paths.BACKGROUND_STARS, Texture.class);
-		assetManager.load(Paths.MUSIC_AMBIENTE, Music.class);
+		assetManager.load(Paths.SFX_JET, Sound.class);
 		assetManager.load(Paths.SFX_SHOT, Sound.class);
 		assetManager.load(Paths.SFX_DANGER, Sound.class);
 		assetManager.load(Paths.SFX_EXPLOSION, Sound.class);
@@ -62,6 +62,32 @@ public class LoadingScreen extends AbstractScreen {
 		assetManager.load(Paths.PLANETS, Texture.class);
 		assetManager.load(Paths.ONE_UP, Texture.class);
 		assetManager.load(Paths.POWER_UP_SHOT, Texture.class);
+		//MUSIC
+		assetManager.load(Paths.TRACK_01, Music.class);
+		assetManager.load(Paths.TRACK_02, Music.class);
+		assetManager.load(Paths.TRACK_03, Music.class);
+		assetManager.load(Paths.TRACK_04, Music.class);
+		assetManager.load(Paths.TRACK_05, Music.class);
+		assetManager.load(Paths.TRACK_06, Music.class);
+		assetManager.load(Paths.TRACK_07, Music.class);
+		assetManager.load(Paths.TRACK_08, Music.class);
+		assetManager.load(Paths.TRACK_09, Music.class);
+		assetManager.load(Paths.TRACK_10, Music.class);
+		assetManager.load(Paths.TRACK_11, Music.class);
+		assetManager.load(Paths.TRACK_12, Music.class);
+		assetManager.load(Paths.TRACK_13, Music.class);
+		assetManager.load(Paths.TRACK_14, Music.class);
+		assetManager.load(Paths.TRACK_15, Music.class);
+		assetManager.load(Paths.TRACK_16, Music.class);
+		assetManager.load(Paths.TRACK_17, Music.class);
+		assetManager.load(Paths.TRACK_18, Music.class);
+		assetManager.load(Paths.TRACK_19, Music.class);
+		assetManager.load(Paths.TRACK_20, Music.class);
+		assetManager.load(Paths.TRACK_21, Music.class);
+		assetManager.load(Paths.TRACK_22, Music.class);
+		assetManager.load(Paths.TRACK_23, Music.class);
+		assetManager.load(Paths.TRACK_24, Music.class);
+		assetManager.load(Paths.GAME_OVER, Music.class);
 
 		batch = new SpriteBatch();
 		loader = new Texture(Gdx.files.internal("images/loader.png"));

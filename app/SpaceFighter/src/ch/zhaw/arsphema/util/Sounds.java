@@ -8,6 +8,7 @@ public class Sounds {
 	public static final Sound EXPLOSION;
 	public static final Sound HURT;
 	public static final Sound BEEP;
+	public static final Sound JET;
 	
 	static {
 		SHOT = SpaceAssetManager.getInstance().get(Paths.SFX_SHOT, Sound.class);
@@ -15,6 +16,7 @@ public class Sounds {
 		EXPLOSION = SpaceAssetManager.getInstance().get(Paths.SFX_EXPLOSION, Sound.class);
 		HURT = SpaceAssetManager.getInstance().get(Paths.SFX_HURT, Sound.class);
 		BEEP = SpaceAssetManager.getInstance().get(Paths.SFX_BEEP, Sound.class);
+		JET = SpaceAssetManager.getInstance().get(Paths.SFX_JET, Sound.class);
 	}
 	
 }

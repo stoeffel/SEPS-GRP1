@@ -13,6 +13,7 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Musics;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
@@ -63,8 +64,9 @@ public class GameScreen extends AbstractScreen {
 		Gdx.input.setInputProcessor(controller);
 		Gdx.input.setCatchBackKey(true);
 		
-		Services.getMusicManager().setVolume(0.25f); // TODO set volume in preference screen
-		Services.getMusicManager().play(Musics.AMBIENTE);
+		Services.turnOffSound(); 
+		Services.getMusicManager().setVolume(.75f); // TODO set volume in preference screen
+		Services.getMusicManager().playRandom();
 	}
 
 	boolean init = true;
@@ -119,6 +121,7 @@ public class GameScreen extends AbstractScreen {
 		if(hero.isDead()){
 			game.gameOver(pointManager.getTotalPoints());
 			Services.turnOffSound();
+			Services.getMusicManager().play(Musics.GAME_OVER);
 		}
 		pointManager.increaseTimePoints(elapsed);
 		
