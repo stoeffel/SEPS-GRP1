@@ -26,12 +26,6 @@ public class Blob extends AbstractEnemy {
 	
 	@Override
 	public boolean move(float delta) {
-//		x -= xMovement * delta;
-//		y -= yMovement * delta;
-//		if(y < height || y > Sizes.DEFAULT_WORLD_HEIGHT)
-//			yMovement *= -1;
-//		//TODO yMovement
-//		return x < -width;
 		return false;
 	}
 

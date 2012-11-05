@@ -4,7 +4,7 @@ import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.screen.MainMenuScreen;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.services.SoundManager;
-import ch.zhaw.arsphema.util.Components;
+import ch.zhaw.arsphema.util.UiLabels;
 import ch.zhaw.arsphema.util.Sounds;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -89,16 +89,16 @@ public class UiController extends AbstractController implements InputProcessor {
         public void click(Actor actor, float v, float v1) {
             Services.setSoundManager(new SoundManager());
             Services.getSoundManager().play(Sounds.BEEP, false);
-            if (Components.BUTTON_GAME_START.equals(actor.name)) {
+            if (UiLabels.BUTTON_GAME_START.equals(actor.name)) {
                 game.createNewGame();
                 game.setScreen(game.getGameScreen());
-            } else if (Components.BUTTON_SHOW_HIGHSCORE.equals(actor.name)) {
+            } else if (UiLabels.BUTTON_SHOW_HIGHSCORE.equals(actor.name)) {
                 game.setScreen(game.getHighscoreScreen());
-            } else if (Components.BUTTON_SHOW_OPTIONS.equals(actor.name)) {
+            } else if (UiLabels.BUTTON_SHOW_OPTIONS.equals(actor.name)) {
                 game.setScreen(game.getOptionScreen());
-            } else if (Components.BUTTON_SHOW_CREDITS.equals(actor.name)) {
+            } else if (UiLabels.BUTTON_SHOW_CREDITS.equals(actor.name)) {
                 game.setScreen(game.getCreditsScreen());
-            } else if (Components.BUTTON_QUIT.equals(actor.name)) {
+            } else if (UiLabels.BUTTON_QUIT.equals(actor.name)) {
                 //todo Falls nötig noch zusätzliche Aktionen beim Beenden der Applikation implementieren
                 Gdx.app.exit();
             }

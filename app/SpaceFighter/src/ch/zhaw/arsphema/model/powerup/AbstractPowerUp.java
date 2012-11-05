@@ -1,6 +1,5 @@
 package ch.zhaw.arsphema.model.powerup;
 
-import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.model.AbstractSprite;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.shot.Shot;

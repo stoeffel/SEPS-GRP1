@@ -1,6 +1,6 @@
 package ch.zhaw.arsphema.util;
 
-public class Components {
+public class UiLabels {
     public static final String BUTTON_GAME_START = "gameStart";
     public static final String BUTTON_SHOW_HIGHSCORE = "showHighscore";
     public static final String BUTTON_SHOW_OPTIONS = "showOptions";

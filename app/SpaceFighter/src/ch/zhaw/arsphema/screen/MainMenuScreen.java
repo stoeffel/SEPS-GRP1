@@ -1,7 +1,7 @@
 package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
-import ch.zhaw.arsphema.util.Components;
+import ch.zhaw.arsphema.util.UiLabels;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
@@ -28,23 +28,23 @@ public class MainMenuScreen extends UiScreen {
         table.add(new Label("Arsphema", UiStyles.LABEL_TITLE)).padBottom(20);
 
         //Buttons
-        TextButton startButton = new TextButton("Start Game", UiStyles.BUTTON_DEFAULT, Components.BUTTON_GAME_START);
+        TextButton startButton = new TextButton("Start Game", UiStyles.BUTTON_DEFAULT, UiLabels.BUTTON_GAME_START);
         startButton.setClickListener(uiController.createUiButtonListener());
         addTextButton(startButton);
 
-        TextButton optionsButton = new TextButton("Options", UiStyles.BUTTON_DEFAULT, Components.BUTTON_SHOW_OPTIONS);
+        TextButton optionsButton = new TextButton("Options", UiStyles.BUTTON_DEFAULT, UiLabels.BUTTON_SHOW_OPTIONS);
         optionsButton.setClickListener(uiController.createUiButtonListener());
         addTextButton(optionsButton);
 
-        TextButton highscoreButton = new TextButton("Highscore", UiStyles.BUTTON_DEFAULT, Components.BUTTON_SHOW_HIGHSCORE);
+        TextButton highscoreButton = new TextButton("Highscore", UiStyles.BUTTON_DEFAULT, UiLabels.BUTTON_SHOW_HIGHSCORE);
         highscoreButton.setClickListener(uiController.createUiButtonListener());
         addTextButton(highscoreButton);
 
-        TextButton creditsButton = new TextButton("Credits", UiStyles.BUTTON_DEFAULT, Components.BUTTON_SHOW_CREDITS);
+        TextButton creditsButton = new TextButton("Credits", UiStyles.BUTTON_DEFAULT, UiLabels.BUTTON_SHOW_CREDITS);
         creditsButton.setClickListener(uiController.createUiButtonListener());
         addTextButton(creditsButton);
 
-        TextButton quitButton = new TextButton("Quit", UiStyles.BUTTON_DEFAULT, Components.BUTTON_QUIT);
+        TextButton quitButton = new TextButton("Quit", UiStyles.BUTTON_DEFAULT, UiLabels.BUTTON_QUIT);
         quitButton.setClickListener(uiController.createUiButtonListener());
         addTextButton(quitButton);
     }

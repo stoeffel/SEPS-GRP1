@@ -4,7 +4,6 @@ import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.powerup.OneUp;
 import ch.zhaw.arsphema.model.powerup.ShotGreen;
-import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
