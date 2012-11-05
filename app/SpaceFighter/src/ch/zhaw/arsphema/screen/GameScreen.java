@@ -11,8 +11,8 @@ import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.util.Musics;
 import ch.zhaw.arsphema.util.Sizes;
+import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
@@ -64,7 +64,7 @@ public class GameScreen extends AbstractScreen {
 		Gdx.input.setCatchBackKey(true);
 		
 		Services.getMusicManager().setVolume(0.25f); // TODO set volume in preference screen
-		Services.getMusicManager().play(Musics.AMBIENTE);
+		Services.getMusicManager().play(Sounds.AMBIENTE);
 	}
 
 	boolean init = true;
