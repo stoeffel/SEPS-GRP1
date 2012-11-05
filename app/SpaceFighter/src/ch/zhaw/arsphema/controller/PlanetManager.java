@@ -79,7 +79,6 @@ public class PlanetManager {
 				nextTime = getRand(minInterval, maxInterval);
 				float r = getRand(minRadius, maxRadius);
 				Planet planet = new Planet(Sizes.DEFAULT_WORLD_WIDTH + r , getRand(0, Sizes.DEFAULT_WORLD_HEIGHT), r, r, TextureRegions.PLANETS);
-				planet.setSpeed(r/8); // um so kleiner um so weiter weg langsamer
 				planets.add(planet);
 				planets.sort(new Comparator<Planet>() {
 					
@@ -97,4 +96,5 @@ public class PlanetManager {
 		}
 		
 	}
+
 }

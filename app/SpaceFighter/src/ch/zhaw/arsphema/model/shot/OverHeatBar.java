@@ -73,6 +73,4 @@ public class OverHeatBar extends AbstractSprite {
 		}
 	}
 
-
-
 }

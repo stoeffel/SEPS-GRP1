@@ -6,6 +6,7 @@ public class Paths {
 
     public static final String OVERLAY_SPRITE = "images/overlaySprite.png";
     public static final String BUTTON_TEXTURE = "skin/buttontexture.png";
+    public static final String UI_TEXTURES = "skin/ui.png";
 
     // ENEMIES
     public static final String ENEMY_UFO = "images/badboys/ufo.png";
@@ -16,10 +17,12 @@ public class Paths {
     public static final String SPACE_FONT = "skin/spacefont.fnt";
     public static final String BUTTON_FONT = "skin/buttonfont.fnt";
     public static final String HEADER_FONT = "skin/screenheader.fnt";
+    public static final String COUNTER_FONT = "skin/counterfont.fnt";
 
     // SHOTS
     public static final String OVERHEATBAR = "images/shot/overheatbar.png";
     public static final String SHOT = "images/shot/standard.png";
+	public static final String SHOT_GREEN = "images/shot/green.png";
 
     // BACKGROUNDS
     public static final String BACKGROUND_STARS = "images/worlds/stars.png";
@@ -41,5 +44,7 @@ public class Paths {
 
     // POWER UPS
 	public static final String ONE_UP = "images/powerups/1up.png";
+	public static final String POWER_UP_SHOT = "images/powerups/shot_green.png";
+
 
 }

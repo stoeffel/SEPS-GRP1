@@ -1,8 +1,10 @@
 package ch.zhaw.arsphema.model;
 
+import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.shot.OverHeatBar;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
+import ch.zhaw.arsphema.model.shot.ShotFactory.Type;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Effects;
 import ch.zhaw.arsphema.util.Sizes;
@@ -39,6 +41,7 @@ public class Hero extends AbstractSprite {
 	private float coolSpeed;
 	private float heatSpeed;
 	private float shootSpeed = 160;
+	private ShotFactory.Type shotType;
 	private boolean isHurt = false;
 	private boolean emitterStarted = false;
 	private Array<ParticleEmitter> emitters_burn_baby_burn;
@@ -48,6 +51,7 @@ public class Hero extends AbstractSprite {
 	private TextureRegion[] blinkFrames;
 	private Animation blinkAnimation;
 	private float stateTime;
+	private Array<AbstractPowerUp> powerUps;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -90,15 +94,18 @@ public class Hero extends AbstractSprite {
 		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, texture);
 		lifeCounter.setLifes(health);
 		lifeCounter.setMaxLifes(health);
+		
+		shotType = ShotFactory.Type.STANDARD;
+		powerUps = new Array<AbstractPowerUp>();
 	}
 	
 	
 
 	public boolean move(float delta){
 		if (movingUp){
-			this.move(UP, delta);
+			move(UP, delta);
 		} else if (movingDown) {
-			this.move(DOWN, delta);
+			move(DOWN, delta);
 		}
 		return true;
 	}
@@ -108,7 +115,7 @@ public class Hero extends AbstractSprite {
 		if (fire && lastShot > shootingFrequency) {
 			lastShot = 0;
 			heatGun(delta);
-			return ShotFactory.createShotInArray(x + width*5/6, y + height/3, shootSpeed, ShotFactory.STANDARD, false);
+			return ShotFactory.createShotInArray(x + width*5/6, y + height/3, shootSpeed, shotType, false);
 		}
 		if (!fire)
 		{
@@ -149,11 +156,17 @@ public class Hero extends AbstractSprite {
 	}
 	
 	private void move(int direction, float delta) {
-		if (this.y + this.height >= Sizes.DEFAULT_WORLD_HEIGHT && movingUp || this.y <= 0 && movingDown) {
-			this.stop();
+		if (y + height >= Sizes.DEFAULT_WORLD_WIDTH && movingUp || y <= 0 && movingDown) {
+			stop();
 		}
 		if (!stopped)
-			this.y += direction * this.speed * delta;
+		{
+			y += direction * speed * delta;
+			if(y + height >= Sizes.DEFAULT_WORLD_HEIGHT)
+				y = Sizes.DEFAULT_WORLD_HEIGHT - height;
+			else if(y <= 0 && movingDown)
+				y = 0;
+		}
 		
 	}
 
@@ -200,6 +213,9 @@ public class Hero extends AbstractSprite {
 		lifeCounter.setLifes(health);
 	    Services.getSoundManager().play(Sounds.HURT, false);
 		dead = health <= 0;
+		for (AbstractPowerUp pu : powerUps) {
+			pu.undoSomething(this);
+		}
 	}
 	
 	/**
@@ -229,6 +245,34 @@ public class Hero extends AbstractSprite {
 
 	public boolean isDead() {
 		return dead;
+	}
+
+
+	public void setShotGreen() {
+		setShotType(ShotFactory.Type.GREEN);
+		setShootingFrequency(0.05f);
+	}
+
+	public void setShotStd() {
+		setShotType(ShotFactory.Type.STANDARD);
+		setShootingFrequency(0.1f);
+	}
+
+	public void setShotType(Type green) {
+		shotType = green;
+	}
+
+
+
+	public Array<AbstractPowerUp> getPowerUps() {
+		return powerUps;
+	}
+
+
+
+	public void addPowerUps(AbstractPowerUp powerUp) {
+		this.powerUps.add(powerUp);
+		powerUp.doSomething(this);
 	}
 
 }

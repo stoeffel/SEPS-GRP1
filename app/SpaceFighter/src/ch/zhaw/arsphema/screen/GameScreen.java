@@ -17,11 +17,9 @@ import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends AbstractScreen {
 	
-	//TODO load all static data provider classes in constructor
 	
 	private Hero hero;
 	private HeroController controller;
@@ -58,7 +56,8 @@ public class GameScreen extends AbstractScreen {
 		enemyManager = new EnemyManager(powerUpManager);
 		planetManager = new PlanetManager();
 		pointManager = new PointManager();
-		bg = new Background(new TextureRegion(TextureRegions.BACKGROUND_STARS),0,0,Sizes.DEFAULT_WORLD_WIDTH,Sizes.DEFAULT_WORLD_HEIGHT);
+		bg = new Background(TextureRegions.BACKGROUND_STARS, 0, 0,
+				Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT);
 		
 		renderer = new Renderer(bg);
 		Gdx.input.setInputProcessor(controller);
@@ -68,6 +67,7 @@ public class GameScreen extends AbstractScreen {
 		Services.getMusicManager().play(Musics.AMBIENTE);
 	}
 
+	boolean init = true;
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
@@ -117,7 +117,7 @@ public class GameScreen extends AbstractScreen {
 		shotManager.heroSuffering(hero);
 		enemyManager.colideWithHero(hero);
 		if(hero.isDead()){
-			game.gameOver();
+			game.gameOver(pointManager.getTotalPoints());
 			Services.turnOffSound();
 		}
 		pointManager.increaseTimePoints(elapsed);

@@ -40,7 +40,14 @@ public class PlayerProfile implements Serializable {
         if (entryAllowed) {
             highscore.add(newEntry);
             Collections.sort(highscore);
+            if(highscore.size()>10){
+                highscore.remove(10);
+            }
         }
+    }
+
+    public int getMinimalScore(){
+        return highscore.size()<10?0:highscore.get(highscore.size()-1).getScore()+1;
     }
 
     @Override

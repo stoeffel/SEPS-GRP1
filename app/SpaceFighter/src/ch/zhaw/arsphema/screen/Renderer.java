@@ -26,6 +26,8 @@ public class Renderer {
     private final int SHOW_OVERLAY_TIME = 5;
 	private float ppuX; // pixels per unit on the X axis
 	private float ppuY; // pixels per unit on the Y axis
+	public static float WORLD_WIDTH;
+	public static float WORLD_HEIGHT;
 	private boolean showOverlay = true;
 	private NavigationOverlay overlay;
 	private Background bg;
@@ -91,7 +93,6 @@ public class Renderer {
     {
 		batch.begin();
 		hero.draw(batch, ppuX, ppuY);
-		// TODO draw health
 		batch.end();
     }
     
@@ -129,16 +130,8 @@ public class Renderer {
     
     public void drawPause() {
     	batch.begin();
-		pause.draw(batch, ppuX,ppuY);
+		pause.draw(batch, ppuX, ppuY);
 		batch.end();
-	}
-
-	public void setPpuX(float ppuX) {
-		this.ppuX = ppuX;
-	}
-
-	public void setPpuY(float ppuY) {
-		this.ppuY = ppuY;
 	}
 
 	public void drawPowerUps(PowerUpManager powerUpManager) {
@@ -148,6 +141,15 @@ public class Renderer {
 			powerup.draw(batch, ppuX, ppuY);
 		}
 		batch.end();
+	}
+
+
+	public void setPpuX(float ppuX) {
+		this.ppuX = ppuX;
+	}
+
+	public void setPpuY(float ppuY) {
+		this.ppuY = ppuY;
 	}
 
 

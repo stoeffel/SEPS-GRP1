@@ -31,19 +31,20 @@ public abstract class AbstractSprite extends Rectangle {
 	 */
 	abstract public boolean move(final float delta);
 	abstract public Array<Shot> shoot(final float delta);
-	abstract public void draw(final SpriteBatch batch, final float ppuX, final float ppuY);
+	abstract public void draw(final SpriteBatch batch, final float ppux, final float ppuy);
 	
-	
-	/**
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 */
-	public AbstractSprite(final float x, final float y, final float width, final float height, final TextureRegion texture) {
+	public AbstractSprite(final float x, final float y, final float width, 
+			final float height, final TextureRegion texture, final float speed) {
+		super(x, y, width, height);
+		this.speed = speed;
+		this.textureRegion = texture;
+	}
+	public AbstractSprite(final float x, final float y, final float width, 
+			final float height, final TextureRegion texture) {
 		super(x, y, width, height);
 		this.textureRegion = texture;
 	}
+	
 	
 
 	public int getHealth() {
@@ -70,5 +71,5 @@ public abstract class AbstractSprite extends Rectangle {
 	public void setTextureRegion(final TextureRegion textureRegion) {
 		this.textureRegion = textureRegion;
 	}
-
+	
 }

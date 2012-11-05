@@ -35,12 +35,17 @@ public class MyGdxGame extends Game {
 
         //load profile
         Services.initProfileManager();
-        Services.getProfileManager().createTestProfile(); //testing
+//        Services.getProfileManager().createTestProfile(); //testing
         Services.getProfileManager().loadPlayerProfile();
     }
 
-    public void gameOver() {
-        setScreen(mainMenuScreen);
+    public void gameOver(int score) {
+        if(score>Services.getProfileManager().loadPlayerProfile().getMinimalScore()){
+            highscoreInsertScreen.setScore(score);
+            setScreen(highscoreInsertScreen);
+        }else{
+            setScreen(mainMenuScreen);
+        }
     }
 
     public MainMenuScreen getMainMenuScreen() {

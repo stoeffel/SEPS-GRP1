@@ -4,19 +4,15 @@ import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.model.HighscoreEntry;
 import ch.zhaw.arsphema.model.PlayerProfile;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.util.Paths;
+import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
 public class HighscoreScreen extends UiScreen {
 
     private Table wrapTable;
     private Table highscoreTable;
-    private LabelStyle entryLabelStyle;
 
     public HighscoreScreen(MyGdxGame game) {
         super(game);
@@ -32,14 +28,12 @@ public class HighscoreScreen extends UiScreen {
         stage.addActor(wrapTable);
 
         //Header
-        LabelStyle headerLabelStyle = new LabelStyle(new BitmapFont(Gdx.files.internal(Paths.HEADER_FONT), false), Color.WHITE);
-        wrapTable.add(new Label("Highscore", headerLabelStyle)).padBottom(20);
+        wrapTable.add(new Label("Highscore", UiStyles.LABEL_SCREEN_HEADER)).padBottom(20);
         wrapTable.row();
 
         //Highscore Table
         highscoreTable = new Table();
         highscoreTable.width(400);
-        entryLabelStyle = new LabelStyle(new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false), Color.WHITE);
 
         wrapTable.add(highscoreTable);
 
@@ -56,8 +50,8 @@ public class HighscoreScreen extends UiScreen {
         //clear the table before adding the entries
         highscoreTable.clear();
         for (HighscoreEntry highscoreEntry : profile.getHighscore()) {
-            highscoreTable.add(new Label(highscoreEntry.getName(), entryLabelStyle)).width(200);
-            highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), entryLabelStyle)).expand().right();
+            highscoreTable.add(new Label(highscoreEntry.getName(), UiStyles.LABEL_DEFAULT)).width(200);
+            highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.LABEL_DEFAULT)).expand().right();
             highscoreTable.row();
         }
     }

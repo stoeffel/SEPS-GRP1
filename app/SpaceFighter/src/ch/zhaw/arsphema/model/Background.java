@@ -12,8 +12,7 @@ public class Background extends AbstractSprite {
 	private static final long serialVersionUID = -7914525757302190003L;
 
 	public Background(TextureRegion texture, float x, float y, float width, float height) {
-		super(x, y, width, height, texture);
-		speed = 5;
+		super(x, y, width, height, texture, 5);
 	}
 
 	/**
@@ -29,7 +28,7 @@ public class Background extends AbstractSprite {
 	}
 
 	@Override
-	public Array<Shot> shoot(float delta) {return null; /*not used*/}
+	public Array<Shot> shoot(float delta) {return null;}
 	
 	/**
 	 * draws the texture two times, to simulate a endless universe

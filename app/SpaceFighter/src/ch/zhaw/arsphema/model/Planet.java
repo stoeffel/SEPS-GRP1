@@ -23,7 +23,7 @@ public class Planet extends AbstractSprite {
 		super(x, y, width, height, texture);
 		TextureRegion[][] tmp = textureRegion.split(textureRegion.getRegionWidth() / COLS, textureRegion.getRegionHeight() / ROWS);
 		planets = new TextureRegion[COLS * ROWS];
-
+		speed = width / 8;
 		int index = 0;
         for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < COLS; j++) {
@@ -55,7 +55,6 @@ public class Planet extends AbstractSprite {
 
 	@Override
 	public Array<Shot> shoot(float delta) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

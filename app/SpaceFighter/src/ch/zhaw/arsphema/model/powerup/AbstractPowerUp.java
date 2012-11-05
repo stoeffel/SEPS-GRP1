@@ -2,6 +2,7 @@ package ch.zhaw.arsphema.model.powerup;
 
 import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.model.AbstractSprite;
+import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.shot.Shot;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,8 +11,7 @@ import com.badlogic.gdx.utils.Array;
 
 public abstract class AbstractPowerUp extends AbstractSprite {
 	public AbstractPowerUp(float x, float y, float width, float height, TextureRegion texture) {
-		super(x, y, width, height, texture);
-		speed = 10f;
+		super(x, y, width, height, texture, 10);
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -34,14 +34,14 @@ public abstract class AbstractPowerUp extends AbstractSprite {
 	
 	/**
 	 * does whatever the powerup does 
-	 * @param pum
+	 * @param hero
 	 */
-	abstract public void doSomething(PowerUpManager pum);
+	abstract public void doSomething(Hero hero);
 	
 	/**
 	 * undoes whatever the powerup did
 	 * @param pum
 	 */
-	abstract public void undoSomething(PowerUpManager pum);
+	abstract public void undoSomething(Hero hero);
 
 }

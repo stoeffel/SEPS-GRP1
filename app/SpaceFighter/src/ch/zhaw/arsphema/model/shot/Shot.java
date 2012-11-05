@@ -12,17 +12,18 @@ import com.badlogic.gdx.utils.Array;
 public class Shot extends AbstractSprite {
 	private static final long serialVersionUID = 4015891462645256011L;
 	private int damage = 1;
-	private float speed;
 	
 	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
+	private float rotation;
 	
 	
 	public Shot(float x, float y, boolean isEnemyShot, final float speed) {
-		super(x,y, 2f, 1f, TextureRegions.SHOT);
+		super(x,y, Sizes.SHOT_WIDTH, Sizes.SHOT_HEIGHT, TextureRegions.SHOT, speed);
 		this.isEnemyShot = isEnemyShot;
-		this.speed = speed;
 		Services.getSoundManager().play(Sounds.SHOT,false);
+		rotation = 0f;
+		if (isEnemyShot) rotation = 180f;
 		
 	}
 	
@@ -40,7 +41,8 @@ public class Shot extends AbstractSprite {
 	
 	public void draw(SpriteBatch batch, float ppuX,
 			float ppuY) {
-		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+		
+		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y,0,0, ppuX * this.width, ppuY * this.height,1,1,rotation);
 	}
 	
 	@Override
