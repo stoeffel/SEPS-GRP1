@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class AbstractEnemy extends AbstractSprite {
 	private static final long serialVersionUID = 1L;
+	protected static float SHOT_FREQUENCY;
 	protected int basePoints;
 	protected float shotVelocity;
 	protected float offsetY;

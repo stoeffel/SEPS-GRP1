@@ -12,14 +12,15 @@ import com.badlogic.gdx.utils.Array;
 public class Blob extends AbstractEnemy {
 	private static final long serialVersionUID = -2931309233637206858L;
 	private static final int COLLISION_DAMAGE = 2;
-	protected float shotVelocity = -20;
-	private float shootFrequency = 1;
+	protected float shotVelocity = -60;
+	private float shootFrequency;
 	private Random shotRandom = new Random();
 	
 	
 	public Blob(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
 		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
+		SHOT_FREQUENCY = 3;
 		resetShotFrequency();
 		health = 8;
 	}
@@ -34,15 +35,18 @@ public class Blob extends AbstractEnemy {
 		shootFrequency -= delta;
 		if(shootFrequency < 0)
 		{
-			final Array<Shot> shot = ShotFactory.createShotInArray(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.GREEN, true);
+			Array<Shot> shots = new Array<Shot>();
+			shots.add(ShotFactory.createShot(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.GREEN, true));
+			shots.add(ShotFactory.createShot(x - shotVelocity * delta, y + height, shotVelocity, ShotFactory.Type.GREEN, true));
+			shots.add(ShotFactory.createShot(x - shotVelocity * delta, y + height / 2, shotVelocity, ShotFactory.Type.GREEN, true));
 			resetShotFrequency();
-			return shot;
+			return shots;
 		}
 		return null;
 	}
 	
 	private void resetShotFrequency(){
-		shootFrequency = 1 + (5 * shotRandom.nextFloat());
+		shootFrequency = 1 + (SHOT_FREQUENCY * shotRandom.nextFloat());
 	}
 
 	@Override

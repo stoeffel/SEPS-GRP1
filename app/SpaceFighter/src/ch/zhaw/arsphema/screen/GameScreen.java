@@ -10,10 +10,10 @@ import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Hero;
+import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Musics;
 import ch.zhaw.arsphema.util.Sizes;
-import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
@@ -44,7 +44,7 @@ public class GameScreen extends AbstractScreen {
 		elapsed = 0;
 		EnemyManager.deactivateEnemyFactory();
 		
-		hero = new Hero(Sizes.DEFAULT_WORLD_WIDTH/10, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
+		hero = new Hero(Sizes.SHIP_X_POSITION, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
 		gameState = GameState.PLAY;
 	}
 
@@ -70,7 +70,6 @@ public class GameScreen extends AbstractScreen {
 		Services.getSoundManager().setVolume(0.5f); // TODO set vol...asd
 	}
 
-	boolean init = true;
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
@@ -124,6 +123,7 @@ public class GameScreen extends AbstractScreen {
 			Services.turnOffSound();
 			Services.getMusicManager().play(Musics.GAME_OVER);
 		}
+		ShotFactory.setHeroY(hero.y);
 		pointManager.increaseTimePoints(elapsed);
 		
 		//enemy stuff

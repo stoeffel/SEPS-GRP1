@@ -16,7 +16,7 @@ public class Shot extends AbstractSprite {
 	protected boolean isEnemyShot = false;
 	private boolean shouldBeRemoved = false;
 	private float rotation;
-	
+	private float ySpeed = 0;
 	
 	public Shot(float x, float y, boolean isEnemyShot, final float speed) {
 		super(x,y, Sizes.SHOT_WIDTH, Sizes.SHOT_HEIGHT, TextureRegions.SHOT, speed);
@@ -51,6 +51,7 @@ public class Shot extends AbstractSprite {
 		if (this.x > Sizes.DEFAULT_WORLD_WIDTH) {
 			shouldBeRemoved = true;
 		}
+		y += ySpeed;
 		return true;
 	}
 	
@@ -66,6 +67,11 @@ public class Shot extends AbstractSprite {
 
 	public void setSpeed(float speed) {
 		this.speed = speed;
+	}
+
+	public void updateYSpeed(float ySpeed) {
+		this.ySpeed = ySpeed;
+		speed -= ySpeed;
 	}
 
 }

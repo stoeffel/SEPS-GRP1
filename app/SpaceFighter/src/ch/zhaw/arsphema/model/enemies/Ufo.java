@@ -13,13 +13,14 @@ public class Ufo extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private static final int COLLISION_DAMAGE = 1;
 	protected float shotVelocity = -80;
-	private float shootFrequency = 2;
+	protected float shootFrequency;
 	private Random shotRandom = new Random();
 	
 	
 	public Ufo(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
 		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
+		SHOT_FREQUENCY = 5;
 		resetShotFrequency();
 	}
 	
@@ -40,8 +41,8 @@ public class Ufo extends AbstractEnemy {
 		return null;
 	}
 	
-	private void resetShotFrequency(){
-		shootFrequency = 1 + (5 * shotRandom.nextFloat());
+	protected void resetShotFrequency(){
+		shootFrequency = 1 + (SHOT_FREQUENCY * shotRandom.nextFloat());
 	}
 
 	@Override

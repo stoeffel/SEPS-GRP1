@@ -12,6 +12,7 @@ public class EnemyFactory
 {
 	private static final int POINTS_BLOB = 5;
 	private static int POINTS_UFO = 1;
+	private static int POINTS_UFO_BAD_BOY = 1;
 	private static int POINTS_SAUCER = 2;
 	private static EnemyFactory instance;
 	private Random random = new Random();
@@ -26,6 +27,54 @@ public class EnemyFactory
     		instance = new EnemyFactory();
     	return instance;
     }
+
+	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
+		// a group should not be wider than a screen width
+		return createUfoBadBoysGroup(0, 20);
+//		switch (nextGroupDiffLevel)
+//		{
+//		case 0:
+//			return createEasyGroup(elapsed);
+//		case 1:
+//			return createMediumGroup(elapsed);
+//		case 2:
+//			return createHardGroup(elapsed);
+//		}
+//		throw new IllegalStateException();
+	}
+
+	private EnemyGroup createEasyGroup(final float elapsed) {
+		final int nextGroupId = random.nextInt(AMOUNT_OF_EASY_GROUPS);
+		switch (nextGroupId){
+		case 0:
+			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+		case 1:
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 5);
+		}
+		throw new IllegalStateException();
+	}
+	
+	private EnemyGroup createMediumGroup(final float elapsed) {
+		final int nextGroupId = random.nextInt(AMOUNT_OF_MEDIUM_GROUPS);
+		switch (nextGroupId){
+		case 0:
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
+		case 1:
+			return createUfoBadBoysGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+		}
+		throw new IllegalStateException();
+	}
+	
+	private EnemyGroup createHardGroup(final float elapsed) {
+		final int nextGroupId = random.nextInt(AMOUNT_OF_HARD_GROUPS);
+		switch (nextGroupId){
+		case 0:
+			return createBlobGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+		case 1:
+			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 15);
+		}
+		throw new IllegalStateException();
+	}
 
 	public EnemyGroup createUfoGroup(final float shootFrequency, final float y)
 	{
@@ -43,6 +92,25 @@ public class EnemyFactory
     	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
     			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
     			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO);
+    	return ufo;
+    }
+
+	public EnemyGroup createUfoBadBoysGroup(final float shootFrequency, final float y)
+	{
+		//TODO use shootfrequency
+		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
+		ufos.add(createUfoBadBoy(0,Sizes.UFO_HEIGHT));
+		ufos.add(createUfoBadBoy(Sizes.UFO_WIDTH+2,0));
+		ufos.add(createUfoBadBoy(Sizes.UFO_WIDTH+2,2*Sizes.UFO_HEIGHT));
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
+				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
+	}
+    
+    public AbstractEnemy createUfoBadBoy(float offsetX, float offsetY)
+    {
+    	UfoBadBoy ufo = new UfoBadBoy(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
+    			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
+    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO_BAD_BOY);
     	return ufo;
     }
 	
@@ -89,52 +157,4 @@ public class EnemyFactory
     	
     	return blob;
     }
-
-	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
-		// a group should not be wider than a screen width
-		switch (nextGroupDiffLevel)
-		{
-		case 0:
-			return createEasyGroup(elapsed);
-		case 1:
-			return createMediumGroup(elapsed);
-		case 2:
-			return createHardGroup(elapsed);
-		}
-		throw new IllegalStateException();
-	}
-
-	private EnemyGroup createEasyGroup(final float elapsed) {
-		final int nextGroupId = random.nextInt(AMOUNT_OF_EASY_GROUPS);
-		switch (nextGroupId){
-		case 0:
-			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
-		case 1:
-			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 5);
-		}
-		throw new IllegalStateException();
-	}
-	
-	private EnemyGroup createMediumGroup(final float elapsed) {
-		final int nextGroupId = random.nextInt(AMOUNT_OF_MEDIUM_GROUPS);
-		switch (nextGroupId){
-		case 0:
-			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
-		case 1:
-			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
-		}
-		throw new IllegalStateException();
-	}
-	
-	private EnemyGroup createHardGroup(final float elapsed) {
-		final int nextGroupId = random.nextInt(AMOUNT_OF_HARD_GROUPS);
-		switch (nextGroupId){
-		case 0:
-			return createBlobGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
-		case 1:
-			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 15);
-		}
-		throw new IllegalStateException();
-	}
-
 }

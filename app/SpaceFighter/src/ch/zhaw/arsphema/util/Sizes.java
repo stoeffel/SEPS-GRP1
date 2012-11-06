@@ -8,6 +8,7 @@ public class Sizes {
 	public static float SHIP_HEIGHT = 4.75f;
 	public static float SHIP_COUNTER_WIDTH = 3f;
 	public static float SHIP_COUNTER_HEIGHT = 1.6f;
+	public static float SHIP_X_POSITION = 9.6f;
 	
 
 	public static float SHOT_WIDTH = 2;
