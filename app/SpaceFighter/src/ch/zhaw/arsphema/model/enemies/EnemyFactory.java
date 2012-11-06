@@ -30,17 +30,16 @@ public class EnemyFactory
 
 	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
 		// a group should not be wider than a screen width
-		return createUfoBadBoysGroup(0, 20);
-//		switch (nextGroupDiffLevel)
-//		{
-//		case 0:
-//			return createEasyGroup(elapsed);
-//		case 1:
-//			return createMediumGroup(elapsed);
-//		case 2:
-//			return createHardGroup(elapsed);
-//		}
-//		throw new IllegalStateException();
+		switch (nextGroupDiffLevel)
+		{
+		case 0:
+			return createEasyGroup(elapsed);
+		case 1:
+			return createMediumGroup(elapsed);
+		case 2:
+			return createHardGroup(elapsed);
+		}
+		throw new IllegalStateException();
 	}
 
 	private EnemyGroup createEasyGroup(final float elapsed) {
