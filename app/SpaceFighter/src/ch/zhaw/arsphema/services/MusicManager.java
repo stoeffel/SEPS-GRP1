@@ -123,7 +123,7 @@ public class MusicManager
 	}
 
 	public void playRandom() {
-		int rand = new Random().nextInt(19);
+		int rand = new Random().nextInt(4);
 		Music currentTrack;
 		System.out.println(rand);
 		switch (rand) {
