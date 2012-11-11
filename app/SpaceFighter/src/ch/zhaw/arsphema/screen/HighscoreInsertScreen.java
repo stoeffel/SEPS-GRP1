@@ -17,10 +17,11 @@ public class HighscoreInsertScreen extends UiScreen {
 
     private Table wrapTable;
     private TextField tfName;
-    private int score=0;
+    private int score = 0;
 
     public HighscoreInsertScreen(MyGdxGame game) {
         super(game);
+        uiController.setButtonListener(new ComponentListener());
         setupGUI();
     }
 
@@ -39,16 +40,16 @@ public class HighscoreInsertScreen extends UiScreen {
         Table compTable = new Table();
         compTable.add(new Label("Please enter your Name", UiStyles.LABEL_DEFAULT)).colspan(2);
         compTable.row();
-        tfName = new TextField("", "",UiStyles.TEXT_FIELD_DEFAULT, UiLabels.TEXTFIELD_HIGHSCORE_NAME);
+        tfName = new TextField("", "", UiStyles.TEXT_FIELD_DEFAULT, UiLabels.TEXTFIELD_HIGHSCORE_NAME);
         compTable.add(tfName).pad(10);
         TextButton btnSubmit = new TextButton("Submit", UiStyles.BUTTON_DEFAULT, UiLabels.BUTTON_SUBMIT_HIGHSCORE);
-        btnSubmit.setClickListener(new ComponentListener());
+        btnSubmit.setClickListener(uiController.getButtonListener());
         compTable.add(btnSubmit);
 
         wrapTable.add(compTable);
     }
 
-    public void setScore(int score){
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -59,7 +60,7 @@ public class HighscoreInsertScreen extends UiScreen {
     }
 
 
-    private class ComponentListener implements ClickListener{
+    private class ComponentListener implements ClickListener {
 
         @Override
         public void click(Actor actor, float x, float y) {
