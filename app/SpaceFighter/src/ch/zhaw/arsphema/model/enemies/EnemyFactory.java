@@ -30,6 +30,7 @@ public class EnemyFactory
 
 	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
 		// a group should not be wider than a screen width
+//		return createBoitumeloGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		switch (nextGroupDiffLevel)
 		{
 		case 0:
@@ -49,6 +50,8 @@ public class EnemyFactory
 			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
 			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 5);
+		case 2:
+			return createBoitumeloGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		throw new IllegalStateException();
 	}
@@ -104,6 +107,25 @@ public class EnemyFactory
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
+    
+	public EnemyGroup createBoitumeloGroup(final float shootFrequency, final float y)
+	{
+		//TODO use shootfrequency
+		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
+		ufos.add(createBoitumelo(0,Sizes.UFO_HEIGHT));
+		ufos.add(createBoitumelo(Sizes.UFO_WIDTH+2,0));
+		ufos.add(createBoitumelo(Sizes.UFO_WIDTH+2,2*Sizes.UFO_HEIGHT));
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
+				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
+	}
+
+    public AbstractEnemy createBoitumelo(float offsetX, float offsetY)
+    {
+    	Boitumelo boitumelo = new Boitumelo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
+    			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
+    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO_BAD_BOY);
+    	return boitumelo;
+    }
     
     public AbstractEnemy createUfoBadBoy(float offsetX, float offsetY)
     {
