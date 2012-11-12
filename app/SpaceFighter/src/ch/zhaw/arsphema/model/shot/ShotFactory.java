@@ -3,7 +3,6 @@ package ch.zhaw.arsphema.model.shot;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class ShotFactory
@@ -46,26 +45,20 @@ public class ShotFactory
     {
     	Shot shot = createShot(x, y, speed, type, isEnemyShot);
     	//calculate direction
-        shot.updateYSpeed((y - ShotFactory.heroY) / (Sizes.SHIP_X_POSITION - x));
+        shot.updateSpeed(calculateSpeed(speed, x, y - heroY) , true);
     	return shot;
     }
 
-    private static float calculateDirection(final float speed, final float source, final float target){
-    	return speed / source * (source - target);
+    private static float calculateSpeed(final float speed, final float distanceX, final float distanceY){
+    	return speed / (distanceX + distanceY) * distanceX;
     }
     
     public static Shot createDiagonalShot(final float x, final float y, final float speed, final Type type, final boolean isEnemyShot, final boolean up)
     {
     	final Shot shot = createShot(x, y, speed, type, isEnemyShot);
-    	final Vector2 source = new Vector2(x, y);
-    	final Vector2 target;
     	//calculate direction
-    	if(up)
-    		target = new Vector2(0, Sizes.DEFAULT_WORLD_HEIGHT);
-    	else
-    		target = new Vector2(0, Sizes.DEFAULT_WORLD_HEIGHT);
-    	Vector2 path = source.sub(target);
-    	shot.updateYSpeed(path.y);
+    	float xSpeed = calculateSpeed(speed, Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT / 2);
+    	shot.updateSpeed(xSpeed, up);
     	return shot;
     }
     

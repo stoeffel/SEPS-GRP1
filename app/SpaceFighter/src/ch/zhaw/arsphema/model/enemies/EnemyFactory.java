@@ -30,7 +30,6 @@ public class EnemyFactory
 
 	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
 		// a group should not be wider than a screen width
-//		return createBoitumeloGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		switch (nextGroupDiffLevel)
 		{
 		case 0:
