@@ -14,10 +14,11 @@ public class EnemyFactory
 	private static int POINTS_UFO = 1;
 	private static int POINTS_UFO_BAD_BOY = 1;
 	private static int POINTS_SAUCER = 2;
+	private static int POINTS_BOITUMELO = 2;
 	private static EnemyFactory instance;
 	private Random random = new Random();
-	private final int AMOUNT_OF_EASY_GROUPS = 2;
-	private final int AMOUNT_OF_MEDIUM_GROUPS = 1;
+	private final int AMOUNT_OF_EASY_GROUPS = 3;
+	private final int AMOUNT_OF_MEDIUM_GROUPS = 2;
 	private final int AMOUNT_OF_HARD_GROUPS = 2;
     private EnemyFactory(){/*Singleton*/}
     
@@ -46,11 +47,11 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_EASY_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createUfoGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+			return createUfoGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
 			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 5);
 		case 2:
-			return createBoitumeloGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+			return createBoitumeloGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		throw new IllegalStateException();
 	}
@@ -61,7 +62,7 @@ public class EnemyFactory
 		case 0:
 			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 10);
 		case 1:
-			return createUfoBadBoysGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+			return createUfoBadBoysGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		throw new IllegalStateException();
 	}
@@ -70,16 +71,15 @@ public class EnemyFactory
 		final int nextGroupId = random.nextInt(AMOUNT_OF_HARD_GROUPS);
 		switch (nextGroupId){
 		case 0:
-			return createBlobGroup(elapsed, random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
+			return createBlobGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
 			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 15);
 		}
 		throw new IllegalStateException();
 	}
 
-	public EnemyGroup createUfoGroup(final float shootFrequency, final float y)
+	public EnemyGroup createUfoGroup(final float y)
 	{
-		//TODO use shootfrequency
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
 		ufos.add(createUfo(0,Sizes.UFO_HEIGHT));
 		ufos.add(createUfo(Sizes.UFO_WIDTH+2,0));
@@ -96,9 +96,8 @@ public class EnemyFactory
     	return ufo;
     }
 
-	public EnemyGroup createUfoBadBoysGroup(final float shootFrequency, final float y)
+	public EnemyGroup createUfoBadBoysGroup(final float y)
 	{
-		//TODO use shootfrequency
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
 		ufos.add(createUfoBadBoy(0,Sizes.UFO_HEIGHT));
 		ufos.add(createUfoBadBoy(Sizes.UFO_WIDTH+2,0));
@@ -107,9 +106,8 @@ public class EnemyFactory
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
     
-	public EnemyGroup createBoitumeloGroup(final float shootFrequency, final float y)
+	public EnemyGroup createBoitumeloGroup(final float y)
 	{
-		//TODO use shootfrequency
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
 		ufos.add(createBoitumelo(0,Sizes.UFO_HEIGHT));
 		ufos.add(createBoitumelo(Sizes.UFO_WIDTH+2,0));
@@ -122,7 +120,7 @@ public class EnemyFactory
     {
     	Boitumelo boitumelo = new Boitumelo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
     			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
-    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO_BAD_BOY);
+    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_BOITUMELO);
     	return boitumelo;
     }
     
@@ -134,9 +132,8 @@ public class EnemyFactory
     	return ufo;
     }
 	
-	public EnemyGroup createBlobGroup(final float shootFrequency, final float y)
+	public EnemyGroup createBlobGroup(final float y)
 	{
-		//TODO use shootfrequency
 		Array<AbstractEnemy> blobs = new Array<AbstractEnemy>();
 		blobs.add(createBlob(0, 0));
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, blobs, 
