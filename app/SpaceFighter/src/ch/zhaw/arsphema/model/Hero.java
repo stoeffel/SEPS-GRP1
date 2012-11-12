@@ -32,9 +32,6 @@ public class Hero extends AbstractSprite {
 	private boolean fire = false;
 	private boolean dead = false;
 
-//	private float overheatCountDown = 1;
-//	private static final float OVERHEAT_DAMAGE_DELAY = 1;
-	
 	private TextureRegion[] textures;
 	
 	private OverHeatBar overheatbar;
@@ -120,7 +117,6 @@ public class Hero extends AbstractSprite {
 		if (!fire)
 		{
 			overheatbar.cool(coolSpeed);
-//			overheatCountDown = OVERHEAT_DAMAGE_DELAY;
 		} else {
 			heatGun(delta);
 		}
@@ -131,13 +127,7 @@ public class Hero extends AbstractSprite {
 	private void heatGun(final float delta)
 	{
 		if (overheatbar.heat(heatSpeed)) {
-//			System.out.println(overheatCountDown + " - " + delta); // TODO check if stoeffel what approach is nicer
-//			overheatCountDown -= delta;
-//			System.out.println(overheatCountDown);
-//			if (overheatCountDown < 0) {
-				lowerHealth(1);
-//				overheatCountDown += OVERHEAT_DAMAGE_DELAY;
-//			}
+			lowerHealth(1);
 		}
 	}
 
@@ -209,13 +199,29 @@ public class Hero extends AbstractSprite {
 	public void lowerHealth(int damage) {
 		if (isHurt) return; // don't hurt him again
 		isHurt = true;
-		health -= damage; //TODO shield and stuff check
-		lifeCounter.setLifes(health);
-	    Services.getSoundManager().play(Sounds.HURT, false);
-		dead = health <= 0;
-		for (AbstractPowerUp pu : powerUps) {
-			pu.undoSomething(this);
+		if(!handlePowerUp()){
+			health -= damage;
+			lifeCounter.setLifes(health);
 		}
+	    Services.getSoundManager().play(Sounds.HURT, false);
+	    
+		dead = health <= 0;
+	}
+
+
+	/**
+	 * @return true if had powerups
+	 */
+	private boolean handlePowerUp() {
+		if(powerUps.size > 0){
+			for (AbstractPowerUp pu : powerUps) {
+				pu.undoSomething(this);
+			}
+			powerUps.clear();
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	/**
@@ -267,8 +273,6 @@ public class Hero extends AbstractSprite {
 	public Array<AbstractPowerUp> getPowerUps() {
 		return powerUps;
 	}
-
-
 
 	public void addPowerUps(AbstractPowerUp powerUp) {
 		this.powerUps.add(powerUp);

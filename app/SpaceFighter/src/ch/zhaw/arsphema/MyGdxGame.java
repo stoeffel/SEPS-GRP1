@@ -19,10 +19,7 @@ public class MyGdxGame extends Game {
     public void create() {
         //loader screens
     	loadingScreen = new LoadingScreen(this);
-
         setScreen(loadingScreen);
-
-
     }
     
     public void initScreens() {

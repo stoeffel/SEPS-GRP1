@@ -95,8 +95,8 @@ public class MainMenuScreen extends UiScreen {
             } else if (UiLabels.BUTTON_SHOW_CREDITS.equals(actor.name)) {
                 game.setScreen(game.getCreditsScreen());
             } else if (UiLabels.BUTTON_QUIT.equals(actor.name)) {
-                //TODO Falls nötig noch zusätzliche Aktionen beim Beenden der Applikation implementieren
-                Gdx.app.exit();
+                Gdx.app.exit(); // disposes assets
+                System.exit(0); // needed since assets need to be reloaded on next start 
             }
         }
     }
