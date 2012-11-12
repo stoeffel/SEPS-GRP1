@@ -28,30 +28,11 @@ public class Paths {
 	public static final String BACKGROUND_STARS = "images/worlds/stars.png";
 
 	// MUSIC
-	public static final String TRACK_01 = "music/JRPG_OST/01-Opening.ogg";
-	public static final String TRACK_02 = "music/JRPG_OST/02-BWV1007-Prelude.ogg";
-	public static final String TRACK_03 = "music/JRPG_OST/03-HWV56-Whydothenationssofuriouslyragetogether.ogg";
-	public static final String TRACK_04 = "music/JRPG_OST/04-Sanctuary.ogg";
-	public static final String TRACK_05 = "music/JRPG_OST/05-Reunion.ogg";
-	public static final String TRACK_06 = "music/JRPG_OST/06-RebelsBe.ogg";
-	public static final String TRACK_07 = "music/JRPG_OST/07-Town.ogg";
-	public static final String TRACK_08 = "music/JRPG_OST/08-Overworld.ogg";
-	public static final String TRACK_09 = "music/JRPG_OST/09-Z339-HeretheDeitiesapprove.ogg";
-	public static final String TRACK_10 = "music/JRPG_OST/10-TheEmpire.ogg";
-	public static final String TRACK_11 = "music/JRPG_OST/11-Ostrich!.ogg";
-	public static final String TRACK_12 = "music/JRPG_OST/12-TimewornPagoda.ogg";
-	public static final String TRACK_13 = "music/JRPG_OST/13-Danger.ogg";
-	public static final String TRACK_14 = "music/JRPG_OST/14-BarbarianKing.ogg";
-	public static final String TRACK_15 = "music/JRPG_OST/15-Dungeon.ogg";
-	public static final String TRACK_16 = "music/JRPG_OST/16-EntertheEmperor.ogg";
-	public static final String TRACK_17 = "music/JRPG_OST/17-Victory.ogg";
-	public static final String TRACK_18 = "music/JRPG_OST/18-NighttideWaltz.ogg";
-	public static final String TRACK_19 = "music/JRPG_OST/19-Courtesan.ogg";
-	public static final String TRACK_20 = "music/JRPG_OST/21-Fanfare.ogg";
-	public static final String TRACK_21 = "music/JRPG_OST/22-ANewComrade.ogg";
-	public static final String TRACK_22 = "music/JRPG_OST/23-Inn.ogg";
-	public static final String TRACK_23 = "music/JRPG_OST/24-RV610-Fecitpotentiam.ogg";
-	public static final String TRACK_24 = "music/JRPG_OST/25-Finale.ogg";
+	public static final String TRACK_01 = "music/01.mp3";
+	public static final String TRACK_02 = "music/02.mp3";
+	public static final String TRACK_03 = "music/03.mp3";
+	public static final String TRACK_04 = "music/04.mp3";
+	
 	public static final String GAME_OVER = "music/JRPG_OST/20-GameOver.ogg";
 
 	// SOUNDS

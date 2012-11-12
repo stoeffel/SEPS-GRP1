@@ -75,4 +75,16 @@ public class MyGdxGame extends Game {
     public CreditsScreen getCreditsScreen() {
         return creditsScreen;
     }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        loadingScreen.dispose();
+        highscoreInsertScreen.dispose();
+        highscoreScreen.dispose();
+        optionScreen.dispose();
+        creditsScreen.dispose();
+        gameScreen.dispose();
+        mainMenuScreen.dispose();
+    }
 }

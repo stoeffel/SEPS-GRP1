@@ -143,7 +143,7 @@ public class EnemyManager {
 				addEnemies(elapsed);
 				// check elapsed time for next enemy set to drop 
 				// now after 100 sec every 0.5 sec new enemy should appear (approach is linea)
-				nextEnemyToDrop = 4 - (elapsed * 5 / 100);
+				nextEnemyToDrop = 4 - (elapsed * 5 / 200);
 				if(nextEnemyToDrop < 0.5f)
 					nextEnemyToDrop = 0.5f;
 			} else {

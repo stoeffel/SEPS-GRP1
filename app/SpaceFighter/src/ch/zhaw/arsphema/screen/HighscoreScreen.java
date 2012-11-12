@@ -49,10 +49,13 @@ public class HighscoreScreen extends UiScreen {
 
         //clear the table before adding the entries
         highscoreTable.clear();
+        int rank = 1;
         for (HighscoreEntry highscoreEntry : profile.getHighscore()) {
+            highscoreTable.add(new Label(rank + ".", UiStyles.LABEL_DEFAULT)).width(40).left();
             highscoreTable.add(new Label(highscoreEntry.getName(), UiStyles.LABEL_DEFAULT)).width(200);
             highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.LABEL_DEFAULT)).expand().right();
             highscoreTable.row();
+            rank++;
         }
     }
 }

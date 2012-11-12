@@ -20,10 +20,10 @@ public class UiStyles {
     //ButtonStyle
     private static final Texture UI_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_TEXTURES));
     public static final TextButton.TextButtonStyle BUTTON_DEFAULT = new TextButton.TextButtonStyle(
-            new NinePatch(new TextureRegion(UI_TEXTURE,102, 0, 50, 50), 8, 8, 8, 8),
-            new NinePatch(new TextureRegion(UI_TEXTURE,0, 0, 50, 50), 8, 8, 8, 8),
-            new NinePatch(new TextureRegion(UI_TEXTURE,51, 0, 50, 50), 8, 8, 8, 8),
-            1f,
+            new NinePatch(new TextureRegion(UI_TEXTURE, 80, 0, 80, 40), 15, 15, 4, 4),
+            new NinePatch(new TextureRegion(UI_TEXTURE, 0, 0, 80, 40), 15, 15, 4, 4),
+            new NinePatch(new TextureRegion(UI_TEXTURE, 80, 0, 80, 40), 15, 15, 4, 4),
+            0f,
             0f,
             0f,
             0f,
@@ -36,11 +36,11 @@ public class UiStyles {
     //TextFieldStyle
     public static final TextField.TextFieldStyle TEXT_FIELD_DEFAULT = new TextField.TextFieldStyle(
             new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false),
-            Color.DARK_GRAY,
+            Color.WHITE,
             null,
             null,
-            new NinePatch(new TextureRegion(UI_TEXTURE, 204, 0, 1, 1), 0, 0, 0, 0),
+            new NinePatch(new TextureRegion(UI_TEXTURE, 240, 0, 1, 1), 0, 0, 0, 0),
             null,
-            new NinePatch(new TextureRegion(UI_TEXTURE, 152, 0, 50, 50), 8, 8, 8, 8)
+            new NinePatch(new TextureRegion(UI_TEXTURE, 160, 0, 40, 40), 4, 4, 4, 4)
     );
 }
