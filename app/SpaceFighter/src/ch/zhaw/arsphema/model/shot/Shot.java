@@ -39,10 +39,8 @@ public class Shot extends AbstractSprite {
 		return speed;
 	}
 	
-	public void draw(SpriteBatch batch, float ppuX,
-			float ppuY) {
-		
-		batch.draw(textureRegion, ppuX * this.x, ppuY * this.y,0,0, ppuX * this.width, ppuY * this.height,1,1,rotation);
+	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
+		batch.draw(textureRegion, ppuX * x, ppuY * y, 0, 0, ppuX * width, ppuY * height, 1, 1, rotation);
 	}
 	
 	@Override
@@ -51,7 +49,7 @@ public class Shot extends AbstractSprite {
 		if (this.x > Sizes.DEFAULT_WORLD_WIDTH) {
 			shouldBeRemoved = true;
 		}
-		y += ySpeed;
+		y += ySpeed * delta;
 		return true;
 	}
 	
@@ -69,9 +67,11 @@ public class Shot extends AbstractSprite {
 		this.speed = speed;
 	}
 
-	public void updateYSpeed(float ySpeed) {
-		this.ySpeed = ySpeed;
-		speed -= ySpeed;
+	public void updateSpeed(final float xSpeed, final boolean up) {
+		ySpeed = speed - xSpeed;
+		if(!up)
+			ySpeed *= -1;
+		speed = xSpeed;
 	}
 
 }

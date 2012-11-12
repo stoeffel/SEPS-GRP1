@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 public class UfoBadBoy extends Ufo {
 
 	private static final long serialVersionUID = -8679196122359337868L;
-	protected float shotVelocity = -80;
+	protected float shotVelocity = -50;
 
 	public UfoBadBoy(float x, float y, float offsetX, float offsetY,
 			float width, float height, TextureRegion texture, int points) {

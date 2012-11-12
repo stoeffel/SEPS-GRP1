@@ -92,9 +92,6 @@ public class EnemyManager {
 				}
 			}
 		}
-//		if(enemies.size == 0){ //TODO maybe add
-//			nextEnemyToDrop /= 2; //if all enemies killed, next drop of enemy is sooner
-//		}
 		return totalPoints;
 	}
 

@@ -15,6 +15,7 @@ public class EnemyGroup extends Rectangle{
 	private Vector2 position = new Vector2();
 	private float distance = 0;
 	private float speed;
+	private boolean endless = false;
 	
 	private Array<AbstractEnemy> members;
 	private Vector2 direction;
@@ -40,6 +41,10 @@ public class EnemyGroup extends Rectangle{
 		else {
 			this.path = pathP;
 		}
+		if(path.get(path.size - 1).x > 0){
+			endless = true;
+		}
+		System.out.println(endless);
 		start.set(position);
 		end.set(path.get(countVector));
 		distance = start.dst(end);
@@ -70,16 +75,18 @@ public class EnemyGroup extends Rectangle{
 		position.add(direction.cpy().mul(delta*speed));
 		x = position.x;
 		y = position.y;
-		
-		if (start.dst(position) >= distance && countVector < path.size-1) {
-			position.set(end.x,end.y);
-			start.set(position);
-			countVector++;
-			end.set(path.get(countVector));
-			distance = start.dst(end);
-			direction = end.cpy().sub(start);
-		} else if (start.dst(position) >= distance) {
-			return true;
+
+		if (start.dst(position) >= distance) {
+			if(countVector < path.size - 1){
+				nextVectorStep();
+			}
+			else if (endless) {
+				countVector = -1;
+				nextVectorStep();
+			}
+			else{
+				return true;
+			}
 		}
 		for (final AbstractEnemy member : members) {
 			member.x = member.offsetX + x;
@@ -88,6 +95,15 @@ public class EnemyGroup extends Rectangle{
 		}
 		
 		return false;
+	}
+
+	private void nextVectorStep() {
+		position.set(end.x, end.y);
+		start.set(position);
+		countVector++;
+		end.set(path.get(countVector));
+		distance = start.dst(end);
+		direction = end.cpy().sub(start);
 	}
 
 	public Array<AbstractEnemy> getMembers() {

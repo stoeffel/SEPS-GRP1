@@ -125,7 +125,6 @@ public class MusicManager
 	public void playRandom() {
 		int rand = new Random().nextInt(4);
 		Music currentTrack;
-		System.out.println(rand);
 		switch (rand) {
 		case 1:
 			currentTrack = Musics.TRACK_01;
