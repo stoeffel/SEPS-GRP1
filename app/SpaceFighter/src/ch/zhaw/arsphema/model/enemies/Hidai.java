@@ -9,19 +9,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
-public class Boitumelo extends AbstractEnemy {
+public class Hidai extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
-	private static final int COLLISION_DAMAGE = 1;
-	protected float shotVelocity = -80;
-	protected float shootFrequency;
+	private static final int COLLISION_DAMAGE = 5;
+	protected float shotVelocity = -60;
+	protected float shootFrequencyA;
+	protected float shootFrequencyB;
 	private Random shotRandom = new Random();
 	
 	
-	public Boitumelo(float x, float y, float offsetX, float offsetY, float width, float height,
+	public Hidai(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
 		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
 		SHOT_FREQUENCY = 3;
 		resetShotFrequency();
+		health = 40;
 	}
 	
 	@Override
@@ -31,21 +33,33 @@ public class Boitumelo extends AbstractEnemy {
 
 	@Override
 	public Array<Shot> shoot(float delta) {
-		shootFrequency -= delta;
-		if(shootFrequency < 0)
+		shootFrequencyA -= delta;
+		final Array<Shot> shots = new Array<Shot>();
+		if(shootFrequencyA < 0)
 		{
-			final Array<Shot> shots = new Array<Shot>();
 			shots.add(ShotFactory.createShot(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.STANDARD, true));
 			shots.add(ShotFactory.createDiagonalShot(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.STANDARD, true, true));
 			shots.add(ShotFactory.createDiagonalShot(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.STANDARD, true, false));
-			resetShotFrequency();
-			return shots;
+			resetShotFrequencyA();
 		}
-		return null;
+		shootFrequencyB -= delta;
+		if(shootFrequencyB < 0)
+		{
+			shots.add(ShotFactory.createHeroDirectedShot(x - shotVelocity * delta, y, shotVelocity, ShotFactory.Type.STANDARD, true));
+			resetShotFrequencyB();
+		}
+		return shots;
 	}
-	
+
 	protected void resetShotFrequency(){
-		shootFrequency = 1 + (SHOT_FREQUENCY * shotRandom.nextFloat());
+		resetShotFrequencyA();
+		resetShotFrequencyB();
+	}
+	protected void resetShotFrequencyA(){
+		shootFrequencyA = 1 + (SHOT_FREQUENCY * shotRandom.nextFloat());
+	}
+	protected void resetShotFrequencyB(){
+		shootFrequencyB = 3 + (SHOT_FREQUENCY * shotRandom.nextFloat());
 	}
 
 	@Override

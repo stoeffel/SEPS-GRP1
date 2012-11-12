@@ -2,8 +2,10 @@ package ch.zhaw.arsphema.controller;
 
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
+import ch.zhaw.arsphema.model.powerup.KillEmAllPowerUp;
 import ch.zhaw.arsphema.model.powerup.OneUp;
 import ch.zhaw.arsphema.model.powerup.ShotGreen;
+import ch.zhaw.arsphema.model.powerup.SlowDownPowerUp;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
@@ -64,8 +66,17 @@ public class PowerUpManager {
 	public OneUp createOneUp(float x, float y) {
 		return new OneUp(x, y, Sizes.POWER_UP_WITDH, Sizes.POWER_UP_HEIGHT, TextureRegions.ONE_UP);
 	}
+	
 	public ShotGreen createShotGreen(float x, float y) {
 		return new ShotGreen(x, y, Sizes.POWER_UP_WITDH, Sizes.POWER_UP_HEIGHT, TextureRegions.POWERUP_SHOT_GREEN);
+	}
+	
+	public SlowDownPowerUp createSlowDown(float x, float y) {
+		return new SlowDownPowerUp(x, y, Sizes.POWER_UP_WITDH, Sizes.POWER_UP_HEIGHT, TextureRegions.POWERUP_SHOT_GREEN);
+	}
+	
+	public KillEmAllPowerUp createKillEmAll(float x, float y) {
+		return new KillEmAllPowerUp(x, y, Sizes.POWER_UP_WITDH, Sizes.POWER_UP_HEIGHT, TextureRegions.POWERUP_SHOT_GREEN);
 	}
 
 	public Array<AbstractPowerUp> getPowerUps() {

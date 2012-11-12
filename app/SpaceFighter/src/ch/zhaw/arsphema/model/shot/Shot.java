@@ -72,7 +72,6 @@ public class Shot extends AbstractSprite {
 		if(!up)
 			ySpeed *= -1;
 		speed = xSpeed;
-		System.out.println(speed + " - " + ySpeed);
 	}
 
 }

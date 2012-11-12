@@ -11,15 +11,16 @@ import com.badlogic.gdx.utils.Array;
 public class EnemyFactory
 {
 	private static final int POINTS_BLOB = 5;
-	private static int POINTS_UFO = 1;
-	private static int POINTS_UFO_BAD_BOY = 1;
-	private static int POINTS_SAUCER = 2;
-	private static int POINTS_BOITUMELO = 2;
+	private static final int POINTS_UFO = 1;
+	private static final int POINTS_UFO_BAD_BOY = 1;
+	private static final int POINTS_SAUCER = 2;
+	private static final int POINTS_BOITUMELO = 2;
+	private static final int POINTS_HIDAI = 10;
 	private static EnemyFactory instance;
 	private Random random = new Random();
 	private final int AMOUNT_OF_EASY_GROUPS = 3;
 	private final int AMOUNT_OF_MEDIUM_GROUPS = 2;
-	private final int AMOUNT_OF_HARD_GROUPS = 2;
+	private final int AMOUNT_OF_HARD_GROUPS = 3;
     private EnemyFactory(){/*Singleton*/}
     
     public static EnemyFactory getInstance()
@@ -74,6 +75,8 @@ public class EnemyFactory
 			return createBlobGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
 			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 15);
+		case 2:
+			return createHidaiGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		throw new IllegalStateException();
 	}
@@ -131,7 +134,7 @@ public class EnemyFactory
     			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO_BAD_BOY);
     	return ufo;
     }
-	
+
 	public EnemyGroup createBlobGroup(final float y)
 	{
 		Array<AbstractEnemy> blobs = new Array<AbstractEnemy>();
@@ -171,7 +174,16 @@ public class EnemyFactory
     {
     	final Blob blob = new Blob(0, 0, offsetX, offsetY, 
     			Sizes.BLOB_WIDTH, Sizes.BLOB_HEIGHT, EnemyTextures.BLOB, POINTS_BLOB);
-    	
     	return blob;
     }
+    
+	public EnemyGroup createHidaiGroup(final float y)
+	{
+		Array<AbstractEnemy> hidaiArray = new Array<AbstractEnemy>();
+
+		final Hidai hidai = new Hidai(0, 0, 0, 0, Sizes.BLOB_WIDTH, Sizes.BLOB_HEIGHT, EnemyTextures.BLOB, POINTS_HIDAI);
+		hidaiArray.add(hidai);
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.BLOB_WIDTH, y, hidaiArray, 
+				EnemyPaths.LURKING, false, EnemyPaths.LURKING_SPEED);
+	}
 }
