@@ -17,6 +17,7 @@ public class EnemyFactory
 	private static final int POINTS_SAUCER = 2;
 	private static final int POINTS_BOITUMELO = 2;
 	private static final int POINTS_HIDAI = 10;
+	
 	private static EnemyFactory instance;
 	private Random random = new Random();
 	private final int AMOUNT_OF_EASY_GROUPS = 2;
@@ -122,7 +123,7 @@ public class EnemyFactory
     {
     	Boitumelo boitumelo = new Boitumelo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
     			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
-    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.BOITUMELO, POINTS_BOITUMELO);
+    			Sizes.ROCKET_WIDTH, Sizes.ROCKET_HEIGHT, EnemyTextures.BOITUMELO, POINTS_BOITUMELO);
     	return boitumelo;
     }
     
@@ -130,7 +131,7 @@ public class EnemyFactory
     {
     	UfoBadBoy ufo = new UfoBadBoy(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
     			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
-    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO_BAD_BOY, POINTS_UFO_BAD_BOY);
+    			Sizes.UFO_BADBOY_WIDTH, Sizes.UFO_BADBOY_HEIGHT, EnemyTextures.UFO_BAD_BOY, POINTS_UFO_BAD_BOY);
     	return ufo;
     }
 
@@ -181,7 +182,7 @@ public class EnemyFactory
 	{
 		Array<AbstractEnemy> hidaiArray = new Array<AbstractEnemy>();
 
-		final Hidai hidai = new Hidai(0, 0, 0, 0, Sizes.BLOB_WIDTH, Sizes.BLOB_HEIGHT, EnemyTextures.HIDAI, POINTS_HIDAI);
+		final Hidai hidai = new Hidai(0, 0, 0, 0, Sizes.HIDAI_WIDTH, Sizes.HIDAI_HEIGHT, EnemyTextures.HIDAI, POINTS_HIDAI);
 		hidaiArray.add(hidai);
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.BLOB_WIDTH, y, hidaiArray, 
 				EnemyPaths.LURKING, false, EnemyPaths.LURKING_SPEED);
