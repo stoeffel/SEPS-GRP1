@@ -10,6 +10,7 @@ public class TextureRegions {
 		
 	// SHOTS
 	public static final TextureRegion OVERHEATBAR;
+	public static final TextureRegion DANGER;
 	public static final TextureRegion SHOT;
 	public static final TextureRegion SHOT_GREEN;
 
@@ -28,6 +29,7 @@ public class TextureRegions {
 		HERO = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.HERO, Texture.class));
 		OVERLAY_SPRITE = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.OVERLAY_SPRITE, Texture.class));
 		OVERHEATBAR = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.OVERHEATBAR, Texture.class));
+		DANGER = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.DANGER, Texture.class));
 		SHOT = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT, Texture.class));
 		SHOT_GREEN = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT_GREEN, Texture.class));
 		BACKGROUND_STARS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.BACKGROUND_STARS, Texture.class));

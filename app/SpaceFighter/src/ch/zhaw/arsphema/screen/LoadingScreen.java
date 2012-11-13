@@ -52,6 +52,7 @@ public class LoadingScreen extends AbstractScreen {
 		assetManager.load(Paths.BUTTON_FONT, BitmapFont.class);
 		assetManager.load(Paths.HEADER_FONT, BitmapFont.class);
 		assetManager.load(Paths.OVERHEATBAR, Texture.class);
+		assetManager.load(Paths.DANGER, Texture.class);
 		assetManager.load(Paths.SHOT, Texture.class);
 		assetManager.load(Paths.SHOT_GREEN, Texture.class);
 		assetManager.load(Paths.BACKGROUND_STARS, Texture.class);

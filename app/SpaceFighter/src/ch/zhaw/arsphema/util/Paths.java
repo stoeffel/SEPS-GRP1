@@ -23,6 +23,7 @@ public class Paths {
 
 	// SHOTS
 	public static final String OVERHEATBAR = "images/shot/overheatbar.png";
+	public static final String DANGER = "images/Danger.png";
 	public static final String SHOT = "images/shot/standard.png";
 	public static final String SHOT_GREEN = "images/shot/green.png";
 
