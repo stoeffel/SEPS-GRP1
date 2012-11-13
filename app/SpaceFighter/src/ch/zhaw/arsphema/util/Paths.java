@@ -14,6 +14,8 @@ public class Paths {
 	public static final String ENEMY_SAUCER_MEDIUM = "images/badboys/saucer_golden.png";
 	public static final String ENEMY_BLOB = "images/badboys/blob.png";
 	public static final String ENEMY_BOITUMELO = "images/badboys/rocket.png";
+	public static final String ENEMY_HIDAI = "images/badboys/dalek.png";
+	public static final String ENEMY_BAD_BOY = "images/badboys/eye.png";
 
 	// FONTS
 	public static final String SPACE_FONT = "skin/spacefont.fnt";

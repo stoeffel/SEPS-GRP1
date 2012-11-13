@@ -130,7 +130,7 @@ public class EnemyFactory
     {
     	UfoBadBoy ufo = new UfoBadBoy(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
     			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
-    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO_BAD_BOY);
+    			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO_BAD_BOY, POINTS_UFO_BAD_BOY);
     	return ufo;
     }
 
@@ -181,7 +181,7 @@ public class EnemyFactory
 	{
 		Array<AbstractEnemy> hidaiArray = new Array<AbstractEnemy>();
 
-		final Hidai hidai = new Hidai(0, 0, 0, 0, Sizes.BLOB_WIDTH, Sizes.BLOB_HEIGHT, EnemyTextures.BLOB, POINTS_HIDAI);
+		final Hidai hidai = new Hidai(0, 0, 0, 0, Sizes.BLOB_WIDTH, Sizes.BLOB_HEIGHT, EnemyTextures.HIDAI, POINTS_HIDAI);
 		hidaiArray.add(hidai);
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.BLOB_WIDTH, y, hidaiArray, 
 				EnemyPaths.LURKING, false, EnemyPaths.LURKING_SPEED);

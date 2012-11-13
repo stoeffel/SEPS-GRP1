@@ -48,6 +48,8 @@ public class LoadingScreen extends AbstractScreen {
 		assetManager.load(Paths.ENEMY_SAUCER_MEDIUM, Texture.class);
 		assetManager.load(Paths.ENEMY_BLOB, Texture.class);
 		assetManager.load(Paths.ENEMY_BOITUMELO, Texture.class);
+		assetManager.load(Paths.ENEMY_HIDAI, Texture.class);
+		assetManager.load(Paths.ENEMY_BAD_BOY, Texture.class);
 		assetManager.load(Paths.SPACE_FONT, BitmapFont.class);
 		assetManager.load(Paths.BUTTON_FONT, BitmapFont.class);
 		assetManager.load(Paths.HEADER_FONT, BitmapFont.class);
