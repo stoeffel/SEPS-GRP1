@@ -8,10 +8,12 @@ public class EnemyTextures {
 	public static final TextureRegion BLOB;
 	public static TextureRegion UFO;
 	public static TextureRegion SAUCER;
+	public static TextureRegion ROCKET;
 
 	static {
 		UFO = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ENEMY_UFO, Texture.class));
 		SAUCER = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ENEMY_SAUCER, Texture.class));
 		BLOB = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ENEMY_BLOB, Texture.class));
+		ROCKET = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ENEMY_ROCKET, Texture.class));
 	}
 }

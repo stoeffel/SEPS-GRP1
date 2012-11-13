@@ -67,7 +67,7 @@ public class GameScreen extends AbstractScreen {
 		Services.turnOffSound(); 
 		Services.getMusicManager().setVolume(1); // TODO set volume in preference screen
 		Services.getMusicManager().playRandom();
-		Services.getSoundManager().setVolume(0.5f); // TODO set vol...asd
+		Services.getSoundManager().setVolume(0.2f); // TODO set vol...asd
 	}
 
 	@Override

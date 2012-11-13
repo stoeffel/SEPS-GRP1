@@ -14,6 +14,7 @@ public class EnemyPaths{
 	public static Array<Vector2> LURKING = new Array<Vector2>();;
 	
 	public static final float STRAIGHT_SAUCER_SPEED = 0.1f;
+	public static final float STRAIGHT_ROCKET_SPEED = 0.25f;
 	public static Array<Vector2> STRAIGHT = new Array<Vector2>();;
 	
 	

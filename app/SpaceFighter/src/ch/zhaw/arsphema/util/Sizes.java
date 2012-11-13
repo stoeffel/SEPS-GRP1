@@ -3,6 +3,8 @@ package ch.zhaw.arsphema.util;
 
 public class Sizes {
 
+	public static final float ROCKET_WIDTH = 6.7f;
+	public static final float ROCKET_HEIGHT = 3.07f;
 	// 178x95
 	public static float SHIP_WIDTH = 8.9f;
 	public static float SHIP_HEIGHT = 4.75f;
