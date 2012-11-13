@@ -44,7 +44,6 @@ public class EnemyGroup extends Rectangle{
 		if(path.get(path.size - 1).x > 0){
 			endless = true;
 		}
-		System.out.println(endless);
 		start.set(position);
 		end.set(path.get(countVector));
 		distance = start.dst(end);

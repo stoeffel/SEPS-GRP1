@@ -10,9 +10,10 @@ public class Paths {
 
 	// ENEMIES
 	public static final String ENEMY_UFO = "images/badboys/ufo.png";
-	public static final String ENEMY_SAUCER = "images/badboys/saucer.png";
+	public static final String ENEMY_SAUCER_EASY = "images/badboys/saucer.png";
+	public static final String ENEMY_SAUCER_MEDIUM = "images/badboys/saucer_golden.png";
 	public static final String ENEMY_BLOB = "images/badboys/blob.png";
-	public static final String ENEMY_ROCKET = "images/badboys/rocket.png";
+	public static final String ENEMY_BOITUMELO = "images/badboys/rocket.png";
 
 	// FONTS
 	public static final String SPACE_FONT = "skin/spacefont.fnt";
