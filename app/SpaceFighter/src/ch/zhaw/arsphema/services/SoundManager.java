@@ -47,7 +47,7 @@ public class SoundManager
         
         // play the sound
         if (loop){
-        	sound.loop();
+        	sound.loop(volume);
         } else {
         	sound.play( volume );
         }
@@ -110,4 +110,8 @@ public class SoundManager
             soundsPlaying.removeValue(sound, false);
 		}
 	}
+
+    public float getVolume() {
+        return volume;
+    }
 }

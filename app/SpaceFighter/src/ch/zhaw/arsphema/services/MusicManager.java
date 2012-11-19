@@ -145,4 +145,8 @@ public class MusicManager
 		}
 		play(currentTrack);
 	}
+
+    public float getVolume() {
+        return volume;
+    }
 }

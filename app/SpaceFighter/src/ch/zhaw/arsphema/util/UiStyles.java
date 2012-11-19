@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -42,5 +43,11 @@ public class UiStyles {
             new NinePatch(new TextureRegion(UI_TEXTURE, 240, 0, 1, 1), 0, 0, 0, 0),
             null,
             new NinePatch(new TextureRegion(UI_TEXTURE, 160, 0, 40, 40), 4, 4, 4, 4)
+    );
+
+    //SliderStyle
+    public final static Slider.SliderStyle SLIDER_STYLE = new Slider.SliderStyle(
+            new NinePatch(new TextureRegion(UI_TEXTURE, 242, 0, 2, 2), 0, 0, 0, 0),
+            new TextureRegion(UI_TEXTURE, 242, 8, 32, 32)
     );
 }

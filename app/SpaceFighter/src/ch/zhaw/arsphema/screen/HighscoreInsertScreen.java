@@ -3,7 +3,7 @@ package ch.zhaw.arsphema.screen;
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.model.HighscoreEntry;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.util.UiLabels;
+import ch.zhaw.arsphema.util.UiCompNames;
 import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -40,9 +40,9 @@ public class HighscoreInsertScreen extends UiScreen {
         Table compTable = new Table();
         compTable.add(new Label("Please enter your Name", UiStyles.LABEL_DEFAULT)).colspan(2);
         compTable.row();
-        tfName = new TextField("", "", UiStyles.TEXT_FIELD_DEFAULT, UiLabels.TEXTFIELD_HIGHSCORE_NAME);
+        tfName = new TextField("", "", UiStyles.TEXT_FIELD_DEFAULT, UiCompNames.TEXTFIELD_HIGHSCORE_NAME);
         compTable.add(tfName).pad(10);
-        TextButton btnSubmit = new TextButton("Submit", UiStyles.BUTTON_DEFAULT, UiLabels.BUTTON_SUBMIT_HIGHSCORE);
+        TextButton btnSubmit = new TextButton("Submit", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_SUBMIT_HIGHSCORE);
         btnSubmit.setClickListener(uiController.getButtonListener());
         compTable.add(btnSubmit);
 

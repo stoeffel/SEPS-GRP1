@@ -65,9 +65,7 @@ public class GameScreen extends AbstractScreen {
 		Gdx.input.setCatchBackKey(true);
 		
 		Services.turnOffSound(); 
-		Services.getMusicManager().setVolume(1); // TODO set volume in preference screen
 		Services.getMusicManager().playRandom();
-		Services.getSoundManager().setVolume(0.2f); // TODO set vol...asd
 	}
 
 	@Override
