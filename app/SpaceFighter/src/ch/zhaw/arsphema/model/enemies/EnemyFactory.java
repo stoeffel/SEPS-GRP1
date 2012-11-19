@@ -106,7 +106,7 @@ public class EnemyFactory
 		ufos.add(createUfoBadBoy(Sizes.UFO_WIDTH+2,0));
 		ufos.add(createUfoBadBoy(Sizes.UFO_WIDTH+2,2*Sizes.UFO_HEIGHT));
 		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
-				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
+				EnemyPaths.ROUND_PATH, true, EnemyPaths.ROUND_PATH_SPEED);
 	}
     
 	public EnemyGroup createBoitumeloGroup(final float y)
