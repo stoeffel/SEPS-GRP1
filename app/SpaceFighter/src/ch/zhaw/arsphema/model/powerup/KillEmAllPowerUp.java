@@ -15,8 +15,7 @@ public class KillEmAllPowerUp extends AbstractPowerUp {
 
 	@Override
 	public void doSomething(Hero hero) {
-		//TODO kill all enemies registred in enemymanager
-		// could be done via game screen
+		hero.useTheUltimateWeapon();
 	}
 
 	@Override

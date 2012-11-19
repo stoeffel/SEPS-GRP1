@@ -17,6 +17,7 @@ public class Shot extends AbstractSprite {
 	private boolean shouldBeRemoved = false;
 	private float rotation;
 	private float ySpeed = 0;
+	public boolean destroyOnHit;
 	
 	public Shot(float x, float y, boolean isEnemyShot, final float speed) {
 		super(x,y, Sizes.SHOT_WIDTH, Sizes.SHOT_HEIGHT, TextureRegions.SHOT, speed);
@@ -24,7 +25,12 @@ public class Shot extends AbstractSprite {
 		Services.getSoundManager().play(Sounds.SHOT,false);
 		rotation = 0f;
 		if (isEnemyShot) rotation = 180f;
+		destroyOnHit = true;
 		
+	}
+	
+	public void dontDestroyOnHit (){
+		destroyOnHit = false;
 	}
 	
 	public int getDamage() {

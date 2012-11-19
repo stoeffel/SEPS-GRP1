@@ -12,7 +12,8 @@ public class ShotFactory
     
     public enum Type {
     	STANDARD,
-    	GREEN
+    	GREEN,
+    	ULTIMATE
     }
 	static ShotFactory instance;
     
@@ -69,6 +70,10 @@ public class ShotFactory
     		shot.setTextureRegion(TextureRegions.SHOT);
 		} else if (type.equals(Type.GREEN)) {
 			shot.setTextureRegion(TextureRegions.SHOT_GREEN);
+		} else if (type.equals(Type.ULTIMATE)) {
+			shot.setTextureRegion(TextureRegions.SHOT_ULTIMATE);
+			shot.setHeight(Sizes.DEFAULT_WORLD_HEIGHT);
+			shot.dontDestroyOnHit();
 		}
         return shot;
     }
