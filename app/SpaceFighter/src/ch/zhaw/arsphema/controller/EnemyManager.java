@@ -84,7 +84,8 @@ public class EnemyManager {
 								pum.createPowerUp(enemy.x, enemy.y); // create a power up
 								//remove enemy from group
 							}
-							shotManager.getShotsToRemove().add(shot);
+							if (shot.destroyOnHit)
+								shotManager.getShotsToRemove().add(shot);
 						}
 					}
 					removeEnemies(group);

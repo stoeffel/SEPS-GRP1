@@ -49,6 +49,7 @@ public class Hero extends AbstractSprite {
 	private Animation blinkAnimation;
 	private float stateTime;
 	private Array<AbstractPowerUp> powerUps;
+	private boolean oneTimeKillerShot;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -58,6 +59,7 @@ public class Hero extends AbstractSprite {
 		lastShot=0;
 		coolSpeed = 4;
 		heatSpeed = 2;
+		oneTimeKillerShot = false;
 		TextureRegion[][] tmp = texture.split( 
 				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
 		textures = new TextureRegion[COLS * ROWS];
@@ -112,7 +114,12 @@ public class Hero extends AbstractSprite {
 		if (fire && lastShot > shootingFrequency) {
 			lastShot = 0;
 			heatGun(delta);
-			return ShotFactory.createShotInArray(x + width*5/6, y + height/3, shootSpeed, shotType, false);
+			if (oneTimeKillerShot) {
+				oneTimeKillerShot = false;
+				return ShotFactory.createShotInArray(x + width*5/6, 0, shootSpeed, Type.ULTIMATE, false);
+			} else {
+				return ShotFactory.createShotInArray(x + width*5/6, y + height/3, shootSpeed, shotType, false);
+			}
 		}
 		if (!fire)
 		{
@@ -277,6 +284,12 @@ public class Hero extends AbstractSprite {
 	public void addPowerUps(AbstractPowerUp powerUp) {
 		this.powerUps.add(powerUp);
 		powerUp.doSomething(this);
+	}
+
+
+
+	public void useTheUltimateWeapon() {
+		oneTimeKillerShot = true;
 	}
 
 }

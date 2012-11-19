@@ -57,6 +57,7 @@ public class LoadingScreen extends AbstractScreen {
 		assetManager.load(Paths.DANGER, Texture.class);
 		assetManager.load(Paths.SHOT, Texture.class);
 		assetManager.load(Paths.SHOT_GREEN, Texture.class);
+		assetManager.load(Paths.SHOT_ULTIMATE, Texture.class);
 		assetManager.load(Paths.BACKGROUND_STARS, Texture.class);
 		assetManager.load(Paths.SFX_JET, Sound.class);
 		assetManager.load(Paths.SFX_SHOT, Sound.class);
@@ -67,6 +68,7 @@ public class LoadingScreen extends AbstractScreen {
 		assetManager.load(Paths.PLANETS, Texture.class);
 		assetManager.load(Paths.ONE_UP, Texture.class);
 		assetManager.load(Paths.POWER_UP_SHOT, Texture.class);
+		assetManager.load(Paths.POWERUP_ULTIMATE, Texture.class);
 		//MUSIC
 		assetManager.load(Paths.TRACK_01, Music.class);
 		assetManager.load(Paths.TRACK_02, Music.class);

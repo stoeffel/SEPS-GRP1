@@ -39,18 +39,24 @@ public class PowerUpManager {
 		case 2:
 			powerUps.add(createShotGreen(x, y));
 			break;
+		case 3:
+			powerUps.add(createUltimate(x,y));
+			break;
 
 		default:
 			break;
 		}
 	}
 	
+	
+
 	/**
 	 * TODO make a more fancy algo
 	 * @return
 	 */
 	private int calcWhichPowerUp() {
 		double rand = Math.random();
+		
 		if (rand < 0.5) {
 			return 0; // no Power up
 		}
@@ -59,6 +65,9 @@ public class PowerUpManager {
 		}
 		if (rand < 0.520) {
 			return 2; // green shot
+		}
+		if (rand < 0.540) {
+			return 3; // ultimate
 		}
 		return 0;
 	}
@@ -109,6 +118,10 @@ public class PowerUpManager {
 		for(final AbstractPowerUp pu : powerUps){
 			pu.move(delta);
 		}
+	}
+	
+	private AbstractPowerUp createUltimate(float x, float y) {
+		return new KillEmAllPowerUp(x, y, Sizes.POWER_UP_WITDH, Sizes.POWER_UP_HEIGHT, TextureRegions.POWERUP_ULTIMATE);
 	}
 
 	
