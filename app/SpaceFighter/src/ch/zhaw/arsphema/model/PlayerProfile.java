@@ -15,7 +15,8 @@ public class PlayerProfile implements Serializable {
 
     private ArrayList<HighscoreEntry> highscore;
     private String playerName;
-    private float soundVolume, musicVolume;
+    private float soundVolume;
+    private float musicVolume;
 
     public PlayerProfile() {
         highscore = new ArrayList<HighscoreEntry>();
@@ -84,7 +85,7 @@ public class PlayerProfile implements Serializable {
         json.writeValue("highscore", highscore);
         json.writeValue("playerName", playerName);
         json.writeValue("musicVolume", musicVolume);
-        json.writeValue("SoundVolume", soundVolume);
+        json.writeValue("soundVolume", soundVolume);
     }
 
     @Override
