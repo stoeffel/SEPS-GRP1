@@ -66,7 +66,7 @@ public class EnemyManager {
 	 * @param shotManager
 	 * @return points earned in this round
 	 */
-	public int killEnemies(final ShotManager shotManager) {
+	public int killEnemies(final ShotManager shotManager, float elapsed) {
 		int totalPoints = 0;
 		for(Shot shot : shotManager.getHeroShots())
 		{
@@ -81,7 +81,7 @@ public class EnemyManager {
 								killedEnemies.add(enemy);
 								explosions.add(new Explosion(enemy.x + enemy.width / 2, 
 										enemy.y + enemy.height / 2));
-								pum.createPowerUp(enemy.x, enemy.y); // create a power up
+								pum.createPowerUp(enemy.x, enemy.y,elapsed); // create a power up
 								//remove enemy from group
 							}
 							if (shot.destroyOnHit)

@@ -125,7 +125,7 @@ public class GameScreen extends AbstractScreen {
 		pointManager.increaseTimePoints(elapsed);
 		
 		//enemy stuff
-		pointManager.increasePointsOfEnemies(elapsed, enemyManager.killEnemies(shotManager));// first kill, then move and create new
+		pointManager.increasePointsOfEnemies(elapsed, enemyManager.killEnemies(shotManager,elapsed));// first kill, then move and create new
 		enemyManager.computeEnemyMovements(delta);//
 		enemyManager.enemyShooting(shotManager, delta);
 		enemyManager.dropEnemies(delta, elapsed);

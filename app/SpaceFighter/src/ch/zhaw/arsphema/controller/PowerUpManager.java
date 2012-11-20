@@ -18,10 +18,10 @@ public class PowerUpManager {
 	private Array<AbstractPowerUp> powerUps;
 	private Array<AbstractPowerUp> usedPowerUps;
 	
-	private float lastTime, maxInterval, minInterval;
+	private float lastTime, maxInterval;
 	
 	private float propabilityNoPu;
-	private static final float PROP_ONEUP = 0.15f, PROP_KILLALL = 0.15f, PROP_SHOTENH = 0.7f;
+	private static final float PROP_ONEUP = 0.15f, PROP_KILLALL = 0.25f; //, PROP_SHOTENH = 0.6f not used but it is 0.6f;
 	
 
 	public PowerUpManager(Hero hero) {
@@ -31,8 +31,7 @@ public class PowerUpManager {
 		
 		// the longer you played the more pu you get
 		lastTime = 0;
-		maxInterval = 5f;
-		minInterval = 1f;
+		maxInterval = 8f;
 		propabilityNoPu = maxInterval / 10;
 	}
 
@@ -43,8 +42,8 @@ public class PowerUpManager {
 	/**
 	 * 
 	 */
-	public void createPowerUp(float x, float y) {
-		switch (calcWhichPowerUp()) {
+	public void createPowerUp(float x, float y, float elapsed) {
+		switch (calcWhichPowerUp(elapsed)) {
 		case 1:
 			powerUps.add(createOneUp(x,y));
 			break;
@@ -66,14 +65,14 @@ public class PowerUpManager {
 	 * TODO make a more fancy algo
 	 * @return
 	 */
-	private int calcWhichPowerUp() {
+	private int calcWhichPowerUp(float elapsed) {
 		double rand = Math.random();
-		float delta = Gdx.graphics.getDeltaTime() - lastTime; 
+		float delta = elapsed - lastTime; 
 		if (rand < propabilityNoPu - (delta/10)) {
 			return 0; // no Power up
 		}
 		propabilityNoPu = maxInterval / 10;
-		lastTime = Gdx.graphics.getDeltaTime();
+		lastTime = elapsed;
 		rand = Math.random();
 		if (rand < PROP_ONEUP) {
 			return 1; 
