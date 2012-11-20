@@ -68,10 +68,6 @@ public class UiController extends AbstractController implements InputProcessor {
         return stage.scrolled(i);
     }
 
-    public void update(float delta) {
-        //maybe for later use
-    }
-
     public void setButtonListener(ClickListener buttonListener) {
         this.buttonListener = buttonListener;
     }

@@ -13,4 +13,5 @@ public class UiCompNames {
     public static final String TEXTFIELD_DEFAULT_NAME = "defaultName";
     public static final String SLIDER_MUSIC_VOL = "musicVol";
     public static final String SLIDER_SOUND_VOL = "soundVol";
+    public static final String BUTTON_SAVE_SETTINGS = "saveHighscore";
 }

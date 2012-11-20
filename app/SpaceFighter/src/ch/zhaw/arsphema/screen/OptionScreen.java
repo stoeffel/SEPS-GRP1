@@ -1,23 +1,23 @@
 package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
-import ch.zhaw.arsphema.services.MusicManager;
+import ch.zhaw.arsphema.model.PlayerProfile;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.UiCompNames;
 import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
 public class OptionScreen extends UiScreen {
 
 
-
     private Table wrapTable;
     private TextField tfDefaultName;
     private Slider slMusic, slSounds;
     private SlideListener slideListener;
+    private PlayerProfile profile;
 
     public OptionScreen(MyGdxGame game) {
         super(game);
@@ -54,6 +54,10 @@ public class OptionScreen extends UiScreen {
         slSounds.setValue(Services.getSoundManager().getVolume());
         slSounds.setValueChangedListener(slideListener);
         compTable.add(slSounds);
+        compTable.row();
+        TextButton btnSave = new TextButton("Save", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_SAVE_SETTINGS);
+        btnSave.setClickListener(new SaveButtonListener());
+        compTable.add(btnSave).colspan(2);
         wrapTable.add(compTable);
     }
 
@@ -61,17 +65,35 @@ public class OptionScreen extends UiScreen {
     public void show() {
         super.show();
         Gdx.input.setCatchBackKey(true);
+
+        profile = Services.getProfileManager().loadPlayerProfile();
+        tfDefaultName.setText(profile.getPlayerName());
+        slMusic.setValue(profile.getMusicVolume());
+        slSounds.setValue(profile.getSoundVolume());
     }
 
     private class SlideListener implements Slider.ValueChangedListener {
 
         @Override
         public void changed(Slider slider, float value) {
-            if(slMusic.equals(slider)){
+            if (slMusic.equals(slider)) {
                 Services.getMusicManager().setVolume(value);
-            }else if(slSounds.equals(slider)){
+            } else if (slSounds.equals(slider)) {
                 Services.getSoundManager().setVolume(value);
             }
+        }
+    }
+
+    private class SaveButtonListener implements ClickListener {
+
+        @Override
+        public void click(Actor actor, float x, float y) {
+            PlayerProfile profile = Services.getProfileManager().loadPlayerProfile();
+            profile.setPlayerName(tfDefaultName.getText());
+            profile.setMusicVolume(slMusic.getValue());
+            profile.setSoundVolume(slSounds.getValue());
+            Services.getProfileManager().savePlayerProfile();
+            game.setScreen(game.getMainMenuScreen());
         }
     }
 }

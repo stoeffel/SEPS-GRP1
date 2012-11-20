@@ -2,6 +2,7 @@ package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.model.HighscoreEntry;
+import ch.zhaw.arsphema.model.PlayerProfile;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.UiCompNames;
 import ch.zhaw.arsphema.util.UiStyles;
@@ -18,6 +19,7 @@ public class HighscoreInsertScreen extends UiScreen {
     private Table wrapTable;
     private TextField tfName;
     private int score = 0;
+    private PlayerProfile profile;
 
     public HighscoreInsertScreen(MyGdxGame game) {
         super(game);
@@ -57,6 +59,8 @@ public class HighscoreInsertScreen extends UiScreen {
     public void show() {
         super.show();
         Gdx.input.setCatchBackKey(true);
+        profile = Services.getProfileManager().loadPlayerProfile();
+        tfName.setText(profile.getPlayerName());
     }
 
 
@@ -66,7 +70,7 @@ public class HighscoreInsertScreen extends UiScreen {
         public void click(Actor actor, float x, float y) {
 
             //load player profile with current highscore
-            Services.getProfileManager().loadPlayerProfile().addHighscoreEntry(new HighscoreEntry(tfName.getText(), score));
+            profile.addHighscoreEntry(new HighscoreEntry(tfName.getText(), score));
             Services.getProfileManager().savePlayerProfile();
             game.setScreen(game.getHighscoreScreen());
         }
