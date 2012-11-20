@@ -9,6 +9,7 @@ import ch.zhaw.arsphema.model.powerup.SlowDownPowerUp;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 public class PowerUpManager {
@@ -17,11 +18,22 @@ public class PowerUpManager {
 	private Array<AbstractPowerUp> powerUps;
 	private Array<AbstractPowerUp> usedPowerUps;
 	
+	private float lastTime, maxInterval, minInterval;
+	
+	private float propabilityNoPu;
+	private static final float PROP_ONEUP = 0.15f, PROP_KILLALL = 0.15f, PROP_SHOTENH = 0.7f;
+	
 
 	public PowerUpManager(Hero hero) {
 		this.hero = hero;
 		powerUps = new Array<AbstractPowerUp>();
 		usedPowerUps = new Array<AbstractPowerUp>();
+		
+		// the longer you played the more pu you get
+		lastTime = 0;
+		maxInterval = 5f;
+		minInterval = 1f;
+		propabilityNoPu = maxInterval / 10;
 	}
 
 	public void oneUp() {
@@ -56,20 +68,20 @@ public class PowerUpManager {
 	 */
 	private int calcWhichPowerUp() {
 		double rand = Math.random();
-		
-		if (rand < 0.5) {
+		float delta = Gdx.graphics.getDeltaTime() - lastTime; 
+		if (rand < propabilityNoPu - (delta/10)) {
 			return 0; // no Power up
 		}
-		if (rand < 0.505) {
-			return 1; // Probability for a one up is 1/200
+		propabilityNoPu = maxInterval / 10;
+		lastTime = Gdx.graphics.getDeltaTime();
+		rand = Math.random();
+		if (rand < PROP_ONEUP) {
+			return 1; 
+		} else if (rand < PROP_ONEUP + PROP_KILLALL) {
+			return 3;
 		}
-		if (rand < 0.520) {
-			return 2; // green shot
-		}
-		if (rand < 0.525) {
-			return 3; // ultimate
-		}
-		return 0;
+		
+		return 2;
 	}
 
 	public OneUp createOneUp(float x, float y) {
