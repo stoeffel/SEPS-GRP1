@@ -20,10 +20,12 @@ public class Hidai extends AbstractEnemy {
 	
 	public Hidai(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
-		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
+		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE,40);
 		SHOT_FREQUENCY = 3;
 		resetShotFrequency();
-		health = 40;
+	}
+	private boolean isShowHealthBar() {
+		return true;
 	}
 	
 	@Override

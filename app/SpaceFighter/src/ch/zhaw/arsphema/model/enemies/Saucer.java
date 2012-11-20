@@ -16,7 +16,7 @@ public class Saucer extends AbstractEnemy {
 	
 	public Saucer(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
-		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
+		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE,1);
 		yBottomEnd = - Sizes.SAUCER_HEIGHT / 2;
 		yTopEnd = Sizes.SAUCER_HEIGHT / 2;
 	}

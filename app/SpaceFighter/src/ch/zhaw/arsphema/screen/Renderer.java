@@ -19,6 +19,7 @@ import ch.zhaw.arsphema.util.TextureRegions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Renderer {
 
@@ -32,10 +33,12 @@ public class Renderer {
 	private NavigationOverlay overlay;
 	private Background bg;
 	private Pause pause;
+	private ShapeRenderer shapeRenderer;
     
     public Renderer(Background bg)
     {
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         this.bg = bg;
         
 		loadTextures();
@@ -59,6 +62,7 @@ public class Renderer {
 			for(final AbstractEnemy enemy : group.getMembers())
 			{
 				enemy.draw(batch, ppuX, ppuY);
+				
 			}
 		}
 		
@@ -68,6 +72,15 @@ public class Renderer {
 		}
 		
 		batch.end();
+		for(final EnemyGroup group : enemies.getGroups())
+		{
+			for(final AbstractEnemy enemy : group.getMembers())
+			{
+				enemy.drawHealthBar(shapeRenderer, ppuX, ppuY);
+				
+			}
+		}
+		
     }
     
 	public void drawShots(final ShotManager shots) 

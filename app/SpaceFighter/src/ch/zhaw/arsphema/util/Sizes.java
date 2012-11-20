@@ -42,6 +42,8 @@ public class Sizes {
 
 	public static final float HIDAI_HEIGHT = 11;
 	public static final float HIDAI_WIDTH = 8.2f;
+	public static final float ENEMY_HEALTHBAR_DISTANCE = 1f;
+	public static final float HEALTHBAR_HEIGHT = 0.5f;
 	
 
 }
