@@ -13,7 +13,7 @@ public class ShotFactory
     public enum Type {
     	STANDARD,
     	GREEN,
-    	ULTIMATE
+    	ULTIMATE, BLUE
     }
 	static ShotFactory instance;
     
@@ -66,14 +66,22 @@ public class ShotFactory
     public static Shot createShot(final float x, final float y, final float speed, final Type type, final boolean isEnemyShot)
     {
     	Shot shot = new Shot(x, y, isEnemyShot, speed);
+    	shot.setHeight(Sizes.SHOT_HEIGHT);
+    	shot.setWidth(Sizes.SHOT_WIDTH);
+    	shot.setDamage(1);
     	if (type.equals(Type.STANDARD)) {
     		shot.setTextureRegion(TextureRegions.SHOT);
 		} else if (type.equals(Type.GREEN)) {
 			shot.setTextureRegion(TextureRegions.SHOT_GREEN);
+		} else if (type.equals(Type.BLUE)) {
+			shot.setTextureRegion(TextureRegions.SHOT_BLUE);
+			shot.setHeight(Sizes.SHOT_HEIGHT*2);
+			shot.setWidth(Sizes.SHOT_WIDTH*2);
 		} else if (type.equals(Type.ULTIMATE)) {
 			shot.setTextureRegion(TextureRegions.SHOT_ULTIMATE);
 			shot.setHeight(Sizes.DEFAULT_WORLD_HEIGHT);
 			shot.dontDestroyOnHit();
+			shot.setDamage(10000);
 		}
         return shot;
     }

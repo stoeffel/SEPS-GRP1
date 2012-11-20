@@ -9,6 +9,7 @@ import ch.zhaw.arsphema.model.powerup.SlowDownPowerUp;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 public class PowerUpManager {
@@ -17,11 +18,22 @@ public class PowerUpManager {
 	private Array<AbstractPowerUp> powerUps;
 	private Array<AbstractPowerUp> usedPowerUps;
 	
+	private float lastTime, maxInterval;
+	
+	private float propabilityNoPu, minProp;
+	private static final float PROP_ONEUP = 0.15f, PROP_KILLALL = 0.25f; //, PROP_SHOTENH = 0.6f not used but it is 0.6f;
+	
 
 	public PowerUpManager(Hero hero) {
 		this.hero = hero;
 		powerUps = new Array<AbstractPowerUp>();
 		usedPowerUps = new Array<AbstractPowerUp>();
+		
+		// the longer you played the more pu you get
+		lastTime = 0;
+		maxInterval = 6f;
+		minProp = 0.3f;
+		propabilityNoPu = maxInterval / 10;
 	}
 
 	public void oneUp() {
@@ -31,8 +43,8 @@ public class PowerUpManager {
 	/**
 	 * 
 	 */
-	public void createPowerUp(float x, float y) {
-		switch (calcWhichPowerUp()) {
+	public void createPowerUp(float x, float y, float elapsed) {
+		switch (calcWhichPowerUp(elapsed)) {
 		case 1:
 			powerUps.add(createOneUp(x,y));
 			break;
@@ -54,22 +66,22 @@ public class PowerUpManager {
 	 * TODO make a more fancy algo
 	 * @return
 	 */
-	private int calcWhichPowerUp() {
+	private int calcWhichPowerUp(float elapsed) {
 		double rand = Math.random();
-		
-		if (rand < 0.5) {
+		float delta = elapsed - lastTime; 
+		if (rand < minProp + propabilityNoPu - (delta/1000)) {
 			return 0; // no Power up
 		}
-		if (rand < 0.505) {
-			return 1; // Probability for a one up is 1/200
+		propabilityNoPu = maxInterval / 10;
+		lastTime = elapsed;
+		rand = Math.random();
+		if (rand < PROP_ONEUP) {
+			return 1; 
+		} else if (rand < PROP_ONEUP + PROP_KILLALL) {
+			return 3;
 		}
-		if (rand < 0.520) {
-			return 2; // green shot
-		}
-		if (rand < 0.540) {
-			return 3; // ultimate
-		}
-		return 0;
+		
+		return 2;
 	}
 
 	public OneUp createOneUp(float x, float y) {

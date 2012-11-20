@@ -18,12 +18,12 @@ public class ShotGreen extends AbstractPowerUp {
 
 	@Override
 	public void doSomething(Hero hero) {
-		hero.setShotGreen();
+		hero.enhanceShot();
 	}
 
 	@Override
 	public void undoSomething(Hero hero) {
-		hero.setShotStd();
+		hero.undoEnhancements();
 	}
 
 }

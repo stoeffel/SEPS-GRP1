@@ -260,19 +260,27 @@ public class Hero extends AbstractSprite {
 		return dead;
 	}
 
-
-	public void setShotGreen() {
-		setShotType(ShotFactory.Type.GREEN);
-		setShootingFrequency(0.05f);
+	
+	public void enhanceShot(){
+		if (shootingFrequency > 0.02f)
+			shootingFrequency -= 0.01f;
+		setShotType();
+	}
+	
+	public void undoEnhancements(){
+		if (shootingFrequency < 0.1f)
+			shootingFrequency += 0.01f;
+		setShotType();
 	}
 
-	public void setShotStd() {
-		setShotType(ShotFactory.Type.STANDARD);
-		setShootingFrequency(0.1f);
-	}
-
-	public void setShotType(Type green) {
-		shotType = green;
+	public void setShotType() {
+		if (shootingFrequency <= 0.1 && shootingFrequency >= 0.08) {
+			shotType = ShotFactory.Type.STANDARD;
+		} else if (shootingFrequency < 0.08 && shootingFrequency >= 0.05) {
+			shotType = ShotFactory.Type.GREEN;
+		} else if (shootingFrequency < 0.05) {
+			shotType = ShotFactory.Type.BLUE;
+		}
 	}
 
 

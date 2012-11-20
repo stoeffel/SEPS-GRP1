@@ -14,6 +14,7 @@ public class TextureRegions {
 	public static final TextureRegion SHOT;
 	public static final TextureRegion SHOT_GREEN;
 	public static final TextureRegion SHOT_ULTIMATE;
+	public static final TextureRegion SHOT_BLUE;
 
 	// BACKGROUNDS
 	public static final TextureRegion BACKGROUND_STARS;
@@ -36,6 +37,7 @@ public class TextureRegions {
 		DANGER = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.DANGER, Texture.class));
 		SHOT = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT, Texture.class));
 		SHOT_GREEN = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT_GREEN, Texture.class));
+		SHOT_BLUE = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT_BLUE, Texture.class));
 		SHOT_ULTIMATE = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.SHOT_ULTIMATE, Texture.class));
 		BACKGROUND_STARS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.BACKGROUND_STARS, Texture.class));
 		PLANETS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.PLANETS, Texture.class));

@@ -19,7 +19,7 @@ public class Boitumelo extends AbstractEnemy {
 	
 	public Boitumelo(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
-		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE);
+		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE,1);
 		SHOT_FREQUENCY = 3;
 		resetShotFrequency();
 	}
