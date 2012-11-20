@@ -9,7 +9,7 @@ public class Paths {
 	public static final String UI_TEXTURES = "skin/ui.png";
 
 	// ENEMIES
-	public static final String ENEMY_UFO = "images/badboys/ufo.png";
+	public static final String ENEMY_UFO = "images/badboys/dalek_red.png";
 	public static final String ENEMY_SAUCER_EASY = "images/badboys/saucer.png";
 	public static final String ENEMY_SAUCER_MEDIUM = "images/badboys/saucer_golden.png";
 	public static final String ENEMY_BLOB = "images/badboys/blob.png";
