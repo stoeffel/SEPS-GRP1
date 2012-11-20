@@ -66,7 +66,7 @@ public class PowerUpManager {
 		if (rand < 0.520) {
 			return 2; // green shot
 		}
-		if (rand < 0.540) {
+		if (rand < 0.525) {
 			return 3; // ultimate
 		}
 		return 0;
