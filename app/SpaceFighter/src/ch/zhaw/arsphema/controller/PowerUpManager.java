@@ -20,7 +20,7 @@ public class PowerUpManager {
 	
 	private float lastTime, maxInterval;
 	
-	private float propabilityNoPu;
+	private float propabilityNoPu, minProp;
 	private static final float PROP_ONEUP = 0.15f, PROP_KILLALL = 0.25f; //, PROP_SHOTENH = 0.6f not used but it is 0.6f;
 	
 
@@ -31,7 +31,8 @@ public class PowerUpManager {
 		
 		// the longer you played the more pu you get
 		lastTime = 0;
-		maxInterval = 8f;
+		maxInterval = 7f;
+		minProp = 0.3f;
 		propabilityNoPu = maxInterval / 10;
 	}
 
@@ -68,7 +69,7 @@ public class PowerUpManager {
 	private int calcWhichPowerUp(float elapsed) {
 		double rand = Math.random();
 		float delta = elapsed - lastTime; 
-		if (rand < propabilityNoPu - (delta/10)) {
+		if (rand < minProp + propabilityNoPu - (delta/1000)) {
 			return 0; // no Power up
 		}
 		propabilityNoPu = maxInterval / 10;
