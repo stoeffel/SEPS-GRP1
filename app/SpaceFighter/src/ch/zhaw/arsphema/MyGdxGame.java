@@ -12,35 +12,35 @@ public class MyGdxGame extends Game {
     private HighscoreScreen highscoreScreen;
     private HighscoreInsertScreen highscoreInsertScreen;
     private CreditsScreen creditsScreen;
-	private LoadingScreen loadingScreen;
+    private LoadingScreen loadingScreen;
 
 
     @Override
     public void create() {
         //loader screens
-    	loadingScreen = new LoadingScreen(this);
+        loadingScreen = new LoadingScreen(this);
         setScreen(loadingScreen);
     }
-    
+
     public void initScreens() {
-    	mainMenuScreen = new MainMenuScreen(this);
+        mainMenuScreen = new MainMenuScreen(this);
         createNewGame();
         optionScreen = new OptionScreen(this);
         highscoreScreen = new HighscoreScreen(this);
         highscoreInsertScreen = new HighscoreInsertScreen(this);
         creditsScreen = new CreditsScreen(this);
 
-        //load profile
-        Services.initProfileManager();
+
 //        Services.getProfileManager().createTestProfile(); //testing
+        //load profile
         Services.getProfileManager().loadPlayerProfile();
     }
 
     public void gameOver(int score) {
-        if(score>Services.getProfileManager().loadPlayerProfile().getMinimalScore()){
+        if (score > Services.getProfileManager().loadPlayerProfile().getMinimalScore()) {
             highscoreInsertScreen.setScore(score);
             setScreen(highscoreInsertScreen);
-        }else{
+        } else {
             setScreen(mainMenuScreen);
         }
     }

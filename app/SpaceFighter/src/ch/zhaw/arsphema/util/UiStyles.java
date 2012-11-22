@@ -17,6 +17,8 @@ public class UiStyles {
     public static final Label.LabelStyle LABEL_SCREEN_HEADER = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.HEADER_FONT), false), Color.WHITE);
     public static final Label.LabelStyle LABEL_TITLE = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.SPACE_FONT), false), Color.WHITE);
     public static final Label.LabelStyle LABEL_DEFAULT = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false), Color.WHITE);
+    public static final BitmapFont POINT_FONT = new BitmapFont(Gdx.files.internal(Paths.COUNTER_FONT), false);
+    public static final Label.LabelStyle LABEL_POINTS = new Label.LabelStyle(POINT_FONT, Color.WHITE);
 
     //ButtonStyle
     private static final Texture UI_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_TEXTURES));
@@ -50,4 +52,9 @@ public class UiStyles {
             new NinePatch(new TextureRegion(UI_TEXTURE, 242, 0, 2, 2), 0, 0, 0, 0),
             new TextureRegion(UI_TEXTURE, 242, 8, 32, 32)
     );
+
+    //IconTexture
+    private static final Texture UI_ICON_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_ICONS));
+    public static final TextureRegion UI_ICON_TEXTURE_REGION = new TextureRegion(UI_ICON_TEXTURE);
+    public static final TextureRegion PLAY_BUTTON_TEXTURE_REGION = new TextureRegion(new Texture(Gdx.files.internal(Paths.PLAY_BUTTON_IMAGE)));
 }

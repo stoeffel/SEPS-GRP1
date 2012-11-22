@@ -3,62 +3,79 @@ package ch.zhaw.arsphema.screen;
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.model.PlayerProfile;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.util.UiCompNames;
 import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
 public class OptionScreen extends UiScreen {
 
-
-    private Table wrapTable;
+    private Table compTable;
+    private Label lbTitle;
+    private Label lbPlayerName;
+    private Label lbMusic;
+    private Label lbSound;
     private TextField tfDefaultName;
     private Slider slMusic, slSounds;
-    private SlideListener slideListener;
+    private Button btnAccept;
+    private Button btnBack;
     private PlayerProfile profile;
 
     public OptionScreen(MyGdxGame game) {
         super(game);
-        slideListener = new SlideListener();
-        setupGUI();
     }
 
-    private void setupGUI() {
-        //Layout Table
-        wrapTable = new Table();
-        wrapTable.setFillParent(true);
-        wrapTable.top().padTop(50);
-        stage.addActor(wrapTable);
+    @Override
+    protected void initComponents() {
+        super.initComponents();
+
+        ClickListener buttonListener = new SettingsButtonListener();
+
+        lbTitle = new Label("Options", UiStyles.LABEL_SCREEN_HEADER);
+
+        compTable = new Table();
+        lbPlayerName = new Label("Player Name", UiStyles.LABEL_DEFAULT);
+        tfDefaultName = new TextField("", "", UiStyles.TEXT_FIELD_DEFAULT);
+        lbMusic = new Label("Music Volume", UiStyles.LABEL_DEFAULT);
+        slMusic = new Slider(0f, 1f, 0.05f, UiStyles.SLIDER_STYLE);
+        lbSound = new Label("Sound Volume", UiStyles.LABEL_DEFAULT);
+        slSounds = new Slider(0f, 1f, 0.05f, UiStyles.SLIDER_STYLE);
+
+        btnAccept = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 0, 600, 300, 300));
+        btnAccept.setClickListener(buttonListener);
+        btnBack = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 0, 300, 300));
+        btnBack.setClickListener(buttonListener);
+    }
+
+    @Override
+    protected void setupGui() {
+        super.setupGui();
 
         //Header
-        wrapTable.add(new Label("Options", UiStyles.LABEL_SCREEN_HEADER)).padBottom(20);
+        wrapTable.add(lbTitle).padBottom((int) (5 * ppuY)).padTop((int) (5 * ppuY));
         wrapTable.row();
 
-        //Components
-        Table compTable = new Table();
+        compTable.clear();
+        compTable.add(lbPlayerName).align(Align.LEFT);
+        compTable.add(tfDefaultName).align(Align.RIGHT);
+        compTable.row();
+        compTable.add(lbMusic).align(Align.LEFT);
+        compTable.add(slMusic).align(Align.RIGHT);
+        compTable.row();
+        compTable.add(lbSound).align(Align.LEFT);
+        compTable.add(slSounds).align(Align.RIGHT);
 
-        compTable.add(new Label("Default Name", UiStyles.LABEL_DEFAULT)).align(Align.LEFT).padRight(20);
-        tfDefaultName = new TextField("", "", UiStyles.TEXT_FIELD_DEFAULT, UiCompNames.TEXTFIELD_DEFAULT_NAME);
-        compTable.add(tfDefaultName).pad(10);
-        compTable.row();
-        compTable.add(new Label("Music", UiStyles.LABEL_DEFAULT)).align(Align.LEFT).padRight(20);
-        slMusic = new Slider(0f, 1f, 0.05f, UiStyles.SLIDER_STYLE, UiCompNames.SLIDER_MUSIC_VOL);
-        slMusic.setValue(Services.getMusicManager().getVolume());
-        slMusic.setValueChangedListener(slideListener);
-        compTable.add(slMusic).pad(10);
-        compTable.row();
-        compTable.add(new Label("Sounds", UiStyles.LABEL_DEFAULT)).align(Align.LEFT).padRight(20);
-        slSounds = new Slider(0f, 1f, 0.05f, UiStyles.SLIDER_STYLE, UiCompNames.SLIDER_SOUND_VOL);
-        slSounds.setValue(Services.getSoundManager().getVolume());
-        slSounds.setValueChangedListener(slideListener);
-        compTable.add(slSounds);
-        compTable.row();
-        TextButton btnSave = new TextButton("Save", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_SAVE_SETTINGS);
-        btnSave.setClickListener(new SaveButtonListener());
-        compTable.add(btnSave).colspan(2);
+        compTable.width((int) (60 * ppuX));
         wrapTable.add(compTable);
+
+        //Setup Button Row
+        addToButtonRow(btnBack);
+        addToButtonRow(btnAccept);
+        wrapTable.row();
+        wrapTable.add(buttonTable).bottom().expandY();
     }
 
     @Override
@@ -72,28 +89,30 @@ public class OptionScreen extends UiScreen {
         slSounds.setValue(profile.getSoundVolume());
     }
 
-    private class SlideListener implements Slider.ValueChangedListener {
-
-        @Override
-        public void changed(Slider slider, float value) {
-            if (slMusic.equals(slider)) {
-                Services.getMusicManager().setVolume(value);
-            } else if (slSounds.equals(slider)) {
-                Services.getSoundManager().setVolume(value);
-            }
-        }
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        setupGui();
     }
 
-    private class SaveButtonListener implements ClickListener {
+    private class SettingsButtonListener implements ClickListener {
 
         @Override
         public void click(Actor actor, float x, float y) {
-            PlayerProfile profile = Services.getProfileManager().loadPlayerProfile();
-            profile.setPlayerName(tfDefaultName.getText());
-            profile.setMusicVolume(slMusic.getValue());
-            profile.setSoundVolume(slSounds.getValue());
-            Services.getProfileManager().savePlayerProfile();
-            game.setScreen(game.getMainMenuScreen());
+            if (btnAccept.equals(actor)) {
+                //Set Music/Sound
+                Services.getMusicManager().setVolume(slMusic.getValue());
+                Services.getSoundManager().setVolume(slSounds.getValue());
+
+                //Save to Profile
+                profile.setPlayerName(tfDefaultName.getText());
+                profile.setMusicVolume(slMusic.getValue());
+                profile.setSoundVolume(slSounds.getValue());
+                Services.getProfileManager().savePlayerProfile();
+                game.setScreen(game.getMainMenuScreen());
+            } else if (btnBack.equals(actor)) {
+                uiController.keyDown(Input.Keys.BACK);
+            }
         }
     }
 }
