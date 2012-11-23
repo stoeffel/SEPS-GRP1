@@ -76,8 +76,5 @@ public abstract class AbstractEnemy extends AbstractSprite {
 		return maxHealth;
 	}
 
-	private boolean isShowHealthBar() {
-		return false;
-	
-	}
+	public abstract boolean isShowHealthBar();
 }

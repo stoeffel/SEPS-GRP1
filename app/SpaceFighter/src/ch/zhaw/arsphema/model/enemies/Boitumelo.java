@@ -53,4 +53,10 @@ public class Boitumelo extends AbstractEnemy {
 		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 
+	@Override
+	public boolean isShowHealthBar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
