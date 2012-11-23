@@ -6,36 +6,54 @@ import ch.zhaw.arsphema.model.PlayerProfile;
 import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
 public class HighscoreScreen extends UiScreen {
 
-    private Table wrapTable;
+    private Label lbTitle;
     private Table highscoreTable;
+    private Button btnBack;
+
 
     public HighscoreScreen(MyGdxGame game) {
         super(game);
-        setupGUI();
-
     }
 
-    private void setupGUI() {
-        //Layout Table
-        wrapTable = new Table();
-        wrapTable.setFillParent(true);
-        wrapTable.top().padTop(50);
-        stage.addActor(wrapTable);
+    @Override
+    protected void initComponents() {
+        super.initComponents();
+
+        ClickListener buttonListener = new HighscoreButtonListener();
+
+        lbTitle = new Label("Highscore", UiStyles.LABEL_SCREEN_HEADER);
+        highscoreTable = new Table();
+        btnBack = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 0, 300, 300));
+        btnBack.setClickListener(buttonListener);
+    }
+
+    @Override
+    protected void setupGui() {
+        super.setupGui();
 
         //Header
-        wrapTable.add(new Label("Highscore", UiStyles.LABEL_SCREEN_HEADER)).padBottom(20);
+        wrapTable.add(lbTitle).padBottom((int) (5 * ppuY)).padTop((int) (5 * ppuY));
         wrapTable.row();
 
         //Highscore Table
-        highscoreTable = new Table();
-        highscoreTable.width(400);
+        highscoreTable.width((int) (60 * ppuX));
 
         wrapTable.add(highscoreTable);
+
+        //Setup Button Row
+        addToButtonRow(btnBack);
+        wrapTable.row();
+        wrapTable.add(buttonTable).bottom().expandY();
 
     }
 
@@ -56,6 +74,22 @@ public class HighscoreScreen extends UiScreen {
             highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.LABEL_DEFAULT)).expand().right();
             highscoreTable.row();
             rank++;
+        }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        setupGui();
+    }
+
+    private class HighscoreButtonListener implements ClickListener {
+
+        @Override
+        public void click(Actor actor, float x, float y) {
+            if (btnBack.equals(actor)) {
+                uiController.keyDown(Input.Keys.BACK);
+            }
         }
     }
 }

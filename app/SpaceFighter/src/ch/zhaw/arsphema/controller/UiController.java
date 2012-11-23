@@ -5,7 +5,6 @@ import ch.zhaw.arsphema.screen.MainMenuScreen;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 
 /**
  * InputProcessor für das Userinterface ausserhalb des Gamescreens
@@ -14,7 +13,6 @@ public class UiController extends AbstractController implements InputProcessor {
 
     private final MyGdxGame game;
     private final Stage stage;
-    private ClickListener buttonListener;
 
     public UiController(MyGdxGame game, Stage stage) {
         this.game = game;
@@ -66,17 +64,5 @@ public class UiController extends AbstractController implements InputProcessor {
     @Override
     public boolean scrolled(int i) {
         return stage.scrolled(i);
-    }
-
-    public void update(float delta) {
-        //maybe for later use
-    }
-
-    public void setButtonListener(ClickListener buttonListener) {
-        this.buttonListener = buttonListener;
-    }
-
-    public ClickListener getButtonListener() {
-        return buttonListener;
     }
 }

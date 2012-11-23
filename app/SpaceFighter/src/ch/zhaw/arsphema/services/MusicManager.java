@@ -1,23 +1,21 @@
 package ch.zhaw.arsphema.services;
 
 
-import java.util.Random;
-
 import ch.zhaw.arsphema.util.Musics;
-
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.util.Random;
+
 /**
  * A service that manages the background music.
- * <p>
+ * <p/>
  * Only one music may be playing at a given time.
  */
 public class MusicManager
-    implements
-        Disposable
-{
-    
+        implements
+        Disposable {
+
     /**
      * Holds the music currently being played, if any.
      */
@@ -26,7 +24,7 @@ public class MusicManager
     /**
      * The volume to be set on the music.
      */
-    private float volume = 1f;
+    private float volume;
 
     /**
      * Whether the music is enabled.
@@ -36,39 +34,37 @@ public class MusicManager
     /**
      * Creates the music manager.
      */
-    public MusicManager()
-    {
+    public MusicManager() {
+        volume = Services.getProfileManager().loadPlayerProfile().getMusicVolume();
     }
 
     /**
      * Plays the given music (starts the streaming).
-     * <p>
+     * <p/>
      * If there is already a music being played it is stopped automatically.
      */
     public void play(
-    		Music music )
-    {
+            Music music) {
         // check if the music is enabled
-        if( ! enabled ) return;
+        if (!enabled) return;
 
         // stop any music being played
-        
+
 //        stop(); // removing this solves the restart problem (if menu-music is added, maybe it's needed again)
 
         // start streaming the new music
         musicBeingPlayed = music;
-        musicBeingPlayed.setVolume( volume );
-        musicBeingPlayed.setLooping( true );
+        musicBeingPlayed.setVolume(volume);
+        musicBeingPlayed.setLooping(true);
         musicBeingPlayed.play();
     }
 
     /**
      * Stops and disposes the current music being played, if any.
      */
-    public void stop()
-    {
-        if( musicBeingPlayed != null ) {
-            
+    public void stop() {
+        if (musicBeingPlayed != null) {
+
             musicBeingPlayed.stop();
             musicBeingPlayed.dispose();
         }
@@ -78,19 +74,18 @@ public class MusicManager
      * Sets the music volume which must be inside the range [0,1].
      */
     public void setVolume(
-        float volume )
-    {
-        
+            float volume) {
+
 
         // check and set the new volume
-        if( volume < 0 || volume > 1f ) {
-            throw new IllegalArgumentException( "The volume must be inside the range: [0,1]" );
+        if (volume < 0 || volume > 1f) {
+            throw new IllegalArgumentException("The volume must be inside the range: [0,1]");
         }
         this.volume = volume;
 
         // if there is a music being played, change its volume
-        if( musicBeingPlayed != null ) {
-            musicBeingPlayed.setVolume( volume );
+        if (musicBeingPlayed != null) {
+            musicBeingPlayed.setVolume(volume);
         }
     }
 
@@ -98,12 +93,11 @@ public class MusicManager
      * Enables or disabled the music.
      */
     public void setEnabled(
-        boolean enabled )
-    {
+            boolean enabled) {
         this.enabled = enabled;
 
         // if the music is being deactivated, stop any music being played
-        if( ! enabled ) {
+        if (!enabled) {
             stop();
         }
     }
@@ -111,42 +105,37 @@ public class MusicManager
     /**
      * Disposes the music manager.
      */
-    public void dispose()
-    {
+    public void dispose() {
         stop();
     }
 
-	public void stopMusic() {
-		if( musicBeingPlayed != null ) {
-			musicBeingPlayed.stop();
-		}
-	}
+    public void stopMusic() {
+        if (musicBeingPlayed != null) {
+            musicBeingPlayed.stop();
+        }
+    }
 
-	public void playRandom() {
-		int rand = new Random().nextInt(4);
-		Music currentTrack;
-		switch (rand) {
-		case 1:
-			currentTrack = Musics.TRACK_01;
-			break;
-		case 2:
-			currentTrack = Musics.TRACK_02;
-			break;
-		case 3:
-			currentTrack = Musics.TRACK_03;
-			break;
-		case 4:
-			currentTrack = Musics.TRACK_04;
-			break;
-		
-		default:
-			currentTrack = Musics.TRACK_01;
-			break;
-		}
-		play(currentTrack);
-	}
+    public void playRandom() {
+        int rand = new Random().nextInt(4);
+        Music currentTrack;
+        switch (rand) {
+            case 1:
+                currentTrack = Musics.TRACK_01;
+                break;
+            case 2:
+                currentTrack = Musics.TRACK_02;
+                break;
+            case 3:
+                currentTrack = Musics.TRACK_03;
+                break;
+            case 4:
+                currentTrack = Musics.TRACK_04;
+                break;
 
-    public float getVolume() {
-        return volume;
+            default:
+                currentTrack = Musics.TRACK_01;
+                break;
+        }
+        play(currentTrack);
     }
 }

@@ -9,14 +9,13 @@ import com.badlogic.gdx.utils.Disposable;
  * A service that manages the sound effects.
  */
 public class SoundManager
-    implements
-        Disposable
-{
-    
+        implements
+        Disposable {
+
     /**
      * The volume to be set on the sound.
      */
-    private float volume = 1f;
+    private float volume;
 
     /**
      * Whether the sound is enabled.
@@ -28,51 +27,49 @@ public class SoundManager
     /**
      * Creates the sound manager.
      */
-    public SoundManager()
-    {
-    	soundsPlaying = new Array<Sound>();
+    public SoundManager() {
+        soundsPlaying = new Array<Sound>();
+        volume = Services.getProfileManager().loadPlayerProfile().getSoundVolume();
     }
 
     /**
      * Plays the specified sound.
-     * @param b 
+     *
+     * @param b
      */
     public void play(
-    		Sound sound, boolean loop )
-    {
+            Sound sound, boolean loop) {
         // check if the sound is enabled
-        if( ! enabled ) return;
+        if (!enabled) return;
 
         soundsPlaying.add(sound);
-        
+
         // play the sound
-        if (loop){
-        	sound.loop(volume);
+        if (loop) {
+            sound.loop(volume);
         } else {
-        	sound.play( volume );
+            sound.play(volume);
         }
     }
-    
+
     public void stop(
-            Sound sound )
-        {
-            // check if the sound is enabled
-            if( ! enabled ) return;
-            sound.stop();
-            soundsPlaying.removeValue(sound, false);
-        }
+            Sound sound) {
+        // check if the sound is enabled
+        if (!enabled) return;
+        sound.stop();
+        soundsPlaying.removeValue(sound, false);
+    }
 
     /**
      * Sets the sound volume which must be inside the range [0,1].
      */
     public void setVolume(
-        float volume )
-    {
-        
+            float volume) {
+
 
         // check and set the new volume
-        if( volume < 0 || volume > 1f ) {
-            throw new IllegalArgumentException( "The volume must be inside the range: [0,1]" );
+        if (volume < 0 || volume > 1f) {
+            throw new IllegalArgumentException("The volume must be inside the range: [0,1]");
         }
         this.volume = volume;
     }
@@ -81,37 +78,31 @@ public class SoundManager
      * Enables or disabled the sound.
      */
     public void setEnabled(
-        boolean enabled )
-    {
+            boolean enabled) {
         this.enabled = enabled;
     }
 
-    
+
     /**
      * Disposes the sound manager.
      */
-    public void dispose()
-    {
-        
-        for( Sound sound : soundsPlaying ) {
+    public void dispose() {
+
+        for (Sound sound : soundsPlaying) {
             sound.stop();
             sound.dispose();
             soundsPlaying.removeValue(sound, false);
-		}
-	}
+        }
+    }
 
-	public boolean isPlaying(Sound sound) {
-		return soundsPlaying.indexOf(sound, false) >= 0;
-	}
+    public boolean isPlaying(Sound sound) {
+        return soundsPlaying.indexOf(sound, false) >= 0;
+    }
 
-	public void stopSounds() {
-        for( Sound sound : soundsPlaying ) {
+    public void stopSounds() {
+        for (Sound sound : soundsPlaying) {
             sound.stop();
             soundsPlaying.removeValue(sound, false);
-		}
-	}
-
-    public float getVolume() {
-        return volume;
+        }
     }
 }

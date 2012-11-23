@@ -2,68 +2,72 @@ package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.services.SoundManager;
-import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.Sounds;
-import ch.zhaw.arsphema.util.UiCompNames;
 import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
 public class MainMenuScreen extends UiScreen {
+    private Label lbTitle;
 
-    private Table table;
+    //Buttons
+    private Button btnPlay;
+    private Button btnOptions;
+    private Button btnHighscore;
+    private Button btnInfo;
+    private Button btnExit;
 
     public MainMenuScreen(MyGdxGame game) {
         super(game);
-        uiController.setButtonListener(new MainMenuListener());
     }
 
-    private void setupGUI() {
+    @Override
+    protected void initComponents() {
+        super.initComponents();
 
-        //Layouttable
-        table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
+        ClickListener buttonListener = new MainMenuListener();
+
+        lbTitle = new Label("Arsphema", UiStyles.LABEL_TITLE);
+        btnPlay = new Button(UiStyles.PLAY_BUTTON_TEXTURE_REGION);
+        btnPlay.setClickListener(buttonListener);
+        btnOptions = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 300, 300, 300));
+        btnOptions.setClickListener(buttonListener);
+        btnHighscore = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 0, 0, 300, 300));
+        btnHighscore.setClickListener(buttonListener);
+        btnInfo = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 300, 600, 300, 300));
+        btnInfo.setClickListener(buttonListener);
+        btnExit = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 300, 0, 300, 300));
+        btnExit.setClickListener(buttonListener);
+    }
+
+    @Override
+    protected void setupGui() {
+        super.setupGui();
 
         //Header
-        table.add(new Label("Arsphema", UiStyles.LABEL_TITLE)).padBottom(20);
+        wrapTable.add(lbTitle).padBottom((int) (10 * ppuY)).padTop((int) (10 * ppuY));
+        wrapTable.row();
 
-        //Buttons
-        TextButton startButton = new TextButton("Start Game", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_GAME_START);
-        startButton.setClickListener(uiController.getButtonListener());
-        addTextButton(startButton);
+        //Add Play-Buttons
+        wrapTable.add(btnPlay).width((int) (40 * ppuY)).height((int) (20 * ppuY));
 
-        TextButton optionsButton = new TextButton("Options", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_SHOW_OPTIONS);
-        optionsButton.setClickListener(uiController.getButtonListener());
-        addTextButton(optionsButton);
-
-        TextButton highscoreButton = new TextButton("Highscore", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_SHOW_HIGHSCORE);
-        highscoreButton.setClickListener(uiController.getButtonListener());
-        addTextButton(highscoreButton);
-
-        TextButton creditsButton = new TextButton("Credits", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_SHOW_CREDITS);
-        creditsButton.setClickListener(uiController.getButtonListener());
-        addTextButton(creditsButton);
-
-        TextButton quitButton = new TextButton("Quit", UiStyles.BUTTON_DEFAULT, UiCompNames.BUTTON_QUIT);
-        quitButton.setClickListener(uiController.getButtonListener());
-        addTextButton(quitButton);
-    }
-
-    private void addTextButton(TextButton button) {
-        table.row();
-        table.add(button).width((int) (Sizes.BUTTON_WIDTH * ppuX)).pad(5);
+        //Setup ButtonRow
+        addToButtonRow(btnOptions);
+        addToButtonRow(btnHighscore);
+        addToButtonRow(btnInfo);
+        addToButtonRow(btnExit);
+        wrapTable.row();
+        wrapTable.add(buttonTable).bottom().expandY();
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        setupGUI();
+        setupGui();
     }
 
     @Override
@@ -84,18 +88,18 @@ public class MainMenuScreen extends UiScreen {
         @Override
         public void click(Actor actor, float v, float v1) {
             Services.getSoundManager().play(Sounds.BEEP, false);
-            if (UiCompNames.BUTTON_GAME_START.equals(actor.name)) {
+            if (btnPlay.equals(actor)) {
                 game.createNewGame();
                 game.setScreen(game.getGameScreen());
-            } else if (UiCompNames.BUTTON_SHOW_HIGHSCORE.equals(actor.name)) {
+            } else if (btnHighscore.equals(actor)) {
                 game.setScreen(game.getHighscoreScreen());
-            } else if (UiCompNames.BUTTON_SHOW_OPTIONS.equals(actor.name)) {
+            } else if (btnOptions.equals(actor)) {
                 game.setScreen(game.getOptionScreen());
-            } else if (UiCompNames.BUTTON_SHOW_CREDITS.equals(actor.name)) {
+            } else if (btnInfo.equals(actor)) {
                 game.setScreen(game.getCreditsScreen());
-            } else if (UiCompNames.BUTTON_QUIT.equals(actor.name)) {
+            } else if (btnExit.equals(actor)) {
                 Gdx.app.exit(); // disposes assets
-                System.exit(0); // needed since assets need to be reloaded on next start 
+                System.exit(0); // needed since assets need to be reloaded on next start
             }
         }
     }
