@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * @author Rofus
+ * Rocket monster
+ */
 public class Boitumelo extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private static final int COLLISION_DAMAGE = 1;

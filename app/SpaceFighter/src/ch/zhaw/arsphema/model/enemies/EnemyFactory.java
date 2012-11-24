@@ -102,80 +102,89 @@ public class EnemyFactory
 	public EnemyGroup createUfoBadBoysGroup(final float y)
 	{
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
-		ufos.add(createUfoBadBoy(0,Sizes.UFO_HEIGHT));
-		ufos.add(createUfoBadBoy(Sizes.UFO_WIDTH+2,0));
-		ufos.add(createUfoBadBoy(Sizes.UFO_WIDTH+2,2*Sizes.UFO_HEIGHT));
-		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
+		final float groupY;
+		if(y > (Sizes.DEFAULT_WORLD_HEIGHT * 9 / 10) - (3 * Sizes.UFO_BADBOY_HEIGHT))
+			groupY = (Sizes.DEFAULT_WORLD_HEIGHT * 9 / 10) - (3 * Sizes.UFO_BADBOY_HEIGHT);
+		else if(y < Sizes.UFO_BADBOY_HEIGHT + Sizes.DEFAULT_WORLD_HEIGHT / 10)
+			groupY = Sizes.UFO_BADBOY_HEIGHT + Sizes.DEFAULT_WORLD_HEIGHT / 10;
+		else
+			groupY = y;
+		ufos.add(createUfoBadBoy(0, Sizes.UFO_BADBOY_HEIGHT));
+		ufos.add(createUfoBadBoy(Sizes.UFO_BADBOY_WIDTH + 2, 0));
+		ufos.add(createUfoBadBoy(Sizes.UFO_BADBOY_WIDTH + 2, 2 * Sizes.UFO_BADBOY_HEIGHT));
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_BADBOY_WIDTH, groupY, ufos, 
 				EnemyPaths.ROUND_PATH, true, EnemyPaths.ROUND_PATH_SPEED);
 	}
+    
+    public AbstractEnemy createUfoBadBoy(float offsetX, float offsetY)
+    {
+    	UfoBadBoy ufo = new UfoBadBoy(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_BADBOY_WIDTH, 
+    			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
+    			Sizes.UFO_BADBOY_WIDTH, Sizes.UFO_BADBOY_HEIGHT, EnemyTextures.UFO_BAD_BOY, POINTS_UFO_BAD_BOY);
+    	return ufo;
+    }
     
 	public EnemyGroup createBoitumeloGroup(final float y)
 	{
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
-		ufos.add(createBoitumelo(0,Sizes.UFO_HEIGHT));
-		ufos.add(createBoitumelo(Sizes.UFO_WIDTH+2,0));
-		ufos.add(createBoitumelo(Sizes.UFO_WIDTH+2,2*Sizes.UFO_HEIGHT));
-		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, ufos, 
+		ufos.add(createBoitumelo(0, Sizes.ROCKET_HEIGHT));
+		ufos.add(createBoitumelo(Sizes.ROCKET_WIDTH + 2, 0));
+		ufos.add(createBoitumelo(Sizes.ROCKET_WIDTH + 2, 2 * Sizes.ROCKET_HEIGHT));
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.ROCKET_WIDTH, y, ufos, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
 
     public AbstractEnemy createBoitumelo(float offsetX, float offsetY)
     {
-    	Boitumelo boitumelo = new Boitumelo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
+    	Boitumelo boitumelo = new Boitumelo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.ROCKET_WIDTH, 
     			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
     			Sizes.ROCKET_WIDTH, Sizes.ROCKET_HEIGHT, EnemyTextures.BOITUMELO, POINTS_BOITUMELO);
     	return boitumelo;
-    }
-    
-    public AbstractEnemy createUfoBadBoy(float offsetX, float offsetY)
-    {
-    	UfoBadBoy ufo = new UfoBadBoy(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
-    			Sizes.DEFAULT_WORLD_HEIGHT / 2, offsetX, offsetY, 
-    			Sizes.UFO_BADBOY_WIDTH, Sizes.UFO_BADBOY_HEIGHT, EnemyTextures.UFO_BAD_BOY, POINTS_UFO_BAD_BOY);
-    	return ufo;
     }
 
 	public EnemyGroup createBlobGroup(final float y)
 	{
 		Array<AbstractEnemy> blobs = new Array<AbstractEnemy>();
 		blobs.add(createBlob(0, 0));
-		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, y, blobs, 
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.BLOB_WIDTH, y, blobs, 
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
-
-	public EnemyGroup createSaucerGroup(final float y, final int amountOfEnemies, final TextureRegion texture)
-	{
-		final Array<AbstractEnemy> saucers = new Array<AbstractEnemy>();
-		final float groupHeight = amountOfEnemies / 2 * Sizes.SAUCER_HEIGHT;
-		final float groupY = y - groupHeight;
-		for(int i = 0; i < amountOfEnemies; i++){
-			saucers.add(createSaucer(i * Sizes.SAUCER_WIDTH * 0.5f, 
-					random.nextInt((int)groupHeight), groupHeight,
-					i % 2, texture));
-		}
-		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, groupY, saucers, 
-				EnemyPaths.STRAIGHT, true, EnemyPaths.STRAIGHT_SAUCER_SPEED);
-	}
-	
-    public AbstractEnemy createSaucer(final float offsetX, final float offsetY, final float height, final int direction,
-    		final TextureRegion texture)
-    {
-    	final Saucer saucer = new Saucer(0, 0, offsetX, offsetY, 
-    			Sizes.SAUCER_WIDTH, Sizes.SAUCER_HEIGHT, texture, POINTS_SAUCER);
-
-    	//if direction == 0, first move is down
-    	if((direction == 0 && offsetY - Sizes.SAUCER_HEIGHT > 0)
-    			|| offsetY + Sizes.SAUCER_HEIGHT > height){
-    		saucer.redirectYSpeed();
-    	}
-    	return saucer;
-    }
     
     public AbstractEnemy createBlob(final float offsetX, final float offsetY)
     {
     	final Blob blob = new Blob(0, 0, offsetX, offsetY, 
     			Sizes.BLOB_WIDTH, Sizes.BLOB_HEIGHT, EnemyTextures.BLOB, POINTS_BLOB);
     	return blob;
+    }
+
+	public EnemyGroup createSaucerGroup(final float y, final int amountOfEnemies, final TextureRegion texture)
+	{
+		final Array<AbstractEnemy> saucers = new Array<AbstractEnemy>();
+		final float groupHeight = amountOfEnemies * Sizes.SAUCER_HEIGHT;
+		
+		final float groupY;
+		if(y < groupHeight)
+			groupY = y + groupHeight;
+		else if (y > Sizes.DEFAULT_WORLD_HEIGHT - groupHeight)
+			groupY = Sizes.DEFAULT_WORLD_HEIGHT - groupHeight;
+		else
+			groupY = y;
+		
+		for(int i = 0; i < amountOfEnemies; i++){
+			saucers.add(createSaucer(i * Sizes.SAUCER_WIDTH * 0.5f, 
+					random.nextInt((int)(groupHeight - (2 * Sizes.SAUCER_HEIGHT))) + Sizes.SAUCER_HEIGHT, 
+					groupHeight, i % 2, texture));
+		}
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.SAUCER_WIDTH, groupY, saucers, 
+				EnemyPaths.STRAIGHT, true, EnemyPaths.STRAIGHT_SAUCER_SPEED, groupHeight, (amountOfEnemies + 1) * Sizes.SAUCER_WIDTH * 0.5f);
+	}
+	
+    public AbstractEnemy createSaucer(final float offsetX, final float offsetY, final float height, final int direction,
+    		final TextureRegion texture)
+    {
+    	final Saucer saucer = new Saucer(0, 0, offsetX, offsetY, Sizes.SAUCER_WIDTH, Sizes.SAUCER_HEIGHT, 
+    			texture, POINTS_SAUCER, height, direction);
+    	return saucer;
     }
     
 	public EnemyGroup createHidaiGroup(final float y)

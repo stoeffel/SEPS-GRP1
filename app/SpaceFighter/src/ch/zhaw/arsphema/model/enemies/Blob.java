@@ -23,6 +23,7 @@ public class Blob extends AbstractEnemy {
 		SHOT_FREQUENCY = 3;
 		resetShotFrequency();
 	}
+	@Override
 	public boolean isShowHealthBar() {
 		return true;
 	}

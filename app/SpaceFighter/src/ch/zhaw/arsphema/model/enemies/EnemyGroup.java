@@ -21,6 +21,21 @@ public class EnemyGroup extends Rectangle{
 	public EnemyGroup(final float x, final float y, 
 			final Array<AbstractEnemy> members, final Array<Vector2> pathP, 
 			final boolean adjustPath, final float speed) {
+		construct(x, y, members, pathP, adjustPath, speed);
+	}
+	
+	public EnemyGroup(final float x, final float y, 
+			final Array<AbstractEnemy> members, final Array<Vector2> pathP, 
+			final boolean adjustPath, final float speed,
+			float height, float width) {
+		this.height = height;
+		this.width = width;
+		construct(x, y, members, pathP, adjustPath, speed);
+	}
+
+	private void construct(final float x, final float y,
+			final Array<AbstractEnemy> members, final Array<Vector2> pathP,
+			final boolean adjustPath, final float speed) {
 		this.x = x;
 		this.y = y;
 		position.set(x,y);
@@ -36,9 +51,8 @@ public class EnemyGroup extends Rectangle{
 				vector.y += y;
 			}
 		}
-		else {
+		else
 			this.path = pathP;
-		}
 		if(path.get(path.size - 1).x > 0){
 			endless = true;
 		}
@@ -49,25 +63,31 @@ public class EnemyGroup extends Rectangle{
 		this.speed = speed;
 		this.members = members;
 		
-		AbstractEnemy top = null, bottom = null, farRight = null, farLeft = null;
-		for(final AbstractEnemy enemy : members){
-			if(top == null || top.offsetY + top.height < enemy.offsetY + enemy.height){
-				top = enemy;
-			}
-			if(bottom == null || bottom.offsetY > enemy.offsetY){
-				bottom = enemy;
-			}
-			if(farRight == null || farRight.offsetX + farRight.width < enemy.offsetX + enemy.width){
-				farRight = enemy;
-			}
-			if(farLeft == null || farLeft.offsetX > enemy.offsetX){
-				farLeft = enemy;
-			}
+		if(members.size == 1){
+			width = members.get(0).width;
+			height = members.get(0).height;
 		}
-		height = top.offsetY + top.height - bottom.offsetY;
-		width = farRight.offsetX + farRight.width - farLeft.offsetX;
+		else if (height == 0 && width == 0){
+			AbstractEnemy top = null, bottom = null, farRight = null, farLeft = null;
+			for(final AbstractEnemy enemy : members){
+				if(top == null || top.offsetY + top.height < enemy.offsetY + enemy.height){
+					top = enemy;
+				}
+				if(bottom == null || bottom.offsetY > enemy.offsetY){
+					bottom = enemy;
+				}
+				if(farRight == null || farRight.offsetX + farRight.width < enemy.offsetX + enemy.width){
+					farRight = enemy;
+				}
+				if(farLeft == null || farLeft.offsetX > enemy.offsetX){
+					farLeft = enemy;
+				}
+			}
+			height = top.offsetY + top.height - bottom.offsetY;
+			width = farRight.offsetX + farRight.width - farLeft.offsetX;
+		}
 	}
-	
+
 	public boolean move(float delta){
 		position.add(direction.cpy().mul(delta*speed));
 		x = position.x;

@@ -52,7 +52,6 @@ public abstract class AbstractEnemy extends AbstractSprite {
 
 		if(isShowHealthBar())
 		{
-			shapeRenderer.begin(ShapeType.FilledRectangle);
 			//border
 			shapeRenderer.setColor(Color.YELLOW);
 			shapeRenderer.filledRect(x * ppuX, (Sizes.ENEMY_HEALTHBAR_DISTANCE + y + height) * ppuY - 1, 
@@ -67,8 +66,6 @@ public abstract class AbstractEnemy extends AbstractSprite {
 			shapeRenderer.setColor(Color.GREEN);
 			shapeRenderer.filledRect(x * ppuX, (Sizes.ENEMY_HEALTHBAR_DISTANCE + y + height) * ppuY, 
 					(float)(width * ppuX * getHealth() / getMaxHealth()), Sizes.HEALTHBAR_HEIGHT * ppuY);
-
-			shapeRenderer.end();
 		}
 	}
 

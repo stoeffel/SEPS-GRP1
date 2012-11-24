@@ -15,10 +15,14 @@ public class Saucer extends AbstractEnemy {
 	private float innerYOffset;
 	
 	public Saucer(float x, float y, float offsetX, float offsetY, float width, float height,
-			TextureRegion texture, final int points) {
+			final TextureRegion texture, final int points, final float groupTop, final int direction) {
 		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE,1);
+		
 		yBottomEnd = - Sizes.SAUCER_HEIGHT / 2;
 		yTopEnd = Sizes.SAUCER_HEIGHT / 2;
+		//direction == 0 => up
+		if(direction == 1)
+			redirectYSpeed();
 	}
 	
 	public void redirectYSpeed(){
@@ -30,7 +34,7 @@ public class Saucer extends AbstractEnemy {
 		final float move = ySpeed * delta;
 		innerYOffset += move;
 		offsetY += move;
-		if(innerYOffset < yBottomEnd || innerYOffset > yTopEnd){
+		if(innerYOffset <= yBottomEnd || innerYOffset >= yTopEnd){
 			redirectYSpeed();
 		}
 		return false;

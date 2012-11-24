@@ -20,6 +20,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Renderer {
 
@@ -72,6 +73,7 @@ public class Renderer {
 		}
 		
 		batch.end();
+		shapeRenderer.begin(ShapeType.FilledRectangle);
 		for(final EnemyGroup group : enemies.getGroups())
 		{
 			for(final AbstractEnemy enemy : group.getMembers())
@@ -80,6 +82,14 @@ public class Renderer {
 				
 			}
 		}
+		shapeRenderer.end();
+		//debug
+//		shapeRenderer.begin(ShapeType.Rectangle);
+//		for(final EnemyGroup group : enemies.getGroups())
+//		{
+//			shapeRenderer.rect(group.x * ppuX, group.y * ppuY, group.width * ppuX, group.height * ppuY);
+//		}
+//		shapeRenderer.end();
 		
     }
     
