@@ -6,7 +6,6 @@ import ch.zhaw.arsphema.util.Sizes;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public abstract class AbstractEnemy extends AbstractSprite {
 	private static final long serialVersionUID = 1L;
