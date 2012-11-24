@@ -63,7 +63,6 @@ public class Renderer {
 			for(final AbstractEnemy enemy : group.getMembers())
 			{
 				enemy.draw(batch, ppuX, ppuY);
-				
 			}
 		}
 		

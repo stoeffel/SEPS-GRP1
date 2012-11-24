@@ -138,7 +138,7 @@ public class EnemyManager {
 	public void dropEnemies(float delta, float elapsed) {
 		if (dropEnemies) {
 			if(nextEnemyToDrop <= 0) {
-				addEnemies(elapsed);
+				addEnemies(delta, elapsed);
 				// check elapsed time for next enemy set to drop 
 				// now after 200 sec every 0.5 sec new enemy should appear (approach is linear)
 				nextEnemyToDrop = 4 - (elapsed * 5 / 200) * groupDiffcultyOne;
@@ -150,7 +150,7 @@ public class EnemyManager {
 		}
 	}
 
-	private void addEnemies(final float elapsed) {
+	private void addEnemies(final float delta, final float elapsed) {
 		//assumption: beginning of only hard enemies @200secs
 		final int lastGroupsDifficulty = groupDiffcultyOne + groupDiffcultyTwo + groupDiffcultyThree;
 		final int nextGroupDiffLevel = calculateNextGroupDifficultyLevel(elapsed, lastGroupsDifficulty);
@@ -158,6 +158,7 @@ public class EnemyManager {
 		groupDiffcultyTwo = groupDiffcultyOne;
 		groupDiffcultyOne = nextGroupDiffLevel;
 		final EnemyGroup group = enemyFactory.createGroupByDifficultyLevel(nextGroupDiffLevel, elapsed);
+		group.move(delta);
 		final Array<AbstractEnemy> newEnemies = group.getMembers(); 
 		if (newEnemies != null) {
 			groups.add(group);
