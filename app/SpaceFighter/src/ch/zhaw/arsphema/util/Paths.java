@@ -62,5 +62,7 @@ public class Paths {
     public static final String POWER_UP_SHOT = "images/powerups/shot_green.png";
     public static final String POWERUP_ULTIMATE = "images/powerups/killAll.png";
 
+	public static final String CTRLS = "images/controller/controls.png";
+
 
 }

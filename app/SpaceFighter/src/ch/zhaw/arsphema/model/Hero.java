@@ -50,6 +50,7 @@ public class Hero extends AbstractSprite {
 	private float stateTime;
 	private Array<AbstractPowerUp> powerUps;
 	private boolean oneTimeKillerShot;
+	public float lastY;
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
@@ -59,6 +60,7 @@ public class Hero extends AbstractSprite {
 		lastShot=0;
 		coolSpeed = 4;
 		heatSpeed = 2;
+		lastY = 0;
 		oneTimeKillerShot = false;
 		TextureRegion[][] tmp = texture.split( 
 				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
@@ -185,15 +187,16 @@ public class Hero extends AbstractSprite {
 		
 		Effects.JET.setPosition( (x)*ppuX,(y+height/2)*ppuY );
 		Effects.JET.draw(batch, Gdx.graphics.getDeltaTime());
-		
+
+		lastY = Sizes.DEFAULT_WORLD_HEIGHT * ppuY - ppuY * y;
 		if (isHurt && stateTime < 2){
 			stateTime += Gdx.graphics.getDeltaTime();
 			showExplotion(batch, Gdx.graphics.getDeltaTime(),ppuX, ppuY);
-			batch.draw(blinkAnimation.getKeyFrame(stateTime), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			batch.draw(blinkAnimation.getKeyFrame(stateTime), ppuX * x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		} else {
 			isHurt = false;
 			stateTime = 0;
-			batch.draw(currentTexture, ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			batch.draw(currentTexture, ppuX * x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		}
 		lifeCounter.draw(batch, ppuX, ppuY);
 		overheatbar.draw(batch, ppuX, ppuY);

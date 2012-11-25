@@ -4,11 +4,13 @@ import ch.zhaw.arsphema.MyGdxGame;
 import ch.zhaw.arsphema.controller.EnemyManager;
 import ch.zhaw.arsphema.controller.GameController;
 import ch.zhaw.arsphema.controller.HeroController;
+import ch.zhaw.arsphema.controller.JoyStickController;
 import ch.zhaw.arsphema.controller.PlanetManager;
 import ch.zhaw.arsphema.controller.PointManager;
 import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
+import ch.zhaw.arsphema.model.Controls;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.shot.ShotFactory;
 import ch.zhaw.arsphema.services.Services;
@@ -19,11 +21,13 @@ import ch.zhaw.arsphema.util.TextureRegions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
+
+
 public class GameScreen extends AbstractScreen {
 	
 	
 	private Hero hero;
-	private HeroController controller;
+	private JoyStickController controller;
 	private ShotManager shotManager;
 	private EnemyManager enemyManager;
 	private PlanetManager planetManager;
@@ -35,6 +39,7 @@ public class GameScreen extends AbstractScreen {
 
 	public GameState gameState;
 	private GameController gameController;
+	private Controls controls;
 	public enum GameState {
 		PAUSED, RESUMED, PLAY
 	};
@@ -45,12 +50,13 @@ public class GameScreen extends AbstractScreen {
 		EnemyManager.deactivateEnemyFactory();
 		
 		hero = new Hero(Sizes.SHIP_X_POSITION, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
+		controls = new Controls(Sizes.SHIP_X_POSITION, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.CTRL_HEIGHT / 2, Sizes.CTRL_WIDTH, Sizes.CTRL_HEIGHT, TextureRegions.CTRLS);
 		gameState = GameState.PLAY;
 	}
 
 	@Override
 	public void show() {
-		controller = new HeroController(hero);
+		controller = new JoyStickController(hero,controls);
 		gameController = new GameController(this);
 		shotManager = new ShotManager();
 		powerUpManager = new PowerUpManager(hero);
@@ -66,6 +72,7 @@ public class GameScreen extends AbstractScreen {
 		
 		Services.turnOffSound(); 
 		Services.getMusicManager().playRandom();
+		
 	}
 
 	@Override
@@ -105,7 +112,7 @@ public class GameScreen extends AbstractScreen {
 		
 		//draw stuff and so
 		renderer.cleanScreen();
-		renderer.drawMisc(elapsed, planetManager, pointManager);
+		renderer.drawMisc(elapsed, planetManager, pointManager, controls);
 		renderer.drawEnemies(enemyManager);
 		renderer.drawHero(hero);
 		renderer.drawShots(shotManager);

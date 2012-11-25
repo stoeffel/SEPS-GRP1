@@ -70,6 +70,7 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.load(Paths.ONE_UP, Texture.class);
         assetManager.load(Paths.POWER_UP_SHOT, Texture.class);
         assetManager.load(Paths.POWERUP_ULTIMATE, Texture.class);
+        assetManager.load(Paths.CTRLS, Texture.class);
         //MUSIC
         assetManager.load(Paths.TRACK_01, Music.class);
         assetManager.load(Paths.TRACK_02, Music.class);

@@ -48,4 +48,7 @@ public class Sizes {
     public static final int BUTTON_WIDTH = 25;
     public static final int ICON_BUTTON_SIDE = 20;
     public static final int ICON_BUTTON_PADDING = 5;
+    
+	public static final float CTRL_HEIGHT = 12;
+	public static final float CTRL_WIDTH = 12;
 }

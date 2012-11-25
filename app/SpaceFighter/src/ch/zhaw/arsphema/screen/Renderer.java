@@ -6,6 +6,7 @@ import ch.zhaw.arsphema.controller.PointManager;
 import ch.zhaw.arsphema.controller.PowerUpManager;
 import ch.zhaw.arsphema.controller.ShotManager;
 import ch.zhaw.arsphema.model.Background;
+import ch.zhaw.arsphema.model.Controls;
 import ch.zhaw.arsphema.model.Explosion;
 import ch.zhaw.arsphema.model.Hero;
 import ch.zhaw.arsphema.model.NavigationOverlay;
@@ -118,7 +119,7 @@ public class Renderer {
 		batch.end();
     }
     
-    public void drawMisc(final float elapsed, final PlanetManager planetManager, final PointManager pointManager)
+    public void drawMisc(final float elapsed, final PlanetManager planetManager, final PointManager pointManager, Controls controls)
     {
 		batch.begin();
 		bg.draw(batch, ppuX, ppuY); // draw Background
@@ -147,6 +148,7 @@ public class Renderer {
 			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
 		}
 		pointManager.draw(batch,ppuX,ppuY);
+		controls.draw(batch, ppuX, ppuY);
 		batch.end();
     }
     

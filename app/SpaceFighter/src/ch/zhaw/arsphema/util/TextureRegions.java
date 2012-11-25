@@ -26,6 +26,8 @@ public class TextureRegions {
 	public static final TextureRegion POWERUP_SHOT_GREEN;
 	public static final TextureRegion POWERUP_ULTIMATE;
 
+	public static final TextureRegion CTRLS;
+
 
 
 	
@@ -44,5 +46,6 @@ public class TextureRegions {
 		ONE_UP = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.ONE_UP, Texture.class));
 		POWERUP_SHOT_GREEN = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.POWER_UP_SHOT, Texture.class));
 		POWERUP_ULTIMATE = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.POWERUP_ULTIMATE, Texture.class));
+		CTRLS = new TextureRegion(SpaceAssetManager.getInstance().get(Paths.CTRLS, Texture.class));
 	}
 }
