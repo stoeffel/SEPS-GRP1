@@ -14,9 +14,10 @@ public class SlowDownPowerUp extends AbstractPowerUp {
 	}
 
 	@Override
-	public void doSomething(Hero hero) {
+	public boolean doSomething(Hero hero) {
 		//TODO slow down everything
 		// via game screen, every movement apart from hero and shots receives a elapsed / 2
+		return true;
 	}
 
 	@Override

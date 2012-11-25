@@ -165,10 +165,6 @@ public class JoyStickController extends AbstractController implements
 					downPressed();
 					upReleased();
 					controls.setDown();
-				} else {
-					downReleased();
-					upReleased();
-					controls.setCenter();
 				}
 			}
 		} else if (x > width / 2 && pointer == rightPointer) {

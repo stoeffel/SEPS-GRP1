@@ -17,8 +17,9 @@ public class OneUp extends AbstractPowerUp {
 	}
 
 	@Override
-	public void doSomething(Hero hero) {
+	public boolean doSomething(Hero hero) {
 		hero.oneUp();
+		return false;
 	}
 
 	@Override

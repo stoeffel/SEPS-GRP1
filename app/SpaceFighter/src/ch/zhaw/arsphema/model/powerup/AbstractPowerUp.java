@@ -34,8 +34,9 @@ public abstract class AbstractPowerUp extends AbstractSprite {
 	/**
 	 * does whatever the powerup does 
 	 * @param hero
+	 * @return 
 	 */
-	abstract public void doSomething(Hero hero);
+	abstract public boolean doSomething(Hero hero);
 	
 	/**
 	 * undoes whatever the powerup did

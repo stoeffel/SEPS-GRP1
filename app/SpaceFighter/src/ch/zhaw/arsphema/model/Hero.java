@@ -48,7 +48,7 @@ public class Hero extends AbstractSprite {
 	private TextureRegion[] blinkFrames;
 	private Animation blinkAnimation;
 	private float stateTime;
-	private Array<AbstractPowerUp> powerUps;
+	private AbstractPowerUp powerUp;
 	private boolean oneTimeKillerShot;
 	public float lastY;
 
@@ -97,7 +97,6 @@ public class Hero extends AbstractSprite {
 		lifeCounter.setMaxLifes(health);
 		
 		shotType = ShotFactory.Type.STANDARD;
-		powerUps = new Array<AbstractPowerUp>();
 	}
 	
 	
@@ -223,11 +222,9 @@ public class Hero extends AbstractSprite {
 	 * @return true if had powerups
 	 */
 	private boolean handlePowerUp() {
-		if(powerUps.size > 0){
-			for (AbstractPowerUp pu : powerUps) {
-				pu.undoSomething(this);
-			}
-			powerUps.clear();
+		if(powerUp != null){
+			powerUp.undoSomething(this);
+			powerUp = null;
 			return true;
 		}
 		else
@@ -288,13 +285,12 @@ public class Hero extends AbstractSprite {
 
 
 
-	public Array<AbstractPowerUp> getPowerUps() {
-		return powerUps;
-	}
-
+	
 	public void addPowerUps(AbstractPowerUp powerUp) {
-		this.powerUps.add(powerUp);
-		powerUp.doSomething(this);
+		
+		if (powerUp.doSomething(this)) {
+			this.powerUp = powerUp;
+		}
 	}
 
 
