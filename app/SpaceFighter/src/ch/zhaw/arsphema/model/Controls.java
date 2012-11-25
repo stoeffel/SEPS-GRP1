@@ -18,6 +18,7 @@ public class Controls extends AbstractSprite {
 	private static final int COLS = 1;
 	private TextureRegion[] textures;
 	private TextureRegion center, up, down;
+	public float tolerance;
 	public static enum DIR {
 		UP,DOWN,CENTER, STOP
 	}
@@ -41,6 +42,7 @@ public class Controls extends AbstractSprite {
         center = textures[1];
         down = textures[2];
         dir = DIR.STOP;
+        tolerance = 0;
 
 	}
 
@@ -60,7 +62,10 @@ public class Controls extends AbstractSprite {
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		// active lifes
 		float Y = Sizes.DEFAULT_WORLD_HEIGHT * ppuY - y - ( height*ppuY /2);
-				
+		
+		if (tolerance == 0)
+			setTolerance(Sizes.DEFAULT_WORLD_HEIGHT * ppuY / 30);
+		
 		switch (dir) {
 		case UP:
 			batch.draw(up, ppuX*x, Y, width*ppuX, height*ppuY);
@@ -92,6 +97,14 @@ public class Controls extends AbstractSprite {
 
 	public void stop() {
 		dir = DIR.STOP;
+	}
+
+	public float getTolerance() {
+		return tolerance;
+	}
+
+	public void setTolerance(float tolerance) {
+		this.tolerance = tolerance;
 	}
 
 
