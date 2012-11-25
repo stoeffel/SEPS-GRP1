@@ -50,7 +50,7 @@ public class GameScreen extends AbstractScreen {
 		EnemyManager.deactivateEnemyFactory();
 		
 		hero = new Hero(Sizes.SHIP_X_POSITION, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.SHIP_HEIGHT / 2, TextureRegions.HERO);
-		controls = new Controls(0, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.CTRL_HEIGHT / 2, Sizes.CTRL_WIDTH, Sizes.CTRL_HEIGHT, TextureRegions.CTRLS);
+		controls = new Controls(Sizes.SHIP_X_POSITION, Sizes.DEFAULT_WORLD_HEIGHT / 2 + Sizes.CTRL_HEIGHT / 2, Sizes.CTRL_WIDTH, Sizes.CTRL_HEIGHT, TextureRegions.CTRLS);
 		gameState = GameState.PLAY;
 	}
 

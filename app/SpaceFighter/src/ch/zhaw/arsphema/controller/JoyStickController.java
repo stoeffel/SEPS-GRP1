@@ -2,7 +2,6 @@ package ch.zhaw.arsphema.controller;
 
 import ch.zhaw.arsphema.model.Controls;
 import ch.zhaw.arsphema.model.Hero;
-import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -12,6 +11,7 @@ public class JoyStickController extends AbstractController implements
 
 	private Hero hero;
 	private float width, height;
+
 	private int leftPointer, rightPointer;
 
 	private static final int LEFT = 1, RIGHT = 2;
@@ -20,14 +20,8 @@ public class JoyStickController extends AbstractController implements
 		public Pos(float x, float y) {
 			this.x = x; this.y = y;
 		}
-		public boolean isLower(Pos pos, float tolerance) {
-			if (pos.y < this.y - tolerance) {
-				return true;
-			}
-			return false;
-		}
-		public boolean isHigher(Pos pos, float tolerance) {
-			if (pos.y > this.y + tolerance) {
+		public boolean isLower(Pos pos) {
+			if (pos.y < this.y) {
 				return true;
 			}
 			return false;
@@ -126,10 +120,10 @@ public class JoyStickController extends AbstractController implements
 			start = new Pos(x,y);
 			controls.setY(y);
 			controls.setCenter();
-			if (start.isLower(new Pos(0,hero.lastY),controls.tolerance)){
+			if (start.isLower(new Pos(0,hero.lastY))){
 				controls.setDown();
 				downPressed();
-			} else if (start.isHigher(new Pos(0,hero.lastY),controls.tolerance)){
+			} else {
 				controls.setUp();
 				upPressed();
 			}
@@ -157,18 +151,14 @@ public class JoyStickController extends AbstractController implements
 		if (x <= width / 2 && pointer == leftPointer) { // dragged on the left side of the screen
 			current = new Pos(x,y);
 			if (start != null) {
-				if (start.isLower(current,controls.tolerance)) {
+				if (start.isLower(current)) {
 					upPressed();
 					downReleased();
 					controls.setUp();
-				} else if (start.isHigher(current,controls.tolerance)) {
+				} else {
 					downPressed();
 					upReleased();
 					controls.setDown();
-				} else {
-					downReleased();
-					upReleased();
-					controls.setCenter();
 				}
 			}
 		} else if (x > width / 2 && pointer == rightPointer) {
