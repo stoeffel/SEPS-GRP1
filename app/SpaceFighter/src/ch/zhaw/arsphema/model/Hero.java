@@ -208,11 +208,10 @@ public class Hero extends AbstractSprite {
 	public void lowerHealth(int damage) {
 		if (isHurt) return; // don't hurt him again
 		isHurt = true;
-		if(!handlePowerUp()){
-			health -= damage;
-			lifeCounter.setLifes(health);
-		}
-	    Services.getSoundManager().play(Sounds.HURT, false);
+		handlePowerUp();
+		health -= damage;
+		lifeCounter.setLifes(health);
+		Services.getSoundManager().play(Sounds.HURT, false);
 	    
 		dead = health <= 0;
 	}
