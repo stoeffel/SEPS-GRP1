@@ -23,7 +23,7 @@ public class OverHeatBar extends AbstractSprite {
 	private TextureRegion[][] regions;
 	private TextureRegion border;
 	private TextureRegion bar;
-	private Texture danger;
+	private TextureRegion danger;
 	private TextureRegion[] dangerFrames;
 	private Animation dangerAnimation;
 	private float stateTime;
@@ -35,9 +35,9 @@ public class OverHeatBar extends AbstractSprite {
 				textureRegion.getRegionHeight() / ROWS);
 		bar = regions[1][0];
 		border = regions[0][0];
-		danger = TextureRegions.DANGER.getTexture();
-		TextureRegion[][] tmp = TextureRegion.split(danger, danger.getWidth()
-				/ FRAME_COLS, danger.getHeight() / FRAME_ROWS); // #10
+		danger = TextureRegions.DANGER;
+		TextureRegion[][] tmp = danger.split(danger.getRegionWidth()
+				/ FRAME_COLS, danger.getRegionHeight() / FRAME_ROWS); // #10
 		dangerFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
 		int index = 0;
 		for (int i = 0; i < FRAME_ROWS; i++) {

@@ -1,0 +1,173 @@
+
+images.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+overlaySprite
+  rotate: false
+  xy: 2, 2
+  size: 500, 877
+  orig: 500, 877
+  offset: 0, 0
+  index: -1
+planets
+  rotate: false
+  xy: 504, 2
+  size: 332, 444
+  orig: 332, 444
+  offset: 0, 0
+  index: -1
+stars
+  rotate: false
+  xy: 504, 448
+  size: 400, 350
+  orig: 400, 350
+  offset: 0, 0
+  index: -1
+controls
+  rotate: false
+  xy: 838, 2
+  size: 100, 300
+  orig: 100, 300
+  offset: 0, 0
+  index: -1
+heroSprite
+  rotate: false
+  xy: 906, 448
+  size: 100, 160
+  orig: 100, 160
+  offset: 0, 0
+  index: -1
+dalek
+  rotate: false
+  xy: 2, 881
+  size: 100, 133
+  orig: 100, 133
+  offset: 0, 0
+  index: -1
+overheatbar
+  rotate: false
+  xy: 104, 881
+  size: 300, 104
+  orig: 300, 104
+  offset: 0, 0
+  index: -1
+rock
+  rotate: false
+  xy: 838, 304
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 906, 610
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+1up
+  rotate: false
+  xy: 504, 800
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+ultimate
+  rotate: false
+  xy: 406, 881
+  size: 10, 100
+  orig: 10, 100
+  offset: 0, 0
+  index: -1
+blob
+  rotate: false
+  xy: 504, 902
+  size: 100, 96
+  orig: 100, 96
+  offset: 0, 0
+  index: -1
+Danger
+  rotate: false
+  xy: 606, 800
+  size: 200, 80
+  orig: 200, 80
+  offset: 0, 0
+  index: -1
+dalekRed
+  rotate: false
+  xy: 418, 881
+  size: 50, 67
+  orig: 50, 67
+  offset: 0, 0
+  index: -1
+standard
+  rotate: false
+  xy: 104, 987
+  size: 50, 25
+  orig: 50, 25
+  offset: 0, 0
+  index: -1
+green
+  rotate: false
+  xy: 156, 987
+  size: 50, 25
+  orig: 50, 25
+  offset: 0, 0
+  index: -1
+shotGreen
+  rotate: false
+  xy: 208, 987
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+killAll
+  rotate: false
+  xy: 235, 987
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+saucer
+  rotate: false
+  xy: 262, 987
+  size: 50, 23
+  orig: 50, 23
+  offset: 0, 0
+  index: -1
+saucerGolden
+  rotate: false
+  xy: 314, 987
+  size: 50, 23
+  orig: 50, 23
+  offset: 0, 0
+  index: -1
+saucerGay
+  rotate: false
+  xy: 418, 950
+  size: 50, 23
+  orig: 50, 23
+  offset: 0, 0
+  index: -1
+rocket
+  rotate: false
+  xy: 418, 975
+  size: 50, 23
+  orig: 50, 23
+  offset: 0, 0
+  index: -1
+rocket
+  rotate: false
+  xy: 940, 2
+  size: 50, 23
+  orig: 50, 23
+  offset: 0, 0
+  index: -1
+blue
+  rotate: false
+  xy: 262, 1012
+  size: 20, 10
+  orig: 20, 10
+  offset: 0, 0
+  index: -1

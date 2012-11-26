@@ -7,6 +7,7 @@ import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.SpaceAssetManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class LoadingScreen extends AbstractScreen {
@@ -40,37 +42,19 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        assetManager.load(Paths.HERO, Texture.class);
-        assetManager.load(Paths.OVERLAY_SPRITE, Texture.class);
-        assetManager.load(Paths.BUTTON_TEXTURE, Texture.class);
-        assetManager.load(Paths.ENEMY_UFO, Texture.class);
-        assetManager.load(Paths.ENEMY_SAUCER_EASY, Texture.class);
-        assetManager.load(Paths.ENEMY_SAUCER_MEDIUM, Texture.class);
-        assetManager.load(Paths.ENEMY_BLOB, Texture.class);
-        assetManager.load(Paths.ENEMY_BOITUMELO, Texture.class);
-        assetManager.load(Paths.ENEMY_HIDAI, Texture.class);
-        assetManager.load(Paths.ENEMY_BAD_BOY, Texture.class);
+    	// Atlas
+        assetManager.load(Paths.ATLAS, TextureAtlas.class);
+    	// Fonts
         assetManager.load(Paths.SPACE_FONT, BitmapFont.class);
         assetManager.load(Paths.BUTTON_FONT, BitmapFont.class);
         assetManager.load(Paths.HEADER_FONT, BitmapFont.class);
-        assetManager.load(Paths.OVERHEATBAR, Texture.class);
-        assetManager.load(Paths.DANGER, Texture.class);
-        assetManager.load(Paths.SHOT, Texture.class);
-        assetManager.load(Paths.SHOT_GREEN, Texture.class);
-        assetManager.load(Paths.SHOT_BLUE, Texture.class);
-        assetManager.load(Paths.SHOT_ULTIMATE, Texture.class);
-        assetManager.load(Paths.BACKGROUND_STARS, Texture.class);
+        // SOUNDS
         assetManager.load(Paths.SFX_JET, Sound.class);
         assetManager.load(Paths.SFX_SHOT, Sound.class);
         assetManager.load(Paths.SFX_DANGER, Sound.class);
         assetManager.load(Paths.SFX_EXPLOSION, Sound.class);
         assetManager.load(Paths.SFX_HURT, Sound.class);
         assetManager.load(Paths.SFX_BEEP, Sound.class);
-        assetManager.load(Paths.PLANETS, Texture.class);
-        assetManager.load(Paths.ONE_UP, Texture.class);
-        assetManager.load(Paths.POWER_UP_SHOT, Texture.class);
-        assetManager.load(Paths.POWERUP_ULTIMATE, Texture.class);
-        assetManager.load(Paths.CTRLS, Texture.class);
         //MUSIC
         assetManager.load(Paths.TRACK_01, Music.class);
         assetManager.load(Paths.TRACK_02, Music.class);

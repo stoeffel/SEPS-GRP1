@@ -17,17 +17,19 @@ public class NavigationOverlay extends Rectangle{
 	
 	public NavigationOverlay(TextureRegion texture) {
 		super(0, 0, Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT);
-		TextureRegion[][] tmp = TextureRegion.split(texture.getTexture(),
-				texture.getTexture().getWidth(), texture.getTexture().getHeight() / OVERLAY_ROWS);
+		TextureRegion[][] tmp = texture.split(
+				texture.getRegionWidth(), texture.getRegionHeight() / OVERLAY_ROWS);
 		
 		overlays = new TextureRegion[OVERLAY_ROWS];
 		for (int i = 0; i < OVERLAY_ROWS; i++) {
     		overlays[i] = tmp[i][0];
         }
+		this.width = Sizes.DEFAULT_WORLD_WIDTH;
+		this.height = Sizes.DEFAULT_WORLD_HEIGHT;
 	}
 	public TextureRegion getTexture(int which) {
-		
-		return overlays[which];
+		TextureRegion tr = overlays[which];
+		return tr;
 	}
 
 	public void setTexture(Texture texture) {
@@ -36,9 +38,9 @@ public class NavigationOverlay extends Rectangle{
 	
 	public void draw(SpriteBatch batch, float delta, float elapsed, float ppuX, float ppuY) {
 		if (elapsed >= 5){ 
-			batch.draw(getTexture(GAME), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			batch.draw(getTexture(GAME).getTexture(), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		} else {
-			batch.draw(getTexture(START), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
+			batch.draw(getTexture(START).getTexture(), ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuY * this.height);
 		}
 	}
 

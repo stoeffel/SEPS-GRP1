@@ -15,6 +15,7 @@ import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyGroup;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.shot.Shot;
+import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.Gdx;
@@ -138,14 +139,14 @@ public class Renderer {
 		if(showOverlay)
 		{
 			// start overlay is displayed 5 sec
-			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
+			batch.draw(overlay.getTexture(NavigationOverlay.START), ppuX * overlay.x, ppuY * overlay.y, ppuX * Sizes.DEFAULT_WORLD_WIDTH, ppuY * Sizes.DEFAULT_WORLD_HEIGHT);
 			if (elapsed >= SHOW_OVERLAY_TIME)
 			{
 				EnemyManager.activateEnemyFactory();
 				showOverlay = false;
 			}
 		} else {
-			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * overlay.width, ppuY * overlay.height);
+			batch.draw(overlay.getTexture(NavigationOverlay.GAME), ppuX * overlay.x, ppuY * overlay.y, ppuX * Sizes.DEFAULT_WORLD_WIDTH, ppuY * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		pointManager.draw(batch,ppuX,ppuY);
 		controls.draw(batch, ppuX, ppuY);
