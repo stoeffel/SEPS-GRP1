@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class UiStyles {
@@ -20,21 +19,8 @@ public class UiStyles {
     public static final BitmapFont POINT_FONT = new BitmapFont(Gdx.files.internal(Paths.COUNTER_FONT), false);
     public static final Label.LabelStyle LABEL_POINTS = new Label.LabelStyle(POINT_FONT, Color.WHITE);
 
-    //ButtonStyle
-    private static final Texture UI_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_TEXTURES));
-    public static final TextButton.TextButtonStyle BUTTON_DEFAULT = new TextButton.TextButtonStyle(
-            new NinePatch(new TextureRegion(UI_TEXTURE, 80, 0, 80, 40), 15, 15, 4, 4),
-            new NinePatch(new TextureRegion(UI_TEXTURE, 0, 0, 80, 40), 15, 15, 4, 4),
-            new NinePatch(new TextureRegion(UI_TEXTURE, 80, 0, 80, 40), 15, 15, 4, 4),
-            0f,
-            0f,
-            0f,
-            0f,
-            new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false),
-            Color.WHITE,
-            null,
-            null
-    );
+    //Component Texture
+    private static final Texture COMP_TEXTURES = new Texture(Gdx.files.internal(Paths.COMP_TEXTURES));
 
     //TextFieldStyle
     public static final TextField.TextFieldStyle TEXT_FIELD_DEFAULT = new TextField.TextFieldStyle(
@@ -42,15 +28,15 @@ public class UiStyles {
             Color.WHITE,
             null,
             null,
-            new NinePatch(new TextureRegion(UI_TEXTURE, 240, 0, 1, 1), 0, 0, 0, 0),
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 51, 0, 2, 2), 0, 0, 0, 0),
             null,
-            new NinePatch(new TextureRegion(UI_TEXTURE, 160, 0, 40, 40), 4, 4, 4, 4)
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 0, 0, 50, 50), 6, 6, 6, 6)
     );
 
     //SliderStyle
     public final static Slider.SliderStyle SLIDER_STYLE = new Slider.SliderStyle(
-            new NinePatch(new TextureRegion(UI_TEXTURE, 242, 0, 2, 2), 0, 0, 0, 0),
-            new TextureRegion(UI_TEXTURE, 242, 8, 32, 32)
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 53, 0, 22, 3), 2, 2, 0, 0),
+            new TextureRegion(COMP_TEXTURES, 53, 3, 22, 22)
     );
 
     //IconTexture

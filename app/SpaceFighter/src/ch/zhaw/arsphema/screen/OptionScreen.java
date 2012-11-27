@@ -59,14 +59,10 @@ public class OptionScreen extends UiScreen {
         wrapTable.row();
 
         compTable.clear();
-        compTable.add(lbPlayerName).align(Align.LEFT);
-        compTable.add(tfDefaultName).align(Align.RIGHT);
-        compTable.row();
-        compTable.add(lbMusic).align(Align.LEFT);
-        compTable.add(slMusic).align(Align.RIGHT);
-        compTable.row();
-        compTable.add(lbSound).align(Align.LEFT);
-        compTable.add(slSounds).align(Align.RIGHT);
+
+        addToCompTable(lbPlayerName, tfDefaultName);
+        addToCompTable(lbMusic, slMusic);
+        addToCompTable(lbSound, slSounds);
 
         compTable.width((int) (60 * ppuX));
         wrapTable.add(compTable);
@@ -76,6 +72,13 @@ public class OptionScreen extends UiScreen {
         addToButtonRow(btnAccept);
         wrapTable.row();
         wrapTable.add(buttonTable).bottom().expandY();
+    }
+
+    private void addToCompTable(Label label, Actor component) {
+        compTable.add(label).expand().left();
+        compTable.add(component).width((int) (30 * ppuX)).height((int) (7 * ppuY)).
+                padBottom((int) (3 * ppuY)).expand().right();
+        compTable.row();
     }
 
     @Override

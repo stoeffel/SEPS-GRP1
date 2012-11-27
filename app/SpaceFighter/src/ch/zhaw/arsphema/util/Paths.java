@@ -5,6 +5,7 @@ public class Paths {
 
     public static final String BUTTON_TEXTURE = "skin/buttontexture.png";
     public static final String UI_TEXTURES = "skin/ui.png";
+    public static final String COMP_TEXTURES = "skin/components.png";
     public static final String UI_ICONS = "skin/iconsetborderless.png";
     public static final String PLAY_BUTTON_IMAGE = "skin/playbutton.png";
 
