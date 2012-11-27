@@ -92,6 +92,12 @@ public class EnemyManager {
 					// no use for "continue" since groups can overlap
 				}
 			}
+			if (!shot.destroyOnHit)
+				for (Shot enemyShot : shotManager.getEnemyShots()) {
+					if (enemyShot.overlaps(shot)) {
+						shotManager.getShotsToRemove().add(enemyShot);
+					}
+				}
 		}
 		return totalPoints;
 	}

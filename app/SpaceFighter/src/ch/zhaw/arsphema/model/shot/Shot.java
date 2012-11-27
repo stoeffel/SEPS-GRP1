@@ -33,6 +33,7 @@ public class Shot extends AbstractSprite {
 		destroyOnHit = false;
 	}
 	
+	
 	public int getDamage() {
 		return damage;
 	}

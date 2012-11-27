@@ -20,7 +20,6 @@ public class ProfileManager {
     }
 
     public PlayerProfile loadPlayerProfile() {
-
         FileHandle profileFile = Gdx.files.local(Paths.PLAYER_PROFILE);
 
         // return the profile if loaded
