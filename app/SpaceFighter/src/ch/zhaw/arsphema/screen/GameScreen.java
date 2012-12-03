@@ -1,14 +1,7 @@
 package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
-import ch.zhaw.arsphema.controller.EnemyManager;
-import ch.zhaw.arsphema.controller.GameController;
-import ch.zhaw.arsphema.controller.HeroController;
-import ch.zhaw.arsphema.controller.JoyStickController;
-import ch.zhaw.arsphema.controller.PlanetManager;
-import ch.zhaw.arsphema.controller.PointManager;
-import ch.zhaw.arsphema.controller.PowerUpManager;
-import ch.zhaw.arsphema.controller.ShotManager;
+import ch.zhaw.arsphema.controller.*;
 import ch.zhaw.arsphema.model.Background;
 import ch.zhaw.arsphema.model.Controls;
 import ch.zhaw.arsphema.model.Hero;
@@ -17,14 +10,12 @@ import ch.zhaw.arsphema.services.Services;
 import ch.zhaw.arsphema.util.Musics;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 
 
 public class GameScreen extends AbstractScreen {
-	
 	
 	private Hero hero;
 	private JoyStickController controller;
@@ -38,13 +29,12 @@ public class GameScreen extends AbstractScreen {
 	private float elapsed;
 
 	public GameState gameState;
-	private GameController gameController;
 	private Controls controls;
 	public enum GameState {
 		PAUSED, RESUMED, PLAY
-	};
-	
-	public GameScreen(MyGdxGame game) {
+	}
+
+    public GameScreen(MyGdxGame game) {
 		super(game);
 		elapsed = 0;
 		EnemyManager.deactivateEnemyFactory();
@@ -54,26 +44,23 @@ public class GameScreen extends AbstractScreen {
 		gameState = GameState.PLAY;
 	}
 
-	@Override
-	public void show() {
-		controller = new JoyStickController(hero,controls);
-		gameController = new GameController(this);
-		shotManager = new ShotManager();
-		powerUpManager = new PowerUpManager(hero);
-		enemyManager = new EnemyManager(powerUpManager);
-		planetManager = new PlanetManager();
-		pointManager = new PointManager();
-		bg = new Background(TextureRegions.BACKGROUND_STARS, 0, 0,
-				Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT);
-		
-		renderer = new Renderer(bg);
-		Gdx.input.setInputProcessor(controller);
-		Gdx.input.setCatchBackKey(true);
-		
-		Services.turnOffSound(); 
-		Services.getMusicManager().playRandom();
-		
-	}
+    public void initGame(){
+        controller = new JoyStickController(hero,controls);
+        shotManager = new ShotManager();
+        powerUpManager = new PowerUpManager(hero);
+        enemyManager = new EnemyManager(powerUpManager);
+        planetManager = new PlanetManager();
+        pointManager = new PointManager();
+        bg = new Background(TextureRegions.BACKGROUND_STARS, 0, 0,
+                Sizes.DEFAULT_WORLD_WIDTH, Sizes.DEFAULT_WORLD_HEIGHT);
+
+        renderer = new Renderer(bg);
+        Gdx.input.setInputProcessor(controller);
+        Gdx.input.setCatchBackKey(true);
+
+        Services.turnOffSound();
+        Services.getMusicManager().playRandom();
+    }
 
 	@Override
 	public void resize(int width, int height) {
@@ -85,14 +72,11 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(final float delta) {
-		//TODO move this to input processor
-		if (Gdx.input.isKeyPressed(Keys.BACK)){
-			gameState = GameState.PAUSED;
+		//TODO move this to input procesgameState != GameScreensor
+		if (Gdx.input.isKeyPressed(Keys.BACK)||Gdx.input.isKeyPressed(Keys.ESCAPE)){
+            pause();
 		}
 		if (gameState.equals(GameState.PAUSED)) {
-			renderer.cleanScreen();
-			renderer.drawPause();
-			Gdx.input.setInputProcessor(gameController);
 			return;
 		} else if (gameState.equals(GameState.RESUMED)) {
 			gameState = GameState.PLAY;
@@ -154,18 +138,14 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void hide() {
-		pause();
-	}
-
-	@Override
 	public void pause() {
 		gameState = GameState.PAUSED;
+        game.setScreen(game.getPauseScreen());
 	}
 
 	@Override
 	public void resume() {
-		
+        gameState = GameState.RESUMED;
 	}
 
 }

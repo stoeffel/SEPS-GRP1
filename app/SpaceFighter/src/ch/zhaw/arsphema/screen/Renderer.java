@@ -1,23 +1,13 @@
 package ch.zhaw.arsphema.screen;
 
-import ch.zhaw.arsphema.controller.EnemyManager;
-import ch.zhaw.arsphema.controller.PlanetManager;
-import ch.zhaw.arsphema.controller.PointManager;
-import ch.zhaw.arsphema.controller.PowerUpManager;
-import ch.zhaw.arsphema.controller.ShotManager;
-import ch.zhaw.arsphema.model.Background;
-import ch.zhaw.arsphema.model.Controls;
-import ch.zhaw.arsphema.model.Explosion;
-import ch.zhaw.arsphema.model.Hero;
-import ch.zhaw.arsphema.model.NavigationOverlay;
-import ch.zhaw.arsphema.model.Planet;
+import ch.zhaw.arsphema.controller.*;
+import ch.zhaw.arsphema.model.*;
 import ch.zhaw.arsphema.model.enemies.AbstractEnemy;
 import ch.zhaw.arsphema.model.enemies.EnemyGroup;
 import ch.zhaw.arsphema.model.powerup.AbstractPowerUp;
 import ch.zhaw.arsphema.model.shot.Shot;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.TextureRegions;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -35,7 +25,6 @@ public class Renderer {
 	private boolean showOverlay = true;
 	private NavigationOverlay overlay;
 	private Background bg;
-	private Pause pause;
 	private ShapeRenderer shapeRenderer;
     
     public Renderer(Background bg)
@@ -49,7 +38,6 @@ public class Renderer {
     
 	private void loadTextures() {
 		overlay = new NavigationOverlay(TextureRegions.OVERLAY_SPRITE);
-		pause = new Pause();
 	}
 	
 	public void cleanScreen() {
@@ -153,12 +141,6 @@ public class Renderer {
 		batch.end();
     }
     
-    public void drawPause() {
-    	batch.begin();
-		pause.draw(batch, ppuX, ppuY);
-		batch.end();
-	}
-
 	public void drawPowerUps(PowerUpManager powerUpManager) {
 		batch.begin();
 		for (final AbstractPowerUp powerup : powerUpManager.getPowerUps()) 

@@ -12,6 +12,7 @@ public class MyGdxGame extends Game {
     private HighscoreScreen highscoreScreen;
     private HighscoreInsertScreen highscoreInsertScreen;
     private CreditsScreen creditsScreen;
+    private PauseScreen pauseScreen;
     private LoadingScreen loadingScreen;
 
 
@@ -29,6 +30,7 @@ public class MyGdxGame extends Game {
         highscoreScreen = new HighscoreScreen(this);
         highscoreInsertScreen = new HighscoreInsertScreen(this);
         creditsScreen = new CreditsScreen(this);
+        pauseScreen = new PauseScreen(this);
 
 
 //        Services.getProfileManager().createTestProfile(); //testing
@@ -37,7 +39,7 @@ public class MyGdxGame extends Game {
     }
 
     public void gameOver(int score) {
-        if (score > Services.getProfileManager().loadPlayerProfile().getMinimalScore()) {
+        if (score > 0 && score > Services.getProfileManager().loadPlayerProfile().getMinimalScore()) {
             highscoreInsertScreen.setScore(score);
             setScreen(highscoreInsertScreen);
         } else {
@@ -51,6 +53,7 @@ public class MyGdxGame extends Game {
 
     public void createNewGame() {
         gameScreen = new GameScreen(this);
+        gameScreen.initGame();
     }
 
     public GameScreen getGameScreen() {
@@ -71,6 +74,10 @@ public class MyGdxGame extends Game {
 
     public CreditsScreen getCreditsScreen() {
         return creditsScreen;
+    }
+
+    public PauseScreen getPauseScreen() {
+        return pauseScreen;
     }
 
     @Override
