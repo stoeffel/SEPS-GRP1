@@ -25,7 +25,7 @@ public class CreditsScreen extends UiScreen {
 
         ClickListener buttonListener = new CreditsButtonListener();
 
-        lbTitle = new Label("Credits", UiStyles.LABEL_SCREEN_HEADER);
+        lbTitle = new Label("Credits", UiStyles.getTitleLabelStyle(0));
         btnBack = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 0, 300, 300));
         btnBack.setClickListener(buttonListener);
     }
@@ -33,6 +33,9 @@ public class CreditsScreen extends UiScreen {
     @Override
     protected void setupGui() {
         super.setupGui();
+
+        //Get the correct font sizes
+        lbTitle.setStyle(UiStyles.getTitleLabelStyle(ppuY));
 
         wrapTable.add(lbTitle).padBottom((int) (5 * ppuY)).padTop((int) (5 * ppuY));
 

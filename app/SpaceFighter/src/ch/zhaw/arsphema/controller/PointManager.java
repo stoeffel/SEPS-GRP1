@@ -15,7 +15,7 @@ public class PointManager {
     private Label showMeYourPoints;
 
     public PointManager() {
-        showMeYourPoints = new Label("0", UiStyles.LABEL_POINTS);
+        showMeYourPoints = new Label("0", UiStyles.getPointLabelStyle(0));
     }
 
     public void increasePointsOfEnemies(final float timeElapsed, final int addPoints) {
@@ -29,8 +29,9 @@ public class PointManager {
 
     public void draw(SpriteBatch batch, float ppuX, float ppuY) {
         totalPoints = enemyPoints + timeBonus;
+        showMeYourPoints.setStyle(UiStyles.getPointLabelStyle(ppuY));
         showMeYourPoints.setText("" + totalPoints);
-        BitmapFont.TextBounds bounds = UiStyles.POINT_FONT.getBounds(String.valueOf(totalPoints));
+        BitmapFont.TextBounds bounds = showMeYourPoints.getStyle().font.getBounds(String.valueOf(totalPoints));
         showMeYourPoints.x = Sizes.DEFAULT_WORLD_WIDTH / 2 * ppuX - bounds.width / 2;
         showMeYourPoints.y = (Sizes.DEFAULT_WORLD_HEIGHT - 5) * ppuY - bounds.height;
         showMeYourPoints.draw(batch, 1);

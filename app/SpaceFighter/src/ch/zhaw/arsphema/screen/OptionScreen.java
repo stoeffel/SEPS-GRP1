@@ -34,14 +34,14 @@ public class OptionScreen extends UiScreen {
 
         ClickListener buttonListener = new SettingsButtonListener();
 
-        lbTitle = new Label("Options", UiStyles.LABEL_SCREEN_HEADER);
+        lbTitle = new Label("Options", UiStyles.getTitleLabelStyle(0));
 
         compTable = new Table();
-        lbPlayerName = new Label("Player Name", UiStyles.LABEL_DEFAULT);
-        tfDefaultName = new TextField("", "", UiStyles.TEXT_FIELD_DEFAULT);
-        lbMusic = new Label("Music Volume", UiStyles.LABEL_DEFAULT);
+        lbPlayerName = new Label("Player Name", UiStyles.getTextLabelStyle(0));
+        tfDefaultName = new TextField("", "", UiStyles.getTextFieldStyle(0));
+        lbMusic = new Label("Music Volume", UiStyles.getTextLabelStyle(0));
         slMusic = new Slider(0f, 1f, 0.05f, UiStyles.SLIDER_STYLE);
-        lbSound = new Label("Sound Volume", UiStyles.LABEL_DEFAULT);
+        lbSound = new Label("Sound Volume", UiStyles.getTextLabelStyle(0));
         slSounds = new Slider(0f, 1f, 0.05f, UiStyles.SLIDER_STYLE);
 
         btnAccept = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 0, 600, 300, 300));
@@ -53,6 +53,13 @@ public class OptionScreen extends UiScreen {
     @Override
     protected void setupGui() {
         super.setupGui();
+
+        //Get the correct font sizes
+        lbTitle.setStyle(UiStyles.getTitleLabelStyle(ppuY));
+        lbPlayerName.setStyle(UiStyles.getTextLabelStyle(ppuY));
+        lbMusic.setStyle(UiStyles.getTextLabelStyle(ppuY));
+        lbSound.setStyle(UiStyles.getTextLabelStyle(ppuY));
+        tfDefaultName.setStyle(UiStyles.getTextFieldStyle(ppuY));
 
         //Header
         wrapTable.add(lbTitle).padBottom((int) (5 * ppuY)).padTop((int) (5 * ppuY));

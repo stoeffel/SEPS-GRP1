@@ -39,10 +39,10 @@ public class HighscoreInsertScreen extends UiScreen {
 
         compTable = new Table();
 
-        lbTitle = new Label("New Highscore", UiStyles.LABEL_SCREEN_HEADER);
-        lbPoints = new Label("0", UiStyles.LABEL_POINTS);
-        lbText = (new Label("Please enter your Name", UiStyles.LABEL_DEFAULT));
-        tfName = new TextField("", "", UiStyles.TEXT_FIELD_DEFAULT);
+        lbTitle = new Label("New Highscore", UiStyles.getTitleLabelStyle(0));
+        lbPoints = new Label("0", UiStyles.getPointLabelStyle(ppuY));
+        lbText = (new Label("Please enter your Name", UiStyles.getTextLabelStyle(0)));
+        tfName = new TextField("", "", UiStyles.getTextFieldStyle(0));
 
         btnAccept = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 0, 600, 300, 300));
         btnAccept.setClickListener(buttonListener);
@@ -54,17 +54,23 @@ public class HighscoreInsertScreen extends UiScreen {
     protected void setupGui() {
         super.setupGui();
 
+        //Get the correct font sizes
+        lbTitle.setStyle(UiStyles.getTitleLabelStyle(ppuY));
+        lbPoints.setStyle(UiStyles.getPointLabelStyle(ppuY));
+        lbText.setStyle(UiStyles.getTextLabelStyle(ppuY));
+        tfName.setStyle(UiStyles.getTextFieldStyle(ppuY));
+
         wrapTable.add(lbTitle).padBottom((int) (5 * ppuY)).padTop((int) (5 * ppuY));
         wrapTable.row();
 
         lbPoints.setText(String.valueOf(score));
 
         compTable.clear();
-        compTable.add(lbPoints);
+        compTable.add(lbPoints).pad((int) (3 * ppuY));
         compTable.row();
-        compTable.add(lbText);
+        compTable.add(lbText).pad((int) (3 * ppuY));
         compTable.row();
-        compTable.add(tfName);
+        compTable.add(tfName).width((int) (50 * ppuY)).height((int) (7 * ppuY));
 
         wrapTable.add(compTable);
 
@@ -74,6 +80,7 @@ public class HighscoreInsertScreen extends UiScreen {
         wrapTable.row();
         wrapTable.add(buttonTable).bottom().expandY();
     }
+
 
     public void setScore(int score) {
         this.score = score;

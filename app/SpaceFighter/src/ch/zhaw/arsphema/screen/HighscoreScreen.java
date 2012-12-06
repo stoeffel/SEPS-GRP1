@@ -31,7 +31,7 @@ public class HighscoreScreen extends UiScreen {
 
         ClickListener buttonListener = new HighscoreButtonListener();
 
-        lbTitle = new Label("Highscore", UiStyles.LABEL_SCREEN_HEADER);
+        lbTitle = new Label("Highscore", UiStyles.getTitleLabelStyle(0));
         highscoreTable = new Table();
         btnBack = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 0, 300, 300));
         btnBack.setClickListener(buttonListener);
@@ -41,13 +41,15 @@ public class HighscoreScreen extends UiScreen {
     protected void setupGui() {
         super.setupGui();
 
+        lbTitle.setStyle(UiStyles.getTitleLabelStyle(ppuY));
+
         //Header
         wrapTable.add(lbTitle).padBottom((int) (5 * ppuY)).padTop((int) (5 * ppuY));
         wrapTable.row();
 
         //Highscore Table
         highscoreTable.width((int) (60 * ppuX));
-
+        buildHighscoreTable();
         wrapTable.add(highscoreTable);
 
         //Setup Button Row
@@ -57,11 +59,7 @@ public class HighscoreScreen extends UiScreen {
 
     }
 
-    @Override
-    public void show() {
-        super.show();
-        Gdx.input.setCatchBackKey(true);
-
+    private void buildHighscoreTable() {
         //load player profile with current highscore
         PlayerProfile profile = Services.getProfileManager().loadPlayerProfile();
 
@@ -69,12 +67,18 @@ public class HighscoreScreen extends UiScreen {
         highscoreTable.clear();
         int rank = 1;
         for (HighscoreEntry highscoreEntry : profile.getHighscore()) {
-            highscoreTable.add(new Label(rank + ".", UiStyles.LABEL_DEFAULT)).width(40).left();
-            highscoreTable.add(new Label(highscoreEntry.getName(), UiStyles.LABEL_DEFAULT)).width(200);
-            highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.LABEL_DEFAULT)).expand().right();
+            highscoreTable.add(new Label(rank + ".", UiStyles.getTextLabelStyle(ppuY))).width(40).left();
+            highscoreTable.add(new Label(highscoreEntry.getName(), UiStyles.getTextLabelStyle(ppuY))).width(200);
+            highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.getTextLabelStyle(ppuY))).expand().right();
             highscoreTable.row();
             rank++;
         }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override

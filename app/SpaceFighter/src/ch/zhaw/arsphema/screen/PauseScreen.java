@@ -31,8 +31,8 @@ public class PauseScreen extends UiScreen {
         pauseUiController = new PauseUiController();
         ClickListener buttonListener = new PauseButtonListener();
 
-        lbTitle = new Label("Arsphema", UiStyles.LABEL_TITLE);
-        lbPause = new Label("Paused...", UiStyles.LABEL_SCREEN_HEADER);
+        lbTitle = new Label("Arsphema", UiStyles.getSpaceLabelStyle(0));
+        lbPause = new Label("Paused...", UiStyles.getTitleLabelStyle(0));
         btnBack = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 0, 300, 300));
         btnBack.setClickListener(buttonListener);
         btnHome = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 600, 300, 300));
@@ -42,6 +42,10 @@ public class PauseScreen extends UiScreen {
     @Override
     protected void setupGui() {
         super.setupGui();
+
+        //Get the correct font sizes
+        lbTitle.setStyle(UiStyles.getSpaceLabelStyle(ppuY));
+        lbPause.setStyle(UiStyles.getTitleLabelStyle(ppuY));
 
         wrapTable.add(lbTitle).padBottom((int) (10 * ppuY)).padTop((int) (10 * ppuY));
         wrapTable.row();

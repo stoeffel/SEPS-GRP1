@@ -7,17 +7,12 @@ import ch.zhaw.arsphema.services.SoundManager;
 import ch.zhaw.arsphema.util.Paths;
 import ch.zhaw.arsphema.util.Sizes;
 import ch.zhaw.arsphema.util.SpaceAssetManager;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 
 public class LoadingScreen extends AbstractScreen {
 
@@ -42,12 +37,17 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void show() {
-    	// Atlas
+        // Atlas
         assetManager.load(Paths.ATLAS, TextureAtlas.class);
-    	// Fonts
-        assetManager.load(Paths.SPACE_FONT, BitmapFont.class);
-        assetManager.load(Paths.BUTTON_FONT, BitmapFont.class);
-        assetManager.load(Paths.HEADER_FONT, BitmapFont.class);
+        // Fonts
+        assetManager.load(Paths.SPACE_FONT_SMALL, BitmapFont.class);
+        assetManager.load(Paths.SPACE_FONT_BIG, BitmapFont.class);
+        assetManager.load(Paths.TEXT_FONT_SMALL, BitmapFont.class);
+        assetManager.load(Paths.TEXT_FONT_BIG, BitmapFont.class);
+        assetManager.load(Paths.TITLE_FONT_SMALL, BitmapFont.class);
+        assetManager.load(Paths.TITLE_FONT_BIG, BitmapFont.class);
+        assetManager.load(Paths.POINT_FONT_BIG, BitmapFont.class);
+        assetManager.load(Paths.POINT_FONT_SMALL, BitmapFont.class);
         // SOUNDS
         assetManager.load(Paths.SFX_JET, Sound.class);
         assetManager.load(Paths.SFX_SHOT, Sound.class);

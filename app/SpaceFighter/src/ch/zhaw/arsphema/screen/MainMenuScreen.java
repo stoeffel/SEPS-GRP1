@@ -31,7 +31,7 @@ public class MainMenuScreen extends UiScreen {
 
         ClickListener buttonListener = new MainMenuListener();
 
-        lbTitle = new Label("Arsphema", UiStyles.LABEL_TITLE);
+        lbTitle = new Label("Arsphema", UiStyles.getSpaceLabelStyle(0));
         btnPlay = new Button(UiStyles.PLAY_BUTTON_TEXTURE_REGION);
         btnPlay.setClickListener(buttonListener);
         btnOptions = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 300, 300, 300));
@@ -48,8 +48,12 @@ public class MainMenuScreen extends UiScreen {
     protected void setupGui() {
         super.setupGui();
 
+        //Labels müssen hier instanziert werden, da setStyle nicht korrekt funkitoniert...
+        lbTitle.setStyle(UiStyles.getSpaceLabelStyle(ppuY));
+
         //Header
         wrapTable.add(lbTitle).padBottom((int) (10 * ppuY)).padTop((int) (10 * ppuY));
+
         wrapTable.row();
 
         //Add Play-Buttons
@@ -103,4 +107,6 @@ public class MainMenuScreen extends UiScreen {
             }
         }
     }
+
+
 }

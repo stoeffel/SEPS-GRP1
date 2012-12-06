@@ -12,19 +12,44 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class UiStyles {
 
+    private static final int SIZE_SWITCH_POINT = 7;
+
+    //Fonts
+    public static final BitmapFont POINT_FONT_BIG = SpaceAssetManager.getInstance().get(Paths.POINT_FONT_BIG, BitmapFont.class);
+    public static final BitmapFont POINT_FONT_SMALL = SpaceAssetManager.getInstance().get(Paths.POINT_FONT_SMALL, BitmapFont.class);
+    public static final BitmapFont SPACE_FONT_BIG = SpaceAssetManager.getInstance().get(Paths.SPACE_FONT_BIG, BitmapFont.class);
+    public static final BitmapFont SPACE_FONT_SMALL = SpaceAssetManager.getInstance().get(Paths.SPACE_FONT_SMALL, BitmapFont.class);
+    public static final BitmapFont TEXT_FONT_BIG = SpaceAssetManager.getInstance().get(Paths.TEXT_FONT_BIG, BitmapFont.class);
+    public static final BitmapFont TEXT_FONT_SMALL = SpaceAssetManager.getInstance().get(Paths.TEXT_FONT_SMALL, BitmapFont.class);
+    public static final BitmapFont TITLE_FONT_BIG = SpaceAssetManager.getInstance().get(Paths.TITLE_FONT_BIG, BitmapFont.class);
+    public static final BitmapFont TITLE_FONT_SMALL = SpaceAssetManager.getInstance().get(Paths.TITLE_FONT_SMALL, BitmapFont.class);
+
     //LabelStyles
-    public static final Label.LabelStyle LABEL_SCREEN_HEADER = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.HEADER_FONT), false), Color.WHITE);
-    public static final Label.LabelStyle LABEL_TITLE = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.SPACE_FONT), false), Color.WHITE);
-    public static final Label.LabelStyle LABEL_DEFAULT = new Label.LabelStyle(new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false), Color.WHITE);
-    public static final BitmapFont POINT_FONT = new BitmapFont(Gdx.files.internal(Paths.COUNTER_FONT), false);
-    public static final Label.LabelStyle LABEL_POINTS = new Label.LabelStyle(POINT_FONT, Color.WHITE);
+    public static final Label.LabelStyle LABEL_GAME_BIG = new Label.LabelStyle(SPACE_FONT_BIG, Color.WHITE);
+    public static final Label.LabelStyle LABEL_GAME_SMALL = new Label.LabelStyle(SPACE_FONT_SMALL, Color.WHITE);
+    public static final Label.LabelStyle LABEL_TEXT_BIG = new Label.LabelStyle(TEXT_FONT_BIG, Color.WHITE);
+    public static final Label.LabelStyle LABEL_TEXT_SMALL = new Label.LabelStyle(TEXT_FONT_SMALL, Color.WHITE);
+    public static final Label.LabelStyle LABEL_TITLE_BIG = new Label.LabelStyle(TITLE_FONT_BIG, Color.WHITE);
+    public static final Label.LabelStyle LABEL_TITLE_SMALL = new Label.LabelStyle(TITLE_FONT_SMALL, Color.WHITE);
+    public static final Label.LabelStyle LABEL_POINT_BIG = new Label.LabelStyle(POINT_FONT_BIG, Color.WHITE);
+    public static final Label.LabelStyle LABEL_POINT_SMALL = new Label.LabelStyle(POINT_FONT_SMALL, Color.WHITE);
 
     //Component Texture
     private static final Texture COMP_TEXTURES = new Texture(Gdx.files.internal(Paths.COMP_TEXTURES));
 
     //TextFieldStyle
-    public static final TextField.TextFieldStyle TEXT_FIELD_DEFAULT = new TextField.TextFieldStyle(
-            new BitmapFont(Gdx.files.internal(Paths.BUTTON_FONT), false),
+    public static final TextField.TextFieldStyle TEXT_FIELD_BIG = new TextField.TextFieldStyle(
+            TEXT_FONT_BIG,
+            Color.WHITE,
+            null,
+            null,
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 51, 0, 2, 2), 0, 0, 0, 0),
+            null,
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 0, 0, 50, 50), 6, 6, 6, 6)
+    );
+
+    public static final TextField.TextFieldStyle TEXT_FIELD_SMALL = new TextField.TextFieldStyle(
+            TEXT_FONT_SMALL,
             Color.WHITE,
             null,
             null,
@@ -43,4 +68,27 @@ public class UiStyles {
     private static final Texture UI_ICON_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_ICONS));
     public static final TextureRegion UI_ICON_TEXTURE_REGION = new TextureRegion(UI_ICON_TEXTURE);
     public static final TextureRegion PLAY_BUTTON_TEXTURE_REGION = new TextureRegion(new Texture(Gdx.files.internal(Paths.PLAY_BUTTON_IMAGE)));
+
+
+    public static Label.LabelStyle getSpaceLabelStyle(float ppuY) {
+        return ppuY > SIZE_SWITCH_POINT ? LABEL_GAME_BIG : LABEL_GAME_SMALL;
+    }
+
+    public static Label.LabelStyle getTextLabelStyle(float ppuY) {
+        return ppuY > SIZE_SWITCH_POINT ? LABEL_TEXT_BIG : LABEL_TEXT_SMALL;
+    }
+
+    public static Label.LabelStyle getTitleLabelStyle(float ppuY) {
+        return ppuY > SIZE_SWITCH_POINT ? LABEL_TITLE_BIG : LABEL_TITLE_SMALL;
+    }
+
+    public static Label.LabelStyle getPointLabelStyle(float ppuY) {
+        return ppuY > SIZE_SWITCH_POINT ? LABEL_POINT_BIG : LABEL_POINT_SMALL;
+    }
+
+    public static TextField.TextFieldStyle getTextFieldStyle(float ppuY) {
+        return ppuY > SIZE_SWITCH_POINT ? TEXT_FIELD_BIG : TEXT_FIELD_SMALL;
+    }
+
+
 }
