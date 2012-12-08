@@ -8,16 +8,19 @@ import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
 public class HighscoreScreen extends UiScreen {
 
     private Label lbTitle;
     private Table highscoreTable;
+    private ScrollPane scrollPane;
     private Button btnBack;
 
 
@@ -33,6 +36,7 @@ public class HighscoreScreen extends UiScreen {
 
         lbTitle = new Label("Highscore", UiStyles.getTitleLabelStyle(0));
         highscoreTable = new Table();
+        scrollPane = new ScrollPane(null, UiStyles.SCROLL_PANE_STYLE);
         btnBack = new Button(new TextureRegion(UiStyles.UI_ICON_TEXTURE_REGION, 600, 0, 300, 300));
         btnBack.setClickListener(buttonListener);
     }
@@ -48,9 +52,12 @@ public class HighscoreScreen extends UiScreen {
         wrapTable.row();
 
         //Highscore Table
-        highscoreTable.width((int) (60 * ppuX));
+        highscoreTable.width((int) (70 * ppuX));
         buildHighscoreTable();
-        wrapTable.add(highscoreTable);
+        scrollPane.clear();
+        scrollPane.setWidget(highscoreTable);
+        scrollPane.setCullingArea(new Rectangle(0, 0, 90 * ppuX, 50 * ppuY));
+        wrapTable.add(scrollPane);
 
         //Setup Button Row
         addToButtonRow(btnBack);
@@ -69,7 +76,7 @@ public class HighscoreScreen extends UiScreen {
         for (HighscoreEntry highscoreEntry : profile.getHighscore()) {
             highscoreTable.add(new Label(rank + ".", UiStyles.getTextLabelStyle(ppuY))).width(40).left();
             highscoreTable.add(new Label(highscoreEntry.getName(), UiStyles.getTextLabelStyle(ppuY))).width(200);
-            highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.getTextLabelStyle(ppuY))).expand().right();
+            highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.getTextLabelStyle(ppuY))).padRight(50).expand().right();
             highscoreTable.row();
             rank++;
         }
