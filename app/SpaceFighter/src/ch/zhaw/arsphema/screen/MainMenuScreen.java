@@ -1,8 +1,6 @@
 package ch.zhaw.arsphema.screen;
 
 import ch.zhaw.arsphema.MyGdxGame;
-import ch.zhaw.arsphema.services.Services;
-import ch.zhaw.arsphema.util.Sounds;
 import ch.zhaw.arsphema.util.UiStyles;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -48,7 +46,7 @@ public class MainMenuScreen extends UiScreen {
     protected void setupGui() {
         super.setupGui();
 
-        //Labels müssen hier instanziert werden, da setStyle nicht korrekt funkitoniert...
+        //Get the correct font sizes
         lbTitle.setStyle(UiStyles.getSpaceLabelStyle(ppuY));
 
         //Header
@@ -91,7 +89,6 @@ public class MainMenuScreen extends UiScreen {
 
         @Override
         public void click(Actor actor, float v, float v1) {
-            Services.getSoundManager().play(Sounds.BEEP, false);
             if (btnPlay.equals(actor)) {
                 game.createNewGame();
                 game.setScreen(game.getGameScreen());

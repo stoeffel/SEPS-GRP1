@@ -48,6 +48,8 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.load(Paths.TITLE_FONT_BIG, BitmapFont.class);
         assetManager.load(Paths.POINT_FONT_BIG, BitmapFont.class);
         assetManager.load(Paths.POINT_FONT_SMALL, BitmapFont.class);
+        assetManager.load(Paths.CREDIT_FONT_BIG, BitmapFont.class);
+        assetManager.load(Paths.CREDIT_FONT_SMALL, BitmapFont.class);
         // SOUNDS
         assetManager.load(Paths.SFX_JET, Sound.class);
         assetManager.load(Paths.SFX_SHOT, Sound.class);

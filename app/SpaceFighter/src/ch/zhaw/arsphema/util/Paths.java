@@ -20,6 +20,8 @@ public class Paths {
     public static final String TITLE_FONT_SMALL = "skin/fonts/title_small.fnt";
     public static final String POINT_FONT_BIG = "skin/fonts/points_big.fnt";
     public static final String POINT_FONT_SMALL = "skin/fonts/points_small.fnt";
+    public static final String CREDIT_FONT_BIG = "skin/fonts/credits_big.fnt";
+    public static final String CREDIT_FONT_SMALL = "skin/fonts/credits_small.fnt";
 
 
     // MUSIC

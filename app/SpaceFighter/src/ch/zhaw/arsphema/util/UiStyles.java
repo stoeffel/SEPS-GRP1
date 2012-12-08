@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -23,6 +24,8 @@ public class UiStyles {
     public static final BitmapFont TEXT_FONT_SMALL = SpaceAssetManager.getInstance().get(Paths.TEXT_FONT_SMALL, BitmapFont.class);
     public static final BitmapFont TITLE_FONT_BIG = SpaceAssetManager.getInstance().get(Paths.TITLE_FONT_BIG, BitmapFont.class);
     public static final BitmapFont TITLE_FONT_SMALL = SpaceAssetManager.getInstance().get(Paths.TITLE_FONT_SMALL, BitmapFont.class);
+    public static final BitmapFont CREDIT_FONT_BIG = SpaceAssetManager.getInstance().get(Paths.CREDIT_FONT_BIG, BitmapFont.class);
+    public static final BitmapFont CREDIT_FONT_SMALL = SpaceAssetManager.getInstance().get(Paths.CREDIT_FONT_SMALL, BitmapFont.class);
 
     //LabelStyles
     public static final Label.LabelStyle LABEL_GAME_BIG = new Label.LabelStyle(SPACE_FONT_BIG, Color.WHITE);
@@ -33,6 +36,8 @@ public class UiStyles {
     public static final Label.LabelStyle LABEL_TITLE_SMALL = new Label.LabelStyle(TITLE_FONT_SMALL, Color.WHITE);
     public static final Label.LabelStyle LABEL_POINT_BIG = new Label.LabelStyle(POINT_FONT_BIG, Color.WHITE);
     public static final Label.LabelStyle LABEL_POINT_SMALL = new Label.LabelStyle(POINT_FONT_SMALL, Color.WHITE);
+    public static final Label.LabelStyle LABEL_CREDIT_BIG = new Label.LabelStyle(CREDIT_FONT_BIG, Color.WHITE);
+    public static final Label.LabelStyle LABEL_CREDIT_SMALL = new Label.LabelStyle(CREDIT_FONT_SMALL, Color.WHITE);
 
     //Component Texture
     private static final Texture COMP_TEXTURES = new Texture(Gdx.files.internal(Paths.COMP_TEXTURES));
@@ -64,6 +69,16 @@ public class UiStyles {
             new TextureRegion(COMP_TEXTURES, 53, 3, 22, 22)
     );
 
+    //Scrollpane Style - Just vertical designed!
+    public final static ScrollPane.ScrollPaneStyle SCROLL_PANE_STYLE = new ScrollPane.ScrollPaneStyle(
+            null,
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 53, 47, 3, 3), 1, 1, 1, 1),   //No designed graphic (libgdx is not nullsafe)
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 53, 47, 3, 3), 1, 1, 1, 1), //No designed graphic (libgdx is not nullsafe)
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 53, 47, 22, 3), 9, 9, 1, 1),
+            new NinePatch(new TextureRegion(COMP_TEXTURES, 53, 24, 22, 23), 0, 0, 11, 11)
+
+    );
+
     //IconTexture
     private static final Texture UI_ICON_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_ICONS));
     public static final TextureRegion UI_ICON_TEXTURE_REGION = new TextureRegion(UI_ICON_TEXTURE);
@@ -84,6 +99,10 @@ public class UiStyles {
 
     public static Label.LabelStyle getPointLabelStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? LABEL_POINT_BIG : LABEL_POINT_SMALL;
+    }
+
+    public static Label.LabelStyle getCreditLabelStyle(float ppuY) {
+        return ppuY > SIZE_SWITCH_POINT ? LABEL_CREDIT_BIG : LABEL_CREDIT_SMALL;
     }
 
     public static TextField.TextFieldStyle getTextFieldStyle(float ppuY) {
