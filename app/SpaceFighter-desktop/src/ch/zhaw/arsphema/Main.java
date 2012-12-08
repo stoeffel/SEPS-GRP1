@@ -9,11 +9,11 @@ public class Main {
         cfg.title = "SpaceFighter";
         cfg.useGL20 = true;
         //HTC Desire S
-        cfg.width = 800;
-        cfg.height = 480;
+//        cfg.width = 800;
+//        cfg.height = 480;
         //Nexus 7
-//        cfg.width = 1280;
-//        cfg.height = 800;
+        cfg.width = 1280;
+        cfg.height = 800;
         //Galaxy Nexus
 //        cfg.width = 1280;
 //        cfg.height = 720;
