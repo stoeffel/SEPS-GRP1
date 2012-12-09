@@ -54,6 +54,22 @@ public class Hero extends AbstractSprite {
 
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
+		setUpAttributes();
+		extractTexture(texture);
+
+        overheatbar = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, Sizes.DEFAULT_WORLD_HEIGHT/5*4, TextureRegions.OVERHEATBAR);
+        createJetStream();
+		createLifeCounter(texture);
+		shotType = ShotFactory.Type.STANDARD;
+	}
+
+
+	public Hero(float x, float y){
+		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, null);
+		setUpAttributes();
+	}
+
+	private void setUpAttributes() {
 		health = 3;
 		speed = 66;
 		shootingFrequency = 0.1f;
@@ -62,6 +78,24 @@ public class Hero extends AbstractSprite {
 		heatSpeed = 2;
 		lastY = 0;
 		oneTimeKillerShot = false;
+	}
+
+
+	private void createJetStream() {
+		emitters_burn_baby_burn = new Array<ParticleEmitter>(Effects.EXPLOSION_1.getEmitters());
+		Effects.EXPLOSION_1.getEmitters().add(emitters_burn_baby_burn.get(0));
+		emitters_jet = new Array<ParticleEmitter>(Effects.JET.getEmitters());
+		Effects.JET.getEmitters().add(emitters_jet.get(0));
+		emitters_jet.get(0).start();
+	}
+	
+	private void createLifeCounter(TextureRegion texture) {
+		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, texture);
+		lifeCounter.setLifes(health);
+		lifeCounter.setMaxLifes(health);
+	}
+
+	private void extractTexture(TextureRegion texture) {
 		TextureRegion[][] tmp = texture.split( 
 				texture.getRegionWidth() / COLS, texture.getRegionHeight() / ROWS);
 		textures = new TextureRegion[COLS * ROWS];
@@ -80,23 +114,6 @@ public class Hero extends AbstractSprite {
         blinkFrames[1] = textures[2];
         blinkAnimation = new Animation(0.25f, blinkFrames);
         blinkAnimation.setPlayMode(Animation.LOOP);
-
-        
-        overheatbar = new OverHeatBar(Sizes.DEFAULT_WORLD_WIDTH - 2, Sizes.DEFAULT_WORLD_HEIGHT/5*4, TextureRegions.OVERHEATBAR);
-        
-        emitters_burn_baby_burn = new Array<ParticleEmitter>(Effects.EXPLOSION_1.getEmitters());
-		
-		Effects.EXPLOSION_1.getEmitters().add(emitters_burn_baby_burn.get(0));
-        
-		emitters_jet = new Array<ParticleEmitter>(Effects.JET.getEmitters());
-		
-		Effects.JET.getEmitters().add(emitters_jet.get(0));
-		emitters_jet.get(0).start();
-		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, texture);
-		lifeCounter.setLifes(health);
-		lifeCounter.setMaxLifes(health);
-		
-		shotType = ShotFactory.Type.STANDARD;
 	}
 	
 	
@@ -282,17 +299,12 @@ public class Hero extends AbstractSprite {
 		}
 	}
 
-
-
-	
 	public void addPowerUps(AbstractPowerUp powerUp) {
 		
 		if (powerUp.doSomething(this)) {
 			this.powerUp = powerUp;
 		}
 	}
-
-
 
 	public void useTheUltimateWeapon() {
 		oneTimeKillerShot = true;

@@ -3,7 +3,6 @@ package ch.zhaw.arsphema.model.enemies;
 import java.util.Random;
 
 import ch.zhaw.arsphema.model.shot.Shot;
-import ch.zhaw.arsphema.model.shot.ShotFactory;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -38,13 +37,11 @@ public class Rock extends AbstractEnemy {
 
 	@Override
 	public boolean isShowHealthBar() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public Array<Shot> shoot(float delta) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

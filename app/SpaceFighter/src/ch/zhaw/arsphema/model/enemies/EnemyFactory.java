@@ -20,7 +20,7 @@ public class EnemyFactory
 	
 	private static EnemyFactory instance;
 	private Random random = new Random();
-	private final int AMOUNT_OF_EASY_GROUPS = 2;
+	private final int AMOUNT_OF_EASY_GROUPS = 3;
 	private final int AMOUNT_OF_MEDIUM_GROUPS = 3;
 	private final int AMOUNT_OF_HARD_GROUPS = 2;
     private EnemyFactory(){/*Singleton*/}
@@ -53,6 +53,8 @@ public class EnemyFactory
 			return createUfoGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		case 1:
 			return createSaucerGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT, 5, EnemyTextures.SAUCER_EASY);
+		case 2:
+			return createRockGroup(random.nextFloat() * Sizes.DEFAULT_WORLD_HEIGHT);
 		}
 		throw new IllegalStateException();
 	}
@@ -98,6 +100,14 @@ public class EnemyFactory
     			Sizes.UFO_WIDTH, Sizes.UFO_HEIGHT, EnemyTextures.UFO, POINTS_UFO);
     	return ufo;
     }
+	
+	public EnemyGroup createRockGroup(final float y)
+	{
+		Array<AbstractEnemy> rock = new Array<AbstractEnemy>();
+		rock.add(new Rock(0, 0, 0, 0, Sizes.ROCK_WIDTH, Sizes.ROCK_HEIGHT, EnemyTextures.ROCK));
+		return new EnemyGroup(Sizes.DEFAULT_WORLD_WIDTH + Sizes.ROCK_WIDTH, y, rock, 
+				EnemyPaths.STRAIGHT, false, EnemyPaths.STRAIGHT_SAUCER_SPEED);
+	}
 
 	public EnemyGroup createUfoBadBoysGroup(final float y)
 	{

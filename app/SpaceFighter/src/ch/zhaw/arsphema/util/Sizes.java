@@ -32,6 +32,8 @@ public class Sizes {
     public static final float UFO_BADBOY_HEIGHT = 5;
     public static final float ROCKET_WIDTH = 6.7f;
     public static final float ROCKET_HEIGHT = 3.07f;
+    public static final float ROCK_WIDTH = 5f;
+    public static final float ROCK_HEIGHT = 5f;
 
     public static final float SAUCER_WIDTH = 4f;
     public static final float SAUCER_HEIGHT = 1.84f;
