@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 
 public abstract class AbstractPowerUp extends AbstractSprite {
 	public AbstractPowerUp(float x, float y, float width, float height, TextureRegion texture) {
-		super(x, y, width, height, texture, 10);
+		super(x, y, width, height, texture, 20);
 	}
 
 	private static final long serialVersionUID = 1L;

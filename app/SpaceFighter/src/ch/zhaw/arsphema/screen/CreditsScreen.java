@@ -53,15 +53,18 @@ public class CreditsScreen extends UiScreen {
         addCreditTitle("= Project Team =");
         addCredit("Christoph Hermann");
         addCredit("Rafael Arizcorreta");
-        addCredit("Raphael Spörri");
+        addCredit("Raphael Sp�rri");
         addCredit("Daniel Magalhaes-Ferreira");
         addCredit("~");
         addCredit(" ");
         addCreditTitle("= Additional Graphics and Pictograms =");
-        addCredit("Kolleg vom Stöffel");
+        addCredit("Misc: bylexus");
+        addCredit("Planets: athile");
         addCredit("Daniel Bruce - www.entypo.com");
         addCredit("~");
         addCredit(" ");
+        addCreditTitle("= Sounds =");
+        addCredit("Music: Ericskiff");
 
         scrollPane.clear();
         scrollPane.setWidget(creditTable);
