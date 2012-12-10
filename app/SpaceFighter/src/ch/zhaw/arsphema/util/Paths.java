@@ -1,5 +1,10 @@
 package ch.zhaw.arsphema.util;
 
+/**
+ * statische klasse für pfade
+ * @author schtoeffel
+ *
+ */
 public class Paths {
 
     //Components

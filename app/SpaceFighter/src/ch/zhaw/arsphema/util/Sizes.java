@@ -1,6 +1,10 @@
 package ch.zhaw.arsphema.util;
 
-
+/**
+ * statische klasse für grössen der texturen
+ * @author schtoeffel
+ *
+ */
 public class Sizes {
 
     public static final float DANGER_WIDTH = 50;

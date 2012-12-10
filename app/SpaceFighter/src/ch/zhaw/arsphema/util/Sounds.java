@@ -2,6 +2,11 @@ package ch.zhaw.arsphema.util;
 
 import com.badlogic.gdx.audio.Sound;
 
+/**
+ * statische klasse für effektsounds
+ * @author schtoeffel
+ *
+ */
 public class Sounds {
 	public static final Sound SHOT;
 	public static final Sound DANGER;

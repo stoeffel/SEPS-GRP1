@@ -3,6 +3,11 @@ package ch.zhaw.arsphema.util;
 
 import com.badlogic.gdx.audio.Music;
 
+/**
+ * statische klasse für hintergrund musik
+ * @author schtoeffel
+ *
+ */
 public class Musics {
 	public static final Music TRACK_01;
 	public static final Music TRACK_02;
