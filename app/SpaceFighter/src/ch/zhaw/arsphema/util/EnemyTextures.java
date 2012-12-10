@@ -3,6 +3,11 @@ package ch.zhaw.arsphema.util;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * statische klasse für Gegner Texturen
+ * @author schtoeffel
+ *
+ */
 public class EnemyTextures {
 
 	public static final TextureRegion BLOB;

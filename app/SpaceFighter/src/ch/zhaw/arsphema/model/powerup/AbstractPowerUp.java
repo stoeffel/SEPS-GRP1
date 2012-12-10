@@ -8,13 +8,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * klasse fuer abstraktes power up
+ */
 public abstract class AbstractPowerUp extends AbstractSprite {
+	/**
+	 * konstruktor
+	 */
 	public AbstractPowerUp(float x, float y, float width, float height, TextureRegion texture) {
 		super(x, y, width, height, texture, 20);
 	}
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * bewegt powerupo ueber den bildschirm
+	 * @param delta redering delta
+	 */
 	@Override
 	public boolean move(float delta) {
 		x -= speed * delta;
@@ -26,21 +36,24 @@ public abstract class AbstractPowerUp extends AbstractSprite {
 		return null;
 	}
 
+	/**
+	 * zeichnet das pwoerup
+	 */
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 	
 	/**
-	 * does whatever the powerup does 
-	 * @param hero
+	 * setzt das power up
+	 * @param hero der spieler avatar
 	 * @return 
 	 */
 	abstract public boolean doSomething(Hero hero);
 	
 	/**
-	 * undoes whatever the powerup did
-	 * @param pum
+	 * setzt das poewr up zurueck
+	 * @param hero der spieler avatar
 	 */
 	abstract public void undoSomething(Hero hero);
 

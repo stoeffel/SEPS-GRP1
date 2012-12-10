@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Klasse fuer planeten
+ */
 public class Planet extends AbstractSprite {
 
 	private static final int ROWS = 4;
@@ -18,6 +21,9 @@ public class Planet extends AbstractSprite {
 
 	private boolean shouldBeRemoved;
 
+    /**
+     * konstruktor fuer planeten
+     */
 	public Planet(float x, float y, float width, float height,
 			TextureRegion texture) {
 		super(x, y, width, height, texture);
@@ -40,6 +46,9 @@ public class Planet extends AbstractSprite {
 	 */
 	private static final long serialVersionUID = 749176604995858563L;
 
+    /**
+     * bewegt planet ueber den hintergrund
+     */
 	@Override
 	public boolean move(float delta) {
 		x -= speed * delta;
@@ -48,6 +57,10 @@ public class Planet extends AbstractSprite {
 		}
 		return true;
 	}
+    /**
+     * gibt an ob planet entwendet werden soll
+     * @return shouldBeRemoved den zustand
+     */
 	public boolean shouldBeRemoved() {
 		
 		return shouldBeRemoved;
@@ -58,6 +71,9 @@ public class Planet extends AbstractSprite {
 		return null;
 	}
 
+    /**
+     * zeichnet planeten
+     */
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		batch.draw(planets[whichPlanet], ppuX * this.x, ppuY * this.y, ppuX * this.width, ppuX * this.height);

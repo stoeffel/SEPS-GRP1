@@ -74,7 +74,7 @@ public class HighscoreScreen extends UiScreen {
         highscoreTable.clear();
         int rank = 1;
         for (HighscoreEntry highscoreEntry : profile.getHighscore()) {
-            highscoreTable.add(new Label(rank + ".", UiStyles.getTextLabelStyle(ppuY))).width(40).left();
+            highscoreTable.add(new Label(rank + ".", UiStyles.getTextLabelStyle(ppuY))).width(40).padRight((int) (3 * ppuY)).right();
             highscoreTable.add(new Label(highscoreEntry.getName(), UiStyles.getTextLabelStyle(ppuY))).width(200);
             highscoreTable.add(new Label(String.valueOf(highscoreEntry.getScore()), UiStyles.getTextLabelStyle(ppuY))).padRight(50).expand().right();
             highscoreTable.row();

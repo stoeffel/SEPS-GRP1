@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -38,6 +39,8 @@ public class UiStyles {
     public static final Label.LabelStyle LABEL_POINT_SMALL = new Label.LabelStyle(POINT_FONT_SMALL, Color.WHITE);
     public static final Label.LabelStyle LABEL_CREDIT_BIG = new Label.LabelStyle(CREDIT_FONT_BIG, Color.WHITE);
     public static final Label.LabelStyle LABEL_CREDIT_SMALL = new Label.LabelStyle(CREDIT_FONT_SMALL, Color.WHITE);
+    public static final Label.LabelStyle CH_BIG = new Label.LabelStyle(CREDIT_FONT_BIG, Color.GREEN);
+    public static final Label.LabelStyle CH_SMALL = new Label.LabelStyle(CREDIT_FONT_SMALL, Color.GREEN);
 
     //Component Texture
     private static final Texture COMP_TEXTURES = new Texture(Gdx.files.internal(Paths.COMP_TEXTURES));
@@ -78,6 +81,7 @@ public class UiStyles {
             new NinePatch(new TextureRegion(COMP_TEXTURES, 53, 24, 22, 23), 0, 0, 11, 11)
 
     );
+    
 
     //IconTexture
     private static final Texture UI_ICON_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_ICONS));
@@ -108,6 +112,10 @@ public class UiStyles {
     public static TextField.TextFieldStyle getTextFieldStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? TEXT_FIELD_BIG : TEXT_FIELD_SMALL;
     }
+
+	public static Label.LabelStyle getCHLabelStyle(float ppuY) {
+		return ppuY > SIZE_SWITCH_POINT ? CH_BIG : CH_SMALL;
+	}
 
 
 }

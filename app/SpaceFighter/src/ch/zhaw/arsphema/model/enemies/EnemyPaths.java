@@ -5,6 +5,9 @@ import ch.zhaw.arsphema.util.Sizes;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * gibt die gegnerpfade an
+ */
 public class EnemyPaths{
 
 	public static final float ZICK_ZACK_SPEED = 0.5f;

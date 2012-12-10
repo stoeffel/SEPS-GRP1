@@ -18,6 +18,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * klasse fuer den spieler avatar aka hero
+ */
 public class Hero extends AbstractSprite {
 	private static final long serialVersionUID = 1L;
 	private static final int UP = 1;
@@ -52,6 +55,9 @@ public class Hero extends AbstractSprite {
 	private boolean oneTimeKillerShot;
 	public float lastY;
 
+	/**
+	 * konstruktor
+	 */
 	public Hero(float x, float y, TextureRegion texture) {
 		super(x, y, Sizes.SHIP_WIDTH, Sizes.SHIP_HEIGHT, texture);
 		setUpAttributes();
@@ -61,6 +67,7 @@ public class Hero extends AbstractSprite {
         createJetStream();
 		createLifeCounter(texture);
 		shotType = ShotFactory.Type.STANDARD;
+		overheatbar.setShootingFrequency(shootingFrequency);
 	}
 
 
@@ -69,6 +76,9 @@ public class Hero extends AbstractSprite {
 		setUpAttributes();
 	}
 
+	/**
+	 * stellt die initialen standard attribute ein
+	 */
 	private void setUpAttributes() {
 		health = 3;
 		speed = 66;
@@ -80,7 +90,9 @@ public class Hero extends AbstractSprite {
 		oneTimeKillerShot = false;
 	}
 
-
+	/**
+	 * erstellt den jetstream hinter dem schiff
+	 */
 	private void createJetStream() {
 		emitters_burn_baby_burn = new Array<ParticleEmitter>(Effects.EXPLOSION_1.getEmitters());
 		Effects.EXPLOSION_1.getEmitters().add(emitters_burn_baby_burn.get(0));
@@ -88,7 +100,7 @@ public class Hero extends AbstractSprite {
 		Effects.JET.getEmitters().add(emitters_jet.get(0));
 		emitters_jet.get(0).start();
 	}
-	
+
 	private void createLifeCounter(TextureRegion texture) {
 		lifeCounter = new LifeCounter(Sizes.DEFAULT_WORLD_WIDTH/20, Sizes.DEFAULT_WORLD_HEIGHT - Sizes.DEFAULT_WORLD_HEIGHT/20, width/3, height/3, texture);
 		lifeCounter.setLifes(health);
@@ -117,7 +129,10 @@ public class Hero extends AbstractSprite {
 	}
 	
 	
-
+	/**
+	 * bewegt den hero
+	 * @param delta das rendering delta
+	 */
 	public boolean move(float delta){
 		if (movingUp){
 			move(UP, delta);
@@ -127,6 +142,10 @@ public class Hero extends AbstractSprite {
 		return true;
 	}
 
+	/**
+	 * laesst den hero schiessen
+	 * @param delta das renderings delta
+	 */
 	@Override
 	public Array<Shot> shoot(float delta) {
 		if (fire && lastShot > shootingFrequency) {
@@ -156,6 +175,9 @@ public class Hero extends AbstractSprite {
 		}
 	}
 
+	/**
+	 * bewegt den hero hinauf
+	 */
 	public void moveUp() {
 		stop();
 		stopped = false;
@@ -163,6 +185,9 @@ public class Hero extends AbstractSprite {
 		
 	}
 	
+	/**
+	 * bewegt den hero hinunter
+	 */
 	public void moveDown() {
 		stop();
 		stopped = false;
@@ -185,20 +210,32 @@ public class Hero extends AbstractSprite {
 		
 	}
 
+	/**
+	 * stoped das spiel
+	 */
 	public void stop() {
 		this.setStopped(true);
 	}
-
+	/**
+	 * gibt zurueck ob das spiel gestopt ist
+	 * @return stopped den zustand des spiels
+	 */
 	public boolean isStopped() {
 		return stopped;
 	}
-
+	/**
+	 * setzt den stop zustand
+	 * @param stopped den zustand
+	 */
 	public void setStopped(boolean stopped) {
 		this.stopped = stopped;
 		this.movingUp = false;
 		this.movingDown = false;
 	}	
 	
+	/**
+	 * zeichnet den hero
+	 */
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		
 		Effects.JET.setPosition( (x)*ppuX,(y+height/2)*ppuY );
@@ -218,10 +255,18 @@ public class Hero extends AbstractSprite {
 		overheatbar.draw(batch, ppuX, ppuY);
 	}
 
+	/**
+	 * setzt schuss
+	 * @param fire zustand des schusses
+	 */
 	public void setFire(boolean fire) {
 		this.fire = fire;
 	}
 
+	/**
+	 * zieht dem hero leben ab
+	 * @param damage die anzahl lebenspunkte die abgezogen werden
+	 */
 	public void lowerHealth(int damage) {
 		if (isHurt) return; // don't hurt him again
 		isHurt = true;
@@ -248,7 +293,7 @@ public class Hero extends AbstractSprite {
 	}
 	
 	/**
-	 * 
+	 * addiert ein leben
 	 */
 	public void oneUp() {
 		health++;
@@ -272,24 +317,36 @@ public class Hero extends AbstractSprite {
 		
 	}
 
+	/**
+	 * gibt zurueck ob der hero tot ist
+	 * @return dead der zustand des heroes
+	 */
 	public boolean isDead() {
 		return dead;
 	}
 
-	
+	/**
+	 * erweitert die schussfrequenz
+	 */
 	public void enhanceShot(){
 		if (shootingFrequency > 0.02f)
 			shootingFrequency -= 0.01f;
 		setShotType();
 	}
 	
+	/**
+	 * setzt die schussfrequenz um 1 eins zurueck
+	 */
 	public void undoEnhancements(){
 		if (shootingFrequency < 0.1f)
-			shootingFrequency += 0.01f;
+			shootingFrequency += 0.02f;
 		setShotType();
 	}
-
+	/**
+	 * setzt die schussart
+	 */
 	public void setShotType() {
+		overheatbar.setShootingFrequency(shootingFrequency);
 		if (shootingFrequency <= 0.1 && shootingFrequency >= 0.08) {
 			shotType = ShotFactory.Type.STANDARD;
 		} else if (shootingFrequency < 0.08 && shootingFrequency >= 0.05) {
@@ -299,6 +356,9 @@ public class Hero extends AbstractSprite {
 		}
 	}
 
+	/**
+	 * addiert ein power up dem hero hinzu
+	 */
 	public void addPowerUps(AbstractPowerUp powerUp) {
 		
 		if (powerUp.doSomething(this)) {
@@ -306,6 +366,9 @@ public class Hero extends AbstractSprite {
 		}
 	}
 
+	/**
+	 * benutz das killAll powerup
+	 */
 	public void useTheUltimateWeapon() {
 		oneTimeKillerShot = true;
 	}

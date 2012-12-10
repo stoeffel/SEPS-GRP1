@@ -4,6 +4,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * fasst gegner in gruppen zusammen
+ */
 public class EnemyGroup extends Rectangle{
 	private static final long serialVersionUID = 1L;
 	private Array<Vector2> path;
@@ -18,12 +21,20 @@ public class EnemyGroup extends Rectangle{
 	private Array<AbstractEnemy> members;
 	private Vector2 direction;
 	
+	/**
+	 * gruppen konstruktor
+	 * @param adjustPath gibt an ob pfad korrigiert werden kann
+	 * @param speed gibt geschwindigkeit an
+	 */
 	public EnemyGroup(final float x, final float y, 
 			final Array<AbstractEnemy> members, final Array<Vector2> pathP, 
 			final boolean adjustPath, final float speed) {
 		construct(x, y, members, pathP, adjustPath, speed);
 	}
 	
+	/**
+	 * gruppen konstruktor
+	 */
 	public EnemyGroup(final float x, final float y, 
 			final Array<AbstractEnemy> members, final Array<Vector2> pathP, 
 			final boolean adjustPath, final float speed,
@@ -88,6 +99,10 @@ public class EnemyGroup extends Rectangle{
 		}
 	}
 
+	/**
+	 * gruppen bewegen
+	 * @param rendering delta
+	 */
 	public boolean move(float delta){
 		position.add(direction.cpy().mul(delta*speed));
 		x = position.x;
@@ -123,6 +138,9 @@ public class EnemyGroup extends Rectangle{
 		direction = end.cpy().sub(start);
 	}
 
+	/**
+	 * gibt members zurück
+	 */
 	public Array<AbstractEnemy> getMembers() {
 		return members;
 	}

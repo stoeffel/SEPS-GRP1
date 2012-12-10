@@ -3,6 +3,11 @@ package ch.zhaw.arsphema.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 
+/**
+ * Statische klasse für effekte
+ * @author schtoeffel
+ *
+ */
 public class Effects {
 	public static final ParticleEffect EXPLOSION_1;
 	public static final ParticleEffect JET;

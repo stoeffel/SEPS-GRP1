@@ -4,6 +4,9 @@ import ch.zhaw.arsphema.model.Hero;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * nicht implementiert
+ */
 public class SlowDownPowerUp extends AbstractPowerUp {
 
 	private static final long serialVersionUID = -3440934168948200706L;

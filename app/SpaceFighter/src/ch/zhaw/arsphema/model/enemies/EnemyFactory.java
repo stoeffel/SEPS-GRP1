@@ -8,7 +8,9 @@ import ch.zhaw.arsphema.util.Sizes;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
-
+/**
+ * gruppen konstruktor
+ */
 public class EnemyFactory
 {
 	private static final int POINTS_BLOB = 5;
@@ -25,6 +27,9 @@ public class EnemyFactory
 	private final int AMOUNT_OF_HARD_GROUPS = 2;
     private EnemyFactory(){/*Singleton*/}
     
+    /**
+	 * gibt gegner fabrik zurueck
+	 */
     public static EnemyFactory getInstance()
     {
     	if(instance == null)
@@ -32,6 +37,11 @@ public class EnemyFactory
     	return instance;
     }
 
+    /**
+	 * gruppen mit schwierigkeitsgrad erstellen
+	 * @param nextGroupDiffLevel nächster schwierigkeitsgrad
+	 * @param elapsed bereits vergangene spielzeit
+	 */
 	public EnemyGroup createGroupByDifficultyLevel(final int nextGroupDiffLevel, final float elapsed) {
 		// a group should not be wider than a screen width
 		switch (nextGroupDiffLevel)
@@ -83,6 +93,9 @@ public class EnemyFactory
 		throw new IllegalStateException();
 	}
 
+	/**
+	 * generiert eine ufo gruppe
+	 */
 	public EnemyGroup createUfoGroup(final float y)
 	{
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
@@ -93,6 +106,9 @@ public class EnemyFactory
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
     
+	/**
+	 * generiert eine ufo gruppe
+	 */
     public AbstractEnemy createUfo(float offsetX, float offsetY)
     {
     	Ufo ufo = new Ufo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_WIDTH, 
@@ -101,6 +117,9 @@ public class EnemyFactory
     	return ufo;
     }
 	
+	/**
+	 * generiert eine stein gruppe
+	 */
 	public EnemyGroup createRockGroup(final float y)
 	{
 		Array<AbstractEnemy> rock = new Array<AbstractEnemy>();
@@ -109,6 +128,9 @@ public class EnemyFactory
 				EnemyPaths.STRAIGHT, false, EnemyPaths.STRAIGHT_SAUCER_SPEED);
 	}
 
+	/**
+	 * generiert eine ufobadboy gruppe
+	 */
 	public EnemyGroup createUfoBadBoysGroup(final float y)
 	{
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
@@ -126,6 +148,9 @@ public class EnemyFactory
 				EnemyPaths.ROUND_PATH, true, EnemyPaths.ROUND_PATH_SPEED);
 	}
     
+	/**
+	 * generiert eine ufobadboy gruppe
+	 */
     public AbstractEnemy createUfoBadBoy(float offsetX, float offsetY)
     {
     	UfoBadBoy ufo = new UfoBadBoy(Sizes.DEFAULT_WORLD_WIDTH + Sizes.UFO_BADBOY_WIDTH, 
@@ -134,6 +159,9 @@ public class EnemyFactory
     	return ufo;
     }
     
+	/**
+	 * generiert eine boitumelo gruppe
+	 */
 	public EnemyGroup createBoitumeloGroup(final float y)
 	{
 		Array<AbstractEnemy> ufos = new Array<AbstractEnemy>();
@@ -144,6 +172,9 @@ public class EnemyFactory
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
 
+	/**
+	 * generiert eine boitumelo gruppe
+	 */
     public AbstractEnemy createBoitumelo(float offsetX, float offsetY)
     {
     	Boitumelo boitumelo = new Boitumelo(Sizes.DEFAULT_WORLD_WIDTH + Sizes.ROCKET_WIDTH, 
@@ -152,6 +183,9 @@ public class EnemyFactory
     	return boitumelo;
     }
 
+    /**
+	 * generiert eine blob gruppe
+	 */
 	public EnemyGroup createBlobGroup(final float y)
 	{
 		Array<AbstractEnemy> blobs = new Array<AbstractEnemy>();
@@ -160,6 +194,9 @@ public class EnemyFactory
 				EnemyPaths.ZICK_ZACK, false, EnemyPaths.ZICK_ZACK_SPEED);
 	}
     
+	/**
+	 * generiert eine blob gruppe
+	 */
     public AbstractEnemy createBlob(final float offsetX, final float offsetY)
     {
     	final Blob blob = new Blob(0, 0, offsetX, offsetY, 
@@ -167,6 +204,10 @@ public class EnemyFactory
     	return blob;
     }
 
+    /**
+	 * generiert eine saucer gruppe
+	 * @param amountOfEnemies gibt an wie viele saucer in der gruppe sind
+	 */
 	public EnemyGroup createSaucerGroup(final float y, final int amountOfEnemies, final TextureRegion texture)
 	{
 		final Array<AbstractEnemy> saucers = new Array<AbstractEnemy>();
@@ -189,6 +230,9 @@ public class EnemyFactory
 				EnemyPaths.STRAIGHT, true, EnemyPaths.STRAIGHT_SAUCER_SPEED, groupHeight, (amountOfEnemies + 1) * Sizes.SAUCER_WIDTH * 0.5f);
 	}
 	
+	/**
+	 * generiert eine saucer gruppe
+	 */
     public AbstractEnemy createSaucer(final float offsetX, final float offsetY, final float height, final int direction,
     		final TextureRegion texture)
     {
@@ -197,6 +241,9 @@ public class EnemyFactory
     	return saucer;
     }
     
+    /**
+	 * generiert eine dalek gruppe
+	 */
 	public EnemyGroup createHidaiGroup(final float y)
 	{
 		Array<AbstractEnemy> hidaiArray = new Array<AbstractEnemy>();
