@@ -2,11 +2,15 @@ package ch.zhaw.arsphema.controller;
 
 import ch.zhaw.arsphema.model.Controls;
 import ch.zhaw.arsphema.model.Hero;
-import ch.zhaw.arsphema.util.Sizes;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
+/**
+ * Steuerung des Heros
+ * @author schtoeffel
+ *
+ */
 public class JoyStickController extends AbstractController implements
 		InputProcessor {
 
@@ -36,6 +40,11 @@ public class JoyStickController extends AbstractController implements
 	private Pos start, current;
 	private Controls controls;
 
+	/**
+	 * Konstruktor
+	 * @param hero
+	 * @param controls
+	 */
 	public JoyStickController(Hero hero, Controls controls) {
 		this.hero = hero;
 		this.controls = controls;
@@ -46,30 +55,52 @@ public class JoyStickController extends AbstractController implements
 		}
 	}
 
+	/**
+	 * up gedrückt
+	 */
 	public void upPressed() {
 		keys.put(IngameKeys.UP, true);
 	}
 
+	/**
+	 * down gedrückt
+	 */
 	public void downPressed() {
 		keys.put(IngameKeys.DOWN, true);
 	}
 	
+	/**
+	 * schuss gedrückt
+	 */
 	public void shotPressed() {
 		keys.put(IngameKeys.SHOT, true);
 	}
 
+	/**
+	 * schuss nicht mehr gedrückt
+	 */
 	public void shotReleased() {
 		keys.put(IngameKeys.SHOT, false);
 	}
 
+	/**
+	 * up nicht mehr gedrückt
+	 */
 	public void upReleased() {
 		keys.put(IngameKeys.UP, false);
 	}
 
+	/**
+	 * down nicht mehr gedrückt
+	 */
 	public void downReleased() {
 		keys.put(IngameKeys.DOWN, false);
 	}
 
+	/**
+	 * methode die im rendererloop aufgerufen wird
+	 * @param delta
+	 */
 	public void update(float delta) {
 		processInput(delta);
 	}
@@ -77,6 +108,10 @@ public class JoyStickController extends AbstractController implements
 	public void changeMenuItem(float change) {
 	}
 
+	/**
+	 * führt die befehle im hero aus
+	 * @param change
+	 */
 	private void processInput(float change) {
 		if (keys.get(IngameKeys.UP) && !keys.get(IngameKeys.DOWN)) {
 			hero.moveUp();
@@ -90,6 +125,9 @@ public class JoyStickController extends AbstractController implements
 		hero.setFire(keys.get(IngameKeys.SHOT));
 	}
 
+	/**
+	 * check ob herunter gedrückt wurde
+	 */
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.UP)
@@ -102,6 +140,9 @@ public class JoyStickController extends AbstractController implements
 		return true;
 	}
 
+	/**
+	 * check ob hoch gedrückt wurde
+	 */
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.DOWN)
@@ -114,11 +155,17 @@ public class JoyStickController extends AbstractController implements
 		return true;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public boolean keyTyped(char character) {
 		return false;
 	}
 
+	/**
+	 * registriert touch down events
+	 */
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		if (x <= width / 2) { // LEFT
@@ -140,6 +187,9 @@ public class JoyStickController extends AbstractController implements
 		return true;
 	}
 
+	/**
+	 * registriert touch up events
+	 */
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button) {
 		if (x <= width / 2) {
@@ -152,6 +202,9 @@ public class JoyStickController extends AbstractController implements
 		return false;
 	}
 
+	/**
+	 * registriert touchdrag events
+	 */
 	@Override
 	public boolean touchDragged(int x, int y, int pointer) {
 		if (x <= width / 2 && pointer == leftPointer) { // dragged on the left side of the screen
@@ -182,7 +235,9 @@ public class JoyStickController extends AbstractController implements
 		return false;
 	}
 
-
+	/**
+	 * stoppt den hero
+	 */
 	private void stopMoving() {
 		start = null;
 		upReleased();
