@@ -7,6 +7,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
+/**
+ * Abstrakte Screenklasse für alle Userinterface Screens, welche bereits eine Tabelle und eine Buttonrow enthält.
+ */
 abstract class UiScreen extends AbstractScreen {
 
     protected final UiController uiController;
@@ -15,6 +18,11 @@ abstract class UiScreen extends AbstractScreen {
     protected Table wrapTable;
     protected Table buttonTable;
 
+    /**
+     * Konstruktor
+     *
+     * @param game Instanz der Game Klasse
+     */
     public UiScreen(MyGdxGame game) {
         super(game);
 
@@ -46,12 +54,18 @@ abstract class UiScreen extends AbstractScreen {
     }
 
     @Override
+    /**
+     * Wird beim Wechsel zu diesem Screen aufgerufen.
+     */
     public void show() {
         super.show();
         Gdx.input.setInputProcessor(uiController);
     }
 
     @Override
+    /**
+     * Wird bei jeder Anpassung der Screengrösse aufgerufen.
+     */
     public void resize(int width, int height) {
         super.resize(width, height);
         ppuX = width / Sizes.DEFAULT_WORLD_WIDTH;

@@ -1,7 +1,6 @@
 package ch.zhaw.arsphema.services;
 
 
-import ch.zhaw.arsphema.model.HighscoreEntry;
 import ch.zhaw.arsphema.model.PlayerProfile;
 import ch.zhaw.arsphema.util.Paths;
 import com.badlogic.gdx.Gdx;
@@ -11,6 +10,8 @@ import com.badlogic.gdx.utils.Json;
 
 /**
  * JSON FileHandling for the PlayerProfile
+ *
+ * @author spoerriweb
  */
 public class ProfileManager {
 
@@ -19,6 +20,11 @@ public class ProfileManager {
     public ProfileManager() {
     }
 
+    /**
+     * Loads the players profile from the stored JSON File
+     *
+     * @return The players profile
+     */
     public PlayerProfile loadPlayerProfile() {
         FileHandle profileFile = Gdx.files.local(Paths.PLAYER_PROFILE);
 
@@ -57,7 +63,7 @@ public class ProfileManager {
 
 
     /**
-     * Saves the player profile to the JSON file
+     * Saves the players profile to the JSON file
      *
      * @param profile the player profile to save
      */
@@ -83,18 +89,5 @@ public class ProfileManager {
             savePlayerProfile(profile);
         }
     }
-
-    //just for testing - will be removed later.
-    public void createTestProfile() {
-        PlayerProfile testProfile = new PlayerProfile();
-        testProfile.addHighscoreEntry(new HighscoreEntry("Chuck Norris", 666666));
-        testProfile.addHighscoreEntry(new HighscoreEntry("Chuck Norris", 222222));
-        testProfile.addHighscoreEntry(new HighscoreEntry("Chuck Norris", 555555));
-        testProfile.addHighscoreEntry(new HighscoreEntry("Chuck Norris", 777777));
-        testProfile.addHighscoreEntry(new HighscoreEntry("Chuck Norris", 333333));
-        testProfile.addHighscoreEntry(new HighscoreEntry("Chuck Norris", 999999));
-        savePlayerProfile(testProfile);
-    }
-
 }
 

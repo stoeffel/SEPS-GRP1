@@ -9,6 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+/**
+ * Screenklasse für die Anzeige des Hauptmenüs
+ *
+ * @author spoerriweb
+ */
 public class MainMenuScreen extends UiScreen {
     private Label lbTitle;
 
@@ -19,6 +24,11 @@ public class MainMenuScreen extends UiScreen {
     private Button btnInfo;
     private Button btnExit;
 
+    /**
+     * Konstruktor
+     *
+     * @param game Instanz der Game Klasse
+     */
     public MainMenuScreen(MyGdxGame game) {
         super(game);
     }
@@ -67,23 +77,22 @@ public class MainMenuScreen extends UiScreen {
     }
 
     @Override
+    /**
+     * Wird bei jeder Anpassung der Screengrösse aufgerufen.
+     */
     public void resize(int width, int height) {
         super.resize(width, height);
         setupGui();
     }
 
     @Override
-    public void render(float delta) {
-        super.render(delta);
-        //maybe for later use
-    }
-
-    @Override
+    /**
+     * Wird beim Wechsel zu diesem Screen aufgerufen.
+     */
     public void show() {
         super.show();
         Gdx.input.setCatchBackKey(false);
     }
-
 
     private class MainMenuListener implements ClickListener {
 
@@ -104,6 +113,4 @@ public class MainMenuScreen extends UiScreen {
             }
         }
     }
-
-
 }

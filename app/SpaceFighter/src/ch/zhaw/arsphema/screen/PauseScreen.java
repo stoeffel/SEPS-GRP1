@@ -12,6 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+/**
+ * Screen für die Anzeige des pausierten Spiels
+ *
+ * @author spoerriweb
+ */
 public class PauseScreen extends UiScreen {
 
     private Label lbTitle;
@@ -20,6 +25,11 @@ public class PauseScreen extends UiScreen {
     private Button btnHome;
     private PauseUiController pauseUiController;
 
+    /**
+     * Konstruktor
+     *
+     * @param game Instanz der Game Klasse
+     */
     public PauseScreen(MyGdxGame game) {
         super(game);
     }
@@ -59,6 +69,9 @@ public class PauseScreen extends UiScreen {
     }
 
     @Override
+    /**
+     * Wird beim Wechsel zu diesem Screen aufgerufen.
+     */
     public void show() {
         super.show();
         Gdx.input.setCatchBackKey(true);
@@ -66,6 +79,9 @@ public class PauseScreen extends UiScreen {
     }
 
     @Override
+    /**
+     * Wird bei jeder Anpassung der Screengrösse aufgerufen.
+     */
     public void resize(int width, int height) {
         super.resize(width, height);
         setupGui();
@@ -118,5 +134,4 @@ public class PauseScreen extends UiScreen {
             }
         }
     }
-
 }

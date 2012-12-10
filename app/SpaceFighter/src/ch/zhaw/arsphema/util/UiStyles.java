@@ -1,6 +1,5 @@
 package ch.zhaw.arsphema.util;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,10 +7,14 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
+/**
+ * Statische Klasse für die GUI-Elemente
+ *
+ * @author spoerriweb
+ */
 public class UiStyles {
 
     private static final int SIZE_SWITCH_POINT = 7;
@@ -43,7 +46,7 @@ public class UiStyles {
     public static final Label.LabelStyle CH_SMALL = new Label.LabelStyle(CREDIT_FONT_SMALL, Color.GREEN);
 
     //Component Texture
-    private static final Texture COMP_TEXTURES = new Texture(Gdx.files.internal(Paths.COMP_TEXTURES));
+    private static final Texture COMP_TEXTURES = SpaceAssetManager.getInstance().get(Paths.COMP_TEXTURES, Texture.class);
 
     //TextFieldStyle
     public static final TextField.TextFieldStyle TEXT_FIELD_BIG = new TextField.TextFieldStyle(
@@ -81,41 +84,66 @@ public class UiStyles {
             new NinePatch(new TextureRegion(COMP_TEXTURES, 53, 24, 22, 23), 0, 0, 11, 11)
 
     );
-    
 
     //IconTexture
-    private static final Texture UI_ICON_TEXTURE = new Texture(Gdx.files.internal(Paths.UI_ICONS));
+    private static final Texture UI_ICON_TEXTURE = SpaceAssetManager.getInstance().get(Paths.UI_ICONS, Texture.class);
     public static final TextureRegion UI_ICON_TEXTURE_REGION = new TextureRegion(UI_ICON_TEXTURE);
-    public static final TextureRegion PLAY_BUTTON_TEXTURE_REGION = new TextureRegion(new Texture(Gdx.files.internal(Paths.PLAY_BUTTON_IMAGE)));
+    private static final Texture PLAY_BUTTON_TEXTURE = SpaceAssetManager.getInstance().get(Paths.PLAY_BUTTON_IMAGE, Texture.class);
+    public static final TextureRegion PLAY_BUTTON_TEXTURE_REGION = new TextureRegion(PLAY_BUTTON_TEXTURE);
 
-
+    /**
+     * @param ppuY Points per Unit auf der Y-Achse
+     * @return Space Font LabelStyle in der korrekten Grösse - Abhängig von der Auflösung des Devices
+     */
     public static Label.LabelStyle getSpaceLabelStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? LABEL_GAME_BIG : LABEL_GAME_SMALL;
     }
 
+    /**
+     * @param ppuY Points per Unit auf der Y-Achse
+     * @return Text Font LabelStyle in der korrekten Grösse - Abhängig von der Auflösung des Devices
+     */
     public static Label.LabelStyle getTextLabelStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? LABEL_TEXT_BIG : LABEL_TEXT_SMALL;
     }
 
+    /**
+     * @param ppuY Points per Unit auf der Y-Achse
+     * @return Title Font LabelStyle in der korrekten Grösse - Abhängig von der Auflösung des Devices
+     */
     public static Label.LabelStyle getTitleLabelStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? LABEL_TITLE_BIG : LABEL_TITLE_SMALL;
     }
 
+    /**
+     * @param ppuY Points per Unit auf der Y-Achse
+     * @return Point Font LabelStyle in der korrekten Grösse - Abhängig von der Auflösung des Devices
+     */
     public static Label.LabelStyle getPointLabelStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? LABEL_POINT_BIG : LABEL_POINT_SMALL;
     }
 
+    /**
+     * @param ppuY Points per Unit auf der Y-Achse
+     * @return Credit Font LabelStyle in der korrekten Grösse - Abhängig von der Auflösung des Devices
+     */
     public static Label.LabelStyle getCreditLabelStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? LABEL_CREDIT_BIG : LABEL_CREDIT_SMALL;
     }
 
+    /**
+     * @param ppuY Points per Unit auf der Y-Achse
+     * @return TextFieldStyle in der korrekten Grösse - Abhängig von der Auflösung des Devices
+     */
     public static TextField.TextFieldStyle getTextFieldStyle(float ppuY) {
         return ppuY > SIZE_SWITCH_POINT ? TEXT_FIELD_BIG : TEXT_FIELD_SMALL;
     }
 
-	public static Label.LabelStyle getCHLabelStyle(float ppuY) {
-		return ppuY > SIZE_SWITCH_POINT ? CH_BIG : CH_SMALL;
-	}
-
-
+    /**
+     * @param ppuY Points per Unit auf der Y-Achse
+     * @return Schussrate Font LabelStyle in der korrekten Grösse - Abhängig von der Auflösung des Devices
+     */
+    public static Label.LabelStyle getCHLabelStyle(float ppuY) {
+        return ppuY > SIZE_SWITCH_POINT ? CH_BIG : CH_SMALL;
+    }
 }

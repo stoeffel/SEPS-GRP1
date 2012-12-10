@@ -14,6 +14,11 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 
+/**
+ * Screenklasse für die Anzeige während des Ladevorgangs.
+ *
+ * @author spoerriweb
+ */
 public class LoadingScreen extends AbstractScreen {
 
     private static final int FRAME_COLS = 12;
@@ -27,6 +32,11 @@ public class LoadingScreen extends AbstractScreen {
     private Animation loaderAnimation;
     private float stateTime;
 
+    /**
+     * Konstruktor
+     *
+     * @param game Instanz der Game Klasse
+     */
     public LoadingScreen(MyGdxGame game) {
         super(game);
         assetManager = SpaceAssetManager.getInstance();
@@ -36,10 +46,38 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     @Override
+    /**
+     * Wird beim Wechsel zu diesem Screen aufgerufen.
+     */
     public void show() {
-        // Atlas
+        loadAssets();
+
+        //Init Loading-Animation
+        batch = new SpriteBatch();
+        loader = new Texture(Gdx.files.internal("images/loader.png"));
+
+        TextureRegion[][] tmp = TextureRegion.split(loader, loader.getWidth()
+                / FRAME_COLS, loader.getHeight() / FRAME_ROWS); // #10
+        loaderFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
+        int index = 0;
+        for (int i = 0; i < FRAME_ROWS; i++) {
+            for (int j = 0; j < FRAME_COLS; j++) {
+                loaderFrames[index++] = tmp[i][j];
+            }
+        }
+        loaderAnimation = new Animation(0.025f, loaderFrames); // #11
+        loaderAnimation.setPlayMode(Animation.LOOP);
+
+        stateTime = 0f;
+    }
+
+    private void loadAssets() {
+        // Graphics
         assetManager.load(Paths.ATLAS, TextureAtlas.class);
         assetManager.load(Paths.CROSSHAIR, Texture.class);
+        assetManager.load(Paths.COMP_TEXTURES, Texture.class);
+        assetManager.load(Paths.UI_ICONS, Texture.class);
+        assetManager.load(Paths.PLAY_BUTTON_IMAGE, Texture.class);
         // Fonts
         assetManager.load(Paths.SPACE_FONT_SMALL, BitmapFont.class);
         assetManager.load(Paths.SPACE_FONT_BIG, BitmapFont.class);
@@ -63,29 +101,13 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.load(Paths.TRACK_02, Music.class);
         assetManager.load(Paths.TRACK_03, Music.class);
         assetManager.load(Paths.TRACK_04, Music.class);
-
         assetManager.load(Paths.GAME_OVER, Music.class);
-
-        batch = new SpriteBatch();
-        loader = new Texture(Gdx.files.internal("images/loader.png"));
-        
-
-        TextureRegion[][] tmp = TextureRegion.split(loader, loader.getWidth()
-                / FRAME_COLS, loader.getHeight() / FRAME_ROWS); // #10
-        loaderFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
-        int index = 0;
-        for (int i = 0; i < FRAME_ROWS; i++) {
-            for (int j = 0; j < FRAME_COLS; j++) {
-                loaderFrames[index++] = tmp[i][j];
-            }
-        }
-        loaderAnimation = new Animation(0.025f, loaderFrames); // #11
-        loaderAnimation.setPlayMode(Animation.LOOP);
-
-        stateTime = 0f;
     }
 
     @Override
+    /**
+     * Wird bei jeder Anpassung der Screengrösse aufgerufen.
+     */
     public void resize(int width, int height) {
         super.resize(width, height);
 
@@ -94,6 +116,9 @@ public class LoadingScreen extends AbstractScreen {
     }
 
     @Override
+    /**
+     * Wird bei jedem Rederschritt aufgerufen.
+     */
     public void render(float delta) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 0);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -107,7 +132,6 @@ public class LoadingScreen extends AbstractScreen {
             game.initScreens();
             game.setScreen(game.getMainMenuScreen());
         }
-
     }
 
 }

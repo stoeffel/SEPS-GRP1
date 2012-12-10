@@ -16,6 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
+/**
+ * Screenklasse für die Auflistung der Highscore
+ *
+ * @author spoerriweb
+ */
 public class HighscoreScreen extends UiScreen {
 
     private Label lbTitle;
@@ -23,7 +28,11 @@ public class HighscoreScreen extends UiScreen {
     private ScrollPane scrollPane;
     private Button btnBack;
 
-
+    /**
+     * Konstruktor
+     *
+     * @param game Instanz der Game Klasse
+     */
     public HighscoreScreen(MyGdxGame game) {
         super(game);
     }
@@ -83,12 +92,18 @@ public class HighscoreScreen extends UiScreen {
     }
 
     @Override
+    /**
+     * Wird beim Wechsel zu diesem Screen aufgerufen.
+     */
     public void show() {
         super.show();
         Gdx.input.setCatchBackKey(true);
     }
 
     @Override
+    /**
+     * Wird bei jeder Anpassung der Screengrösse aufgerufen.
+     */
     public void resize(int width, int height) {
         super.resize(width, height);
         setupGui();

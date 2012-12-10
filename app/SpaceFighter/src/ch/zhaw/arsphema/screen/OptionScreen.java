@@ -11,6 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
+/**
+ * Screenklasse wo die Spieleinstellungen vorgenommen werden können.
+ *
+ * @author spoerriweb
+ */
 public class OptionScreen extends UiScreen {
 
     private Table compTable;
@@ -24,6 +29,11 @@ public class OptionScreen extends UiScreen {
     private Button btnBack;
     private PlayerProfile profile;
 
+    /**
+     * Konstruktor
+     *
+     * @param game Instanz der Game Klasse
+     */
     public OptionScreen(MyGdxGame game) {
         super(game);
     }
@@ -89,6 +99,9 @@ public class OptionScreen extends UiScreen {
     }
 
     @Override
+    /**
+     * Wird beim Wechsel zu diesem Screen aufgerufen.
+     */
     public void show() {
         super.show();
         Gdx.input.setCatchBackKey(true);
@@ -100,6 +113,9 @@ public class OptionScreen extends UiScreen {
     }
 
     @Override
+    /**
+     * Wird bei jeder Anpassung der Screengrösse aufgerufen.
+     */
     public void resize(int width, int height) {
         super.resize(width, height);
         setupGui();

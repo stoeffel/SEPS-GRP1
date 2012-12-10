@@ -9,7 +9,9 @@ import java.util.Collections;
 
 
 /**
- * Klasse f�r profile und einstellungen eines spielers
+ * Klasse welche das gespeicherte Spielerprofil repräsentiert.
+ *
+ * @author spoerriweb
  */
 public class PlayerProfile implements Serializable {
 
@@ -18,6 +20,10 @@ public class PlayerProfile implements Serializable {
     private float soundVolume;
     private float musicVolume;
 
+    /**
+     * Konstruktor
+     * Setzt die Initialwerte eines neuen Profils
+     */
     public PlayerProfile() {
         highscore = new ArrayList<HighscoreEntry>();
         playerName = "";
@@ -25,13 +31,17 @@ public class PlayerProfile implements Serializable {
         soundVolume = 1f;
     }
 
+    /**
+     * @return Liste mit den im Profil vorhandenen Highscores
+     */
     public ArrayList<HighscoreEntry> getHighscore() {
         return highscore;
     }
 
     /**
-     * macht einen neuen highscore eintrag falls dieser gut genug ist
-     * @param newEntry neuer highscore eintrag
+     * Erstellt einen neuen Eintag in der Highscore, sofern dieser eine genügen hohe Punktzahl enthält.
+     *
+     * @param newEntry Der neue Eintrag
      */
     public void addHighscoreEntry(HighscoreEntry newEntry) {
         boolean entryAllowed = highscore.size() < 10;
@@ -52,63 +62,68 @@ public class PlayerProfile implements Serializable {
     }
 
     /**
-     * gibt minimale punkteanzahl zurueck
+     * Gibt die minimal notwendige Punktzahl, welche für einen neuen Highscore Eintrag benötigt wird zurück.
      */
     public int getMinimalScore() {
         return highscore.size() < 10 ? 0 : highscore.get(highscore.size() - 1).getScore() + 1;
     }
 
     /**
-     * gibt den spielernamen zurueck
+     * Gibt den Defaultnamen des Spielers zurück.
      */
     public String getPlayerName() {
         return playerName;
     }
 
     /**
-     * setzt den neuen spieler name
-     * @param playerName den neuen spielername
+     * Setzt einen neuen Spielernamen
+     *
+     * @param playerName Der neue Defaultspielername
      */
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
     /**
-     * gibt die sfx lautstaerke zurueck
-     * @return soundVolume die lautstaerke
+     * Gibt die gesetzte SFX Lautstaerke zurueck
+     *
+     * @return soundVolume Die Lautstaerke
      */
     public float getSoundVolume() {
         return soundVolume;
     }
 
     /**
-     * setzt die sfx lautstaerke
+     * Setzt die SFX Lautstaerke
      */
     public void setSoundVolume(float soundVolume) {
         this.soundVolume = soundVolume;
     }
 
     /**
-     * gibt die musik lautstaerke zurueck
-     * @return musicVolume die lautstaerke
+     * Gibt die Lautstaerke der Musik zurueck
+     *
+     * @return musicVolume Die Lautstaerke
      */
     public float getMusicVolume() {
         return musicVolume;
     }
 
     /**
-     * setzt die musik lautstaerke
-     * @param musicVolume die neue lautstaerke
+     * Setzt die Lautstaerke der Musik
+     *
+     * @param musicVolume Die neue Lautstaerke
      */
     public void setMusicVolume(float musicVolume) {
         this.musicVolume = musicVolume;
     }
 
-    /**
-     * schreibt ein player profil in das jason file
-     * @param jason das jason file
-     */
+
     @Override
+    /**
+     * Implementation der JSON write Methode, welche die Art wie ein Objekt der Klasse gespeichert wird beschreibt.
+     * @param json JSON Verarbeitungsklasse
+     */
     public void write(Json json) {
         json.writeValue("highscore", highscore);
         json.writeValue("playerName", playerName);
@@ -118,6 +133,11 @@ public class PlayerProfile implements Serializable {
 
     @Override
     @SuppressWarnings("unchecked")
+    /**
+     * Implementation der JSON read Methode, welche die Art wie ein Objekt der Klasse gelesen wird beschreibt.
+     * @param json JSON Verarbeitungsklasse
+     * @param jsonData Daten aus dem JSON File
+     */
     public void read(Json json, OrderedMap<String, Object> jsonData) {
         highscore = json.readValue("highscore", ArrayList.class, jsonData);
         playerName = json.readValue("playerName", String.class, jsonData);

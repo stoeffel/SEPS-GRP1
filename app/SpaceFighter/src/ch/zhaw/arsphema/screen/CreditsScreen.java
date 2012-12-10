@@ -12,6 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 
+/**
+ * Screenklasse für die Auflistung der Personen, welche etwas zum Spiel beigetragen haben.
+ *
+ * @author spoerriweb
+ */
 public class CreditsScreen extends UiScreen {
 
     private Table creditTable;
@@ -19,6 +24,11 @@ public class CreditsScreen extends UiScreen {
     private Label lbTitle;
     private Button btnBack;
 
+    /**
+     * Konstruktor
+     *
+     * @param game Instanz der Game Klasse
+     */
     public CreditsScreen(MyGdxGame game) {
         super(game);
     }
@@ -53,7 +63,7 @@ public class CreditsScreen extends UiScreen {
         addCreditTitle("= Project Team =");
         addCredit("Christoph Hermann");
         addCredit("Rafael Arizcorreta");
-        addCredit("Raphael Sp�rri");
+        addCredit("Raphael Sp�rri");
         addCredit("Daniel Magalhaes-Ferreira");
         addCredit("~");
         addCredit(" ");
@@ -88,12 +98,18 @@ public class CreditsScreen extends UiScreen {
     }
 
     @Override
+    /**
+     * Wird beim Wechsel zu diesem Screen aufgerufen.
+     */
     public void show() {
         super.show();
         Gdx.input.setCatchBackKey(true);
     }
 
     @Override
+    /**
+     * Wird bei jeder Anpassung der Screengrösse aufgerufen.
+     */
     public void resize(int width, int height) {
         super.resize(width, height);
         setupGui();
