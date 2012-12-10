@@ -45,6 +45,8 @@ public class Paths {
     public static final String PLAYER_PROFILE = "data/profile.json";
 
     public static final String ATLAS = "images/pack";
+    
+	public static final String CROSSHAIR = "images/crosshair.png";
 
 
 }

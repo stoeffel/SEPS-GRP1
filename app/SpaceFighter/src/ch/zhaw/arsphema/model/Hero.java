@@ -61,6 +61,7 @@ public class Hero extends AbstractSprite {
         createJetStream();
 		createLifeCounter(texture);
 		shotType = ShotFactory.Type.STANDARD;
+		overheatbar.setShootingFrequency(shootingFrequency);
 	}
 
 
@@ -285,11 +286,12 @@ public class Hero extends AbstractSprite {
 	
 	public void undoEnhancements(){
 		if (shootingFrequency < 0.1f)
-			shootingFrequency += 0.01f;
+			shootingFrequency += 0.02f;
 		setShotType();
 	}
 
 	public void setShotType() {
+		overheatbar.setShootingFrequency(shootingFrequency);
 		if (shootingFrequency <= 0.1 && shootingFrequency >= 0.08) {
 			shotType = ShotFactory.Type.STANDARD;
 		} else if (shootingFrequency < 0.08 && shootingFrequency >= 0.05) {

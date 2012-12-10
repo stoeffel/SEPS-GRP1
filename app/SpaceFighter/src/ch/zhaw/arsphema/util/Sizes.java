@@ -53,4 +53,5 @@ public class Sizes {
     
 	public static final float CTRL_HEIGHT = 12;
 	public static final float CTRL_WIDTH = 12;
+	public static final float CROSSHAIR = 3;
 }

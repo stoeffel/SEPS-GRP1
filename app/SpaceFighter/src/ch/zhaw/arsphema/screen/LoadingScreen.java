@@ -39,6 +39,7 @@ public class LoadingScreen extends AbstractScreen {
     public void show() {
         // Atlas
         assetManager.load(Paths.ATLAS, TextureAtlas.class);
+        assetManager.load(Paths.CROSSHAIR, Texture.class);
         // Fonts
         assetManager.load(Paths.SPACE_FONT_SMALL, BitmapFont.class);
         assetManager.load(Paths.SPACE_FONT_BIG, BitmapFont.class);
@@ -67,6 +68,7 @@ public class LoadingScreen extends AbstractScreen {
 
         batch = new SpriteBatch();
         loader = new Texture(Gdx.files.internal("images/loader.png"));
+        
 
         TextureRegion[][] tmp = TextureRegion.split(loader, loader.getWidth()
                 / FRAME_COLS, loader.getHeight() / FRAME_ROWS); // #10
