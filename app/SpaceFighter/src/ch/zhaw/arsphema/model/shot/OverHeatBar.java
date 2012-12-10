@@ -15,6 +15,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * klasse fuer den ueberhitzungsbalken
+ */
 public class OverHeatBar extends AbstractSprite {
 	private static final long serialVersionUID = 7293341756258539914L;
 	private static final int COLS = 1;
@@ -32,6 +35,9 @@ public class OverHeatBar extends AbstractSprite {
 	private TextureRegion crosshair;
 	private Label crosshairLabel;
 
+	/**
+	 * konstruktor
+	 */
 	public OverHeatBar(final float x, final float y, final TextureRegion texture) {
 		super(x, y, Sizes.OVERHEATBAR_WIDTH, Sizes.OVERHEATBAR_HEIGHT, texture);
 		this.level = 0;
@@ -91,7 +97,11 @@ public class OverHeatBar extends AbstractSprite {
 	}
 
 	
-
+    /**
+     * kontrolliert die ueberhitzung und gibt die warnung aus
+     * @param speed die geschwindigkeit
+     * @return ob ueberhitzt wurde
+     */
 	public boolean heat(final float speed) {
 		if (level < 10) {
 			level += speed * Gdx.graphics.getDeltaTime();
@@ -107,6 +117,10 @@ public class OverHeatBar extends AbstractSprite {
 		return false;
 	}
 
+	/**
+	 * lasst die waffe wieder abkuehlen
+	 * @param speed die geschwindigkeit
+	 */
 	public void cool(final float speed) {
 		if (level > 0) {
 			level -= speed * Gdx.graphics.getDeltaTime();
@@ -118,6 +132,10 @@ public class OverHeatBar extends AbstractSprite {
 		}
 	}
 
+	/**
+	 * setzt die schussfrequenz
+	 * @param shootingFrequency die schussfrequenz
+	 */
 	@Override
 	public void setShootingFrequency(float shootingFrequency) {
 		shootingFrequency *= 1000;

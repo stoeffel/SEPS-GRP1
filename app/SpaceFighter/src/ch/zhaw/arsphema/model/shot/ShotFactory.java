@@ -5,11 +5,17 @@ import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * fabrik fuer die schusse
+ */
 public class ShotFactory
 {
 	private static float heroY;
 	private static Array<Shot> reuseArray = new Array<Shot>();
     
+	/**
+	 * schuss typen
+	 */
     public enum Type {
     	STANDARD,
     	GREEN,
@@ -21,12 +27,17 @@ public class ShotFactory
     private ShotFactory()
     {
     }
-    
+    /**
+     * erstellt eine instanz der schussfabrik
+     */
     public static void createInstance()
     {
         instance = new ShotFactory();
     }
-    
+    /**
+     * gibt die instanz zurueck
+     * @return instance die instanz der schussfabrik
+     */
     public static ShotFactory getInstance()
     {
     	if (instance == null){
@@ -41,7 +52,13 @@ public class ShotFactory
     	reuseArray.add(createHeroDirectedShot(x, y, speed, type, isEnemyShot));
     	return reuseArray;
     }
-
+	/**
+	 * erstellt einen geleiteten schuss 
+	 * @param speed die geshwindigkeit de schusses
+	 * @param type der typ des schusses
+	 * @param isEnemyShot gibt an ob der schuss von einem gegner kommt
+	 * @return shot der schuss
+	 */
     public static Shot createHeroDirectedShot(final float x, final float y, final float speed, final Type type, final boolean isEnemyShot)
     {
     	Shot shot = createShot(x, y, speed, type, isEnemyShot);
@@ -50,10 +67,21 @@ public class ShotFactory
     	return shot;
     }
 
+    /**
+     * berechnet die geschwindigkeit
+     * @param speed die geschwindigkeit
+     * @return die neue geschwindigkeit
+     */
     private static float calculateSpeed(final float speed, final float distanceX, final float distanceY){
     	return speed / (distanceX + distanceY) * distanceX;
     }
-    
+    /**
+     * erstellt einen diagonalen schuss
+     * @param speed die geschwindigkeit de schusses
+     * @param type den typ des schusses
+     * @param isEnemyShot gibt an ob schuss von gegner kommt
+     * @return shot der schuss
+     */
     public static Shot createDiagonalShot(final float x, final float y, final float speed, final Type type, final boolean isEnemyShot, final boolean up)
     {
     	final Shot shot = createShot(x, y, speed, type, isEnemyShot);
@@ -62,7 +90,13 @@ public class ShotFactory
     	shot.updateSpeed(xSpeed, up);
     	return shot;
     }
-    
+    /**
+     * erstellt einen schuss
+     * @param speed die geschwindigkeit de schusses
+     * @param type den typ des schusses
+     * @param isEnemyShot gibt an ob schuss von gegner kommt
+     * @return shot der schuss
+     */
     public static Shot createShot(final float x, final float y, final float speed, final Type type, final boolean isEnemyShot)
     {
     	Shot shot = new Shot(x, y, isEnemyShot, speed);
@@ -86,7 +120,13 @@ public class ShotFactory
         return shot;
     }
     
-    
+    /**
+     * erstellt ein schuss in einem array
+     * @param speed die geschwindigkeit de schusses
+     * @param type den typ des schusses
+     * @param isEnemyShot gibt an ob schuss von gegner kommt
+     * @return shot der schuss
+     */
     public static Array<Shot> createShotInArray(float x, float y, final float speed, Type type, boolean isEnemyShot)
     {
     	reuseArray.clear();
