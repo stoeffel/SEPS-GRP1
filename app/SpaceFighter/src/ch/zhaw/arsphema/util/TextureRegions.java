@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+/**
+ * statische klasse für texturen
+ * @author schtoeffel
+ *
+ */
 public class TextureRegions {
 	public static final TextureRegion HERO;
 	
