@@ -7,12 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Klasse fuer kontrollers
+ */
 public class Controls extends AbstractSprite {
 
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3390110042341213551L;
 	private static final int ROWS = 3;
 	private static final int COLS = 1;
@@ -25,6 +25,9 @@ public class Controls extends AbstractSprite {
 	
 	public static DIR dir;
 
+	/**
+	 * konstruktor
+	 */
 	public Controls(float x, float y, float width, float height,
 			TextureRegion texture) {
 		super(x, y, width, height, texture);
@@ -83,26 +86,41 @@ public class Controls extends AbstractSprite {
 	
 	}
 
+	/**
+	 * setzt das zentrum
+	 */
 	public void setCenter() {
 		dir = DIR.CENTER;
 	}
-
+	/**
+	 * setzt hinauf
+	 */
 	public void setUp() {
 		dir = DIR.UP;
 	}
-
+	/**
+	 * setzt herunter
+	 */
 	public void setDown() {
 		dir = DIR.DOWN;
 	}
-
+	/**
+	 * setzt stop
+	 */
 	public void stop() {
 		dir = DIR.STOP;
 	}
-
+	/**
+	 * gibt die toleranz zurueck
+	 * @return tolerance die toleranz
+	 */
 	public float getTolerance() {
 		return tolerance;
 	}
-
+	/**
+	 * setzt die toleranz
+	 * @param tolerance die neue toleranz
+	 */
 	public void setTolerance(float tolerance) {
 		this.tolerance = tolerance;
 	}

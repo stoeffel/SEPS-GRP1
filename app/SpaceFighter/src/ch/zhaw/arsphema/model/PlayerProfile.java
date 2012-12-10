@@ -9,7 +9,7 @@ import java.util.Collections;
 
 
 /**
- * Class for the players Profile with Highscores and Stettings
+ * Klasse für profile und einstellungen eines spielers
  */
 public class PlayerProfile implements Serializable {
 
@@ -30,9 +30,8 @@ public class PlayerProfile implements Serializable {
     }
 
     /**
-     * Adds a new Entry to the right position in the highscore if the score is high enough.
-     *
-     * @param newEntry the new highscore entry
+     * macht einen neuen highscore eintrag falls dieser gut genug ist
+     * @param newEntry neuer highscore eintrag
      */
     public void addHighscoreEntry(HighscoreEntry newEntry) {
         boolean entryAllowed = highscore.size() < 10;
@@ -52,34 +51,63 @@ public class PlayerProfile implements Serializable {
         }
     }
 
+    /**
+     * gibt minimale punkteanzahl zurueck
+     */
     public int getMinimalScore() {
         return highscore.size() < 10 ? 0 : highscore.get(highscore.size() - 1).getScore() + 1;
     }
 
+    /**
+     * gibt den spielernamen zurueck
+     */
     public String getPlayerName() {
         return playerName;
     }
 
+    /**
+     * setzt den neuen spieler name
+     * @param playerName den neuen spielername
+     */
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
+    /**
+     * gibt die sfx lautstaerke zurueck
+     * @return soundVolume die lautstaerke
+     */
     public float getSoundVolume() {
         return soundVolume;
     }
 
+    /**
+     * setzt die sfx lautstaerke
+     */
     public void setSoundVolume(float soundVolume) {
         this.soundVolume = soundVolume;
     }
 
+    /**
+     * gibt die musik lautstaerke zurueck
+     * @return musicVolume die lautstaerke
+     */
     public float getMusicVolume() {
         return musicVolume;
     }
 
+    /**
+     * setzt die musik lautstaerke
+     * @param musicVolume die neue lautstaerke
+     */
     public void setMusicVolume(float musicVolume) {
         this.musicVolume = musicVolume;
     }
 
+    /**
+     * schreibt ein player profil in das jason file
+     * @param jason das jason file
+     */
     @Override
     public void write(Json json) {
         json.writeValue("highscore", highscore);

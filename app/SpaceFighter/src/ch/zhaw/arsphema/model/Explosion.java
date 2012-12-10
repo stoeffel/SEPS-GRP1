@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * klasse fuer die explosions animation
+ */
 public class Explosion {
 	
 	private Array<ParticleEmitter> emitters;
@@ -17,6 +20,9 @@ public class Explosion {
 
 	private ParticleEmitter emitter;
 
+	/**
+	 * konstruktor
+	 */
 	public Explosion(float x, float y) {
 		ParticleEffect effect = new ParticleEffect();
 		// effect should be here and not in the Effects class
@@ -35,13 +41,19 @@ public class Explosion {
 		this.y = y;
 	}
 
+	/**
+	 * zeichnet die explosion
+	 */
 	public void draw(SpriteBatch batch, float ppuX, float ppuY){
 		if (!isFinished()) {
 			emitter.setPosition( x*ppuX,y*ppuY );
 			emitter.draw(batch, Gdx.graphics.getDeltaTime());
 		}
 	}
-	
+	/**
+	 * gibt an ob die explosion beendet ist
+	 * @return isComplete der zustand der explosion
+	 */
 	public boolean isFinished(){
 		return emitter.isComplete();
 	}

@@ -16,7 +16,7 @@ public class Background extends AbstractSprite {
 	}
 
 	/**
-	 * moves the stars and places the texture at the of the screen if it reaches the end
+	 * bewegt die sterne und setzt die textur am ende des bildschirms sollte das ende erreicht werden
 	 */
 	@Override
 	public boolean move(float delta) {
@@ -31,7 +31,7 @@ public class Background extends AbstractSprite {
 	public Array<Shot> shoot(float delta) {return null;}
 	
 	/**
-	 * draws the texture two times, to simulate a endless universe
+	 * zeichnet die textur zwei mal um ein endloses universum zu simulieren
 	 */
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		batch.draw(textureRegion, ppuX * x, ppuY * y, ppuX * width, ppuY * height);
