@@ -4,6 +4,11 @@ import ch.zhaw.arsphema.screen.*;
 import ch.zhaw.arsphema.services.Services;
 import com.badlogic.gdx.Game;
 
+/**
+ * Main Klasse des Games
+ * @author schtoeffel
+ *
+ */
 public class MyGdxGame extends Game {
 
     private MainMenuScreen mainMenuScreen;
@@ -16,6 +21,9 @@ public class MyGdxGame extends Game {
     private LoadingScreen loadingScreen;
 
 
+    /**
+     * methode die von libgdx aufgerufen wurde
+     */
     @Override
     public void create() {
         //loader screens
@@ -23,6 +31,9 @@ public class MyGdxGame extends Game {
         setScreen(loadingScreen);
     }
 
+    /**
+     * initialisiert alle screens
+     */
     public void initScreens() {
         mainMenuScreen = new MainMenuScreen(this);
         createNewGame();
@@ -38,6 +49,10 @@ public class MyGdxGame extends Game {
         Services.getProfileManager().loadPlayerProfile();
     }
 
+    /**
+     * klasse die bei gameover aufgerufen wird
+     * @param score
+     */
     public void gameOver(int score) {
         if (score > 0 && score > Services.getProfileManager().loadPlayerProfile().getMinimalScore()) {
             highscoreInsertScreen.setScore(score);
@@ -47,39 +62,73 @@ public class MyGdxGame extends Game {
         }
     }
 
+    /**
+     * getter für mainmenuscreen
+     * @return
+     */
     public MainMenuScreen getMainMenuScreen() {
         return mainMenuScreen;
     }
 
+    /**
+     * erstellt ein neues game
+     */
     public void createNewGame() {
         gameScreen = new GameScreen(this);
         gameScreen.initGame();
     }
 
+    /**
+     * getter für gameScreen
+     * @return
+     */
     public GameScreen getGameScreen() {
         return gameScreen;
     }
 
+    /**
+     * getter für optionScreen
+     * @return
+     */
     public OptionScreen getOptionScreen() {
         return optionScreen;
     }
 
+    /**
+     * getter für highscoreScreen
+     * @return
+     */
     public HighscoreScreen getHighscoreScreen() {
         return highscoreScreen;
     }
 
+    /**
+     * getter für highscoreInsertScreen
+     * @return
+     */
     public HighscoreInsertScreen getHighscoreInsertScreen() {
         return highscoreInsertScreen;
     }
 
+    /**
+     * getter für creditsScreen
+     * @return
+     */
     public CreditsScreen getCreditsScreen() {
         return creditsScreen;
     }
 
+    /**
+     * getter für pauseScreen
+     * @return
+     */
     public PauseScreen getPauseScreen() {
         return pauseScreen;
     }
 
+    /**
+     * methode die von libgdx bei dispose aufgerufen wird
+     */
     @Override
     public void dispose() {
         super.dispose();
