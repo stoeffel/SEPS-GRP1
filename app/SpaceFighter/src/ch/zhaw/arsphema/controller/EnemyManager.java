@@ -11,6 +11,13 @@ import ch.zhaw.arsphema.model.shot.Shot;
 
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * EnemyManager:
+ * Verwaltet die Gegner welche zerstört wurden oder auch noch nicht.
+ * 
+ * @author schtoeffel
+ *
+ */
 public class EnemyManager {
 
 	private Array<EnemyGroup> groups, killedGroups;
@@ -26,7 +33,10 @@ public class EnemyManager {
 	private Random random = new Random();
 	private PowerUpManager pum;
 	
-	
+	/**
+	 * Konstruktur
+	 * @param pum
+	 */
 	public EnemyManager(PowerUpManager pum)
 	{
 		killedEnemies = new Array<AbstractEnemy>();
@@ -37,6 +47,10 @@ public class EnemyManager {
 		this.pum = pum;
 	}
 	
+	/**
+	 * bewegt gruppen von gegnern und entfernt sie, falls sie aus dem Sichtfeld kommen
+	 * @param delta
+	 */
 	public void computeEnemyMovements(float delta) {
 		for (EnemyGroup group : groups) {
 			if (group.move(delta)){
@@ -48,6 +62,10 @@ public class EnemyManager {
 		removeExplosions();
 	}
 
+	/**
+	 * test ob der hero mit einem enemy kollidiert
+	 * @param hero
+	 */
 	public void colideWithHero(final Hero hero) {
 		for (final EnemyGroup group : groups) {
 			if(group.overlaps(hero)){
@@ -63,6 +81,7 @@ public class EnemyManager {
 	}
 
 	/**
+	 * test ob ein gegner von einem schuss getroffen wurde
 	 * @param shotManager
 	 * @return points earned in this round
 	 */
@@ -102,6 +121,10 @@ public class EnemyManager {
 		return totalPoints;
 	}
 
+	/**
+	 * entfernt tote gegner
+	 * @param group
+	 */
 	private void removeEnemies(final EnemyGroup group) {
 		for(final AbstractEnemy enemy : killedEnemies)
 		{
@@ -110,6 +133,9 @@ public class EnemyManager {
 		killedEnemies.clear();
 	}
 	
+	/**
+	 * entfernt eine gruppe
+	 */
 	private void removeEnemyGroups() {
 		for(final EnemyGroup group : groups){
 			if(group.getMembers().size == 0){
@@ -122,6 +148,9 @@ public class EnemyManager {
 		killedEnemies.clear();
 	}
 
+	/**
+	 * entferne explosion
+	 */
 	private void removeExplosions() {
 		for(final Explosion explosion : explosions)
 		{
@@ -130,6 +159,11 @@ public class EnemyManager {
 		}
 	}
 	
+	/**
+	 * lässt gegner schiessen
+	 * @param shotManager
+	 * @param delta
+	 */
 	public void enemyShooting(final ShotManager shotManager, final float delta) {
 		for(final EnemyGroup group : groups){
 			for(final AbstractEnemy enemy : group.getMembers())
@@ -141,6 +175,11 @@ public class EnemyManager {
 		}
 	}
 
+	/**
+	 * berechnet ob bereits wieder eine gegnergruppe erstellt werden muss
+	 * @param delta
+	 * @param elapsed
+	 */
 	public void dropEnemies(float delta, float elapsed) {
 		if (dropEnemies) {
 			if(nextEnemyToDrop <= 0) {
@@ -156,6 +195,11 @@ public class EnemyManager {
 		}
 	}
 
+	/**
+	 * neue gegner hinzufügen
+	 * @param delta
+	 * @param elapsed
+	 */
 	private void addEnemies(final float delta, final float elapsed) {
 		//assumption: beginning of only hard enemies @200secs
 		final int lastGroupsDifficulty = groupDiffcultyOne + groupDiffcultyTwo + groupDiffcultyThree;
@@ -171,6 +215,12 @@ public class EnemyManager {
 		}
 	}
 	
+	/**
+	 * berechnet den schwierigkeitsgrad der nächsten gegner
+	 * @param elapsed
+	 * @param sumDifLevel
+	 * @return
+	 */
 	private int calculateNextGroupDifficultyLevel(final float elapsed, final float sumDifLevel)
 	{
 		final float div;
@@ -185,29 +235,56 @@ public class EnemyManager {
 		return Math.round(result);
 	}
 	
+	/**
+	 * returns getötete gegner
+	 * @return
+	 */
 	public Array<AbstractEnemy> getKilledEnemies() {
 		return killedEnemies;
 	}
 
+	/**
+	 * fügt tote gegner dem array hinzu
+	 * @param killedEnemies
+	 */
 	public void setKilledEnemies(Array<AbstractEnemy> killedEnemies) {
 		this.killedEnemies = killedEnemies;
 	}
 
+	/**
+	 * aktiviert die Factory
+	 */
 	public static void activateEnemyFactory(){
 		dropEnemies = true;
 	}
+	
+	/**
+	 * deaktiviert die Factory
+	 */
 	public static void deactivateEnemyFactory(){
 		dropEnemies = false;
 	}
 
+	/**
+	 * returns explosionen
+	 * @return
+	 */
 	public Array<Explosion> getExplosions() {
 		return explosions;
 	}
 
+	/**
+	 * lass es knallen
+	 * @param explosions
+	 */
 	public void setExplosions(Array<Explosion> explosions) {
 		this.explosions = explosions;
 	}
 
+	/**
+	 * returns gruppen
+	 * @return
+	 */
 	public Array<EnemyGroup> getGroups() {
 		return groups;
 	}

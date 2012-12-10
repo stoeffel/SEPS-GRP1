@@ -5,6 +5,11 @@ import ch.zhaw.arsphema.model.Hero;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 
+/**
+ * alternative steuerung
+ * @author schtoeffel
+ *
+ */
 public class HeroController extends AbstractController implements
 		InputProcessor {
 
@@ -15,6 +20,10 @@ public class HeroController extends AbstractController implements
 
 	private static final int LEFT_TOP = 0, LEFT_BOTTOM = 1, RIGHT = 2;
 
+	/**
+	 * konstruktor
+	 * @param hero
+	 */
 	public HeroController(Hero hero) {
 		this.hero = hero;
 		leftPointer = -1;
@@ -24,34 +33,60 @@ public class HeroController extends AbstractController implements
 		}
 	}
 
+	/**
+	 * sets UP
+	 */
 	public void upPressed() {
 		keys.put(IngameKeys.UP, true);
 	}
 
+	/**
+	 * sets DOWN
+	 */
 	public void downPressed() {
 		keys.put(IngameKeys.DOWN, true);
 	}
 	
+	/**
+	 * sets SHOT
+	 */
 	public void shotPressed() {
 		keys.put(IngameKeys.SHOT, true);
 	}
 
+	/**
+	 * releases SHOT
+	 */
 	public void shotReleased() {
 		keys.put(IngameKeys.SHOT, false);
 	}
 
+	/**
+	 * releases UP
+	 */
 	public void upReleased() {
 		keys.put(IngameKeys.UP, false);
 	}
 
+	/**
+	 * releases DOWN
+	 */
 	public void downReleased() {
 		keys.put(IngameKeys.DOWN, false);
 	}
 
+	/**
+	 * methode die aus dem renderer aufgerufen wird
+	 * @param delta
+	 */
 	public void update(float delta) {
 		processInput(delta);
 	}
 
+	/**
+	 * ...
+	 * @param change
+	 */
 	public void changeMenuItem(float change) {
 	}
 
@@ -68,6 +103,9 @@ public class HeroController extends AbstractController implements
 		hero.setFire(keys.get(IngameKeys.SHOT));
 	}
 
+	/**
+	 * checkt ob UP gedrückt wurde
+	 */
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.UP)
@@ -80,6 +118,9 @@ public class HeroController extends AbstractController implements
 		return true;
 	}
 
+	/**
+	 * checkt ob DOWN gedrückt wurde
+	 */
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.DOWN)
@@ -92,11 +133,17 @@ public class HeroController extends AbstractController implements
 		return true;
 	}
 
+	/**
+	 * ...
+	 */
 	@Override
 	public boolean keyTyped(char character) {
 		return false;
 	}
 
+	/**
+	 * check ob ob down getoucht wurde
+	 */
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		if (x <= width / 2) {
@@ -113,6 +160,9 @@ public class HeroController extends AbstractController implements
 		return true;
 	}
 
+	/**
+	 * check ob ob up getoucht wurde
+	 */
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button) {
 		if (x <= width / 2) {
@@ -126,6 +176,9 @@ public class HeroController extends AbstractController implements
 		return false;
 	}
 
+	/**
+	 * registiert touch drag
+	 */
 	@Override
 	public boolean touchDragged(int x, int y, int pointer) {
 		if (x <= width / 2 && pointer == leftPointer) {
@@ -154,7 +207,7 @@ public class HeroController extends AbstractController implements
 	}
 
 	/**
-	 * 
+	 * wo wurde getouchet
 	 * @param pos
 	 */
 	private void touchedRegion(int pos) {
@@ -173,6 +226,10 @@ public class HeroController extends AbstractController implements
 		}
 	}
 
+	/**
+	 * wo endete der touch
+	 * @param pos
+	 */
 	private void touchedRegionEnd(int pos) {
 		switch (pos) {
 		case LEFT_TOP:
@@ -199,6 +256,11 @@ public class HeroController extends AbstractController implements
 		return false;
 	}
 
+	/**
+	 * sets width, height on resize
+	 * @param width
+	 * @param height
+	 */
 	public void resize(float width, float height) {
 		this.width = width;
 		this.height = height;

@@ -8,6 +8,11 @@ import ch.zhaw.arsphema.util.TextureRegions;
 
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Kontroller für die Planeten im Hintergrund
+ * @author schtoeffel
+ *
+ */
 public class PlanetManager {
 	private Array<Planet> planets, planetsToRemove;
 	
@@ -19,7 +24,9 @@ public class PlanetManager {
 
 	private float maxRadius;
 
-	
+	/**
+	 * Konstruktor
+	 */
 	public PlanetManager()
 	{
 		planets = new Array<Planet>();
@@ -33,6 +40,9 @@ public class PlanetManager {
 		nextTime = getRand(minInterval, maxInterval);
 	}
 
+	/**
+	 * löscht nicht mehr verwendete planeten
+	 */
 	public void cleanUpPlanets() {
 		removePlanets(planets);
 		planetsToRemove.clear();		
@@ -45,6 +55,10 @@ public class PlanetManager {
 		}
 	}
 	
+	/**
+	 * bewegt die planeten
+	 * @param delta
+	 */
 	public void movePlanets(float delta) {
 		for(final Planet planet : planets)
 		{
@@ -52,18 +66,34 @@ public class PlanetManager {
 		}
 	}
 
+	/**
+	 * getter planeten
+	 * @return
+	 */
 	public Array<Planet> getPlanets() {
 		return planets;
 	}
 
+	/**
+	 * setter planeten
+	 * @param planets
+	 */
 	public void setPlanets(Array<Planet> planets) {
 		this.planets = planets;
 	}
 
+	/**
+	 * getter zulöschende planeten
+	 * @return
+	 */
 	public Array<Planet> getPlanetsToRemove() {
 		return planetsToRemove;
 	}
 
+	/**
+	 * setter zulöschende planeten
+	 * @param planetsToRemove
+	 */
 	public void setPlanetsToRemove(Array<Planet> planetsToRemove) {
 		this.planetsToRemove = planetsToRemove;
 	}
@@ -72,6 +102,10 @@ public class PlanetManager {
 		return (float) (Math.random() * (max - min + 1));
 	}
 	
+	/**
+	 * erstellt planet
+	 * @param elapsed
+	 */
 	public void createPlanet(float elapsed) {
 		if (planets.size < maxPlanets) { 
 			if (elapsed-lastTime > nextTime || elapsed-lastTime > maxInterval){
