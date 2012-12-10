@@ -76,8 +76,8 @@ public class OverHeatBar extends AbstractSprite {
 		batch.draw(crosshair, (x-width/2-Sizes.CROSSHAIR/2) * ppuX, (Sizes.CROSSHAIR/2) * ppuY, 0, 0, (Sizes.CROSSHAIR) * ppuX,
 				(Sizes.CROSSHAIR) * ppuY, 1, 1, 0f);
 		crosshairLabel.setStyle(UiStyles.getCHLabelStyle(ppuY));
-        crosshairLabel.setText(getShootingFrequency() + " b/s");
-        BitmapFont.TextBounds bounds = crosshairLabel.getStyle().font.getBounds(String.valueOf(getShootingFrequency() + " b/s"));
+        crosshairLabel.setText((int)getShootingFrequency() + " b/s");
+        BitmapFont.TextBounds bounds = crosshairLabel.getStyle().font.getBounds(String.valueOf((int)getShootingFrequency() + " b/s"));
         crosshairLabel.x = (x-width/2-Sizes.CROSSHAIR) * ppuX - bounds.width;
         crosshairLabel.y = (Sizes.CROSSHAIR/2) * ppuY - bounds.height/4;
         crosshairLabel.draw(batch, 0.8f);

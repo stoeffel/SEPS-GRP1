@@ -31,7 +31,7 @@ public class PowerUpManager {
 		
 		// the longer you played the more pu you get
 		lastTime = 0;
-		maxInterval = 7f;
+		maxInterval = 6.5f;
 		minProp = 0.3f;
 		propabilityNoPu = maxInterval / 10;
 	}
