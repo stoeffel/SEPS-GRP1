@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * Ufo gegner, kommt in 3er gruppen und schiesst ein wenig 
+ */
 public class Ufo extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private static final int COLLISION_DAMAGE = 1;
@@ -17,6 +20,10 @@ public class Ufo extends AbstractEnemy {
 	private Random shotRandom = new Random();
 	
 	
+	/**
+	 * Ufo  konstruktor
+	 * @param points zu erhaltene punkte
+	 */
 	public Ufo(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
 		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE,1);
@@ -29,6 +36,9 @@ public class Ufo extends AbstractEnemy {
 		return false;
 	}
 
+	/**
+	 * laesst gegner schiessen
+	 */
 	@Override
 	public Array<Shot> shoot(float delta) {
 		shootFrequency -= delta;
@@ -45,11 +55,17 @@ public class Ufo extends AbstractEnemy {
 		shootFrequency = 1 + (SHOT_FREQUENCY * shotRandom.nextFloat());
 	}
 
+	/**
+	 * zeichnet gegner
+	 */
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
 	}
 
+	/**
+	 * gibt an ob healthbar angezeigt wird
+	 */
 	@Override
 	public boolean isShowHealthBar() {
 		// TODO Auto-generated method stub

@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * blob gegner, hat 8 leben und schiesst mit 3 fach schuessen
+ */
 public class Blob extends AbstractEnemy {
 	private static final long serialVersionUID = -2931309233637206858L;
 	private static final int COLLISION_DAMAGE = 2;
@@ -17,22 +20,32 @@ public class Blob extends AbstractEnemy {
 	private Random shotRandom = new Random();
 	
 	
+	/**
+	 * blob konstruktor
+	 */
 	public Blob(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
 		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE,8);
 		SHOT_FREQUENCY = 3;
 		resetShotFrequency();
 	}
+	/**
+	 * zeigt healthbar an
+	 */
 	@Override
 	public boolean isShowHealthBar() {
 		return true;
 	}
-	
+	/**
+	 * bewegt gegner
+	 */
 	@Override
 	public boolean move(float delta) {
 		return false;
 	}
-
+	/**
+	 * laesst gegner schiessen
+	 */
 	@Override
 	public Array<Shot> shoot(float delta) {
 		shootFrequency -= delta;
@@ -51,7 +64,9 @@ public class Blob extends AbstractEnemy {
 	private void resetShotFrequency(){
 		shootFrequency = 1 + (SHOT_FREQUENCY * shotRandom.nextFloat());
 	}
-
+	/**
+	 * zeichnet gegner
+	 */
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);

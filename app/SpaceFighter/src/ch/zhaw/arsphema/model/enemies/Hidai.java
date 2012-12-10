@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * super dalek monster, ist sehr stark und hat viele leben
+ */
 public class Hidai extends AbstractEnemy {
 	private static final long serialVersionUID = -8679196122359337868L;
 	private static final int COLLISION_DAMAGE = 5;
@@ -17,7 +20,10 @@ public class Hidai extends AbstractEnemy {
 	protected float shootFrequencyB;
 	private Random shotRandom = new Random();
 	
-	
+	/**
+	 * dalek konstruktor
+	 * @param points zu erhaltene punkte
+	 */
 	public Hidai(float x, float y, float offsetX, float offsetY, float width, float height,
 			TextureRegion texture, final int points) {
 		super(x, y, offsetX, offsetY, width, height, texture, points, COLLISION_DAMAGE,40);
@@ -25,6 +31,9 @@ public class Hidai extends AbstractEnemy {
 		resetShotFrequency();
 	}
 	
+	/**
+	 * healthbar wird angezeigt
+	 */
 	@Override
 	public boolean isShowHealthBar() {
 		return true;
@@ -35,6 +44,9 @@ public class Hidai extends AbstractEnemy {
 		return false;
 	}
 
+	/**
+	 * laesst dalek schiessen
+	 */
 	@Override
 	public Array<Shot> shoot(float delta) {
 		shootFrequencyA -= delta;
@@ -66,6 +78,9 @@ public class Hidai extends AbstractEnemy {
 		shootFrequencyB = 3 + (SHOT_FREQUENCY * shotRandom.nextFloat());
 	}
 
+	/**
+	 * zeichnet gegner
+	 */
 	@Override
 	public void draw(SpriteBatch batch, float ppuX, float ppuY) {
 		batch.draw(textureRegion, x * ppuX, y * ppuY, width * ppuX, height * ppuY);
