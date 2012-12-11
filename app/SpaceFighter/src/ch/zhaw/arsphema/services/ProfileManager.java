@@ -5,6 +5,7 @@ import ch.zhaw.arsphema.model.PlayerProfile;
 import ch.zhaw.arsphema.util.Paths;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 
 
@@ -40,7 +41,10 @@ public class ProfileManager {
 
             try {
                 //read the JSON String
-                String profileString = profileFile.readString().trim();
+                String profileEncoded = profileFile.readString().trim();
+
+                //Decode
+                String profileString = Base64Coder.decodeString(profileEncoded);
 
                 // restore player profile
                 profile = json.fromJson(PlayerProfile.class, profileString);
@@ -77,8 +81,11 @@ public class ProfileManager {
         // convert to json
         String profileAsText = json.toJson(profile);
 
+        //Encode Profile
+        String profileEncoded = Base64Coder.encodeString(profileAsText);
+
         // write the profile to the JSON file
-        profileDataFile.writeString(profileAsText, false);
+        profileDataFile.writeString(profileEncoded, false);
     }
 
     /**
